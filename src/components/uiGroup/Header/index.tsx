@@ -1,21 +1,30 @@
-import { Box, Divider, Image, Spacer, Text } from '@chakra-ui/react';
+import { Box, Divider, HStack, Spacer } from '@chakra-ui/react';
 import { FC, memo } from 'react';
-import { IoIosSearch } from 'react-icons/io';
+
+import { AvatarMenu } from './Menu';
+import { Notification } from './Notification';
+import { Search } from './Search';
+import { Title } from './Title';
 
 export const Header: FC = memo(() => {
   return (
     <header>
       <Box maxW={1155} mx="auto" minH={70} display="flex" alignItems="center">
-        <Box display="flex" alignItems="center">
-          <Image src="/src/assets/img/logo.png" alt="app logo" w={8} mr={1.5} />
-          <Text fontFamily="Nunito" fontWeight="bold" fontSize={25}>
-            Connefut
-          </Text>
+        <Box display="flex" alignItems="center" cursor="pointer">
+          <Title />
         </Box>
         <Spacer />
-        <Box display="flex" alignItems="center">
-          <IoIosSearch />
-        </Box>
+        <HStack spacing={4}>
+          <Box>
+            <Search />
+          </Box>
+          <Box>
+            <Notification />
+          </Box>
+          <Box>
+            <AvatarMenu />
+          </Box>
+        </HStack>
       </Box>
       <Divider borderColor="#ebf2f2" />
     </header>
