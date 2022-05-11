@@ -1,0 +1,31 @@
+query GetRecruitments($paginationInput: PaginationInput) {
+  getRecruitments(input: $paginationInput) {
+    pageInfo {
+      startCursor
+      endCursor
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      cursor
+      node {
+        id
+        title
+        type
+        status
+        updatedAt
+        closingAt
+        user {
+          name
+          avatar
+        }
+        prefecture {
+          name
+        }
+        competition {
+          name
+        }
+      }
+    }
+  }
+}
