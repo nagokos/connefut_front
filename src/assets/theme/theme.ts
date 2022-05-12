@@ -3,8 +3,12 @@ import { extendTheme } from '@chakra-ui/react';
 export const theme = extendTheme({
   colors: {
     primary: {
+      50: '#E1EBE9',
       main: '#009688',
-      500: '#f0f5f4',
+      light: '#f0f5f4',
+    },
+    error: {
+      main: '#f42121',
     },
   },
   shadows: {
@@ -16,6 +20,31 @@ export const theme = extendTheme({
         _focus: {
           boxShadow: 'none',
         },
+      },
+      variants: {
+        solid: () => ({
+          bg: '#009688',
+          color: 'white',
+          _hover: {
+            bg: '#007A6E',
+          },
+          _active: {
+            bg: '#007A6E',
+          },
+        }),
+        outline: () => ({
+          bg: '#f0f5f4',
+          borderColor: '#f0f5f4',
+          color: 'black',
+          _hover: {
+            bg: '#E1EBE9',
+            borderColor: '#f0f5f4',
+          },
+          _active: {
+            bg: '#E1EBE9',
+            borderColor: '#f0f5f4',
+          },
+        }),
       },
     },
   },
