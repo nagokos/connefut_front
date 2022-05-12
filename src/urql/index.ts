@@ -5,11 +5,18 @@ import {
   fetchExchange,
 } from 'urql';
 import { devtoolsExchange } from '@urql/devtools';
+import { suspenseExchange } from '@urql/exchange-suspense';
 
 export const client = createClient({
   url: 'http://localhost:8080/query',
   suspense: true,
-  exchanges: [devtoolsExchange, dedupExchange, cacheExchange, fetchExchange],
+  exchanges: [
+    devtoolsExchange,
+    dedupExchange,
+    suspenseExchange,
+    cacheExchange,
+    fetchExchange,
+  ],
   fetchOptions: () => ({
     credentials: 'include',
   }),
