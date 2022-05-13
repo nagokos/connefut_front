@@ -611,7 +611,7 @@
     "@chakra-ui/utils" "1.10.4"
     react-focus-lock "2.5.2"
 
-"@chakra-ui/form-control@1.6.0":
+"@chakra-ui/form-control@1.6.0", "@chakra-ui/form-control@^1.0.0":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@chakra-ui/form-control/-/form-control-1.6.0.tgz#a2a7b82a385f75fababf3947d39e227b4d073929"
   integrity sha512-MtUE98aocP2QTgvyyJ/ABuG33mhT3Ox56phKreG3HzbUKByMwrbQSm1QcAgyYdqSZ9eKB2tXx+qgGNh+avAfDA==
@@ -631,7 +631,7 @@
     compute-scroll-into-view "1.0.14"
     copy-to-clipboard "3.3.1"
 
-"@chakra-ui/icon@2.0.5":
+"@chakra-ui/icon@2.0.5", "@chakra-ui/icon@^2.0.0":
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/@chakra-ui/icon/-/icon-2.0.5.tgz#d57f53e6a2c7ae1bae7292a1778fd466c02e2e29"
   integrity sha512-ZrqRvCCIxGr4qFd/r1pmtd9tobRmv8KAxV7ygFoc/t4vOSKTcVIjhE12gsI3FzgvXM15ZFVwsxa1zodwgo5neQ==
@@ -655,7 +655,7 @@
     "@chakra-ui/react-utils" "1.2.3"
     "@chakra-ui/utils" "1.10.4"
 
-"@chakra-ui/layout@1.8.0":
+"@chakra-ui/layout@1.8.0", "@chakra-ui/layout@^1.0.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@chakra-ui/layout/-/layout-1.8.0.tgz#f95e78168644b45ac7327e4e0cfb1f0e6f7c3b4d"
   integrity sha512-GJtEKez5AZu0XQTxI6a6jwA/hMDD36pP0HBxBOGuHP1hWCebDzMjraiMfWiP9w7hKERFE4j19kocHxIXyocfJA==
@@ -679,7 +679,7 @@
     "@chakra-ui/react-env" "1.1.6"
     "@chakra-ui/utils" "1.10.4"
 
-"@chakra-ui/menu@1.8.11":
+"@chakra-ui/menu@1.8.11", "@chakra-ui/menu@^1.0.0":
   version "1.8.11"
   resolved "https://registry.yarnpkg.com/@chakra-ui/menu/-/menu-1.8.11.tgz#a9508db5dd346f9ec02492536d93b7ab8db54319"
   integrity sha512-8K65xItPsdMvSfuGWYIGigOF/QMcy7+D48UIEO/Hu0u0ckd11/JXbpSIFPddH5fYedclJ18PGRohTne487OVjQ==
@@ -882,7 +882,7 @@
     "@chakra-ui/react-utils" "1.2.3"
     "@chakra-ui/utils" "1.10.4"
 
-"@chakra-ui/spinner@1.2.6":
+"@chakra-ui/spinner@1.2.6", "@chakra-ui/spinner@^1.0.0":
   version "1.2.6"
   resolved "https://registry.yarnpkg.com/@chakra-ui/spinner/-/spinner-1.2.6.tgz#d85fb3d763a69d40570b591507c5087dba38e6c4"
   integrity sha512-GoUCccN120fGRVgUtfuwcEjeoaxffB+XsgpxX7jhWloXf8b6lkqm68bsxX4Ybb2vGN1fANI98/45JmrnddZO/A==
@@ -915,7 +915,7 @@
     "@chakra-ui/checkbox" "1.7.1"
     "@chakra-ui/utils" "1.10.4"
 
-"@chakra-ui/system@1.12.1":
+"@chakra-ui/system@1.12.1", "@chakra-ui/system@^1.2.0":
   version "1.12.1"
   resolved "https://registry.yarnpkg.com/@chakra-ui/system/-/system-1.12.1.tgz#608655ef3f7cb82eedd8f20d2546458d90d77cce"
   integrity sha512-Rp09/rMuPA3hF38OJxeQciGO9N0Ie1GxwHRAw1AFA/TY3fVyK9pNI5oN+J/1cAxq7v9yKdIr1YfnruJTI9xfEg==
@@ -2234,12 +2234,18 @@ capital-case@^1.0.4:
     tslib "^2.0.3"
     upper-case-first "^2.0.2"
 
-chakra-react-select@^3.3.3:
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/chakra-react-select/-/chakra-react-select-3.3.3.tgz#9316f63fb12aced51a7e03cd5b226fbd4aff24ad"
-  integrity sha512-ot0UVf4tgEvwgwYOZ+GT7hwWOmFX3USjLeastENKflbj6TNCHQngAneWe/OzltvsdeaSmJl93bHWLOPz3mr2dQ==
+chakra-react-select@^3.3.6:
+  version "3.3.6"
+  resolved "https://registry.yarnpkg.com/chakra-react-select/-/chakra-react-select-3.3.6.tgz#eb806a6cdd3bf7a9e86dd3beaceaf83c618dd499"
+  integrity sha512-6WKSN4hC7L2iOtJtKHa4pRidlu4HnTu1UKn1qRRFREA4mz8ECAX+PnWjwbJXKF8mpVAikEFdgF9DiXCKWFmNXQ==
   dependencies:
-    react-select "^5.3.1"
+    "@chakra-ui/form-control" "^1.0.0"
+    "@chakra-ui/icon" "^2.0.0"
+    "@chakra-ui/layout" "^1.0.0"
+    "@chakra-ui/menu" "^1.0.0"
+    "@chakra-ui/spinner" "^1.0.0"
+    "@chakra-ui/system" "^1.2.0"
+    react-select "^5.3.2"
 
 chalk@^1.0.0, chalk@^1.1.3:
   version "1.1.3"
@@ -4782,7 +4788,7 @@ react-router@6.3.0:
   dependencies:
     history "^5.2.0"
 
-react-select@^5.3.1:
+react-select@^5.3.2:
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/react-select/-/react-select-5.3.2.tgz#ecee0d5c59ed4acb7f567f7de3c75a488d93dacb"
   integrity sha512-W6Irh7U6Ha7p5uQQ2ZnemoCQ8mcfgOtHfw3wuMzG6FAu0P+CYicgofSLOq97BhjMx8jS+h+wwWdCBeVVZ9VqlQ==
@@ -5560,6 +5566,7 @@ value-or-promise@1.0.11, value-or-promise@^1.0.11:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/value-or-promise/-/value-or-promise-1.0.11.tgz#3e90299af31dd014fe843fe309cefa7c1d94b140"
   integrity sha512-41BrgH+dIbCFXClcSapVs5M6GkENd3gQOJpEfPDNa71LsUGMXDL0jMWpI/Rh7WhX+Aalfz2TTS3Zt5pUsbnhLg==
+
 vite@^2.9.9:
   version "2.9.9"
   resolved "https://registry.yarnpkg.com/vite/-/vite-2.9.9.tgz#8b558987db5e60fedec2f4b003b73164cb081c5e"
