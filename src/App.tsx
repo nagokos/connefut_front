@@ -10,7 +10,7 @@ export const App: FC = memo(() => {
   return (
     <Box>
       <Header />
-      <main>{routing}</main>
+      <Box as="main">{routing}</Box>
     </Box>
   );
 });
