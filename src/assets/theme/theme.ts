@@ -47,5 +47,44 @@ export const theme = extendTheme({
         }),
       },
     },
+    CloseButton: {
+      baseStyle: {
+        _focus: {
+          boxShadow: 'none',
+        },
+        _hover: {
+          bg: '#f0f5f4',
+        },
+        _active: {
+          bg: '#f0f5f4',
+        },
+        rounded: 'full',
+      },
+      variants: {
+        solid: () => ({
+          bg: '#009688',
+          color: 'white',
+          _hover: {
+            bg: '#007A6E',
+          },
+          _active: {
+            bg: '#007A6E',
+          },
+        }),
+        outline: () => ({
+          bg: '#f0f5f4',
+          borderColor: '#f0f5f4',
+          color: 'black',
+          _hover: {
+            bg: '#E1EBE9',
+            borderColor: '#f0f5f4',
+          },
+          _active: {
+            bg: '#E1EBE9',
+            borderColor: '#f0f5f4',
+          },
+        }),
+      },
+    },
   },
 });
