@@ -1,1 +1,0 @@
-export { HomeTemp } from './HomeTemp';
