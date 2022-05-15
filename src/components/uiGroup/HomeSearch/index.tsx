@@ -1,10 +1,16 @@
 import { Box, Divider, Stack, Text } from '@chakra-ui/react';
-import { FC, memo } from 'react';
+import { FC, memo, useEffect } from 'react';
 
 import { DatePicker } from '../../uiParts/DatePicker';
 import { SearchSelect } from './Select';
 import { SearchInput } from './Input';
-import { Competition, Prefecture, Type } from '../../../generated/graphql';
+import {
+  Competition,
+  Prefecture,
+  Type,
+  useGetCompetitionsQuery,
+  useGetPrefecturesQuery,
+} from '../../../generated/graphql';
 import { SelectOption } from '../../../type/type';
 import { SearchTag } from './Tag';
 
@@ -18,13 +24,9 @@ const types = [
 
 const tags = ['エンジョイ', '男女mix', 'シニア', '誰でもok', '初心者歓迎'];
 
-type Props = {
-  prefectures?: Prefecture[];
-  competitions?: Competition[];
-};
-
-export const HomeSearch: FC<Props> = memo((props) => {
-  const { prefectures, competitions } = props;
+export const HomeSearch: FC = memo(() => {
+  const [prefData] = useGetPrefecturesQuery();
+  const [compData] = useGetCompetitionsQuery();
 
   const replaceOptions = (
     data?: Prefecture[] | Competition[]
@@ -46,12 +48,12 @@ export const HomeSearch: FC<Props> = memo((props) => {
         <Stack spacing={3}>
           <SearchSelect
             placeholder="競技"
-            options={replaceOptions(competitions)}
+            options={replaceOptions(compData.data?.getCompetitions)}
           />
           <SearchSelect placeholder="募集タイプ" options={types} />
           <SearchSelect
             placeholder="エリア"
-            options={replaceOptions(prefectures)}
+            options={replaceOptions(prefData.data?.getPrefectures)}
           />
           <DatePicker />
         </Stack>
