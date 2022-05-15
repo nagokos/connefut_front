@@ -3,10 +3,10 @@ import { FC, memo } from 'react';
 
 type Props = {
   list: {
-    id: number;
     icon: JSX.Element;
     title: string;
     divider?: boolean;
+    onClick?: () => void;
   };
 };
 
@@ -20,8 +20,9 @@ export const AvatarMenuItem: FC<Props> = memo((props) => {
         py={2.5}
         _focus={{ bg: '#f0f5f4' }}
         _active={{ bg: '#f0f5f4' }}
+        onClick={list.onClick}
       >
-        <Text fontSize={13} fontFamily="ヒラギノ角ゴシック">
+        <Text fontSize={13.5} fontFamily="ヒラギノ角ゴシック">
           {list.title}
         </Text>
       </MenuItem>
