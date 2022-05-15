@@ -1,36 +1,31 @@
-import { Box, Button, Divider, HStack, Spacer } from '@chakra-ui/react';
+import { Box, Divider, HStack, Spacer } from '@chakra-ui/react';
 import { FC, memo } from 'react';
+import { useGetCurrentUserQuery } from '../../../generated/graphql';
+import { AppIn } from './AppIn';
+import { LoggedIn } from './LoggedIn';
 import { Search } from './Search';
 
 import { Title } from './Title';
 
 export const Header: FC = memo(() => {
+  const [usrData] = useGetCurrentUserQuery({
+    requestPolicy: 'network-only',
+  });
+  const currentUser = usrData.data?.getCurrentUser;
+
   return (
-    <header>
-      <Box maxW={1120} mx="auto" minH={70} display="flex" alignItems="center">
-        <Box display="flex" alignItems="center" cursor="pointer">
+    <>
+      <header>
+        <Box maxW={1120} mx="auto" minH={70} display="flex" alignItems="center">
           <Title />
-        </Box>
-        <Spacer />
-        <HStack spacing={5}>
-          <Box>
+          <Spacer />
+          <HStack spacing={5}>
             <Search />
-          </Box>
-          {/* <Box>
-            <Notification />
-          </Box>
-          <Box>
-            <A />
-          </Box> */}
-          <Button variant="outline" px={3.5} h={9} size="sm" fontSize={12.5}>
-            ログイン
-          </Button>
-          <Button fontSize={12.5} px={3.5} h={9} size="sm">
-            新規登録
-          </Button>
-        </HStack>
-      </Box>
-      <Divider borderColor="#ebf2f2" />
-    </header>
+            {currentUser ? <LoggedIn user={currentUser} /> : <AppIn />}
+          </HStack>
+        </Box>
+        <Divider borderColor="#ebf2f2" />
+      </header>
+    </>
   );
 });
