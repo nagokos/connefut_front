@@ -1,5 +1,5 @@
 import { Box, Divider, Stack, Text } from '@chakra-ui/react';
-import { FC, memo, useEffect } from 'react';
+import { FC, memo } from 'react';
 
 import { DatePicker } from '../../uiParts/DatePicker';
 import { SearchSelect } from './Select';
