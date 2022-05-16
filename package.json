@@ -15,7 +15,7 @@
     "@chakra-ui/react": "^2.0.0",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "@hookform/resolvers": "^2.8.8",
+    "@hookform/resolvers": "^2.8.9",
     "@types/react-datepicker": "^4.4.1",
     "@urql/devtools": "^2.0.3",
     "@urql/exchange-suspense": "^1.9.2",
