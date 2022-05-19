@@ -1,4 +1,5 @@
-import { ChakraProvider } from '@chakra-ui/react';
+import { Box, ChakraProvider, Image } from '@chakra-ui/react';
+import { Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'urql';
@@ -14,7 +15,20 @@ if (container) {
     <BrowserRouter>
       <Provider value={client}>
         <ChakraProvider theme={theme}>
-          <App />
+          <Suspense
+            fallback={
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                minH="100vh"
+              >
+                <Image src="/src/assets/img/logo.png" w={12} />
+              </Box>
+            }
+          >
+            <App />
+          </Suspense>
         </ChakraProvider>
       </Provider>
     </BrowserRouter>
