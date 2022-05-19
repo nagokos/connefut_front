@@ -318,6 +318,13 @@ export type GetRecruitmentsQueryVariables = Exact<{
 
 export type GetRecruitmentsQuery = { __typename?: 'Query', getRecruitments: { __typename?: 'RecruitmentConnection', pageInfo: { __typename?: 'PageInfo', startCursor: string, endCursor: string, hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'RecruitmentEdge', cursor: string, node: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, updatedAt: any, closingAt?: any | null, user: { __typename?: 'User', name: string, avatar: string }, prefecture?: { __typename?: 'Prefecture', name: string } | null, competition?: { __typename?: 'Competition', name: string } | null } }> } };
 
+export type GetRecruitmentQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type GetRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, place?: string | null, startAt?: any | null, content?: string | null, capacity?: number | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, user: { __typename?: 'User', id: string, name: string, avatar: string } } };
+
 export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -406,6 +413,40 @@ export const GetRecruitmentsDocument = gql`
 
 export function useGetRecruitmentsQuery(options?: Omit<Urql.UseQueryArgs<GetRecruitmentsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetRecruitmentsQuery>({ query: GetRecruitmentsDocument, ...options });
+};
+export const GetRecruitmentDocument = gql`
+    query GetRecruitment($id: String!) {
+  getRecruitment(id: $id) {
+    id
+    title
+    type
+    status
+    place
+    startAt
+    content
+    capacity
+    closingAt
+    competition {
+      id
+      name
+    }
+    prefecture {
+      id
+      name
+    }
+    user {
+      id
+      name
+      avatar
+    }
+    locationLat
+    locationLng
+  }
+}
+    `;
+
+export function useGetRecruitmentQuery(options: Omit<Urql.UseQueryArgs<GetRecruitmentQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetRecruitmentQuery>({ query: GetRecruitmentDocument, ...options });
 };
 export const GetCurrentUserDocument = gql`
     query GetCurrentUser {

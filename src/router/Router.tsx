@@ -1,6 +1,7 @@
 import { Home, Login, SignUp } from '../pages';
+import { RecruitmentDetails } from '../pages/RecruitmentDetails';
 
-export const routes = () => [
+export const routes = (isLoggedIn: boolean) => [
   {
     path: '/',
     element: <Home />,
@@ -12,5 +13,9 @@ export const routes = () => [
   {
     path: 'login',
     element: <Login />,
+  },
+  {
+    path: 'recruitments/:recruitmentId',
+    element: <RecruitmentDetails />,
   },
 ];

@@ -47,8 +47,6 @@ export const LoginEmailModal: FC<Props> = memo((props) => {
   });
 
   const onSubmit = async (values: loginType) => {
-    console.log(values);
-
     const res = await loginUser(values);
 
     if (res.error) {
