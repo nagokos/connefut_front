@@ -1,15 +1,18 @@
 import { FC, memo } from 'react';
 import { Box, Stack } from '@chakra-ui/react';
 
-import { Title } from './Title';
 import { Header } from './Header';
 import { Area } from './Area';
 import { Competition } from './Competition';
 import { Closing } from './Closing';
 import { Author } from './Author';
 import { useGetRecruitmentsQuery } from '../../../generated/graphql';
+import { useNavigate } from 'react-router-dom';
+import { TypeArea } from './Type';
 
 export const RecruitmentCard: FC = memo(() => {
+  const navigate = useNavigate();
+
   const [data] = useGetRecruitmentsQuery({
     variables: {
       paginationInput: {
@@ -34,18 +37,17 @@ export const RecruitmentCard: FC = memo(() => {
           rounded="xl"
           transitionDuration="300ms"
           overflow="hidden"
+          onClick={() => navigate(`/recruitments/${edge.node.id}`)}
         >
           <Header recruitment={edge.node} />
-          <Box px={4} py={4}>
-            <Title recruitment={edge.node} />
-            <Stack spacing={4} mt={7}>
+          <Box px={4} pt={5} pb={4}>
+            <Stack spacing={4}>
               <Area recruitment={edge.node} />
               <Competition recruitment={edge.node} />
+              <TypeArea recruitment={edge.node} />
               <Closing recruitment={edge.node} />
-            </Stack>
-            <Box mt={5}>
               <Author recruitment={edge.node} />
-            </Box>
+            </Stack>
           </Box>
         </Box>
       ))}
