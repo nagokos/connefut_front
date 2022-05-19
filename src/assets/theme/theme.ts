@@ -15,6 +15,15 @@ export const theme = extendTheme({
     menu: '0 3px 12px -1px #04253f40;',
   },
   components: {
+    Checkbox: {
+      baseStyle: {
+        control: {
+          _focus: {
+            boxShadow: 'none',
+          },
+        },
+      },
+    },
     Button: {
       baseStyle: {
         _focus: {
