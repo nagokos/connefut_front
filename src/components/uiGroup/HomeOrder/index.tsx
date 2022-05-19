@@ -10,7 +10,7 @@ export const HomeOrder: FC = memo(() => {
       <Box display="flex" justifyContent="end">
         <HStack spacing={3}>
           <Text mr={5} fontSize={13} color="blackAlpha.600">
-            並び替え
+            並び順
           </Text>
           <Text
             onMouseEnter={setFlagNew.on}
