@@ -29,3 +29,32 @@ query GetRecruitments($paginationInput: PaginationInput) {
     }
   }
 }
+
+query GetRecruitment($id: String!) {
+  getRecruitment(id: $id) {
+    id
+    title
+    type
+    status
+    place
+    startAt
+    content
+    capacity
+    closingAt
+    competition {
+      id
+      name
+    }
+    prefecture {
+      id
+      name
+    }
+    user {
+      id
+      name
+      avatar
+    }
+    locationLat
+    locationLng
+  }
+}
