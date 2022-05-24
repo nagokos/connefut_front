@@ -13,6 +13,7 @@ export const Closing: FC<Props> = memo((props) => {
 
   const timeLimit = (date: string): string => {
     const target = format(new Date(date), 'yyyy-MM-dd HH:mm');
+
     const targetDate = new Date(target);
     const increment = formatDistanceToNow(targetDate, {
       locale: ja,
@@ -52,9 +53,10 @@ export const Closing: FC<Props> = memo((props) => {
         <Box fontSize={11}>
           残り
           <Box as="span" fontWeight="bold" fontSize={11.5}>
-            {timeLimitFindNum(recruitment.closingAt)}
+            {timeLimitFindNum(String(recruitment.closingAt))}
           </Box>
-          {timeLimitFindS(recruitment.closingAt)} ({recruitment.closingAt})
+          {timeLimitFindS(String(recruitment.closingAt))} (
+          {String(recruitment.closingAt)})
         </Box>
       </Box>
     </Box>
