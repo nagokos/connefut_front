@@ -245,8 +245,7 @@ export enum Type {
   Joining = 'JOINING',
   Member = 'MEMBER',
   Opponent = 'OPPONENT',
-  Others = 'OTHERS',
-  Unnecessary = 'UNNECESSARY'
+  Others = 'OTHERS'
 }
 
 export type User = {
@@ -283,7 +282,7 @@ export type LoginUserInput = {
 export type RecruitmentInput = {
   capacity?: InputMaybe<Scalars['Int']>;
   closingAt?: InputMaybe<Scalars['DateTime']>;
-  competitionId?: InputMaybe<Scalars['String']>;
+  competitionId: Scalars['String'];
   content?: InputMaybe<Scalars['String']>;
   locationLat?: InputMaybe<Scalars['Float']>;
   locationLng?: InputMaybe<Scalars['Float']>;
@@ -324,6 +323,18 @@ export type GetRecruitmentQueryVariables = Exact<{
 
 
 export type GetRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, place?: string | null, startAt?: any | null, content?: string | null, capacity?: number | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, user: { __typename?: 'User', id: string, name: string, avatar: string } } };
+
+export type CreateRecruitmentMutationVariables = Exact<{
+  recruitmentInput: RecruitmentInput;
+}>;
+
+
+export type CreateRecruitmentMutation = { __typename?: 'Mutation', createRecruitment: { __typename?: 'Recruitment', id: string, title: string } };
+
+export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTagsQuery = { __typename?: 'Query', getTags: Array<{ __typename?: 'Tag', id: string, name: string }> };
 
 export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -447,6 +458,30 @@ export const GetRecruitmentDocument = gql`
 
 export function useGetRecruitmentQuery(options: Omit<Urql.UseQueryArgs<GetRecruitmentQueryVariables>, 'query'>) {
   return Urql.useQuery<GetRecruitmentQuery>({ query: GetRecruitmentDocument, ...options });
+};
+export const CreateRecruitmentDocument = gql`
+    mutation CreateRecruitment($recruitmentInput: recruitmentInput!) {
+  createRecruitment(input: $recruitmentInput) {
+    id
+    title
+  }
+}
+    `;
+
+export function useCreateRecruitmentMutation() {
+  return Urql.useMutation<CreateRecruitmentMutation, CreateRecruitmentMutationVariables>(CreateRecruitmentDocument);
+};
+export const GetTagsDocument = gql`
+    query GetTags {
+  getTags {
+    id
+    name
+  }
+}
+    `;
+
+export function useGetTagsQuery(options?: Omit<Urql.UseQueryArgs<GetTagsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetTagsQuery>({ query: GetTagsDocument, ...options });
 };
 export const GetCurrentUserDocument = gql`
     query GetCurrentUser {
