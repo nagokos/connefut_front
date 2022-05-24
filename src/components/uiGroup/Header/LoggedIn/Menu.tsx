@@ -19,6 +19,7 @@ import {
 } from 'react-icons/md';
 import { useLogoutUserMutation, User } from '../../../../generated/graphql';
 import { AvatarMenuItem } from './MenuItem';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   user: User;
@@ -26,6 +27,8 @@ type Props = {
 
 export const AvatarMenu: FC<Props> = memo((props) => {
   const { user } = props;
+
+  const navigate = useNavigate();
 
   const [_, logoutUser] = useLogoutUserMutation();
   const logout = async () => {
@@ -39,6 +42,7 @@ export const AvatarMenu: FC<Props> = memo((props) => {
     {
       icon: <MdOutlineCreate color="#78909c" fontSize={19} />,
       title: '募集の作成',
+      onClick: () => navigate('/recruitments/new'),
     },
     {
       icon: <MdOutlineArticle color="#78909c" fontSize={19} />,
