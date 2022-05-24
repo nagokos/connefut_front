@@ -58,3 +58,10 @@ query GetRecruitment($id: String!) {
     locationLng
   }
 }
+
+mutation CreateRecruitment($recruitmentInput: recruitmentInput!) {
+  createRecruitment(input: $recruitmentInput) {
+    id
+    title
+  }
+}
