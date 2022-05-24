@@ -9,15 +9,18 @@ import {
 } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useLoginUserMutation } from '../../../generated/graphql';
+import {
+  LoginUserInput,
+  useLoginUserMutation,
+} from '../../../generated/graphql';
 import { GraphQLError } from 'graphql';
 import { useNavigate } from 'react-router-dom';
 import { EmailForm } from './EmailForm';
 import { PasswordForm } from './PasswordForm';
 import { SubmitButton } from '../../uiParts/SubmitButton';
-import { loginSchema, loginType } from '../../../zod/userSchema';
+import { loginSchema } from '../../../yup/userSchema';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 type Props = {
   isOpen: boolean;
@@ -37,16 +40,16 @@ export const LoginEmailModal: FC<Props> = memo((props) => {
     reset,
     setError,
     formState: { errors, isSubmitting },
-  } = useForm<loginType>({
+  } = useForm<LoginUserInput>({
     defaultValues: {
       email: '',
       password: '',
     },
-    resolver: zodResolver(loginSchema),
+    resolver: yupResolver(loginSchema),
     mode: 'onChange',
   });
 
-  const onSubmit = async (values: loginType) => {
+  const onSubmit = async (values: LoginUserInput) => {
     const res = await loginUser(values);
 
     if (res.error) {

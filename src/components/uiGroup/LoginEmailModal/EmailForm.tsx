@@ -6,10 +6,10 @@ import {
 } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { loginType } from '../../../zod/userSchema';
+import { LoginUserInput } from '../../../generated/graphql';
 
 type Props = {
-  control: Control<loginType>;
+  control: Control<LoginUserInput>;
 };
 
 export const EmailForm: FC<Props> = memo((props) => {
