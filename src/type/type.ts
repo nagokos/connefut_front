@@ -20,9 +20,9 @@ export type CardRecruitment = {
   capacity?: number | null | undefined;
   place?: string | null | undefined;
   competition?: CardCompetition | null | undefined;
-  startAt?: any;
-  closingAt?: any;
-  updatedAt: any;
+  startAt?: string;
+  closingAt?: string;
+  updatedAt: string;
 };
 
 export type CardPrefecture = {
@@ -35,5 +35,10 @@ export type CardUser = {
 };
 
 export type CardCompetition = {
+  name: string;
+};
+
+export type MenuItemType = {
+  id: Type;
   name: string;
 };
