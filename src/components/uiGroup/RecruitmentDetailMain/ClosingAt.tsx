@@ -49,7 +49,11 @@ export const ClosingAt: FC<Props> = memo((props) => {
         </Box>
         {timeLimitFindS(String(closingAt))}
         <Box as="span" ml={1}>
-          ({closingAt})
+          (
+          {format(new Date(String(closingAt)), 'yyyy/MM/dd（E）HH:mm', {
+            locale: ja,
+          })}
+          )
         </Box>
       </Box>
     </Box>
