@@ -17,21 +17,23 @@ export const AppInButton: FC<Props> = memo((props) => {
       variant="outline"
       rounded="lg"
       bg="white"
-      boxShadow="0px 1px 1px #f0f5f4"
-      border="1px solid #f0f5f4"
       size="lg"
+      w="100%"
+      boxShadow="sm"
       fontSize={14}
       color={color ? color : 'blackAlpha.700'}
+      onClick={clickEvent}
       _hover={{
         bg: '#f0f5f4',
-        boxShadow: 'px 2px 2px #f0f5f4',
+        boxShadow: 'sm',
       }}
       _active={{
         bg: '#f0f5f4',
-        boxShadow: 'px 2px 2px #f0f5f4',
+        boxShadow: 'sm',
       }}
-      onClick={clickEvent}
-      isFullWidth
+      _focus={{
+        boxShadow: 'sm',
+      }}
     >
       <Box w={300}>{title}</Box>
     </Button>
