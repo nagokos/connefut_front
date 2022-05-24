@@ -64,7 +64,7 @@ export const SearchSelect: FC<Props> = memo((props) => {
           ...provied,
           my: 0,
           border: 'none',
-          boxShadow: '0px 3px 4px rgb(236 239 241)',
+          boxShadow: 'lg',
           bg: 'white',
           borderRadius: 3,
           color: 'black',
