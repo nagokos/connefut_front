@@ -32,12 +32,12 @@ export const RecruitmentCard: FC = memo(() => {
           key={edge.cursor}
           cursor="pointer"
           bg="white"
-          boxShadow="0px 3px 4px rgb(236 239 241)"
-          _hover={{ boxShadow: '0px 10px 10px rgb(236 239 241)' }}
+          boxShadow="base"
           rounded="xl"
           transitionDuration="300ms"
           overflow="hidden"
           onClick={() => navigate(`/recruitments/${edge.node.id}`)}
+          _hover={{ boxShadow: 'lg' }}
         >
           <Header recruitment={edge.node} />
           <Box px={4} pt={5} pb={4}>
