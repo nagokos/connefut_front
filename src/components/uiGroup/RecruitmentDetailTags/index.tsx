@@ -1,8 +1,12 @@
 import { Box, SimpleGrid, Text } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetRecruitmentQuery } from '../../../generated/graphql';
+import {
+  useGetRecruitmentQuery,
+  useGetRecruitmentTagsQuery,
+} from '../../../generated/graphql';
 import { CompTag } from './CompTag';
+import { MainTag } from './MainTag';
 import { TypeTag } from './TypeTag';
 
 export const RecruitmentDetailTags: FC = memo(() => {
@@ -11,6 +15,12 @@ export const RecruitmentDetailTags: FC = memo(() => {
   const [data] = useGetRecruitmentQuery({
     variables: {
       id: String(recruitmentId),
+    },
+  });
+
+  const [tagData] = useGetRecruitmentTagsQuery({
+    variables: {
+      recruitmentId: String(recruitmentId),
     },
   });
 
@@ -24,6 +34,9 @@ export const RecruitmentDetailTags: FC = memo(() => {
       <SimpleGrid mt={2.5} columns={2} spacing={3}>
         <CompTag compName={recruitment?.competition?.name} />
         <TypeTag type={recruitment?.type} />
+        {tagData.data?.getRecruitmentTags.map((tag) => (
+          <MainTag key={tag?.id} tag={tag} />
+        ))}
       </SimpleGrid>
     </Box>
   );
