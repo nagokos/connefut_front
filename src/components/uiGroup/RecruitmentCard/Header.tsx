@@ -12,14 +12,14 @@ export const Header: FC<Props> = memo((props) => {
   return (
     <>
       <Box
-        bg="primary.light"
+        bg="primary.50"
         minHeight={140}
         display="flex"
         px={4}
         pt={4}
         justifyContent="center"
         alignItems="center"
-        fontSize={17}
+        fontSize={16}
         textAlign="center"
         fontWeight="bold"
       >

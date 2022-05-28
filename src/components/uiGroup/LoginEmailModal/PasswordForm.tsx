@@ -9,12 +9,12 @@ import {
 } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { loginType } from '../../../zod/userSchema';
 
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { LoginUserInput } from '../../../generated/graphql';
 
 type Props = {
-  control: Control<loginType>;
+  control: Control<LoginUserInput>;
 };
 
 export const PasswordForm: FC<Props> = memo((props) => {

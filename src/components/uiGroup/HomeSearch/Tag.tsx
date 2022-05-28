@@ -1,10 +1,14 @@
 import { Box, Spacer } from '@chakra-ui/react';
 import { FC, memo } from 'react';
-import { HiOutlineTag } from 'react-icons/hi';
-import { IoIosCloseCircle, IoIosCheckmarkCircle } from 'react-icons/io';
+import {
+  IoIosCloseCircle,
+  IoIosCheckmarkCircle,
+  IoMdPricetag,
+} from 'react-icons/io';
+import { Tag } from '../../../generated/graphql';
 
 type Props = {
-  tag: string;
+  tag?: Tag | undefined | null;
 };
 
 export const SearchTag: FC<Props> = memo((props) => {
@@ -13,21 +17,20 @@ export const SearchTag: FC<Props> = memo((props) => {
   return (
     <Box
       cursor="pointer"
-      key={tag}
       mt={3.5}
       display="flex"
       alignItems="center"
-      fontSize={12}
-      fontWeight="bold"
+      fontSize={11.5}
+      fontFamily="Noto Sans JP"
       letterSpacing={1}
     >
-      <Box mr={1}>
-        <HiOutlineTag fontSize={13} />
+      <Box mr={1.5}>
+        <IoMdPricetag fontSize={12} color="RGBA(0, 0, 0, 0.64)" />
       </Box>
-      {tag}
+      {tag?.name}
       <Spacer />
       <Box>
-        <IoIosCheckmarkCircle color="#009688" fontSize={15.5} />
+        <IoIosCheckmarkCircle color="#009688" fontSize={15} />
         <Box display="none">
           <IoIosCloseCircle color="#f42121" fontSize={15} />
         </Box>

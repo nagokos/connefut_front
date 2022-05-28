@@ -10,12 +10,12 @@ query GetCurrentUser {
   }
 }
 
-mutation CreateUser($name: String!, $email: String!, $password: String!) {
-  createUser(input: { name: $name, email: $email, password: $password })
+mutation CreateUser($createUserInput: createUserInput!) {
+  createUser(input: $createUserInput)
 }
 
-mutation LoginUser($email: String!, $password: String!) {
-  loginUser(input: { email: $email, password: $password })
+mutation LoginUser($loginUserInput: loginUserInput!) {
+  loginUser(input: $loginUserInput)
 }
 
 mutation LogoutUser {

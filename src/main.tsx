@@ -1,7 +1,7 @@
-import { Box, ChakraProvider, Image } from '@chakra-ui/react';
 import { Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { Box, ChakraProvider, Image } from '@chakra-ui/react';
 import { Provider } from 'urql';
 import { App } from './App';
 import { theme } from './assets/theme/theme';
@@ -12,9 +12,9 @@ const container = document.getElementById('root');
 if (container) {
   const root = createRoot(container);
   root.render(
-    <BrowserRouter>
-      <Provider value={client}>
-        <ChakraProvider theme={theme}>
+    <Provider value={client}>
+      <ChakraProvider theme={theme}>
+        <BrowserRouter>
           <Suspense
             fallback={
               <Box
@@ -29,8 +29,8 @@ if (container) {
           >
             <App />
           </Suspense>
-        </ChakraProvider>
-      </Provider>
-    </BrowserRouter>
+        </BrowserRouter>
+      </ChakraProvider>
+    </Provider>
   );
 }

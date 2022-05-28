@@ -19,8 +19,8 @@ export const CompTag: FC<Props> = memo((props) => {
         w={9}
         h={9}
         rounded="full"
-        mr={1}
-        fontSize={20}
+        mr={1.5}
+        fontSize={18}
         border="1px solid #eceff1"
       >
         ⚽️

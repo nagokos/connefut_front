@@ -1,7 +1,7 @@
 import { Box, Divider, Stack } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetRecruitmentQuery } from '../../../generated/graphql';
+import { Type, useGetRecruitmentQuery } from '../../../generated/graphql';
 import { Area } from './Area';
 import { Capacity } from './Capacity';
 import { ClosingAt } from './ClosingAt';
@@ -29,7 +29,10 @@ export const RecruitmentDetailMain: FC = memo(() => {
       <Stack mt={8} spacing={6} maxW="590">
         <Competition compName={recruitment?.competition?.name} />
         <DetailType type={recruitment?.type} />
-        <StartAt startAt={recruitment?.startAt} />
+        {recruitment?.type === Type.Opponent ||
+        recruitment?.type === Type.Individual ? (
+          <StartAt startAt={recruitment?.startAt} />
+        ) : null}
         <ClosingAt closingAt={recruitment?.closingAt} />
         <Area
           place={String(recruitment?.place)}

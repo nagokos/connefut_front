@@ -7,3 +7,5 @@ export { RecruitmentDetailMain } from './RecruitmentDetailMain';
 export { RecruitmentDetailTags } from './RecruitmentDetailTags';
 export { RecruitmentDetailActions } from './RecruitmentDetailActions';
 export { RecruitmentDetailUser } from './RecruitmentDetailUser';
+export { RecruitmentForm } from './RecruitmentForm';
+export { LocationModal } from './LocationModal';

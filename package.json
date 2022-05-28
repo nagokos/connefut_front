@@ -32,7 +32,7 @@
     "react-router-dom": "^6.3.0",
     "sass": "^1.52.1",
     "urql": "^2.2.0",
-    "zod": "^3.17.3"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.6.2",

@@ -50,8 +50,8 @@ export const TypeTag: FC<Props> = memo((props) => {
         w={8}
         h={8}
         rounded="full"
-        mr={1}
-        fontSize={20}
+        mr={1.5}
+        fontSize={18}
         border="1px solid #eceff1"
       >
         {typeEmoji(type)}

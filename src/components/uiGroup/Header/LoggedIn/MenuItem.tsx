@@ -18,11 +18,12 @@ export const AvatarMenuItem: FC<Props> = memo((props) => {
       <MenuItem
         icon={list.icon}
         py={2.5}
+        onClick={list.onClick}
         _focus={{ bg: '#f0f5f4' }}
         _active={{ bg: '#f0f5f4' }}
-        onClick={list.onClick}
+        _hover={{ bg: 'primary.light' }}
       >
-        <Text fontSize={13.5} fontFamily="ヒラギノ角ゴシック">
+        <Text fontSize={13} fontFamily="ヒラギノ角ゴシック">
           {list.title}
         </Text>
       </MenuItem>

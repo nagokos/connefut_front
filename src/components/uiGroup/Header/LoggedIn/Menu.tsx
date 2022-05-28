@@ -19,6 +19,7 @@ import {
 } from 'react-icons/md';
 import { useLogoutUserMutation, User } from '../../../../generated/graphql';
 import { AvatarMenuItem } from './MenuItem';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   user: User;
@@ -26,6 +27,8 @@ type Props = {
 
 export const AvatarMenu: FC<Props> = memo((props) => {
   const { user } = props;
+
+  const navigate = useNavigate();
 
   const [_, logoutUser] = useLogoutUserMutation();
   const logout = async () => {
@@ -39,6 +42,7 @@ export const AvatarMenu: FC<Props> = memo((props) => {
     {
       icon: <MdOutlineCreate color="#78909c" fontSize={19} />,
       title: '募集の作成',
+      onClick: () => navigate('/recruitments/new'),
     },
     {
       icon: <MdOutlineArticle color="#78909c" fontSize={19} />,
@@ -74,8 +78,13 @@ export const AvatarMenu: FC<Props> = memo((props) => {
       <MenuButton>
         <Avatar w={9} height={9} src={user.avatar} />
       </MenuButton>
-      <MenuList minW={230} py={0} boxShadow="menu">
-        <MenuItem _focus={{ bg: '#f0f5f4' }} _active={{ bg: '#f0f5f4' }} py={4}>
+      <MenuList minW={230} py={0} boxShadow="md">
+        <MenuItem
+          py={4}
+          _hover={{ bg: 'primary.light' }}
+          _focus={{ bg: 'white' }}
+          _active={{ bg: 'primary.light' }}
+        >
           <Avatar w={9} height={9} mr={3} src={user.avatar} />
           <Text fontSize={15}>{user.name}</Text>
         </MenuItem>

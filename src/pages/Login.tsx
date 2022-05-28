@@ -18,7 +18,9 @@ export const Login: FC = memo(() => {
 
   return (
     <>
-      <ArrowLeftButton clickEvent={() => navigate('/')} />
+      <Box position="absolute" mt={5} ml={5}>
+        <ArrowLeftButton clickEvent={() => navigate('/')} />
+      </Box>
       <Box h="100vh" mx="auto" maxW={390} py={44}>
         <Text
           mb={8}

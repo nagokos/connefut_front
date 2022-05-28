@@ -1,6 +1,9 @@
 import { Box } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 
+import { format } from 'date-fns';
+import { ja } from 'date-fns/locale';
+
 type Props = {
   startAt?: string;
 };
@@ -22,7 +25,9 @@ export const StartAt: FC<Props> = memo((props) => {
         rounded="md"
         fontFamily="ヒラギノゴシック"
       >
-        {startAt}
+        {format(new Date(String(startAt)), 'yyyy/MM/dd（E）HH:mm', {
+          locale: ja,
+        })}
       </Box>
     </Box>
   );

@@ -11,11 +11,9 @@ export const ArrowLeftButton: FC<Props> = memo((props) => {
 
   return (
     <IconButton
-      mt={5}
       aria-label="back"
       rounded="full"
       variant="ghost"
-      left={5}
       _hover={{
         bg: 'primary.light',
       }}
@@ -25,7 +23,6 @@ export const ArrowLeftButton: FC<Props> = memo((props) => {
       onClick={clickEvent}
       size="lg"
       fontSize={18}
-      position="absolute"
       icon={<HiOutlineArrowLeft />}
     />
   );

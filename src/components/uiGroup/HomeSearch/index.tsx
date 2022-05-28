@@ -1,5 +1,5 @@
 import { Box, Divider, Stack, Text } from '@chakra-ui/react';
-import { FC, memo } from 'react';
+import { FC, memo, useState } from 'react';
 
 import { DatePicker } from '../../uiParts/DatePicker';
 import { SearchSelect } from './Select';
@@ -10,6 +10,7 @@ import {
   Type,
   useGetCompetitionsQuery,
   useGetPrefecturesQuery,
+  useGetTagsQuery,
 } from '../../../generated/graphql';
 import { SelectOption } from '../../../type/type';
 import { SearchTag } from './Tag';
@@ -18,15 +19,23 @@ const types = [
   { value: String(Type.Individual), label: '試合相手の募集' },
   { value: String(Type.Opponent), label: '個人での参加の募集' },
   { value: String(Type.Member), label: 'チームメイトの募集' },
-  { value: String(Type.Joining), label: 'チームに入りたい募集' },
+  { value: String(Type.Joining), label: 'チームに加入したい人の募集' },
   { value: String(Type.Others), label: 'その他' },
 ];
-
-const tags = ['エンジョイ', '男女mix', 'シニア', '誰でもok', '初心者歓迎'];
 
 export const HomeSearch: FC = memo(() => {
   const [prefData] = useGetPrefecturesQuery();
   const [compData] = useGetCompetitionsQuery();
+  const [tagData] = useGetTagsQuery();
+  const [isMore, setIsMore] = useState(false);
+
+  const tags = () => {
+    if (isMore) {
+      return tagData.data?.getTags.slice(0, 10);
+    } else {
+      return tagData.data?.getTags.slice(0, 5);
+    }
+  };
 
   const replaceOptions = (
     data?: Prefecture[] | Competition[]
@@ -62,15 +71,17 @@ export const HomeSearch: FC = memo(() => {
           <Text fontSize={13} fontWeight="bold" color="blackAlpha.500">
             タグ
           </Text>
-          {tags.map((tag) => (
-            <SearchTag key={tag} tag={tag} />
+          {tags()?.map((tag) => (
+            <SearchTag key={tag.id} tag={tag} />
           ))}
           <Text
-            mt={3}
+            mt={4}
             fontSize={11}
             color="#009688"
             fontWeight="bold"
             cursor="pointer"
+            onClick={() => setIsMore(true)}
+            display={isMore ? 'none' : ''}
           >
             もっとみる
           </Text>

@@ -49,8 +49,9 @@ export const SearchSelect: FC<Props> = memo((props) => {
           },
           caretColor: '#fff',
           borderRadius: 3,
-          fontSize: 12,
+          fontSize: 11,
           fontWeight: 'bold',
+          fontFamily: 'Noto Sans JP sans serif',
         }),
         valueContainer: (provied) => ({
           ...provied,
@@ -64,7 +65,7 @@ export const SearchSelect: FC<Props> = memo((props) => {
           ...provied,
           my: 0,
           border: 'none',
-          boxShadow: '0px 3px 4px rgb(236 239 241)',
+          boxShadow: 'lg',
           bg: 'white',
           borderRadius: 3,
           color: 'black',
@@ -79,11 +80,11 @@ export const SearchSelect: FC<Props> = memo((props) => {
         }),
         option: (provied) => ({
           ...provied,
-          fontSize: 11.5,
+          fontSize: 11,
           my: 1,
           color: 'black',
-          fontWeight: 'semibold',
           bg: 'white',
+          fontFamily: 'Noto Sans JP',
           _hover: {
             bg: 'primary.light',
           },

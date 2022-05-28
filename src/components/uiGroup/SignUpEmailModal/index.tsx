@@ -9,16 +9,19 @@ import {
 } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useCreateUserMutation } from '../../../generated/graphql';
+import {
+  CreateUserInput,
+  useCreateUserMutation,
+} from '../../../generated/graphql';
 import { GraphQLError } from 'graphql';
 import { useNavigate } from 'react-router-dom';
 import { NameForm } from './NameForm';
 import { EmailForm } from './EmailForm';
 import { PasswordForm } from './PasswordForm';
 import { SubmitButton } from '../../uiParts/SubmitButton';
-import { signUpSchema, signUpType } from '../../../zod/userSchema';
+import { signUpSchema } from '../../../yup/userSchema';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 type Props = {
   isOpen: boolean;
@@ -38,20 +41,20 @@ export const SignUpEmailModal: FC<Props> = memo((props) => {
     reset,
     setError,
     formState: { isSubmitting },
-  } = useForm<signUpType>({
+  } = useForm<CreateUserInput>({
     defaultValues: {
       name: '',
       email: '',
       password: '',
     },
-    resolver: zodResolver(signUpSchema),
+    resolver: yupResolver(signUpSchema),
     mode: 'onChange',
   });
 
-  const onSubmit = async (values: signUpType) => {
-    console.log(values);
-
-    const res = await createUser(values);
+  const onSubmit = async (values: CreateUserInput) => {
+    const res = await createUser({
+      createUserInput: values,
+    });
 
     if (res.error) {
       res.error.graphQLErrors.forEach((error: GraphQLError) => {

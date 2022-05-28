@@ -11,7 +11,7 @@ export const SubmitButton: FC<Props> = memo((props) => {
   return (
     <Button
       fontSize={13}
-      isFullWidth
+      w="100%"
       isLoading={isSubmitting}
       bg="primary.main"
       color="white"
