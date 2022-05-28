@@ -801,10 +801,11 @@
   dependencies:
     "@chakra-ui/utils" "^2.0.0"
 
-"@chakra-ui/react@^2.1.0":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@chakra-ui/react/-/react-2.1.1.tgz#9775c182442d34629537e407ea4f27a285e62421"
-  integrity sha512-qiBN/QbISFrMJQv+FMWbzUqO9NH7AvqCCWmjbh90EHwJT8IDB6Apl/YZvv+et13+8cI3ScNpGLXEaMWhAu1ovg==
+
+"@chakra-ui/react@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/react/-/react-2.1.2.tgz#e47039378de3368e2e49551855b7306d581df3fb"
+  integrity sha512-4Lly69/sUBp1j35zyzC/N6YttA/lspg4eGuE3PemeCY6SdlDyc0ne1i+WZJ+iipG9eSYDOSQgpnDZ9hnnz4i9w==
   dependencies:
     "@chakra-ui/accordion" "2.0.2"
     "@chakra-ui/alert" "2.0.1"
@@ -848,7 +849,8 @@
     "@chakra-ui/tag" "2.0.1"
     "@chakra-ui/textarea" "2.0.2"
     "@chakra-ui/theme" "2.0.3"
-    "@chakra-ui/toast" "2.0.4"
+
+    "@chakra-ui/toast" "2.0.5"
     "@chakra-ui/tooltip" "2.0.1"
     "@chakra-ui/transition" "2.0.1"
     "@chakra-ui/utils" "2.0.1"
@@ -951,6 +953,7 @@
     "@chakra-ui/icon" "3.0.1"
     "@chakra-ui/utils" "2.0.1"
 
+
 "@chakra-ui/textarea@2.0.2":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@chakra-ui/textarea/-/textarea-2.0.2.tgz#0cad5e6362aabe55be605a1332ea1e383a7b0c48"
@@ -959,10 +962,18 @@
     "@chakra-ui/form-control" "2.0.1"
     "@chakra-ui/utils" "2.0.1"
 
-"@chakra-ui/theme-tools@2.0.1", "@chakra-ui/theme-tools@^2.0.0":
+"@chakra-ui/theme-tools@2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@chakra-ui/theme-tools/-/theme-tools-2.0.1.tgz#9b33e35d6a3753c4f487226cc0c37fa9cf52e731"
   integrity sha512-CQn87uYxe3X8JmTAA52+jVS3A9FtioT4NDRUISN178yRnOly1Z6s01iYlbT37LemLSP2T3bCnHqFhdQKgS5yew==
+  dependencies:
+    "@chakra-ui/utils" "2.0.1"
+    "@ctrl/tinycolor" "^3.4.0"
+
+"@chakra-ui/theme-tools@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/theme-tools/-/theme-tools-2.0.0.tgz#9d80c512d70e1cc4395140fb650229e79e3afb26"
+  integrity sha512-pTepRsph8JDtTVIB1GaSzzbp8BIN+Wiv6IxRnVyPPEWUrXoCsW88wDBOwj1sBnzX32+57c6esao2hqt7zP31Aw==
   dependencies:
     "@chakra-ui/utils" "2.0.1"
     "@ctrl/tinycolor" "^3.4.0"
@@ -976,10 +987,11 @@
     "@chakra-ui/theme-tools" "2.0.1"
     "@chakra-ui/utils" "2.0.1"
 
-"@chakra-ui/toast@2.0.4":
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/@chakra-ui/toast/-/toast-2.0.4.tgz#20b14cbed7d05eaee8a7f719cf67dcd95a3cff3f"
-  integrity sha512-QBhUIA2g0sgV9ub0aGxs98JXv2ydatep30RSanwo1JDXPB8TgqUfKmtqYwvoeUXUlpG7bLMlrlNXnw4f0pBczg==
+
+"@chakra-ui/toast@2.0.5":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/toast/-/toast-2.0.5.tgz#b83c0c5dce8ac1520dba0cdb7edd41530dbc9e77"
+  integrity sha512-J0iKPvq8kp3mUWXu4dkhGUlsZsMvHIWI7r/jpumMpNe39ngxOYNpRykzrHKW4/l96Uc0OhLzZhB5iIp6rq/bDg==
   dependencies:
     "@chakra-ui/alert" "2.0.1"
     "@chakra-ui/close-button" "2.0.1"
@@ -1009,6 +1021,17 @@
   integrity sha512-EI0Z61Mk7ZdiWxHA0twgtgGIUUcWGvL7GsVQrDeJQl7u2Boq+isONLWqYPqZReOXRGoSFBiKZOaxnzrmmD3OBg==
   dependencies:
     "@chakra-ui/utils" "2.0.1"
+
+
+"@chakra-ui/utils@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/utils/-/utils-2.0.0.tgz#1c66011b9de8443a198cff640aa2ee697b8c68ae"
+  integrity sha512-0ZZwnXiWJoDA6tOMBJuN9SOTNID4XBPvyW4FuyZjwkYu/6Hs3768YCu3z7Hn/YA9Rf63lMTipMlahdbvD2bOZg==
+  dependencies:
+    "@types/lodash.mergewith" "4.6.6"
+    css-box-model "1.2.1"
+    framesync "5.3.0"
+    lodash.mergewith "4.6.2"
 
 "@chakra-ui/utils@2.0.1", "@chakra-ui/utils@^2.0.0":
   version "2.0.1"
@@ -1644,7 +1667,7 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.5.tgz#db5a11bf66bdab39569719555b0f76e138d7bd64"
   integrity sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==
 
-"@react-google-maps/api@^2.10.3":
+"@react-google-maps/api@^2.11.8":
   version "2.11.8"
   resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-2.11.8.tgz#b8cdde7765546b145f18f39030d23a2115fb87b6"
   integrity sha512-Tf/BQ6deNQaYeziL9cysbwO90TJKU6GF6VMu0GlyGRO90Yesty4WJnnqM5a8Hdk9bmMYtQCqZwmrtjhWE9ql8Q==
@@ -3266,9 +3289,9 @@ formdata-node@^4.3.1:
     web-streams-polyfill "4.0.0-beta.1"
 
 framer-motion@^6:
-  version "6.3.3"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-6.3.3.tgz#58978fe6955d13000351ea4c134c9bc052638967"
-  integrity sha512-wo0dCnoq5vn4L8YVOPO9W54dliH78vDaX0Lj+bSPUys6Nt5QaehrS3uaYa0q5eVeikUgtTjz070UhQ94thI5Sw==
+  version "6.3.4"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-6.3.4.tgz#b8035f60c6d7863162310ddee32eb386212a3ce7"
+  integrity sha512-FXHqpY23g0MhznXpAf94SyEmUqfw7KoLaCQqTKrjWZgQzMkjvfOgOVYKUA9Dlmys6XGn0qN+AMzjhFJ1N5bH+A==
   dependencies:
     framesync "6.0.1"
     hey-listen "^1.0.8"
@@ -4766,10 +4789,10 @@ react-focus-lock@^2.9.1:
     use-callback-ref "^1.3.0"
     use-sidecar "^1.1.2"
 
-react-hook-form@^7.31.2:
-  version "7.31.2"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.31.2.tgz#efb7ac469810954488b7cf40be4e5017122c6e5e"
-  integrity sha512-oPudn3YuyzWg//IsT9z2cMEjWocAgHWX/bmueDT8cmsYQnGY5h7/njjvMDfLVv3mbdhYBjslTRnII2MIT7eNCA==
+react-hook-form@^7.31.3:
+  version "7.31.3"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.31.3.tgz#b61bafb9a7435f91695351a7a9f714d8c4df0121"
+  integrity sha512-NVZdCWViIWXXXlQ3jxVQH0NuNfwPf8A/0KvuCxrM9qxtP1qYosfR2ZudarziFrVOC7eTUbWbm1T4OyYCwv9oSQ==
 
 react-icons@^4.3.1:
   version "4.3.1"
@@ -5516,10 +5539,10 @@ type-fest@^0.21.3:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.21.3.tgz#d260a24b0198436e133fa26a524a6d65fa3b2e37"
   integrity sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==
 
-typescript@^4.6.3:
-  version "4.6.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.6.4.tgz#caa78bbc3a59e6a5c510d35703f6a09877ce45e9"
-  integrity sha512-9ia/jWHIEbo49HfjrLGfKbZSuWo9iTMwXO+Ca3pRsSpbsMbc7/IU8NKdCZVRRBafVPGnoJeFL76ZOAA84I9fEg==
+typescript@^4.7.2:
+  version "4.7.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.2.tgz#1f9aa2ceb9af87cca227813b4310fff0b51593c4"
+  integrity sha512-Mamb1iX2FDUpcTRzltPxgWMKy3fhg0TN378ylbktPGPK/99KbDtMQ4W1hwgsbPAsG3a0xKa1vmw4VKZQbkvz5A==
 
 ua-parser-js@^0.7.30:
   version "0.7.31"
