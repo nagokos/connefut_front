@@ -21,6 +21,7 @@ import { PasswordForm } from './PasswordForm';
 import { SubmitButton } from '../../uiParts/SubmitButton';
 import { loginSchema } from '../../../yup/userSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useFlash } from '../../../hooks/useFlash';
 
 type Props = {
   isOpen: boolean;
@@ -29,6 +30,8 @@ type Props = {
 
 export const LoginEmailModal: FC<Props> = memo((props) => {
   const { isOpen, onClose } = props;
+
+  const { showFlash } = useFlash();
 
   const navigate = useNavigate();
 
@@ -50,7 +53,9 @@ export const LoginEmailModal: FC<Props> = memo((props) => {
   });
 
   const onSubmit = async (values: LoginUserInput) => {
-    const res = await loginUser(values);
+    const res = await loginUser({
+      loginUserInput: values,
+    });
 
     if (res.error) {
       res.error.graphQLErrors.forEach((error: GraphQLError) => {
@@ -58,6 +63,7 @@ export const LoginEmailModal: FC<Props> = memo((props) => {
         setError(field, { message: error.message });
       });
     } else {
+      showFlash({ title: 'ログインしました', status: 'success' });
       navigate('/');
     }
   };
