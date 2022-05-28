@@ -52,9 +52,9 @@ export const SignUpEmailModal: FC<Props> = memo((props) => {
   });
 
   const onSubmit = async (values: CreateUserInput) => {
-    console.log(values);
-
-    const res = await createUser(values);
+    const res = await createUser({
+      createUserInput: values,
+    });
 
     if (res.error) {
       res.error.graphQLErrors.forEach((error: GraphQLError) => {
