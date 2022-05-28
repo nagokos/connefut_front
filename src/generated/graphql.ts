@@ -116,14 +116,6 @@ export type PageInfo = {
   startCursor: Scalars['String'];
 };
 
-export type PaginationInput = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  options?: InputMaybe<SearchRecruitmentInput>;
-};
-
 export type Prefecture = {
   __typename?: 'Prefecture';
   id: Scalars['String'];
@@ -221,13 +213,6 @@ export enum Role {
   General = 'GENERAL'
 }
 
-export type SearchRecruitmentInput = {
-  competitionId?: InputMaybe<Scalars['String']>;
-  prefectureId?: InputMaybe<Scalars['String']>;
-  startAt?: InputMaybe<Scalars['DateTime']>;
-  type?: InputMaybe<Scalars['String']>;
-};
-
 export enum Status {
   Closed = 'CLOSED',
   Draft = 'DRAFT',
@@ -279,6 +264,14 @@ export type LoginUserInput = {
   password: Scalars['String'];
 };
 
+export type PaginationInput = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  options?: InputMaybe<SearchRecruitmentInput>;
+};
+
 export type RecruitmentInput = {
   capacity?: InputMaybe<Scalars['Int']>;
   closingAt?: InputMaybe<Scalars['DateTime']>;
@@ -297,7 +290,15 @@ export type RecruitmentInput = {
 
 export type RecruitmentTagInput = {
   id: Scalars['String'];
+  isNew: Scalars['Boolean'];
   name: Scalars['String'];
+};
+
+export type SearchRecruitmentInput = {
+  competitionId?: InputMaybe<Scalars['String']>;
+  prefectureId?: InputMaybe<Scalars['String']>;
+  startAt?: InputMaybe<Scalars['DateTime']>;
+  type?: InputMaybe<Scalars['String']>;
 };
 
 export type GetCompetitionsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -336,23 +337,34 @@ export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetTagsQuery = { __typename?: 'Query', getTags: Array<{ __typename?: 'Tag', id: string, name: string }> };
 
+export type GetRecruitmentTagsQueryVariables = Exact<{
+  recruitmentId: Scalars['String'];
+}>;
+
+
+export type GetRecruitmentTagsQuery = { __typename?: 'Query', getRecruitmentTags: Array<{ __typename?: 'Tag', id: string, name: string } | null> };
+
+export type CreateTagMutationVariables = Exact<{
+  createTagInput: CreateTagInput;
+}>;
+
+
+export type CreateTagMutation = { __typename?: 'Mutation', createTag: { __typename?: 'Tag', id: string, name: string } };
+
 export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetCurrentUserQuery = { __typename?: 'Query', getCurrentUser?: { __typename?: 'User', id: string, name: string, email: string, role: Role, avatar: string, introduction?: string | null, emailVerificationStatus: EmailVerificationStatus } | null };
 
 export type CreateUserMutationVariables = Exact<{
-  name: Scalars['String'];
-  email: Scalars['String'];
-  password: Scalars['String'];
+  createUserInput: CreateUserInput;
 }>;
 
 
 export type CreateUserMutation = { __typename?: 'Mutation', createUser: boolean };
 
 export type LoginUserMutationVariables = Exact<{
-  email: Scalars['String'];
-  password: Scalars['String'];
+  loginUserInput: LoginUserInput;
 }>;
 
 
@@ -389,7 +401,7 @@ export function useGetPrefecturesQuery(options?: Omit<Urql.UseQueryArgs<GetPrefe
   return Urql.useQuery<GetPrefecturesQuery>({ query: GetPrefecturesDocument, ...options });
 };
 export const GetRecruitmentsDocument = gql`
-    query GetRecruitments($paginationInput: PaginationInput) {
+    query GetRecruitments($paginationInput: paginationInput) {
   getRecruitments(input: $paginationInput) {
     pageInfo {
       startCursor
@@ -483,6 +495,30 @@ export const GetTagsDocument = gql`
 export function useGetTagsQuery(options?: Omit<Urql.UseQueryArgs<GetTagsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetTagsQuery>({ query: GetTagsDocument, ...options });
 };
+export const GetRecruitmentTagsDocument = gql`
+    query GetRecruitmentTags($recruitmentId: String!) {
+  getRecruitmentTags(recruitmentId: $recruitmentId) {
+    id
+    name
+  }
+}
+    `;
+
+export function useGetRecruitmentTagsQuery(options: Omit<Urql.UseQueryArgs<GetRecruitmentTagsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetRecruitmentTagsQuery>({ query: GetRecruitmentTagsDocument, ...options });
+};
+export const CreateTagDocument = gql`
+    mutation CreateTag($createTagInput: createTagInput!) {
+  createTag(input: $createTagInput) {
+    id
+    name
+  }
+}
+    `;
+
+export function useCreateTagMutation() {
+  return Urql.useMutation<CreateTagMutation, CreateTagMutationVariables>(CreateTagDocument);
+};
 export const GetCurrentUserDocument = gql`
     query GetCurrentUser {
   getCurrentUser {
@@ -501,8 +537,8 @@ export function useGetCurrentUserQuery(options?: Omit<Urql.UseQueryArgs<GetCurre
   return Urql.useQuery<GetCurrentUserQuery>({ query: GetCurrentUserDocument, ...options });
 };
 export const CreateUserDocument = gql`
-    mutation CreateUser($name: String!, $email: String!, $password: String!) {
-  createUser(input: {name: $name, email: $email, password: $password})
+    mutation CreateUser($createUserInput: createUserInput!) {
+  createUser(input: $createUserInput)
 }
     `;
 
@@ -510,8 +546,8 @@ export function useCreateUserMutation() {
   return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument);
 };
 export const LoginUserDocument = gql`
-    mutation LoginUser($email: String!, $password: String!) {
-  loginUser(input: {email: $email, password: $password})
+    mutation LoginUser($loginUserInput: loginUserInput!) {
+  loginUser(input: $loginUserInput)
 }
     `;
 
