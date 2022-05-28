@@ -4,6 +4,7 @@ import {
   SignUp,
   RecruitmentDetails,
   RecruitmentNew,
+  Dashboard,
 } from '../pages';
 
 export const routes = (isLoggedIn: boolean) => [
@@ -26,5 +27,9 @@ export const routes = (isLoggedIn: boolean) => [
   {
     path: 'recruitments/:recruitmentId',
     element: <RecruitmentDetails />,
+  },
+  {
+    path: 'dashboard',
+    element: <Dashboard />,
   },
 ];

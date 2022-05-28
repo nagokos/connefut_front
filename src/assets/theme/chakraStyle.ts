@@ -57,6 +57,7 @@ export const recruitmentChakraStyle: ChakraStylesConfig<
     ...provied,
     fontSize: 11.5,
     my: 1,
+    fontFamily: 'Noto Sans JP',
     color: 'black',
     bg: 'white',
     _hover: {

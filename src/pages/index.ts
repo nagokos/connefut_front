@@ -3,3 +3,4 @@ export { SignUp } from './SignUp';
 export { Login } from './Login';
 export { RecruitmentNew } from './RecruitmentNew';
 export { RecruitmentDetails } from './RecruitmentDetails';
+export { Dashboard } from './Dashboard';

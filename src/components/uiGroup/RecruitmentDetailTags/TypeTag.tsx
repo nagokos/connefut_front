@@ -47,8 +47,8 @@ export const TypeTag: FC<Props> = memo((props) => {
         alignItems="center"
         justifyContent="center"
         as="span"
-        w={8}
-        h={8}
+        w={9}
+        h={9}
         rounded="full"
         mr={1.5}
         fontSize={18}
@@ -56,7 +56,7 @@ export const TypeTag: FC<Props> = memo((props) => {
       >
         {typeEmoji(type)}
       </Box>
-      <Text fontSize={12} fontFamily="ヒラギノゴシック">
+      <Text fontSize={11} fontFamily="Noto Sans JP">
         {typeString(type)}
       </Text>
     </Box>

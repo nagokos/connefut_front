@@ -25,7 +25,7 @@ export const CompTag: FC<Props> = memo((props) => {
       >
         ⚽️
       </Box>
-      <Text fontSize={12} fontFamily="ヒラギノゴシック">
+      <Text fontSize={11} fontFamily="Noto Sans JP">
         {compName}
       </Text>
     </Box>

@@ -67,7 +67,7 @@ export const HomeSearch: FC = memo(() => {
           <DatePicker />
         </Stack>
         <Divider my={7} borderColor="#E1EBE9" />
-        <Box mt={-2}>
+        <Box mt={-2} px={1}>
           <Text fontSize={13} fontWeight="bold" color="blackAlpha.500">
             タグ
           </Text>
