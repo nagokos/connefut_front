@@ -79,7 +79,7 @@ export const AvatarMenu: FC<Props> = memo((props) => {
       <MenuButton>
         <Avatar w={9} height={9} src={user.avatar} />
       </MenuButton>
-      <MenuList minW={240} py={0} boxShadow="md">
+      <MenuList minW={240} py={0} boxShadow="xl">
         <MenuItem
           py={4}
           _hover={{ bg: 'primary.light' }}
@@ -87,7 +87,7 @@ export const AvatarMenu: FC<Props> = memo((props) => {
           _active={{ bg: 'primary.light' }}
         >
           <Avatar w={9} height={9} mr={3} src={user.avatar} />
-          <Text fontSize={14} fontFamily="Noto Sans JP">
+          <Text fontSize={14} fontFamily="ヒラギノ角ゴシック">
             {user.name}
           </Text>
         </MenuItem>
