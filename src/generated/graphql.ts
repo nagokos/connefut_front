@@ -182,11 +182,13 @@ export type Recruitment = {
   closingAt?: Maybe<Scalars['DateTime']>;
   competition?: Maybe<Competition>;
   content?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
   id: Scalars['String'];
   locationLat?: Maybe<Scalars['Float']>;
   locationLng?: Maybe<Scalars['Float']>;
   place?: Maybe<Scalars['String']>;
   prefecture?: Maybe<Prefecture>;
+  published_at?: Maybe<Scalars['DateTime']>;
   startAt?: Maybe<Scalars['DateTime']>;
   status: Status;
   tags: Array<Maybe<Tag>>;
@@ -324,6 +326,11 @@ export type GetRecruitmentQueryVariables = Exact<{
 
 
 export type GetRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, place?: string | null, startAt?: any | null, content?: string | null, capacity?: number | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, user: { __typename?: 'User', id: string, name: string, avatar: string } } };
+
+export type GetCurrentUserRecruitmentsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCurrentUserRecruitmentsQuery = { __typename?: 'Query', getCurrentUserRecruitments: Array<{ __typename?: 'Recruitment', id: string, title: string, status: Status, type: Type, closingAt?: any | null, createdAt: any, published_at?: any | null, competition?: { __typename?: 'Competition', id: string, name: string } | null }> };
 
 export type CreateRecruitmentMutationVariables = Exact<{
   recruitmentInput: RecruitmentInput;
@@ -470,6 +477,27 @@ export const GetRecruitmentDocument = gql`
 
 export function useGetRecruitmentQuery(options: Omit<Urql.UseQueryArgs<GetRecruitmentQueryVariables>, 'query'>) {
   return Urql.useQuery<GetRecruitmentQuery>({ query: GetRecruitmentDocument, ...options });
+};
+export const GetCurrentUserRecruitmentsDocument = gql`
+    query GetCurrentUserRecruitments {
+  getCurrentUserRecruitments {
+    id
+    title
+    status
+    type
+    closingAt
+    createdAt
+    published_at
+    competition {
+      id
+      name
+    }
+  }
+}
+    `;
+
+export function useGetCurrentUserRecruitmentsQuery(options?: Omit<Urql.UseQueryArgs<GetCurrentUserRecruitmentsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetCurrentUserRecruitmentsQuery>({ query: GetCurrentUserRecruitmentsDocument, ...options });
 };
 export const CreateRecruitmentDocument = gql`
     mutation CreateRecruitment($recruitmentInput: recruitmentInput!) {
@@ -1308,6 +1336,17 @@ export default {
             "args": []
           },
           {
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
             "name": "id",
             "type": {
               "kind": "NON_NULL",
@@ -1348,6 +1387,14 @@ export default {
               "kind": "OBJECT",
               "name": "Prefecture",
               "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "published_at",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
