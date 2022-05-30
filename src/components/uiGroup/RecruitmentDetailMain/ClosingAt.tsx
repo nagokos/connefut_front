@@ -35,7 +35,14 @@ export const ClosingAt: FC<Props> = memo((props) => {
         <Box mr={1}>■</Box>
         <Box>募集期限</Box>
       </Box>
-      <Box fontSize={14} px={2} py={1} rounded="md" bg="primary.light">
+      <Box
+        fontFamily="ヒラギノ角ゴシック"
+        fontSize={14}
+        px={2}
+        py={1}
+        rounded="md"
+        bg="primary.light"
+      >
         残り
         <Box as="span" fontWeight="bold">
           {timeLimitFindNum(String(closingAt))}
