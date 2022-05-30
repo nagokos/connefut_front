@@ -30,7 +30,14 @@ export const DetailType: FC<Props> = memo((props) => {
           <Box mr={1}>■</Box>
           <Box>募集タイプ</Box>
         </Box>
-        <Box bg="primary.light" fontSize={14} px={2} py={1} rounded="md">
+        <Box
+          bg="primary.light"
+          fontFamily="ヒラギノ角ゴシック"
+          fontSize={14}
+          px={2}
+          py={1}
+          rounded="md"
+        >
           {typeString(type)}
         </Box>
       </Box>
