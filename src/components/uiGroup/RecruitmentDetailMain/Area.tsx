@@ -15,7 +15,14 @@ export const Area: FC<Props> = memo((props) => {
         <Box mr={1}>■</Box>
         <Box>エリア・会場</Box>
       </Box>
-      <Box bg="primary.light" fontSize={14} px={2} py={1} rounded="md">
+      <Box
+        fontFamily="ヒラギノ角ゴシック"
+        bg="primary.light"
+        fontSize={14}
+        px={2}
+        py={1}
+        rounded="md"
+      >
         {place ? `${prefName} (${place})` : prefName}
       </Box>
     </Box>
