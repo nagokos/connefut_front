@@ -18,7 +18,7 @@ export const Title: FC = memo(() => {
         }
       >
         <Image src="/src/assets/img/logo.png" alt="app logo" w={7} mr={1.5} />
-        <Text fontFamily="Nunito" fontWeight="bold" fontSize={25}>
+        <Text fontWeight="bold" fontFamily="Nunito" fontSize={25}>
           Connefut
         </Text>
       </Box>
