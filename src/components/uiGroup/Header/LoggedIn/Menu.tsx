@@ -47,6 +47,7 @@ export const AvatarMenu: FC<Props> = memo((props) => {
     {
       icon: <MdOutlineArticle color="#78909c" fontSize={19} />,
       title: '募集の管理',
+      onClick: () => navigate('/dashboard'),
     },
     {
       icon: <MdOutlineEventNote color="#78909c" fontSize={19} />,
