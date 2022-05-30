@@ -6,7 +6,7 @@ export const Stock: FC = memo(() => {
   return (
     <>
       <Text fontSize={13.5} letterSpacing={1} fontFamily="Noto Sans JP">
-        10人がストック中
+        10人がストック済み
       </Text>
       <Button
         mt={4}
