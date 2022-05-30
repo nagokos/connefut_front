@@ -28,7 +28,7 @@ export const MainTag: FC<Props> = memo((props) => {
       >
         <IoMdPricetag />
       </Box>
-      <Text fontSize={11} fontFamily="Noto Sans JP">
+      <Text fontSize={11} fontFamily="ヒラギノ角ゴシック">
         {tag?.name}
       </Text>
     </Box>
