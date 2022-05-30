@@ -30,6 +30,7 @@ export const FormContent: FC<Props> = memo((props) => {
           fontSize={14}
           wordBreak="break-word"
           wrap="break-word"
+          fontFamily="ヒラギノ角ゴシック"
           whiteSpace="pre-wrap"
           _placeholder={{
             color: 'blackAlpha.600',
