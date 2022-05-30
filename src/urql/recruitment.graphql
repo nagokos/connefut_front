@@ -59,6 +59,22 @@ query GetRecruitment($id: String!) {
   }
 }
 
+query GetCurrentUserRecruitments {
+  getCurrentUserRecruitments {
+    id
+    title
+    status
+    type
+    closingAt
+    createdAt
+    published_at
+    competition {
+      id
+      name
+    }
+  }
+}
+
 mutation CreateRecruitment($recruitmentInput: recruitmentInput!) {
   createRecruitment(input: $recruitmentInput) {
     id
