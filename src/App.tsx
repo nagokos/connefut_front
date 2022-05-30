@@ -21,6 +21,7 @@ export const App: FC = memo(() => {
   const isNeedHeader = (): boolean => {
     return (
       location.pathname === '/' ||
+      location.pathname.includes('/dashboard') ||
       (location.pathname.includes('/recruitments') &&
         !location.pathname.includes('/new'))
     );

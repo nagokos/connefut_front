@@ -50,7 +50,7 @@ export const Closing: FC<Props> = memo((props) => {
         <Box fontSize={12} mr={1}>
           ⏰
         </Box>
-        <Box fontSize={11}>
+        <Box fontFamily="ヒラギノ角ゴシック" fontSize={11}>
           残り
           <Box as="span" fontWeight="bold" fontSize={11.5}>
             {timeLimitFindNum(String(recruitment.closingAt))}

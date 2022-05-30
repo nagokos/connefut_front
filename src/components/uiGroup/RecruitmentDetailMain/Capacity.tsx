@@ -14,7 +14,13 @@ export const Capacity: FC<Props> = memo((props) => {
         <Box mr={1}>■</Box>
         <Box>定員数</Box>
       </Box>
-      <Box fontSize={14} px={2} py={1} rounded="md">
+      <Box
+        fontFamily="ヒラギノ角ゴシック"
+        fontSize={14}
+        px={2}
+        py={1}
+        rounded="md"
+      >
         {capacity}
       </Box>
     </Box>

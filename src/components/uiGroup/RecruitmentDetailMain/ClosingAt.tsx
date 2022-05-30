@@ -36,7 +36,7 @@ export const ClosingAt: FC<Props> = memo((props) => {
         <Box>募集期限</Box>
       </Box>
       <Box
-        fontFamily="ヒラギノゴシック"
+        fontFamily="ヒラギノ角ゴシック"
         fontSize={14}
         px={2}
         py={1}
@@ -49,11 +49,9 @@ export const ClosingAt: FC<Props> = memo((props) => {
         </Box>
         {timeLimitFindS(String(closingAt))}
         <Box as="span" ml={1}>
-          (
-          {format(new Date(String(closingAt)), 'yyyy/MM/dd（E）HH:mm', {
+          {format(new Date(String(closingAt)), 'yyyy年MM月dd日 (E) HH:mm', {
             locale: ja,
           })}
-          )
         </Box>
       </Box>
     </Box>

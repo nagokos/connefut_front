@@ -1,9 +1,11 @@
+import { Navigate } from 'react-router-dom';
 import {
   Home,
   Login,
   SignUp,
   RecruitmentDetails,
   RecruitmentNew,
+  Dashboard,
 } from '../pages';
 
 export const routes = (isLoggedIn: boolean) => [
@@ -21,10 +23,14 @@ export const routes = (isLoggedIn: boolean) => [
   },
   {
     path: 'recruitments/new',
-    element: isLoggedIn ? <RecruitmentNew /> : <Login />,
+    element: isLoggedIn ? <RecruitmentNew /> : <Navigate to="/login" />,
   },
   {
     path: 'recruitments/:recruitmentId',
     element: <RecruitmentDetails />,
+  },
+  {
+    path: 'dashboard',
+    element: isLoggedIn ? <Dashboard /> : <Navigate to="/login" />,
   },
 ];

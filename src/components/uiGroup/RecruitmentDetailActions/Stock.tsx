@@ -5,13 +5,8 @@ import { MdOutlineBookmarkBorder } from 'react-icons/md';
 export const Stock: FC = memo(() => {
   return (
     <>
-      <Text
-        fontWeight="bold"
-        fontSize={13.5}
-        letterSpacing={1}
-        fontFamily="ヒラギノゴシック"
-      >
-        10人がストック中
+      <Text fontSize={13.5} letterSpacing={1} fontFamily="Noto Sans JP">
+        10人がストック済み
       </Text>
       <Button
         mt={4}

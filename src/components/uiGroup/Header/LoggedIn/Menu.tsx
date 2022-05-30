@@ -47,6 +47,7 @@ export const AvatarMenu: FC<Props> = memo((props) => {
     {
       icon: <MdOutlineArticle color="#78909c" fontSize={19} />,
       title: '募集の管理',
+      onClick: () => navigate('/dashboard'),
     },
     {
       icon: <MdOutlineEventNote color="#78909c" fontSize={19} />,
@@ -78,7 +79,7 @@ export const AvatarMenu: FC<Props> = memo((props) => {
       <MenuButton>
         <Avatar w={9} height={9} src={user.avatar} />
       </MenuButton>
-      <MenuList minW={230} py={0} boxShadow="md">
+      <MenuList minW={240} py={0} boxShadow="xl">
         <MenuItem
           py={4}
           _hover={{ bg: 'primary.light' }}
@@ -86,7 +87,9 @@ export const AvatarMenu: FC<Props> = memo((props) => {
           _active={{ bg: 'primary.light' }}
         >
           <Avatar w={9} height={9} mr={3} src={user.avatar} />
-          <Text fontSize={15}>{user.name}</Text>
+          <Text fontSize={14} fontFamily="ヒラギノ角ゴシック">
+            {user.name}
+          </Text>
         </MenuItem>
         <MenuDivider my={0} borderColor="#ebf2f2" />
         {lists.map((list, key) => (

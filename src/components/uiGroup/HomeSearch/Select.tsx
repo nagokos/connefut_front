@@ -35,6 +35,7 @@ export const SearchSelect: FC<Props> = memo((props) => {
         input: (provied) => ({
           ...provied,
           px: 10,
+          cursor: 'pointer',
         }),
         control: (provied) => ({
           ...provied,
@@ -51,7 +52,6 @@ export const SearchSelect: FC<Props> = memo((props) => {
           borderRadius: 3,
           fontSize: 11,
           fontWeight: 'bold',
-          fontFamily: 'Noto Sans JP sans serif',
         }),
         valueContainer: (provied) => ({
           ...provied,

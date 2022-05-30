@@ -4,12 +4,7 @@ import { FC, memo } from 'react';
 export const Apply: FC = memo(() => {
   return (
     <>
-      <Text
-        fontWeight="bold"
-        fontSize={13.5}
-        letterSpacing={1}
-        fontFamily="ヒラギノゴシック"
-      >
+      <Text fontSize={13.5} letterSpacing={1} fontFamily="Noto Sans JP">
         1人が応募中
       </Text>
       <Button

@@ -59,7 +59,9 @@ export const TypeArea: FC<Props> = memo((props) => {
         <Box fontSize={12} mr={1}>
           {typeEmoji(recruitment.type)}
         </Box>
-        <Box fontSize={11}>{typeString(recruitment.type)}</Box>
+        <Box fontFamily="ヒラギノ角ゴシック" fontSize={11}>
+          {typeString(recruitment.type)}
+        </Box>
       </Box>
     </Box>
   );

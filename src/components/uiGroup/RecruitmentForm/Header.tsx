@@ -27,7 +27,7 @@ export const Header: FC<Props> = memo((props) => {
       top={0}
       zIndex={100}
     >
-      <ArrowLeftButton clickEvent={() => navigate('/')} />
+      <ArrowLeftButton clickEvent={() => navigate('/dashboard')} />
       <Spacer />
       <HStack spacing={4}>
         <Button

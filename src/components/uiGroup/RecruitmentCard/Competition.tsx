@@ -28,7 +28,9 @@ export const Competition: FC<Props> = memo((props) => {
         <Box fontSize={12} mr={1}>
           ⚽️
         </Box>
-        <Box fontSize={11}>{recruitment.competition?.name}</Box>
+        <Box fontFamily="ヒラギノ角ゴシック" fontSize={11}>
+          {recruitment.competition?.name}
+        </Box>
       </Box>
     </Box>
   );

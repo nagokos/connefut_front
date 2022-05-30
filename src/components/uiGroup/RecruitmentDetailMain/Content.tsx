@@ -29,6 +29,7 @@ export const Content: FC<Props> = memo((props) => {
         whiteSpace="pre-wrap"
         rounded="md"
         minW="590"
+        fontFamily="ヒラギノ角ゴシック"
       >
         {content}
       </Text>

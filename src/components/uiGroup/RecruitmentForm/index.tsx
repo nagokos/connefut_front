@@ -29,9 +29,12 @@ import { FormType } from './Type';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useFlash } from '../../../hooks/useFlash';
 import { FormTags } from './Tags';
+import { useNavigate } from 'react-router-dom';
 
 export const RecruitmentForm: FC = memo(() => {
   const [data] = useGetCompetitionsQuery();
+
+  const navigate = useNavigate();
 
   const { showFlash } = useFlash();
 
@@ -70,6 +73,7 @@ export const RecruitmentForm: FC = memo(() => {
     const res = await createRecruitment({
       recruitmentInput: values,
     });
+    navigate('/dashboard');
   };
 
   useEffect(() => {

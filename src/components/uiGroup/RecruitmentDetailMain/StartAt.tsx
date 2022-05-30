@@ -19,13 +19,13 @@ export const StartAt: FC<Props> = memo((props) => {
       </Box>
       <Box
         bg="primary.light"
+        fontFamily="ヒラギノ角ゴシック"
         fontSize={14}
         px={2}
         py={1}
         rounded="md"
-        fontFamily="ヒラギノゴシック"
       >
-        {format(new Date(String(startAt)), 'yyyy/MM/dd（E）HH:mm', {
+        {format(new Date(String(startAt)), 'yyyy年MM月dd日 (E) HH:mm', {
           locale: ja,
         })}
       </Box>
