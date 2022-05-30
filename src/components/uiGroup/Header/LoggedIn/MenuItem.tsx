@@ -23,7 +23,7 @@ export const AvatarMenuItem: FC<Props> = memo((props) => {
         _active={{ bg: '#f0f5f4' }}
         _hover={{ bg: 'primary.light' }}
       >
-        <Text fontSize={13} fontFamily="Noto Sans JP">
+        <Text fontSize={13} fontFamily="ヒラギノ角ゴシック">
           {list.title}
         </Text>
       </MenuItem>
