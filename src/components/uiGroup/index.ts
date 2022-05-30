@@ -9,3 +9,4 @@ export { RecruitmentDetailActions } from './RecruitmentDetailActions';
 export { RecruitmentDetailUser } from './RecruitmentDetailUser';
 export { RecruitmentForm } from './RecruitmentForm';
 export { LocationModal } from './LocationModal';
+export { DashboardButtons } from './DashboardButtons';
