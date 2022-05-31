@@ -14,7 +14,6 @@ import { FormPrefecture } from './FormPrefecture';
 import { FormPlace } from './FormPlace';
 import { FormStartAt } from './FormStartAt';
 import { FormClosingAt } from './FormClosingAt';
-import { FormCapacity } from './FormCapacity';
 import { FormLocationMap } from './FormLocationMap';
 import { AnyDivider } from './AnyDivider';
 import {
@@ -58,7 +57,6 @@ export const RecruitmentForm: FC = memo(() => {
       startAt: '',
       status: Status.Draft,
       closingAt: '',
-      capacity: undefined,
       locationLat: undefined,
       locationLng: undefined,
       tags: [],
@@ -84,7 +82,6 @@ export const RecruitmentForm: FC = memo(() => {
     ) {
       resetField('place');
       resetField('startAt');
-      resetField('capacity');
       resetField('locationLat');
       resetField('locationLng');
     }
@@ -127,9 +124,6 @@ export const RecruitmentForm: FC = memo(() => {
                 </>
               ) : null}
               <FormClosingAt control={control} />
-              {watchType === Type.Opponent || watchType === Type.Individual ? (
-                <FormCapacity control={control} />
-              ) : null}
             </SimpleGrid>
             <AnyDivider />
             <SimpleGrid columns={2} gap={8}>

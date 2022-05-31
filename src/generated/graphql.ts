@@ -48,7 +48,7 @@ export type Mutation = {
   createStock: Scalars['Boolean'];
   createTag: Tag;
   createUser: Scalars['Boolean'];
-  deleteRecruitment: Scalars['Boolean'];
+  deleteRecruitment: Recruitment;
   deleteStock: Scalars['Boolean'];
   loginUser: Scalars['Boolean'];
   logoutUser: Scalars['Boolean'];
@@ -178,7 +178,6 @@ export type QueryGetStockedCountArgs = {
 export type Recruitment = {
   __typename?: 'Recruitment';
   applicant?: Maybe<Applicant>;
-  capacity?: Maybe<Scalars['Int']>;
   closingAt?: Maybe<Scalars['DateTime']>;
   competition?: Maybe<Competition>;
   content?: Maybe<Scalars['String']>;
@@ -275,7 +274,6 @@ export type PaginationInput = {
 };
 
 export type RecruitmentInput = {
-  capacity?: InputMaybe<Scalars['Int']>;
   closingAt?: InputMaybe<Scalars['DateTime']>;
   competitionId: Scalars['String'];
   content?: InputMaybe<Scalars['String']>;
@@ -318,14 +316,14 @@ export type GetRecruitmentsQueryVariables = Exact<{
 }>;
 
 
-export type GetRecruitmentsQuery = { __typename?: 'Query', getRecruitments: { __typename?: 'RecruitmentConnection', pageInfo: { __typename?: 'PageInfo', startCursor: string, endCursor: string, hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'RecruitmentEdge', cursor: string, node: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, updatedAt: any, closingAt?: any | null, user: { __typename?: 'User', name: string, avatar: string }, prefecture?: { __typename?: 'Prefecture', name: string } | null, competition?: { __typename?: 'Competition', name: string } | null } }> } };
+export type GetRecruitmentsQuery = { __typename?: 'Query', getRecruitments: { __typename?: 'RecruitmentConnection', pageInfo: { __typename?: 'PageInfo', startCursor: string, endCursor: string, hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'RecruitmentEdge', cursor: string, node: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, published_at?: any | null, closingAt?: any | null, user: { __typename?: 'User', name: string, avatar: string }, prefecture?: { __typename?: 'Prefecture', name: string } | null, competition?: { __typename?: 'Competition', name: string } | null } }> } };
 
 export type GetRecruitmentQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type GetRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, place?: string | null, startAt?: any | null, content?: string | null, capacity?: number | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, user: { __typename?: 'User', id: string, name: string, avatar: string } } };
+export type GetRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, place?: string | null, startAt?: any | null, content?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, user: { __typename?: 'User', id: string, name: string, avatar: string } } };
 
 export type GetCurrentUserRecruitmentsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -338,6 +336,13 @@ export type CreateRecruitmentMutationVariables = Exact<{
 
 
 export type CreateRecruitmentMutation = { __typename?: 'Mutation', createRecruitment: { __typename?: 'Recruitment', id: string, title: string } };
+
+export type DeleteRecruitmentMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type DeleteRecruitmentMutation = { __typename?: 'Mutation', deleteRecruitment: { __typename?: 'Recruitment', id: string, title: string } };
 
 export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -423,7 +428,7 @@ export const GetRecruitmentsDocument = gql`
         title
         type
         status
-        updatedAt
+        published_at
         closingAt
         user {
           name
@@ -454,7 +459,6 @@ export const GetRecruitmentDocument = gql`
     place
     startAt
     content
-    capacity
     closingAt
     competition {
       id
@@ -510,6 +514,18 @@ export const CreateRecruitmentDocument = gql`
 
 export function useCreateRecruitmentMutation() {
   return Urql.useMutation<CreateRecruitmentMutation, CreateRecruitmentMutationVariables>(CreateRecruitmentDocument);
+};
+export const DeleteRecruitmentDocument = gql`
+    mutation DeleteRecruitment($id: String!) {
+  deleteRecruitment(id: $id) {
+    id
+    title
+  }
+}
+    `;
+
+export function useDeleteRecruitmentMutation() {
+  return Urql.useMutation<DeleteRecruitmentMutation, DeleteRecruitmentMutationVariables>(DeleteRecruitmentDocument);
 };
 export const GetTagsDocument = gql`
     query GetTags {
@@ -820,8 +836,9 @@ export default {
             "type": {
               "kind": "NON_NULL",
               "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
+                "kind": "OBJECT",
+                "name": "Recruitment",
+                "ofType": null
               }
             },
             "args": [
@@ -1299,14 +1316,6 @@ export default {
               "kind": "OBJECT",
               "name": "Applicant",
               "ofType": null
-            },
-            "args": []
-          },
-          {
-            "name": "capacity",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
             },
             "args": []
           },

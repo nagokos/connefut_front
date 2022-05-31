@@ -448,8 +448,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
+                "kind": "OBJECT",
+                "name": "Recruitment",
                 "ofType": null
               }
             },
@@ -1121,18 +1121,6 @@
             "type": {
               "kind": "OBJECT",
               "name": "Applicant",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "capacity",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2899,18 +2887,6 @@
         "description": null,
         "fields": null,
         "inputFields": [
-          {
-            "name": "capacity",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "closingAt",
             "description": null,

@@ -13,7 +13,7 @@ query GetRecruitments($paginationInput: paginationInput) {
         title
         type
         status
-        updatedAt
+        published_at
         closingAt
         user {
           name
@@ -39,7 +39,6 @@ query GetRecruitment($id: String!) {
     place
     startAt
     content
-    capacity
     closingAt
     competition {
       id
@@ -77,6 +76,13 @@ query GetCurrentUserRecruitments {
 
 mutation CreateRecruitment($recruitmentInput: recruitmentInput!) {
   createRecruitment(input: $recruitmentInput) {
+    id
+    title
+  }
+}
+
+mutation DeleteRecruitment($id: String!) {
+  deleteRecruitment(id: $id) {
     id
     title
   }

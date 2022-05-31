@@ -10,7 +10,7 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { FC, memo, useState } from 'react';
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 
-import { RecruitmentInput } from '../../../generated/graphql';
+import { RecruitmentInput } from '../../../../generated/graphql';
 import { RegisterButton } from './RegisterButton';
 import { SearchBox } from './SearchBox';
 

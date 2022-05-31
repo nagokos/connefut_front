@@ -18,12 +18,11 @@ export type CardRecruitment = {
   type: Type;
   prefecture?: CardPrefecture | null | undefined;
   user: CardUser;
-  capacity?: number | null | undefined;
   place?: string | null | undefined;
   competition?: CardCompetition | null | undefined;
   startAt?: string;
   closingAt?: string;
-  updatedAt: string;
+  published_at?: string;
 };
 
 export type CardPrefecture = {
