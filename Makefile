@@ -7,6 +7,9 @@ package_name:
 yarn:
 	$(DC_FRONT) yarn
 
+yarn_upgrade:
+	$(DC_FRONT) yarn upgrade
+
 yarn_add: package_name
 	$(DC_FRONT) yarn add $(PACKAGE_NAME)
 
