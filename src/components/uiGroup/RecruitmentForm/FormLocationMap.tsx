@@ -2,7 +2,7 @@ import { FormControl, FormLabel, Input, useDisclosure } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 
-import { LocationModal } from '..';
+import { LocationModal } from './LocationModal';
 import { RecruitmentInput } from '../../../generated/graphql';
 
 type Props = {
