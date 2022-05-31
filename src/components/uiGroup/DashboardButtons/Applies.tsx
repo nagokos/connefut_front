@@ -8,7 +8,7 @@ export const Applies: FC = memo(() => {
       cursor="pointer"
       display="flex"
       alignItems="center"
-      color="blackAlpha.600"
+      color="blackAlpha.500"
       _hover={{ color: 'black' }}
     >
       <Box fontSize={20} color="primary.main">
