@@ -57,6 +57,7 @@ export const AvatarMenu: FC<Props> = memo((props) => {
       icon: <MdOutlineBookmarkBorder color="#78909c" fontSize={19} />,
       title: 'ストックの管理',
       divider: true,
+      onClick: () => navigate('/dashboard/stocks'),
     },
     {
       icon: <MdOutlineSettings color="#78909c" fontSize={19} />,
