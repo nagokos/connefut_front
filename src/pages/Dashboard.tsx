@@ -1,17 +1,27 @@
-import { Box, CircularProgress, Grid, GridItem, Stack } from '@chakra-ui/react';
-import { FC, memo, Suspense } from 'react';
+import { Box, Grid, GridItem, Stack } from '@chakra-ui/react';
+import { FC, memo } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import { DashboardButtons } from '../components/uiGroup';
-import { DashboardRecruitments } from '../components/uiGroup/DashboardRecruitment';
 
 export const Dashboard: FC = memo(() => {
+  const location = useLocation();
+
+  const pageTitle = () => {
+    if (location.pathname.includes('stocks')) {
+      return 'Stocks';
+    } else {
+      return 'Recruitments';
+    }
+  };
+
   return (
     <Box mt={12} maxWidth={1120} mx="auto">
       <Grid templateColumns="repeat(5, 1fr)" gap={28}>
         <GridItem colSpan={1} />
         <GridItem pl={4} colSpan={4}>
           <Box fontSize={40} fontWeight="bold">
-            Recruitments
+            {pageTitle()}
           </Box>
         </GridItem>
       </Grid>
@@ -22,19 +32,7 @@ export const Dashboard: FC = memo(() => {
           </Stack>
         </GridItem>
         <GridItem py={3} colSpan={4}>
-          <Suspense
-            fallback={
-              <Box textAlign="center">
-                <CircularProgress
-                  size={9}
-                  isIndeterminate
-                  color="primary.main"
-                />
-              </Box>
-            }
-          >
-            <DashboardRecruitments />
-          </Suspense>
+          <Outlet />
         </GridItem>
       </Grid>
     </Box>

@@ -74,6 +74,19 @@ query GetCurrentUserRecruitments {
   }
 }
 
+query GetStockedRecruitments {
+  getStockedRecruitments {
+    id
+    title
+    closingAt
+    user {
+      id
+      name
+      avatar
+    }
+  }
+}
+
 mutation CreateRecruitment($recruitmentInput: recruitmentInput!) {
   createRecruitment(input: $recruitmentInput) {
     id

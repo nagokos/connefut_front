@@ -103,7 +103,7 @@ export const RecruitmentForm: FC = memo(() => {
           <Header setValue={setValue} isSubmitting={isSubmitting} />
           <Box maxW={700} mx="auto" pt={16} pb={60} zIndex={0}>
             <FormTitle control={control} />
-            <Box mt={4} display="flex">
+            <Box mt={5} display="flex">
               <Box mr={3}>
                 <FormCompetition
                   control={control}

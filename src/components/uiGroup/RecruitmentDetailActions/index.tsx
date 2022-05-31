@@ -1,5 +1,6 @@
 import { Box, Divider } from '@chakra-ui/react';
 import { FC, memo } from 'react';
+
 import { Apply } from './Apply';
 import { Stock } from './Stock';
 
