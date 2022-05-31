@@ -178,7 +178,6 @@ export type QueryGetStockedCountArgs = {
 export type Recruitment = {
   __typename?: 'Recruitment';
   applicant?: Maybe<Applicant>;
-  capacity?: Maybe<Scalars['Int']>;
   closingAt?: Maybe<Scalars['DateTime']>;
   competition?: Maybe<Competition>;
   content?: Maybe<Scalars['String']>;
@@ -275,7 +274,6 @@ export type PaginationInput = {
 };
 
 export type RecruitmentInput = {
-  capacity?: InputMaybe<Scalars['Int']>;
   closingAt?: InputMaybe<Scalars['DateTime']>;
   competitionId: Scalars['String'];
   content?: InputMaybe<Scalars['String']>;
@@ -318,14 +316,14 @@ export type GetRecruitmentsQueryVariables = Exact<{
 }>;
 
 
-export type GetRecruitmentsQuery = { __typename?: 'Query', getRecruitments: { __typename?: 'RecruitmentConnection', pageInfo: { __typename?: 'PageInfo', startCursor: string, endCursor: string, hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'RecruitmentEdge', cursor: string, node: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, updatedAt: any, closingAt?: any | null, user: { __typename?: 'User', name: string, avatar: string }, prefecture?: { __typename?: 'Prefecture', name: string } | null, competition?: { __typename?: 'Competition', name: string } | null } }> } };
+export type GetRecruitmentsQuery = { __typename?: 'Query', getRecruitments: { __typename?: 'RecruitmentConnection', pageInfo: { __typename?: 'PageInfo', startCursor: string, endCursor: string, hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'RecruitmentEdge', cursor: string, node: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, published_at?: any | null, closingAt?: any | null, user: { __typename?: 'User', name: string, avatar: string }, prefecture?: { __typename?: 'Prefecture', name: string } | null, competition?: { __typename?: 'Competition', name: string } | null } }> } };
 
 export type GetRecruitmentQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type GetRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, place?: string | null, startAt?: any | null, content?: string | null, capacity?: number | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, user: { __typename?: 'User', id: string, name: string, avatar: string } } };
+export type GetRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, place?: string | null, startAt?: any | null, content?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, user: { __typename?: 'User', id: string, name: string, avatar: string } } };
 
 export type GetCurrentUserRecruitmentsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -423,7 +421,7 @@ export const GetRecruitmentsDocument = gql`
         title
         type
         status
-        updatedAt
+        published_at
         closingAt
         user {
           name
@@ -454,7 +452,6 @@ export const GetRecruitmentDocument = gql`
     place
     startAt
     content
-    capacity
     closingAt
     competition {
       id
@@ -1299,14 +1296,6 @@ export default {
               "kind": "OBJECT",
               "name": "Applicant",
               "ofType": null
-            },
-            "args": []
-          },
-          {
-            "name": "capacity",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
             },
             "args": []
           },

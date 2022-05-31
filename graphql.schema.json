@@ -1127,18 +1127,6 @@
             "deprecationReason": null
           },
           {
-            "name": "capacity",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "closingAt",
             "description": null,
             "args": [],
@@ -2899,18 +2887,6 @@
         "description": null,
         "fields": null,
         "inputFields": [
-          {
-            "name": "capacity",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "closingAt",
             "description": null,
