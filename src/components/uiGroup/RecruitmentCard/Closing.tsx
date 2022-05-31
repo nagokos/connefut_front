@@ -17,12 +17,12 @@ export const Closing: FC<Props> = memo((props) => {
     const targetDate = new Date(target);
     const increment = formatDistanceToNow(targetDate, {
       locale: ja,
-    });
+    }).replace('約', '');
     return increment;
   };
 
   const timeLimitFindNum = (increment: string): string => {
-    const timelimit = timeLimit(increment).replace('約', '');
+    const timelimit = timeLimit(increment);
     return timelimit.replace(/[^0-9]/g, '');
   };
 
