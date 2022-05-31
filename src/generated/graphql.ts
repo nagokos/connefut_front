@@ -330,6 +330,11 @@ export type GetCurrentUserRecruitmentsQueryVariables = Exact<{ [key: string]: ne
 
 export type GetCurrentUserRecruitmentsQuery = { __typename?: 'Query', getCurrentUserRecruitments: Array<{ __typename?: 'Recruitment', id: string, title: string, status: Status, type: Type, closingAt?: any | null, createdAt: any, published_at?: any | null, competition?: { __typename?: 'Competition', id: string, name: string } | null }> };
 
+export type GetStockedRecruitmentsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetStockedRecruitmentsQuery = { __typename?: 'Query', getStockedRecruitments: Array<{ __typename?: 'Recruitment', id: string, title: string, closingAt?: any | null, user: { __typename?: 'User', id: string, name: string, avatar: string } }> };
+
 export type CreateRecruitmentMutationVariables = Exact<{
   recruitmentInput: RecruitmentInput;
 }>;
@@ -343,6 +348,27 @@ export type DeleteRecruitmentMutationVariables = Exact<{
 
 
 export type DeleteRecruitmentMutation = { __typename?: 'Mutation', deleteRecruitment: { __typename?: 'Recruitment', id: string, title: string } };
+
+export type CheckStockedQueryVariables = Exact<{
+  recruitmentId: Scalars['String'];
+}>;
+
+
+export type CheckStockedQuery = { __typename?: 'Query', checkStocked: boolean };
+
+export type CreateStockMutationVariables = Exact<{
+  recruitmentId: Scalars['String'];
+}>;
+
+
+export type CreateStockMutation = { __typename?: 'Mutation', createStock: boolean };
+
+export type DeleteStockMutationVariables = Exact<{
+  recruitmentId: Scalars['String'];
+}>;
+
+
+export type DeleteStockMutation = { __typename?: 'Mutation', deleteStock: boolean };
 
 export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -503,6 +529,24 @@ export const GetCurrentUserRecruitmentsDocument = gql`
 export function useGetCurrentUserRecruitmentsQuery(options?: Omit<Urql.UseQueryArgs<GetCurrentUserRecruitmentsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetCurrentUserRecruitmentsQuery>({ query: GetCurrentUserRecruitmentsDocument, ...options });
 };
+export const GetStockedRecruitmentsDocument = gql`
+    query GetStockedRecruitments {
+  getStockedRecruitments {
+    id
+    title
+    closingAt
+    user {
+      id
+      name
+      avatar
+    }
+  }
+}
+    `;
+
+export function useGetStockedRecruitmentsQuery(options?: Omit<Urql.UseQueryArgs<GetStockedRecruitmentsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetStockedRecruitmentsQuery>({ query: GetStockedRecruitmentsDocument, ...options });
+};
 export const CreateRecruitmentDocument = gql`
     mutation CreateRecruitment($recruitmentInput: recruitmentInput!) {
   createRecruitment(input: $recruitmentInput) {
@@ -526,6 +570,33 @@ export const DeleteRecruitmentDocument = gql`
 
 export function useDeleteRecruitmentMutation() {
   return Urql.useMutation<DeleteRecruitmentMutation, DeleteRecruitmentMutationVariables>(DeleteRecruitmentDocument);
+};
+export const CheckStockedDocument = gql`
+    query CheckStocked($recruitmentId: String!) {
+  checkStocked(recruitmentId: $recruitmentId)
+}
+    `;
+
+export function useCheckStockedQuery(options: Omit<Urql.UseQueryArgs<CheckStockedQueryVariables>, 'query'>) {
+  return Urql.useQuery<CheckStockedQuery>({ query: CheckStockedDocument, ...options });
+};
+export const CreateStockDocument = gql`
+    mutation CreateStock($recruitmentId: String!) {
+  createStock(recruitmentId: $recruitmentId)
+}
+    `;
+
+export function useCreateStockMutation() {
+  return Urql.useMutation<CreateStockMutation, CreateStockMutationVariables>(CreateStockDocument);
+};
+export const DeleteStockDocument = gql`
+    mutation DeleteStock($recruitmentId: String!) {
+  deleteStock(recruitmentId: $recruitmentId)
+}
+    `;
+
+export function useDeleteStockMutation() {
+  return Urql.useMutation<DeleteStockMutation, DeleteStockMutationVariables>(DeleteStockDocument);
 };
 export const GetTagsDocument = gql`
     query GetTags {
