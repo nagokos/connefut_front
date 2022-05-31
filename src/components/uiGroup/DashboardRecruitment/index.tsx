@@ -8,7 +8,7 @@ import { OtherContents } from './OtherContents';
 import { Edit } from './Edit';
 import { Trash } from './Trash';
 
-export const DashboardRecruitments: FC = memo(() => {
+export const DashboardRecruitment: FC = memo(() => {
   const [data] = useGetCurrentUserRecruitmentsQuery();
 
   return (
