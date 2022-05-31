@@ -80,3 +80,10 @@ mutation CreateRecruitment($recruitmentInput: recruitmentInput!) {
     title
   }
 }
+
+mutation DeleteRecruitment($id: String!) {
+  deleteRecruitment(id: $id) {
+    id
+    title
+  }
+}
