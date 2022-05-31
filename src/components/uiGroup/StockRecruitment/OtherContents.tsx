@@ -13,7 +13,7 @@ export const OtherContents: FC<Props> = memo((props) => {
   const { avatar, name, closingAt } = props;
 
   const formatCloaingAtString = () => {
-    return format(new Date(closingAt), 'yyyy年MM月dd日(E) HH:mm', {
+    return format(new Date(closingAt), 'yyyy年MM月dd日(E)', {
       locale: ja,
     });
   };
