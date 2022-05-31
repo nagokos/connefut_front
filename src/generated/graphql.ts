@@ -48,7 +48,7 @@ export type Mutation = {
   createStock: Scalars['Boolean'];
   createTag: Tag;
   createUser: Scalars['Boolean'];
-  deleteRecruitment: Scalars['Boolean'];
+  deleteRecruitment: Recruitment;
   deleteStock: Scalars['Boolean'];
   loginUser: Scalars['Boolean'];
   logoutUser: Scalars['Boolean'];
@@ -337,6 +337,13 @@ export type CreateRecruitmentMutationVariables = Exact<{
 
 export type CreateRecruitmentMutation = { __typename?: 'Mutation', createRecruitment: { __typename?: 'Recruitment', id: string, title: string } };
 
+export type DeleteRecruitmentMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type DeleteRecruitmentMutation = { __typename?: 'Mutation', deleteRecruitment: { __typename?: 'Recruitment', id: string, title: string } };
+
 export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -507,6 +514,18 @@ export const CreateRecruitmentDocument = gql`
 
 export function useCreateRecruitmentMutation() {
   return Urql.useMutation<CreateRecruitmentMutation, CreateRecruitmentMutationVariables>(CreateRecruitmentDocument);
+};
+export const DeleteRecruitmentDocument = gql`
+    mutation DeleteRecruitment($id: String!) {
+  deleteRecruitment(id: $id) {
+    id
+    title
+  }
+}
+    `;
+
+export function useDeleteRecruitmentMutation() {
+  return Urql.useMutation<DeleteRecruitmentMutation, DeleteRecruitmentMutationVariables>(DeleteRecruitmentDocument);
 };
 export const GetTagsDocument = gql`
     query GetTags {
@@ -817,8 +836,9 @@ export default {
             "type": {
               "kind": "NON_NULL",
               "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
+                "kind": "OBJECT",
+                "name": "Recruitment",
+                "ofType": null
               }
             },
             "args": [
