@@ -23,7 +23,7 @@ export const Author: FC<Props> = memo((props) => {
       <Stack direction="column" spacing="0" fontSize={12}>
         <Text fontWeight="bold">{recruitment.user.name}</Text>
         <Text
-          color="blackAlpha.500"
+          color="blackAlpha.600"
           fontSize={10}
           fontFamily="ヒラギノ角ゴシック"
         >
