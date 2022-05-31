@@ -6,6 +6,8 @@ import {
   RecruitmentDetails,
   RecruitmentNew,
   Dashboard,
+  DashboardRecruitments,
+  DashboardStocks,
 } from '../pages';
 
 export const routes = (isLoggedIn: boolean) => [
@@ -32,5 +34,9 @@ export const routes = (isLoggedIn: boolean) => [
   {
     path: 'dashboard',
     element: isLoggedIn ? <Dashboard /> : <Navigate to="/login" />,
+    children: [
+      { path: '/dashboard', element: <DashboardRecruitments /> },
+      { path: 'stocks', element: <DashboardStocks /> },
+    ],
   },
 ];
