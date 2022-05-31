@@ -1,10 +1,17 @@
-import { Box } from '@chakra-ui/react';
-import { FC, memo } from 'react';
+import { Box, CircularProgress } from '@chakra-ui/react';
+import { FC, memo, Suspense } from 'react';
+import { StockRecruitment } from '../components/uiGroup';
 
 export const DashboardStocks: FC = memo(() => {
   return (
-    <Box>
-      <Box>Stocks</Box>
-    </Box>
+    <Suspense
+      fallback={
+        <Box textAlign="center">
+          <CircularProgress size={9} isIndeterminate color="primary.main" />
+        </Box>
+      }
+    >
+      <StockRecruitment />
+    </Suspense>
   );
 });
