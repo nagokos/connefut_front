@@ -1,6 +1,6 @@
 import { IconButton, Tooltip } from '@chakra-ui/react';
 import { FC, memo } from 'react';
-import { MdOutlineAddLocation } from 'react-icons/md';
+import { MdOutlineAddLocationAlt } from 'react-icons/md';
 
 type Props = {
   setLatLng: () => void;
@@ -21,7 +21,7 @@ export const RegisterButton: FC<Props> = memo((props) => {
     >
       <IconButton
         aria-label="icon"
-        icon={<MdOutlineAddLocation />}
+        icon={<MdOutlineAddLocationAlt />}
         position="absolute"
         bottom={7}
         color="red.500"
