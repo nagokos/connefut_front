@@ -20,6 +20,7 @@ export const FormContent: FC<Props> = memo((props) => {
           ref={field.ref}
           onBlur={field.onBlur}
           onChange={field.onChange}
+          value={String(field.value)}
           mt={6}
           bg="white"
           border="none"
