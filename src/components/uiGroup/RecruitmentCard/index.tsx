@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo, useMemo } from 'react';
 import { Box, Stack } from '@chakra-ui/react';
 
 import { Header } from './Header';
@@ -23,6 +23,7 @@ export const RecruitmentCard: FC = memo(() => {
         options: {},
       },
     },
+    context: useMemo(() => ({ additionalTypenames: ['Recruitment'] }), []),
   });
 
   return (
