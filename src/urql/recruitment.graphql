@@ -1,4 +1,4 @@
-query GetRecruitments($paginationInput: paginationInput) {
+query GetRecruitments($paginationInput: paginationInput!) {
   getRecruitments(input: $paginationInput) {
     pageInfo {
       startCursor
