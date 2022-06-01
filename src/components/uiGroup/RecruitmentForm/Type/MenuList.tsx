@@ -18,6 +18,7 @@ export const TypeMenuList: FC<Props> = memo((props) => {
       <Controller
         control={control}
         name="type"
+        defaultValue={types[0].id}
         render={({ field }) => (
           <MenuOptionGroup
             defaultValue={types[0].id}
