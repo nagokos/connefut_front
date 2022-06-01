@@ -6,6 +6,7 @@ import { Area } from './Area';
 import { ClosingAt } from './ClosingAt';
 import { Competition } from './Competition';
 import { Content } from './Content';
+import { Location } from './Location';
 import { StartAt } from './StartAt';
 import { Title } from './Title';
 import { DetailType } from './Type';
@@ -33,10 +34,18 @@ export const RecruitmentDetailMain: FC = memo(() => {
           <StartAt startAt={recruitment?.startAt} />
         ) : null}
         <ClosingAt closingAt={recruitment?.closingAt} />
-        <Area
-          place={String(recruitment?.place)}
-          prefName={recruitment?.prefecture?.name}
-        />
+        <Box>
+          <Area
+            place={String(recruitment?.place)}
+            prefName={recruitment?.prefecture?.name}
+          />
+          {recruitment?.locationLat && recruitment.locationLng && (
+            <Location
+              lat={recruitment.locationLat}
+              lng={recruitment.locationLng}
+            />
+          )}
+        </Box>
         <Content content={String(recruitment?.content)} />
       </Stack>
     </Box>
