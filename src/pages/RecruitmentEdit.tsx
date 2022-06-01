@@ -52,7 +52,6 @@ export const RecruitmentEdit: FC = memo(() => {
     });
 
   const onSubmit = async (values: RecruitmentInput) => {
-    console.log(values);
     if (values.tags.length !== 0) {
       const transformTags = values.tags.map((tag) => {
         return {
@@ -68,7 +67,6 @@ export const RecruitmentEdit: FC = memo(() => {
       id: String(recruitmentId),
       recruitmentInput: values,
     });
-    console.log(res);
     navigate('/dashboard');
   };
 
