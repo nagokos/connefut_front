@@ -325,6 +325,13 @@ export type GetRecruitmentQueryVariables = Exact<{
 
 export type GetRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, place?: string | null, startAt?: any | null, content?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, user: { __typename?: 'User', id: string, name: string, avatar: string } } };
 
+export type GetEditRecruitmentQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type GetEditRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, place?: string | null, startAt?: any | null, content?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, status: Status, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
+
 export type GetCurrentUserRecruitmentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -341,6 +348,14 @@ export type CreateRecruitmentMutationVariables = Exact<{
 
 
 export type CreateRecruitmentMutation = { __typename?: 'Mutation', createRecruitment: { __typename?: 'Recruitment', id: string, title: string } };
+
+export type UpdateRecruitmentMutationVariables = Exact<{
+  id: Scalars['String'];
+  recruitmentInput: RecruitmentInput;
+}>;
+
+
+export type UpdateRecruitmentMutation = { __typename?: 'Mutation', updateRecruitment: { __typename?: 'Recruitment', id: string, title: string } };
 
 export type DeleteRecruitmentMutationVariables = Exact<{
   id: Scalars['String'];
@@ -508,6 +523,38 @@ export const GetRecruitmentDocument = gql`
 export function useGetRecruitmentQuery(options: Omit<Urql.UseQueryArgs<GetRecruitmentQueryVariables>, 'query'>) {
   return Urql.useQuery<GetRecruitmentQuery>({ query: GetRecruitmentDocument, ...options });
 };
+export const GetEditRecruitmentDocument = gql`
+    query GetEditRecruitment($id: String!) {
+  getRecruitment(id: $id) {
+    id
+    title
+    type
+    place
+    startAt
+    content
+    closingAt
+    competition {
+      id
+      name
+    }
+    prefecture {
+      id
+      name
+    }
+    locationLat
+    locationLng
+    status
+    tags {
+      id
+      name
+    }
+  }
+}
+    `;
+
+export function useGetEditRecruitmentQuery(options: Omit<Urql.UseQueryArgs<GetEditRecruitmentQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetEditRecruitmentQuery>({ query: GetEditRecruitmentDocument, ...options });
+};
 export const GetCurrentUserRecruitmentsDocument = gql`
     query GetCurrentUserRecruitments {
   getCurrentUserRecruitments {
@@ -558,6 +605,18 @@ export const CreateRecruitmentDocument = gql`
 
 export function useCreateRecruitmentMutation() {
   return Urql.useMutation<CreateRecruitmentMutation, CreateRecruitmentMutationVariables>(CreateRecruitmentDocument);
+};
+export const UpdateRecruitmentDocument = gql`
+    mutation UpdateRecruitment($id: String!, $recruitmentInput: recruitmentInput!) {
+  updateRecruitment(id: $id, input: $recruitmentInput) {
+    id
+    title
+  }
+}
+    `;
+
+export function useUpdateRecruitmentMutation() {
+  return Urql.useMutation<UpdateRecruitmentMutation, UpdateRecruitmentMutationVariables>(UpdateRecruitmentDocument);
 };
 export const DeleteRecruitmentDocument = gql`
     mutation DeleteRecruitment($id: String!) {
