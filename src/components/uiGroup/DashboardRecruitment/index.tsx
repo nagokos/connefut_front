@@ -1,5 +1,5 @@
 import { Box, Divider, Spacer } from '@chakra-ui/react';
-import { FC, memo } from 'react';
+import { FC, memo, useMemo } from 'react';
 
 import { useGetCurrentUserRecruitmentsQuery } from '../../../generated/graphql';
 import { StatusTag } from './StatusTag';
@@ -9,7 +9,9 @@ import { Edit } from './Edit';
 import { Trash } from './Trash';
 
 export const DashboardRecruitment: FC = memo(() => {
-  const [data] = useGetCurrentUserRecruitmentsQuery();
+  const [data] = useGetCurrentUserRecruitmentsQuery({
+    context: useMemo(() => ({ additionalTypenames: ['Recruitment'] }), []),
+  });
 
   return (
     <>
