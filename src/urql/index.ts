@@ -11,10 +11,10 @@ export const client = createClient({
   url: 'http://localhost:8080/query',
   suspense: true,
   exchanges: [
-    devtoolsExchange,
     dedupExchange,
     suspenseExchange,
     cacheExchange,
+    devtoolsExchange,
     fetchExchange,
   ],
   fetchOptions: () => ({

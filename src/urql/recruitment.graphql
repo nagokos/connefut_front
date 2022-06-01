@@ -1,4 +1,4 @@
-query GetRecruitments($paginationInput: paginationInput) {
+query GetRecruitments($paginationInput: paginationInput!) {
   getRecruitments(input: $paginationInput) {
     pageInfo {
       startCursor
@@ -52,6 +52,10 @@ query GetRecruitment($id: String!) {
       id
       name
       avatar
+    }
+    tags {
+      id
+      name
     }
     locationLat
     locationLng
