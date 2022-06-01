@@ -5,7 +5,6 @@ import { registerLocale } from 'react-datepicker';
 import ja from 'date-fns/locale/ja';
 registerLocale('ja', ja);
 
-import { useForm } from 'react-hook-form';
 import { Header } from './Header';
 import { FormTitle } from './FormTitle';
 import { FormCompetition } from './Competition';
@@ -16,63 +15,42 @@ import { FormStartAt } from './FormStartAt';
 import { FormClosingAt } from './FormClosingAt';
 import { FormLocationMap } from './FormLocationMap';
 import { AnyDivider } from './AnyDivider';
-import {
-  RecruitmentInput,
-  Status,
-  Type,
-  useCreateRecruitmentMutation,
-  useGetCompetitionsQuery,
-} from '../../../generated/graphql';
-import { recruitmentSchema } from '../../../yup/recruitmentSchema';
+import { RecruitmentInput, Type } from '../../../generated/graphql';
 import { FormType } from './Type';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useFlash } from '../../../hooks/useFlash';
 import { FormTags } from './Tags';
-import { useNavigate } from 'react-router-dom';
+import {
+  Control,
+  FormState,
+  UseFormHandleSubmit,
+  UseFormResetField,
+  UseFormSetValue,
+  UseFormWatch,
+} from 'react-hook-form';
 
-export const RecruitmentForm: FC = memo(() => {
-  const [data] = useGetCompetitionsQuery();
+type Props = {
+  control: Control<RecruitmentInput>;
+  resetField: UseFormResetField<RecruitmentInput>;
+  handleSubmit: UseFormHandleSubmit<RecruitmentInput>;
+  setValue: UseFormSetValue<RecruitmentInput>;
+  watch: UseFormWatch<RecruitmentInput>;
+  formState: FormState<RecruitmentInput>;
+  onSubmit: (values: RecruitmentInput) => void;
+};
 
-  const navigate = useNavigate();
+export const RecruitmentForm: FC<Props> = memo((props) => {
+  const {
+    watch,
+    control,
+    resetField,
+    handleSubmit,
+    setValue,
+    formState,
+    onSubmit,
+  } = props;
 
   const { showFlash } = useFlash();
-
-  const [_, createRecruitment] = useCreateRecruitmentMutation();
-
-  const {
-    control,
-    handleSubmit,
-    watch,
-    resetField,
-    setValue,
-    formState: { isSubmitting, errors },
-  } = useForm<RecruitmentInput>({
-    defaultValues: {
-      title: '',
-      competitionId: data.data?.getCompetitions[0].id,
-      type: Type.Opponent,
-      content: '',
-      prefectureId: null,
-      place: '',
-      startAt: '',
-      status: Status.Draft,
-      closingAt: '',
-      locationLat: undefined,
-      locationLng: undefined,
-      tags: [],
-    },
-    resolver: yupResolver(recruitmentSchema),
-    mode: 'onChange',
-  });
-
   const watchType = watch('type');
-
-  const onSubmit = async (values: RecruitmentInput) => {
-    const res = await createRecruitment({
-      recruitmentInput: values,
-    });
-    navigate('/dashboard');
-  };
 
   useEffect(() => {
     if (
@@ -80,27 +58,25 @@ export const RecruitmentForm: FC = memo(() => {
       watchType === Type.Joining ||
       watchType === Type.Others
     ) {
-      resetField('place');
-      resetField('startAt');
-      resetField('locationLat');
-      resetField('locationLng');
+      setValue('place', '');
+      setValue('startAt', '');
+      setValue('locationLat', undefined);
+      setValue('locationLng', undefined);
     }
   }, [watchType]);
 
   useEffect(() => {
-    if (Object.keys(errors).length) {
-      const message = Object.entries(errors)[0][1].message;
+    if (Object.keys(formState.errors).length) {
+      const message = Object.entries(formState.errors)[0][1].message;
       showFlash({ title: message, status: 'error' });
     }
-  }, [errors]);
-
-  console.log(watch('locationLat'), watch('locationLng'));
+  }, [formState.errors]);
 
   return (
     <>
       <Box bg="primary.light">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Header setValue={setValue} isSubmitting={isSubmitting} />
+          <Header setValue={setValue} isSubmitting={formState.isSubmitting} />
           <Box maxW={700} mx="auto" pt={16} pb={60} zIndex={0}>
             <FormTitle control={control} />
             <Box mt={5} display="flex">
@@ -116,7 +92,10 @@ export const RecruitmentForm: FC = memo(() => {
             </Box>
             <FormContent control={control} />
             <SimpleGrid columns={2} gap={8} mt={7}>
-              <FormPrefecture control={control} />
+              <FormPrefecture
+                watchPrefectureId={watch('prefectureId')}
+                control={control}
+              />
               {watchType === Type.Opponent || watchType === Type.Individual ? (
                 <>
                   <FormPlace control={control} />
@@ -127,7 +106,7 @@ export const RecruitmentForm: FC = memo(() => {
             </SimpleGrid>
             <AnyDivider />
             <SimpleGrid columns={2} gap={8}>
-              <FormTags control={control} />
+              <FormTags watchTags={watch('tags')} control={control} />
               {watchType === Type.Opponent || watchType === Type.Individual ? (
                 <FormLocationMap watch={watch} setValue={setValue} />
               ) : null}
