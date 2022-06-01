@@ -133,7 +133,6 @@ export type Query = {
   getCurrentUserRecruitments: Array<Recruitment>;
   getPrefectures: Array<Prefecture>;
   getRecruitment: Recruitment;
-  getRecruitmentTags: Array<Maybe<Tag>>;
   getRecruitments: RecruitmentConnection;
   getStockedCount: Scalars['Int'];
   getStockedRecruitments: Array<Recruitment>;
@@ -161,13 +160,8 @@ export type QueryGetRecruitmentArgs = {
 };
 
 
-export type QueryGetRecruitmentTagsArgs = {
-  recruitmentId: Scalars['String'];
-};
-
-
 export type QueryGetRecruitmentsArgs = {
-  input?: InputMaybe<PaginationInput>;
+  input: PaginationInput;
 };
 
 
@@ -312,7 +306,7 @@ export type GetPrefecturesQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetPrefecturesQuery = { __typename?: 'Query', getPrefectures: Array<{ __typename?: 'Prefecture', id: string, name: string }> };
 
 export type GetRecruitmentsQueryVariables = Exact<{
-  paginationInput?: InputMaybe<PaginationInput>;
+  paginationInput: PaginationInput;
 }>;
 
 
@@ -323,7 +317,7 @@ export type GetRecruitmentQueryVariables = Exact<{
 }>;
 
 
-export type GetRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, place?: string | null, startAt?: any | null, content?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, user: { __typename?: 'User', id: string, name: string, avatar: string } } };
+export type GetRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, place?: string | null, startAt?: any | null, content?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, user: { __typename?: 'User', id: string, name: string, avatar: string }, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
 
 export type GetEditRecruitmentQueryVariables = Exact<{
   id: Scalars['String'];
@@ -390,13 +384,6 @@ export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetTagsQuery = { __typename?: 'Query', getTags: Array<{ __typename?: 'Tag', id: string, name: string }> };
 
-export type GetRecruitmentTagsQueryVariables = Exact<{
-  recruitmentId: Scalars['String'];
-}>;
-
-
-export type GetRecruitmentTagsQuery = { __typename?: 'Query', getRecruitmentTags: Array<{ __typename?: 'Tag', id: string, name: string } | null> };
-
 export type CreateTagMutationVariables = Exact<{
   createTagInput: CreateTagInput;
 }>;
@@ -454,7 +441,7 @@ export function useGetPrefecturesQuery(options?: Omit<Urql.UseQueryArgs<GetPrefe
   return Urql.useQuery<GetPrefecturesQuery>({ query: GetPrefecturesDocument, ...options });
 };
 export const GetRecruitmentsDocument = gql`
-    query GetRecruitments($paginationInput: paginationInput) {
+    query GetRecruitments($paginationInput: paginationInput!) {
   getRecruitments(input: $paginationInput) {
     pageInfo {
       startCursor
@@ -487,7 +474,7 @@ export const GetRecruitmentsDocument = gql`
 }
     `;
 
-export function useGetRecruitmentsQuery(options?: Omit<Urql.UseQueryArgs<GetRecruitmentsQueryVariables>, 'query'>) {
+export function useGetRecruitmentsQuery(options: Omit<Urql.UseQueryArgs<GetRecruitmentsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetRecruitmentsQuery>({ query: GetRecruitmentsDocument, ...options });
 };
 export const GetRecruitmentDocument = gql`
@@ -513,6 +500,10 @@ export const GetRecruitmentDocument = gql`
       id
       name
       avatar
+    }
+    tags {
+      id
+      name
     }
     locationLat
     locationLng
@@ -668,18 +659,6 @@ export const GetTagsDocument = gql`
 
 export function useGetTagsQuery(options?: Omit<Urql.UseQueryArgs<GetTagsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetTagsQuery>({ query: GetTagsDocument, ...options });
-};
-export const GetRecruitmentTagsDocument = gql`
-    query GetRecruitmentTags($recruitmentId: String!) {
-  getRecruitmentTags(recruitmentId: $recruitmentId) {
-    id
-    name
-  }
-}
-    `;
-
-export function useGetRecruitmentTagsQuery(options: Omit<Urql.UseQueryArgs<GetRecruitmentTagsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetRecruitmentTagsQuery>({ query: GetRecruitmentTagsDocument, ...options });
 };
 export const CreateTagDocument = gql`
     mutation CreateTag($createTagInput: createTagInput!) {
@@ -1330,32 +1309,6 @@ export default {
             ]
           },
           {
-            "name": "getRecruitmentTags",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "LIST",
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Tag",
-                  "ofType": null
-                }
-              }
-            },
-            "args": [
-              {
-                "name": "recruitmentId",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
             "name": "getRecruitments",
             "type": {
               "kind": "NON_NULL",
@@ -1369,8 +1322,11 @@ export default {
               {
                 "name": "input",
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "Any"
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
                 }
               }
             ]
