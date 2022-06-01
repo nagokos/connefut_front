@@ -24,8 +24,10 @@ export const Location: FC<Props> = memo((props) => {
           size="sm"
           h={7}
           boxShadow="sm"
-          color="primary.main"
           onClick={onOpen}
+          _active={{
+            boxShadow: 'sm',
+          }}
         >
           マップを見る
         </Button>
