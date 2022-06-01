@@ -17,9 +17,10 @@ export const CompMenuList: FC<Props> = memo((props) => {
       <Controller
         control={control}
         name="competitionId"
+        defaultValue={competitions[0].id}
         render={({ field }) => (
           <MenuOptionGroup
-            defaultValue={field.value}
+            defaultValue={competitions[0].id}
             title="募集競技"
             fontSize={12}
             type="radio"
