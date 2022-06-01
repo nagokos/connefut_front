@@ -21,28 +21,26 @@ type Props = {
   setValue: UseFormSetValue<RecruitmentInput>;
 };
 
+type Libraries = ['places'];
+const libraries: Libraries = ['places'];
+const googleMapApiKey: string = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
+
 export const LocationModal: FC<Props> = memo((props) => {
   const { isOpen, onClose, watch, setValue } = props;
 
+  const watchLat = watch('locationLat');
+  const watchLng = watch('locationLng');
+
   const [searchBox, setSearchBox] =
     useState<google.maps.places.SearchBox | null>(null);
-  const [location, setLocation] = useState({ lat: 35.69575, lng: 139.77521 });
-
-  type Libraries = ['places'];
-  const libraries: Libraries = ['places'];
+  const [location, setLocation] = useState({
+    lat: watchLat ? watchLat : 35.69575,
+    lng: watchLng ? watchLng : 139.77521,
+  });
 
   const containerStyle = {
     width: '400px',
     height: '400px',
-  };
-
-  const googleMapApiKey: string = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
-
-  const watchLat = watch('locationLat');
-  const watchLng = watch('locationLng');
-  const watchLocation = {
-    lat: Number(watchLat),
-    lng: Number(watchLng),
   };
 
   const clickMap = (e: google.maps.MapMouseEvent) => {
@@ -82,7 +80,7 @@ export const LocationModal: FC<Props> = memo((props) => {
           <LoadScript libraries={libraries} googleMapsApiKey={googleMapApiKey}>
             <GoogleMap
               mapContainerStyle={containerStyle}
-              center={watchLat && watchLng ? watchLocation : location}
+              center={location}
               zoom={16}
               onClick={clickMap}
             >
@@ -90,9 +88,7 @@ export const LocationModal: FC<Props> = memo((props) => {
                 onPlacesChanged={onPlacesChanged}
                 onSBLoad={onSBLoad}
               />
-              <Marker
-                position={watchLat && watchLng ? watchLocation : location}
-              />
+              <Marker position={location} />
               <RegisterButton setLatLng={setLatLng} />
             </GoogleMap>
           </LoadScript>

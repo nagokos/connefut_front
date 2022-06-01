@@ -18,10 +18,10 @@ export const DashboardRecruitment: FC = memo(() => {
           <Box display="flex" alignItems="center">
             <StatusTag status={recruitment.status} />
             <Spacer />
-            <Edit />
+            <Edit id={recruitment.id} />
             <Trash id={recruitment.id} title={recruitment.title} />
           </Box>
-          <Title title={recruitment.title} />
+          <Title id={recruitment.id} title={recruitment.title} />
           <OtherContents
             status={recruitment.status}
             publishedAt={recruitment.published_at}

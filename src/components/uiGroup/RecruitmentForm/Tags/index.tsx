@@ -9,7 +9,9 @@ import {
 import { Control, Controller } from 'react-hook-form';
 
 import {
+  InputMaybe,
   RecruitmentInput,
+  RecruitmentTagInput,
   Tag,
   useGetTagsQuery,
 } from '../../../../generated/graphql';
@@ -19,10 +21,11 @@ import { CreateLabel } from './CreateLabel';
 
 type Props = {
   control: Control<RecruitmentInput>;
+  watchTags: InputMaybe<RecruitmentTagInput>[];
 };
 
 export const FormTags: FC<Props> = memo((props) => {
-  const { control } = props;
+  const { control, watchTags } = props;
 
   const [data] = useGetTagsQuery();
 
@@ -45,6 +48,16 @@ export const FormTags: FC<Props> = memo((props) => {
         return { id: tag.value, name: tag.label, isNew: false };
       })
     );
+  };
+
+  const selectTags = () => {
+    if (watchTags.length === 0) {
+      return [];
+    } else {
+      return watchTags.map((tag) => {
+        return { value: String(tag?.id), label: String(tag?.name) };
+      });
+    }
   };
 
   return (
@@ -71,6 +84,7 @@ export const FormTags: FC<Props> = memo((props) => {
             formatCreateLabel={(inputValue: string) => (
               <CreateLabel input={inputValue} />
             )}
+            value={selectTags()}
             components={{
               IndicatorSeparator: () => null,
               ClearIndicator: () => null,

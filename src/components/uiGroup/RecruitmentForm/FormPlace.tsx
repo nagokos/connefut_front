@@ -28,6 +28,7 @@ export const FormPlace: FC<Props> = memo((props) => {
           <Input
             ref={field.ref}
             onChange={field.onChange}
+            value={String(field.value)}
             id="place"
             bg="white"
             fontSize={13}

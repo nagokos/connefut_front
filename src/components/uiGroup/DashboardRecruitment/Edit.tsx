@@ -1,8 +1,17 @@
 import { IconButton, Tooltip } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { MdOutlineModeEditOutline } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
-export const Edit: FC = memo(() => {
+type Props = {
+  id: string;
+};
+
+export const Edit: FC<Props> = memo((props) => {
+  const { id } = props;
+
+  const navigate = useNavigate();
+
   return (
     <Tooltip
       label="編集する"
@@ -20,6 +29,7 @@ export const Edit: FC = memo(() => {
         bg="white"
         fontSize={16}
         color="blackAlpha.500"
+        onClick={() => navigate(`/recruitments/${id}/edit`)}
         _hover={{
           bg: 'blackAlpha.50',
         }}

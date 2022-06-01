@@ -58,6 +58,33 @@ query GetRecruitment($id: String!) {
   }
 }
 
+query GetEditRecruitment($id: String!) {
+  getRecruitment(id: $id) {
+    id
+    title
+    type
+    place
+    startAt
+    content
+    closingAt
+    competition {
+      id
+      name
+    }
+    prefecture {
+      id
+      name
+    }
+    locationLat
+    locationLng
+    status
+    tags {
+      id
+      name
+    }
+  }
+}
+
 query GetCurrentUserRecruitments {
   getCurrentUserRecruitments {
     id
@@ -89,6 +116,13 @@ query GetStockedRecruitments {
 
 mutation CreateRecruitment($recruitmentInput: recruitmentInput!) {
   createRecruitment(input: $recruitmentInput) {
+    id
+    title
+  }
+}
+
+mutation UpdateRecruitment($id: String!, $recruitmentInput: recruitmentInput!) {
+  updateRecruitment(id: $id, input: $recruitmentInput) {
     id
     title
   }

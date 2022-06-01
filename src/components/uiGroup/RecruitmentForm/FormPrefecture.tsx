@@ -12,10 +12,11 @@ import { SelectOption } from '../../../type/type';
 
 type Props = {
   control: Control<RecruitmentInput>;
+  watchPrefectureId?: string | null;
 };
 
 export const FormPrefecture: FC<Props> = memo((props) => {
-  const { control } = props;
+  const { control, watchPrefectureId } = props;
 
   const [data] = useGetPrefecturesQuery();
 
@@ -23,6 +24,21 @@ export const FormPrefecture: FC<Props> = memo((props) => {
     return data?.map((node) => {
       return { value: node.id, label: node.name };
     });
+  };
+
+  const selectValue = () => {
+    const findPrefecture = data.data?.getPrefectures.find(
+      (prefecture) => prefecture.id === watchPrefectureId
+    );
+
+    if (findPrefecture) {
+      return {
+        label: String(findPrefecture?.name),
+        value: String(findPrefecture?.id),
+      };
+    } else {
+      return { label: '', value: '' };
+    }
   };
 
   return (
@@ -45,6 +61,7 @@ export const FormPrefecture: FC<Props> = memo((props) => {
             ref={field.ref}
             onChange={(e) => field.onChange(e?.value)}
             placeholder=""
+            value={selectValue()}
             components={{
               IndicatorSeparator: () => null,
               ClearIndicator: () => null,

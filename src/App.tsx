@@ -23,7 +23,8 @@ export const App: FC = memo(() => {
       location.pathname === '/' ||
       location.pathname.includes('/dashboard') ||
       (location.pathname.includes('/recruitments') &&
-        !location.pathname.includes('/new'))
+        !location.pathname.includes('/new') &&
+        !location.pathname.includes('/edit'))
     );
   };
 
