@@ -121,6 +121,13 @@ mutation CreateRecruitment($recruitmentInput: recruitmentInput!) {
   }
 }
 
+mutation UpdateRecruitment($id: String!, $recruitmentInput: recruitmentInput!) {
+  updateRecruitment(id: $id, input: $recruitmentInput) {
+    id
+    title
+  }
+}
+
 mutation DeleteRecruitment($id: String!) {
   deleteRecruitment(id: $id) {
     id
