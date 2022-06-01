@@ -52,11 +52,17 @@ export const Closing: FC<Props> = memo((props) => {
         </Box>
         <Box fontFamily="ヒラギノ角ゴシック" fontSize={11}>
           残り
-          <Box as="span" fontWeight="bold" fontSize={11.5}>
+          <Box as="span" fontWeight="bold" fontSize={11}>
             {timeLimitFindNum(String(recruitment.closingAt))}
           </Box>
-          {timeLimitFindS(String(recruitment.closingAt))} (
-          {String(recruitment.closingAt)})
+          {timeLimitFindS(String(recruitment.closingAt))}
+          <Box as="span" ml={1} color="blackAlpha.700">
+            {format(
+              new Date(String(recruitment.closingAt)),
+              'yyyy年MM月dd日(E)',
+              { locale: ja }
+            )}
+          </Box>
         </Box>
       </Box>
     </Box>
