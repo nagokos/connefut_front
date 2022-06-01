@@ -31,6 +31,16 @@ export const Closing: FC<Props> = memo((props) => {
     return timelimit.replace(/\d+/g, '');
   };
 
+  const closingAtFormat = () => {
+    return format(
+      new Date(String(recruitment.closingAt)),
+      'yyyy年MM月dd日(E)',
+      {
+        locale: ja,
+      }
+    );
+  };
+
   return (
     <Box display="flex" alignItems="center">
       <Box minW={20} display="flex" alignItems="center">
@@ -52,11 +62,13 @@ export const Closing: FC<Props> = memo((props) => {
         </Box>
         <Box fontFamily="ヒラギノ角ゴシック" fontSize={11}>
           残り
-          <Box as="span" fontWeight="bold" fontSize={11.5}>
+          <Box as="span" fontWeight="bold" fontSize={11}>
             {timeLimitFindNum(String(recruitment.closingAt))}
           </Box>
-          {timeLimitFindS(String(recruitment.closingAt))} (
-          {String(recruitment.closingAt)})
+          {timeLimitFindS(String(recruitment.closingAt))}
+          <Box as="span" ml={1} color="blackAlpha.700">
+            {closingAtFormat()}
+          </Box>
         </Box>
       </Box>
     </Box>

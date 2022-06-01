@@ -23,7 +23,7 @@ export const Area: FC<Props> = memo((props) => {
         py={1}
         rounded="md"
       >
-        {place ? `${prefName} (${place})` : prefName}
+        {place ? `${prefName} ・ ${place}` : prefName}
       </Box>
     </Box>
   );
