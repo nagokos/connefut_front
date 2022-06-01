@@ -31,7 +31,7 @@
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
     "sass": "^1.52.1",
-    "urql": "^2.2.0",
+    "urql": "^2.2.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {
