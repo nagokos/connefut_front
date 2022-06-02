@@ -28,15 +28,13 @@ export const Apply: FC = memo(() => {
         mt={4}
         fontSize={13.5}
         disabled={isMyRecruitment}
+        variant="solid"
         w="100%"
         _active={{
           boxShadow: '0 0 0 1px rgb(0 0 0 / 2%), 0 5px 8px 0 rgb(0 0 0 / 10%)',
         }}
         _focus={{
           boxShadow: '0 0 0 1px rgb(0 0 0 / 2%), 0 5px 8px 0 rgb(0 0 0 / 10%)',
-        }}
-        _hover={{
-          bg: 'primary.main',
         }}
         boxShadow="0 0 0 1px rgb(0 0 0 / 2%), 0 5px 8px 0 rgb(0 0 0 / 10%)"
       >
