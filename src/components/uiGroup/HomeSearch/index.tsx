@@ -16,8 +16,8 @@ import { SelectOption } from '../../../type/type';
 import { SearchTag } from './Tag';
 
 const types = [
-  { value: String(Type.Individual), label: '試合相手の募集' },
-  { value: String(Type.Opponent), label: '個人参加の募集' },
+  { value: String(Type.Individual), label: '対戦相手の募集' },
+  { value: String(Type.Opponent), label: '個人プレーヤーの募集' },
   { value: String(Type.Member), label: 'メンバーの募集' },
   { value: String(Type.Joining), label: 'チームに加入したい人の募集' },
   { value: String(Type.Others), label: 'その他' },
