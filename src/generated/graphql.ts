@@ -174,8 +174,8 @@ export type Recruitment = {
   applicant?: Maybe<Applicant>;
   closingAt?: Maybe<Scalars['DateTime']>;
   competition?: Maybe<Competition>;
-  content?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
+  detail?: Maybe<Scalars['String']>;
   id: Scalars['String'];
   locationLat?: Maybe<Scalars['Float']>;
   locationLng?: Maybe<Scalars['Float']>;
@@ -240,7 +240,7 @@ export type User = {
 };
 
 export type ApplicantInput = {
-  content: Scalars['String'];
+  detail: Scalars['String'];
   managementStatus: ManagementStatus;
 };
 
@@ -270,7 +270,7 @@ export type PaginationInput = {
 export type RecruitmentInput = {
   closingAt?: InputMaybe<Scalars['DateTime']>;
   competitionId: Scalars['String'];
-  content?: InputMaybe<Scalars['String']>;
+  detail?: InputMaybe<Scalars['String']>;
   locationLat?: InputMaybe<Scalars['Float']>;
   locationLng?: InputMaybe<Scalars['Float']>;
   place?: InputMaybe<Scalars['String']>;
@@ -317,14 +317,14 @@ export type GetRecruitmentQueryVariables = Exact<{
 }>;
 
 
-export type GetRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, place?: string | null, startAt?: any | null, content?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, user: { __typename?: 'User', id: string, name: string, avatar: string }, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
+export type GetRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, place?: string | null, startAt?: any | null, detail?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, user: { __typename?: 'User', id: string, name: string, avatar: string }, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
 
 export type GetEditRecruitmentQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type GetEditRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, place?: string | null, startAt?: any | null, content?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, status: Status, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
+export type GetEditRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, place?: string | null, startAt?: any | null, detail?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, status: Status, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
 
 export type GetCurrentUserRecruitmentsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -486,7 +486,7 @@ export const GetRecruitmentDocument = gql`
     status
     place
     startAt
-    content
+    detail
     closingAt
     competition {
       id
@@ -522,7 +522,7 @@ export const GetEditRecruitmentDocument = gql`
     type
     place
     startAt
-    content
+    detail
     closingAt
     competition {
       id
@@ -1423,14 +1423,6 @@ export default {
             "args": []
           },
           {
-            "name": "content",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
             "name": "createdAt",
             "type": {
               "kind": "NON_NULL",
@@ -1438,6 +1430,14 @@ export default {
                 "kind": "SCALAR",
                 "name": "Any"
               }
+            },
+            "args": []
+          },
+          {
+            "name": "detail",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
