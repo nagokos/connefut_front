@@ -1642,10 +1642,10 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.5.tgz#db5a11bf66bdab39569719555b0f76e138d7bd64"
   integrity sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==
 
-"@react-google-maps/api@^2.11.9":
-  version "2.11.9"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-2.11.9.tgz#bc483e66f421b99abfa192c2cf0547015ea9be7d"
-  integrity sha512-YomxBo7nlLo1AXWejheuq8Kia1Zc3VtdnNRAJgsZU5HO6zLQo7/jZzb3x1nWtpBS8pCLEoqAE6SJTzZDIvop7A==
+"@react-google-maps/api@^2.12.0":
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-2.12.0.tgz#1509ca9697e06b0bf20a038695f3a543943f1783"
+  integrity sha512-BqsclJ9p2I6yZa++0R3oEcneECcH7PFsULhn8UDlWQ9uNAQR/aqvqGb9SXYvdpIAOJdk3E737iTrGhFg4j5Ucw==
   dependencies:
     "@googlemaps/js-api-loader" "1.14.3"
     "@googlemaps/markerclusterer" "2.0.7"
