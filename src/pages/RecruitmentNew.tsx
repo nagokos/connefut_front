@@ -19,7 +19,7 @@ export const RecruitmentNew: FC = memo(() => {
         title: '',
         competitionId: undefined,
         type: undefined,
-        content: '',
+        detail: '',
         prefectureId: null,
         place: '',
         startAt: '',

@@ -31,7 +31,7 @@ export const RecruitmentEdit: FC = memo(() => {
         title: recruitment.title,
         competitionId: recruitment.competition?.id,
         type: recruitment.type,
-        content: recruitment.content,
+        detail: recruitment.detail,
         prefectureId: recruitment.prefecture?.id
           ? recruitment.prefecture.id
           : null,

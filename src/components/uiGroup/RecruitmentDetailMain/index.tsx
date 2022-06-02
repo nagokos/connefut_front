@@ -46,7 +46,7 @@ export const RecruitmentDetailMain: FC = memo(() => {
             />
           )}
         </Box>
-        <Content content={String(recruitment?.content)} />
+        <Content detail={String(recruitment?.detail)} />
       </Stack>
     </Box>
   );

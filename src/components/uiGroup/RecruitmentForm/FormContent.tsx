@@ -13,7 +13,7 @@ export const FormContent: FC<Props> = memo((props) => {
   return (
     <Controller
       control={control}
-      name="content"
+      name="detail"
       defaultValue=""
       render={({ field }) => (
         <Textarea

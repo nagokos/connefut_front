@@ -15,7 +15,7 @@ export const recruitmentSchema = yup.object().shape({
       [Type.Individual, Type.Opponent, Type.Member, Type.Joining, Type.Others],
       '募集タイプは選択肢の中から選んでください'
     ),
-  content: yup
+  detail: yup
     .string()
     .max(10000, '募集の詳細は10000文字以内で入力してください')
     .when('status', {
