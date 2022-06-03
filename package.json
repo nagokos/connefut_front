@@ -30,7 +30,7 @@
     "react-hook-form": "^7.31.3",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
-    "sass": "^1.52.1",
+    "sass": "^1.52.2",
     "urql": "^2.2.1",
     "yup": "^0.32.11"
   },
