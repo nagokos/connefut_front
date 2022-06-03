@@ -6,6 +6,7 @@ export const theme = extendTheme({
       50: '#E1EBE9',
       main: '#009688',
       light: '#f0f5f4',
+      hover: '#007A6E',
     },
     error: {
       main: '#f42121',
