@@ -19,7 +19,6 @@ export type Scalars = {
 export type Applicant = {
   __typename?: 'Applicant';
   createdAt: Scalars['DateTime'];
-  managementStatus: ManagementStatus;
 };
 
 export type Competition = {
@@ -31,13 +30,6 @@ export type Competition = {
 export enum EmailVerificationStatus {
   Pending = 'PENDING',
   Verified = 'VERIFIED'
-}
-
-export enum ManagementStatus {
-  Accepted = 'ACCEPTED',
-  Backlog = 'BACKLOG',
-  Rejected = 'REJECTED',
-  Unnecessary = 'UNNECESSARY'
 }
 
 export type Mutation = {
@@ -124,7 +116,7 @@ export type Prefecture = {
 
 export type Query = {
   __typename?: 'Query';
-  checkApplied: Scalars['Boolean'];
+  checkAppliedForRecruitment: Scalars['Boolean'];
   checkStocked: Scalars['Boolean'];
   getAppliedCounts: Scalars['Int'];
   getAppliedRecruitments: Array<Recruitment>;
@@ -140,7 +132,7 @@ export type Query = {
 };
 
 
-export type QueryCheckAppliedArgs = {
+export type QueryCheckAppliedForRecruitmentArgs = {
   recruitmentId: Scalars['String'];
 };
 
@@ -240,8 +232,7 @@ export type User = {
 };
 
 export type ApplicantInput = {
-  detail: Scalars['String'];
-  managementStatus: ManagementStatus;
+  message: Scalars['String'];
 };
 
 export type CreateTagInput = {
@@ -294,6 +285,21 @@ export type SearchRecruitmentInput = {
   startAt?: InputMaybe<Scalars['DateTime']>;
   type?: InputMaybe<Scalars['String']>;
 };
+
+export type CheckAppliedForRecruitmentQueryVariables = Exact<{
+  recruitmentId: Scalars['String'];
+}>;
+
+
+export type CheckAppliedForRecruitmentQuery = { __typename?: 'Query', checkAppliedForRecruitment: boolean };
+
+export type ApplyForRecruitmentMutationVariables = Exact<{
+  recruitmentId: Scalars['String'];
+  applicantInput?: InputMaybe<ApplicantInput>;
+}>;
+
+
+export type ApplyForRecruitmentMutation = { __typename?: 'Mutation', applyForRecruitment: boolean };
 
 export type GetCompetitionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -416,6 +422,24 @@ export type LogoutUserMutationVariables = Exact<{ [key: string]: never; }>;
 export type LogoutUserMutation = { __typename?: 'Mutation', logoutUser: boolean };
 
 
+export const CheckAppliedForRecruitmentDocument = gql`
+    query CheckAppliedForRecruitment($recruitmentId: String!) {
+  checkAppliedForRecruitment(recruitmentId: $recruitmentId)
+}
+    `;
+
+export function useCheckAppliedForRecruitmentQuery(options: Omit<Urql.UseQueryArgs<CheckAppliedForRecruitmentQueryVariables>, 'query'>) {
+  return Urql.useQuery<CheckAppliedForRecruitmentQuery>({ query: CheckAppliedForRecruitmentDocument, ...options });
+};
+export const ApplyForRecruitmentDocument = gql`
+    mutation ApplyForRecruitment($recruitmentId: String!, $applicantInput: applicantInput) {
+  applyForRecruitment(recruitmentId: $recruitmentId, input: $applicantInput)
+}
+    `;
+
+export function useApplyForRecruitmentMutation() {
+  return Urql.useMutation<ApplyForRecruitmentMutation, ApplyForRecruitmentMutationVariables>(ApplyForRecruitmentDocument);
+};
 export const GetCompetitionsDocument = gql`
     query GetCompetitions {
   getCompetitions {
@@ -733,17 +757,6 @@ export default {
         "fields": [
           {
             "name": "createdAt",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "managementStatus",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -1139,7 +1152,7 @@ export default {
         "name": "Query",
         "fields": [
           {
-            "name": "checkApplied",
+            "name": "checkAppliedForRecruitment",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
