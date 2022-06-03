@@ -1,17 +1,17 @@
 import { FC, memo } from 'react';
 import { useBoolean } from '@chakra-ui/react';
-import { IoIosSearch } from 'react-icons/io';
+import { TbSearch } from 'react-icons/tb';
 
 export const Search: FC = memo(() => {
-  const [flagSearch, setFlagSearch] = useBoolean();
+  const [flag, setFlag] = useBoolean();
 
   return (
-    <IoIosSearch
-      onMouseEnter={setFlagSearch.on}
-      onMouseLeave={setFlagSearch.off}
-      fontSize={24}
+    <TbSearch
+      onMouseEnter={setFlag.on}
+      onMouseLeave={setFlag.off}
+      fontSize={22}
       cursor="pointer"
-      color={flagSearch ? '#000000' : '#78909c'}
+      color={flag ? '#000000' : '#78909c'}
     />
   );
 });
