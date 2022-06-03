@@ -1,16 +1,22 @@
 import { Button, Text } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { MdBookmark, MdOutlineBookmarkBorder } from 'react-icons/md';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   useCheckStockedQuery,
   useCreateStockMutation,
   useDeleteStockMutation,
+  useGetCurrentUserQuery,
 } from '../../../generated/graphql';
+import { useFlash } from '../../../hooks/useFlash';
 
 export const Stock: FC = memo(() => {
   const { recruitmentId } = useParams();
 
+  const navigate = useNavigate();
+  const { showFlash } = useFlash();
+
+  const [userData] = useGetCurrentUserQuery();
   const [data, executeQuery] = useCheckStockedQuery({
     variables: {
       recruitmentId: String(recruitmentId),
@@ -22,6 +28,11 @@ export const Stock: FC = memo(() => {
   const isStocked = !!data.data?.checkStocked;
 
   const createOrDeleteStock = async () => {
+    if (!userData.data?.getCurrentUser) {
+      navigate('/login');
+      showFlash({ title: 'ログインしてください', status: 'error' });
+    }
+
     const variables = { recruitmentId: String(recruitmentId) };
 
     executeQuery({

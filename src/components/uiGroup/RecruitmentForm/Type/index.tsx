@@ -8,8 +8,8 @@ import { TypeMenuButton } from './MenuButton';
 import { TypeMenuList } from './MenuList';
 
 const types: Array<MenuItemType> = [
-  { id: Type.Opponent, name: '試合相手の募集' },
-  { id: Type.Individual, name: '個人参加の募集' },
+  { id: Type.Opponent, name: '対戦相手の募集' },
+  { id: Type.Individual, name: '個人プレーヤーの募集' },
   { id: Type.Member, name: 'メンバーの募集' },
   { id: Type.Joining, name: 'チームに加入したい人の募集' },
   { id: Type.Others, name: 'その他' },

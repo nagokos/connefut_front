@@ -11,9 +11,9 @@ export const DetailType: FC<Props> = memo((props) => {
 
   const typeString = (type: Type | undefined) => {
     if (type === Type.Opponent) {
-      return '試合相手の募集';
+      return '対戦相手の募集';
     } else if (type === Type.Individual) {
-      return '個人参加の募集';
+      return '個人プレーヤーの募集';
     } else if (type === Type.Member) {
       return 'メンバーの募集';
     } else if (type === Type.Joining) {

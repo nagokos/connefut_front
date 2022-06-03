@@ -11,9 +11,9 @@ export const TypeTag: FC<Props> = memo((props) => {
 
   const typeString = (type: Type | undefined) => {
     if (type === Type.Opponent) {
-      return '試合相手';
+      return '対戦相手';
     } else if (type === Type.Individual) {
-      return '個人参加';
+      return '個人プレーヤー';
     } else if (type === Type.Member) {
       return 'メンバー';
     } else if (type === Type.Joining) {
