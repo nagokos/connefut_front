@@ -39,15 +39,7 @@ type Props = {
 };
 
 export const RecruitmentForm: FC<Props> = memo((props) => {
-  const {
-    watch,
-    control,
-    resetField,
-    handleSubmit,
-    setValue,
-    formState,
-    onSubmit,
-  } = props;
+  const { watch, control, handleSubmit, setValue, formState, onSubmit } = props;
 
   const { showFlash } = useFlash();
   const watchType = watch('type');
