@@ -1,12 +1,12 @@
 import { FC, memo } from 'react';
 import { useBoolean } from '@chakra-ui/react';
-import { TbBell } from 'react-icons/tb';
+import { TbMessageCircle2 } from 'react-icons/tb';
 
-export const Notification: FC = memo(() => {
+export const Message: FC = memo(() => {
   const [flag, setFlag] = useBoolean();
 
   return (
-    <TbBell
+    <TbMessageCircle2
       onMouseEnter={setFlag.on}
       onMouseLeave={setFlag.off}
       fontSize={22}

@@ -3,10 +3,12 @@ import { FC, memo } from 'react';
 
 type Props = {
   isSubmitting: boolean;
+  isValid: boolean;
+  displayName: string;
 };
 
 export const SubmitButton: FC<Props> = memo((props) => {
-  const { isSubmitting } = props;
+  const { isSubmitting, isValid, displayName } = props;
 
   return (
     <Button
@@ -16,8 +18,12 @@ export const SubmitButton: FC<Props> = memo((props) => {
       bg="primary.main"
       color="white"
       type="submit"
+      disabled={!isValid}
+      _hover={{
+        bg: 'primary.hover',
+      }}
     >
-      登録する
+      {displayName}
     </Button>
   );
 });

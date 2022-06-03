@@ -30,7 +30,7 @@ export const DeleteModal: FC<Props> = memo((props) => {
         </ModalHeader>
         <ModalBody pb={5}>
           <Text fontSize={13} color="blackAlpha.600">
-            募集 「{title} 」 を削除しますか？
+            募集 「{title}」 を削除しますか？
             <br />
             この操作は元に戻すことはできません。 募集は完全に削除されます。
           </Text>

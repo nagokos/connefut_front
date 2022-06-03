@@ -19,7 +19,6 @@ export type Scalars = {
 export type Applicant = {
   __typename?: 'Applicant';
   createdAt: Scalars['DateTime'];
-  managementStatus: ManagementStatus;
 };
 
 export type Competition = {
@@ -31,13 +30,6 @@ export type Competition = {
 export enum EmailVerificationStatus {
   Pending = 'PENDING',
   Verified = 'VERIFIED'
-}
-
-export enum ManagementStatus {
-  Accepted = 'ACCEPTED',
-  Backlog = 'BACKLOG',
-  Rejected = 'REJECTED',
-  Unnecessary = 'UNNECESSARY'
 }
 
 export type Mutation = {
@@ -124,7 +116,7 @@ export type Prefecture = {
 
 export type Query = {
   __typename?: 'Query';
-  checkApplied: Scalars['Boolean'];
+  checkAppliedForRecruitment: Scalars['Boolean'];
   checkStocked: Scalars['Boolean'];
   getAppliedCounts: Scalars['Int'];
   getAppliedRecruitments: Array<Recruitment>;
@@ -140,7 +132,7 @@ export type Query = {
 };
 
 
-export type QueryCheckAppliedArgs = {
+export type QueryCheckAppliedForRecruitmentArgs = {
   recruitmentId: Scalars['String'];
 };
 
@@ -174,8 +166,8 @@ export type Recruitment = {
   applicant?: Maybe<Applicant>;
   closingAt?: Maybe<Scalars['DateTime']>;
   competition?: Maybe<Competition>;
-  content?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
+  detail?: Maybe<Scalars['String']>;
   id: Scalars['String'];
   locationLat?: Maybe<Scalars['Float']>;
   locationLng?: Maybe<Scalars['Float']>;
@@ -240,8 +232,7 @@ export type User = {
 };
 
 export type ApplicantInput = {
-  content: Scalars['String'];
-  managementStatus: ManagementStatus;
+  message: Scalars['String'];
 };
 
 export type CreateTagInput = {
@@ -270,7 +261,7 @@ export type PaginationInput = {
 export type RecruitmentInput = {
   closingAt?: InputMaybe<Scalars['DateTime']>;
   competitionId: Scalars['String'];
-  content?: InputMaybe<Scalars['String']>;
+  detail?: InputMaybe<Scalars['String']>;
   locationLat?: InputMaybe<Scalars['Float']>;
   locationLng?: InputMaybe<Scalars['Float']>;
   place?: InputMaybe<Scalars['String']>;
@@ -295,6 +286,21 @@ export type SearchRecruitmentInput = {
   type?: InputMaybe<Scalars['String']>;
 };
 
+export type CheckAppliedForRecruitmentQueryVariables = Exact<{
+  recruitmentId: Scalars['String'];
+}>;
+
+
+export type CheckAppliedForRecruitmentQuery = { __typename?: 'Query', checkAppliedForRecruitment: boolean };
+
+export type ApplyForRecruitmentMutationVariables = Exact<{
+  recruitmentId: Scalars['String'];
+  applicantInput?: InputMaybe<ApplicantInput>;
+}>;
+
+
+export type ApplyForRecruitmentMutation = { __typename?: 'Mutation', applyForRecruitment: boolean };
+
 export type GetCompetitionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -317,14 +323,14 @@ export type GetRecruitmentQueryVariables = Exact<{
 }>;
 
 
-export type GetRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, place?: string | null, startAt?: any | null, content?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, user: { __typename?: 'User', id: string, name: string, avatar: string }, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
+export type GetRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, place?: string | null, startAt?: any | null, detail?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, user: { __typename?: 'User', id: string, name: string, avatar: string }, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
 
 export type GetEditRecruitmentQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type GetEditRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, place?: string | null, startAt?: any | null, content?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, status: Status, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
+export type GetEditRecruitmentQuery = { __typename?: 'Query', getRecruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, place?: string | null, startAt?: any | null, detail?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, status: Status, competition?: { __typename?: 'Competition', id: string, name: string } | null, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
 
 export type GetCurrentUserRecruitmentsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -416,6 +422,24 @@ export type LogoutUserMutationVariables = Exact<{ [key: string]: never; }>;
 export type LogoutUserMutation = { __typename?: 'Mutation', logoutUser: boolean };
 
 
+export const CheckAppliedForRecruitmentDocument = gql`
+    query CheckAppliedForRecruitment($recruitmentId: String!) {
+  checkAppliedForRecruitment(recruitmentId: $recruitmentId)
+}
+    `;
+
+export function useCheckAppliedForRecruitmentQuery(options: Omit<Urql.UseQueryArgs<CheckAppliedForRecruitmentQueryVariables>, 'query'>) {
+  return Urql.useQuery<CheckAppliedForRecruitmentQuery>({ query: CheckAppliedForRecruitmentDocument, ...options });
+};
+export const ApplyForRecruitmentDocument = gql`
+    mutation ApplyForRecruitment($recruitmentId: String!, $applicantInput: applicantInput) {
+  applyForRecruitment(recruitmentId: $recruitmentId, input: $applicantInput)
+}
+    `;
+
+export function useApplyForRecruitmentMutation() {
+  return Urql.useMutation<ApplyForRecruitmentMutation, ApplyForRecruitmentMutationVariables>(ApplyForRecruitmentDocument);
+};
 export const GetCompetitionsDocument = gql`
     query GetCompetitions {
   getCompetitions {
@@ -486,7 +510,7 @@ export const GetRecruitmentDocument = gql`
     status
     place
     startAt
-    content
+    detail
     closingAt
     competition {
       id
@@ -522,7 +546,7 @@ export const GetEditRecruitmentDocument = gql`
     type
     place
     startAt
-    content
+    detail
     closingAt
     competition {
       id
@@ -733,17 +757,6 @@ export default {
         "fields": [
           {
             "name": "createdAt",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "managementStatus",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -1139,7 +1152,7 @@ export default {
         "name": "Query",
         "fields": [
           {
-            "name": "checkApplied",
+            "name": "checkAppliedForRecruitment",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -1423,14 +1436,6 @@ export default {
             "args": []
           },
           {
-            "name": "content",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
             "name": "createdAt",
             "type": {
               "kind": "NON_NULL",
@@ -1438,6 +1443,14 @@ export default {
                 "kind": "SCALAR",
                 "name": "Any"
               }
+            },
+            "args": []
+          },
+          {
+            "name": "detail",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },

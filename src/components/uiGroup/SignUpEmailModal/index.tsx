@@ -40,7 +40,7 @@ export const SignUpEmailModal: FC<Props> = memo((props) => {
     handleSubmit,
     reset,
     setError,
-    formState: { isSubmitting },
+    formState: { isSubmitting, isValid },
   } = useForm<CreateUserInput>({
     defaultValues: {
       name: '',
@@ -84,7 +84,11 @@ export const SignUpEmailModal: FC<Props> = memo((props) => {
             <PasswordForm control={control} />
           </ModalBody>
           <ModalFooter>
-            <SubmitButton isSubmitting={isSubmitting} />
+            <SubmitButton
+              isValid={isValid}
+              displayName="登録する"
+              isSubmitting={isSubmitting}
+            />
           </ModalFooter>
         </form>
       </ModalContent>

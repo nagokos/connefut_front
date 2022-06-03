@@ -14,7 +14,7 @@ export type CardRecEdge = {
 export type CardRecruitment = {
   id: string;
   title: string;
-  content?: string | null | undefined;
+  detail?: string | null | undefined;
   type: Type;
   prefecture?: CardPrefecture | null | undefined;
   user: CardUser;

@@ -2,11 +2,11 @@ import { Box, Text } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 
 type Props = {
-  content?: string;
+  detail?: string;
 };
 
 export const Content: FC<Props> = memo((props) => {
-  const { content } = props;
+  const { detail } = props;
 
   return (
     <Box display="flex">
@@ -31,7 +31,7 @@ export const Content: FC<Props> = memo((props) => {
         minW="590"
         fontFamily="ヒラギノ角ゴシック"
       >
-        {content}
+        {detail}
       </Text>
     </Box>
   );
