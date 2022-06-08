@@ -1,12 +1,16 @@
 import { Box, Divider, Spacer } from '@chakra-ui/react';
 import { FC, memo, useMemo } from 'react';
 
-import { useGetCurrentUserRecruitmentsQuery } from '../../../generated/graphql';
+import {
+  Status,
+  useGetCurrentUserRecruitmentsQuery,
+} from '../../../generated/graphql';
 import { StatusTag } from './StatusTag';
 import { Title } from './Title';
 import { OtherContents } from './OtherContents';
 import { Edit } from './Edit';
 import { Trash } from './Trash';
+import { Applicants } from './Applicants';
 
 export const DashboardRecruitment: FC = memo(() => {
   const [data] = useGetCurrentUserRecruitmentsQuery({
@@ -20,6 +24,7 @@ export const DashboardRecruitment: FC = memo(() => {
           <Box display="flex" alignItems="center">
             <StatusTag status={recruitment.status} />
             <Spacer />
+            {recruitment.status === Status.Published && <Applicants />}
             <Edit id={recruitment.id} />
             <Trash id={recruitment.id} title={recruitment.title} />
           </Box>
