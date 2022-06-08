@@ -16,11 +16,11 @@ export const Stocks: FC = memo(() => {
       onClick={() => navigate('/dashboard/stocks')}
       _hover={{ color: 'black' }}
     >
-      <Box fontSize={20} color="primary.main">
+      <Box fontSize={20} px={2} py={2} rounded="lg" color="primary.main">
         <MdOutlineBookmarkBorder />
       </Box>
-      <Box ml={3} fontSize={21}>
-        Stocks
+      <Box ml={3} fontSize={15} fontWeight="bold">
+        ストックリスト
       </Box>
     </Box>
   );
