@@ -66,10 +66,11 @@ export const recruitmentChakraStyle: ChakraStylesConfig<
   }),
   multiValue: (provied) => ({
     ...provied,
-    fontSize: 11,
+    fontSize: 10,
     px: 2,
     boxShadow: 'md',
     mr: 1.5,
+    fontFamily: 'ヒラギノ角ゴシック',
     my: 1,
   }),
   multiValueRemove: (provied) => ({
