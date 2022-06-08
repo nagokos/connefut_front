@@ -9,7 +9,7 @@ export const Title: FC<Props> = memo((props) => {
   const { title } = props;
 
   return (
-    <Text fontWeight="bold" fontSize={28}>
+    <Text fontWeight="bold" fontSize={26} fontFamily="ヒラギノ角ゴシック">
       {title}
     </Text>
   );
