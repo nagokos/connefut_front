@@ -65,7 +65,7 @@ export const SignUpEmailModal: FC<Props> = memo((props) => {
         setError(field, { message: error.message });
       });
     } else {
-      navigate('/');
+      navigate('/recruitments');
     }
   };
 
