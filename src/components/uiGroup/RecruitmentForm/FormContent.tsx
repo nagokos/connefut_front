@@ -36,7 +36,7 @@ export const FormContent: FC<Props> = memo((props) => {
           _placeholder={{
             color: 'blackAlpha.600',
           }}
-          _focus={{ border: 'none' }}
+          _focus={{ boxShadow: 'none !important' }}
         />
       )}
     />

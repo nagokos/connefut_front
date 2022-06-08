@@ -377,7 +377,7 @@ export const Messages: FC = memo(() => {
                         py={3}
                         bg="primary.light"
                         rounded="md"
-                        fontFamily="ヒラギノ角ゴシック"
+                        fontWeight="bold"
                       >
                         参加させていただきたいです。
                         参加させていただきたいです。
@@ -406,7 +406,7 @@ export const Messages: FC = memo(() => {
                 py={3}
                 placeholder="メッセージを入力"
                 fontSize={14}
-                _focus={{ border: 'none' }}
+                _focus={{ boxShadow: 'none !important' }}
                 _placeholder={{ color: 'blackAlpha.500' }}
                 bg="primary.light"
                 whiteSpace="normal"

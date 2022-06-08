@@ -31,8 +31,8 @@ export const DatePicker: FC = memo(() => {
           fontWeight="bold"
           borderColor="#E1EBE9"
           border="1px solid #E1EBE9"
-          _hover={{ border: '1px solid #E1EBE9' }}
-          _focus={{ border: '1px solid #E1EBE9' }}
+          _hover={{ border: '1px solid #E1EBE9', boxShadow: 'none !important' }}
+          _focus={{ border: '1px solid #E1EBE9', boxShadow: 'none !important' }}
         />
       }
     />

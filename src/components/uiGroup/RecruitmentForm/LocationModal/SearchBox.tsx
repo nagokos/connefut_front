@@ -15,7 +15,7 @@ export const SearchBox: FC<Props> = memo((props) => {
       <Input
         bg="white"
         h={14}
-        _focus={{ boxShadow: 'md' }}
+        _focusVisible={{ boxShadow: 'md' }}
         boxShadow="md"
         fontSize={13}
         _placeholder={{

@@ -48,7 +48,7 @@ export const FormStartAt: FC<Props> = memo((props) => {
                 fontSize={13}
                 readOnly
                 border="none"
-                _focus={{ border: 'none' }}
+                _focus={{ boxShadow: 'none !important' }}
                 size="lg"
               />
             }
