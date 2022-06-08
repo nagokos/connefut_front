@@ -1,4 +1,4 @@
-import { FC, memo, startTransition } from 'react';
+import { FC, memo } from 'react';
 import { Box, Image, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,11 +11,9 @@ export const Title: FC = memo(() => {
         display="flex"
         alignItems="center"
         cursor="pointer"
-        onClick={() =>
-          startTransition(() => {
-            navigate('/');
-          })
-        }
+        onClick={() => {
+          navigate('/recruitments');
+        }}
       >
         <Image src="/src/assets/img/logo.png" alt="app logo" w={7} mr={1.5} />
         <Text fontWeight="bold" fontFamily="Nunito" fontSize={25}>
