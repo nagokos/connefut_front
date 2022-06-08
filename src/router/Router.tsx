@@ -9,11 +9,13 @@ import {
   DashboardRecruitments,
   DashboardStocks,
   RecruitmentEdit,
+  Messages,
 } from '../pages';
+import { DashboardApplied } from '../pages/DashboardApplied';
 
 export const routes = (isLoggedIn: boolean) => [
   {
-    path: '/',
+    path: '/recruitments',
     element: <Home />,
   },
   {
@@ -41,7 +43,12 @@ export const routes = (isLoggedIn: boolean) => [
     element: isLoggedIn ? <Dashboard /> : <Navigate to="/login" />,
     children: [
       { path: '/dashboard', element: <DashboardRecruitments /> },
+      { path: 'applied', element: <DashboardApplied /> },
       { path: 'stocks', element: <DashboardStocks /> },
     ],
+  },
+  {
+    path: 'messages',
+    element: isLoggedIn ? <Messages /> : <Navigate to="/login" />,
   },
 ];
