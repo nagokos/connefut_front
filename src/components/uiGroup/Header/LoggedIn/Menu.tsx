@@ -34,7 +34,7 @@ export const AvatarMenu: FC<Props> = memo((props) => {
   const logout = async () => {
     const res = await logoutUser();
     if (res.data?.logoutUser) {
-      window.location.href = '/';
+      window.location.href = '/recruitments';
     }
   };
 
@@ -52,6 +52,7 @@ export const AvatarMenu: FC<Props> = memo((props) => {
     {
       icon: <MdOutlineEventNote color="RGBA(0, 0, 0, 0.48)" fontSize={19} />,
       title: '応募の管理',
+      onClick: () => navigate('/dashboard/applied'),
     },
     {
       icon: (
