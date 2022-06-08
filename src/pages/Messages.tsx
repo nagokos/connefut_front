@@ -267,7 +267,7 @@ export const Messages: FC = memo(() => {
               <Box display="flex" justifyContent="flex-end">
                 <Box
                   border="1px solid"
-                  borderColor="blackAlpha.100"
+                  borderColor="blackAlpha.50"
                   maxW={460}
                   px={5}
                   py={5}
