@@ -20,9 +20,10 @@ export const FormTitle: FC<Props> = memo((props) => {
           {...field}
           placeholder="タイトル"
           border="none"
-          fontSize={32}
+          fontSize={31}
           fontWeight="bold"
           resize="none"
+          fontFamily="ヒラギノ角ゴシック"
           _focus={{ border: 'none', wordWrap: 'breakWord' }}
           px={0}
           _placeholder={{
