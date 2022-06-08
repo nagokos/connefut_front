@@ -49,7 +49,7 @@ export const FormClosingAt: FC<Props> = memo((props) => {
                 bg="white"
                 fontSize={13}
                 border="none"
-                _focus={{ border: 'none' }}
+                _focus={{ boxShadow: 'none !important' }}
                 size="lg"
               />
             }

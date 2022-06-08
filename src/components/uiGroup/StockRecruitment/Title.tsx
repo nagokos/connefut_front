@@ -12,7 +12,7 @@ export const Title: FC<Props> = memo((props) => {
   const navigate = useNavigate();
 
   return (
-    <Box cursor="pointer" fontSize={15.5} fontWeight="bold">
+    <Box cursor="pointer" fontSize={15} fontWeight="bold">
       {title}
     </Box>
   );

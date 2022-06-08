@@ -1,19 +1,23 @@
-import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
+import { Box, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { MdOutlineSearch } from 'react-icons/md';
 
 export const SearchInput: FC = memo(() => {
   return (
-    <InputGroup>
-      <InputLeftElement zIndex={1} pointerEvents="none">
-        <MdOutlineSearch color="RGBA(0, 0, 0, 0.48)" fontSize={18} />
+    <InputGroup zIndex={0}>
+      <InputLeftElement zIndex={2} pointerEvents="none">
+        <Box
+          _focus={{ color: 'RGBA(0, 0, 0, 0.48)' }}
+          _focusVisible={{ color: 'RGBA(0, 0, 0, 0.48)' }}
+          color="RGBA(0, 0, 0, 0.48)"
+        >
+          <MdOutlineSearch fontSize={18} />
+        </Box>
       </InputLeftElement>
       <Input
-        _focus={{ borderColor: 'none' }}
-        _hover={{ borderColor: 'none' }}
+        _focus={{ boxShadow: 'none !important' }}
         border="none"
         type="search"
-        zIndex={0}
         bg="#f8fafa"
         borderColor="none"
         placeholder="キーワードで検索"

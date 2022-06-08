@@ -24,7 +24,16 @@ export const FormTitle: FC<Props> = memo((props) => {
           fontWeight="bold"
           resize="none"
           fontFamily="ヒラギノ角ゴシック"
-          _focus={{ border: 'none', wordWrap: 'breakWord' }}
+          _focus={{
+            border: 'none',
+            wordWrap: 'breakWord',
+          }}
+          _focusVisible={{
+            border: 'none',
+          }}
+          _active={{
+            border: 'none',
+          }}
           px={0}
           _placeholder={{
             color: 'blackAlpha.400',

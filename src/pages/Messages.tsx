@@ -277,10 +277,10 @@ export const Messages: FC = memo(() => {
                 >
                   <Box>
                     <Box color="primary.main">
-                      <MdCheck fontSize={53} />
+                      <MdCheck fontSize={55} />
                     </Box>
                     <Box
-                      fontSize={13}
+                      fontSize={12.5}
                       mt={3.5}
                       fontWeight="bold"
                       fontFamily="ヒラギノ角ゴシック"
@@ -288,8 +288,8 @@ export const Messages: FC = memo(() => {
                       Kosudaさんの募集に応募をしました!!
                     </Box>
                     <Box
-                      mt={3}
-                      fontSize={12.5}
+                      mt={4}
+                      fontSize={12}
                       fontWeight="bold"
                       fontFamily="ヒラギノ角ゴシック"
                       display="flex"
@@ -303,9 +303,9 @@ export const Messages: FC = memo(() => {
                       </Box>
                       横浜市内で新規MIXスーパービギナーチーム★メンバー約70名★初心者および未経験者の男女を募集中
                     </Box>
-                    <SimpleGrid columns={2} mt={5} spacing={4}>
+                    <SimpleGrid columns={2} mt={5} spacing={5}>
                       <Box>
-                        <Box fontSize={12} color="blackAlpha.600">
+                        <Box fontSize={11} color="blackAlpha.600">
                           募集競技
                         </Box>
                         <Box
@@ -319,7 +319,7 @@ export const Messages: FC = memo(() => {
                         </Box>
                       </Box>
                       <Box>
-                        <Box fontSize={12} color="blackAlpha.600">
+                        <Box fontSize={11} color="blackAlpha.600">
                           募集タイプ
                         </Box>
                         <Box
@@ -333,7 +333,7 @@ export const Messages: FC = memo(() => {
                         </Box>
                       </Box>
                       <Box>
-                        <Box fontSize={12} color="blackAlpha.600">
+                        <Box fontSize={11} color="blackAlpha.600">
                           会場
                         </Box>
                         <Box
@@ -347,7 +347,7 @@ export const Messages: FC = memo(() => {
                         </Box>
                       </Box>
                       <Box>
-                        <Box fontSize={12} color="blackAlpha.600">
+                        <Box fontSize={11} color="blackAlpha.600">
                           開催日
                         </Box>
                         <Box
@@ -364,7 +364,7 @@ export const Messages: FC = memo(() => {
                     <Divider my={5} />
                     <Box>
                       <Box
-                        fontSize={12}
+                        fontSize={11}
                         fontFamily="ヒラギノ角ゴシック"
                         color="blackAlpha.600"
                       >
@@ -406,7 +406,7 @@ export const Messages: FC = memo(() => {
                 py={3}
                 placeholder="メッセージを入力"
                 fontSize={14}
-                _focus={{ border: 'none' }}
+                _focus={{ boxShadow: 'none !important' }}
                 _placeholder={{ color: 'blackAlpha.500' }}
                 bg="primary.light"
                 whiteSpace="normal"

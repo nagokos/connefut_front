@@ -91,7 +91,12 @@ export const ApplyModal: FC<Props> = memo((props) => {
                     _placeholder={{ color: 'blackAlpha.600' }}
                     _hover={{ border: 'primary.50' }}
                     _active={{ border: 'primary.50' }}
-                    _focus={{ border: 'primary.50' }}
+                    _focus={{
+                      border: 'primary.50',
+                    }}
+                    _focusVisible={{
+                      boxShadow: 'none !important',
+                    }}
                   />
                 </>
               )}
