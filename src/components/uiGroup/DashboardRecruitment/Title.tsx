@@ -16,7 +16,7 @@ export const Title: FC<Props> = memo((props) => {
     <Box
       cursor="pointer"
       mt={2}
-      fontSize={16}
+      fontSize={15.5}
       fontWeight="bold"
       onClick={() => navigate(`/recruitments/${id}/edit`)}
     >
