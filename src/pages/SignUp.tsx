@@ -19,7 +19,7 @@ export const SignUp: FC = memo(() => {
   return (
     <>
       <Box position="absolute" mt={5} ml={5}>
-        <ArrowLeftButton clickEvent={() => navigate('/')} />
+        <ArrowLeftButton clickEvent={() => navigate('/recruitments')} />
       </Box>
       <Box h="100vh" mx="auto" maxW={390} py={44}>
         <Text
@@ -38,12 +38,12 @@ export const SignUp: FC = memo(() => {
             title="メールアドレスで登録"
           />
           <AppInButton
-            clickEvent={() => navigate('/')}
+            clickEvent={() => navigate('/recruitments')}
             icon={<Image src="/src/assets/img/google.png" w={4} />}
             title="Googleで登録"
           />
           <AppInButton
-            clickEvent={() => navigate('/')}
+            clickEvent={() => navigate('/recruitments')}
             icon={<Image src="/src/assets/img/line.png" w={4} />}
             title="LINEで登録"
           />

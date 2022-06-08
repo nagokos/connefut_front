@@ -19,7 +19,7 @@ export const Header: FC<Props> = memo((props) => {
         pt={4}
         justifyContent="center"
         alignItems="center"
-        fontSize={16}
+        fontSize={15.5}
         textAlign="center"
         fontWeight="bold"
       >

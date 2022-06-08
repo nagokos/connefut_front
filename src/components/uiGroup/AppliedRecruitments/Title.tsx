@@ -1,16 +1,16 @@
-import { Text } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 
 type Props = {
-  title?: string;
+  title: string;
 };
 
 export const Title: FC<Props> = memo((props) => {
   const { title } = props;
 
   return (
-    <Text fontWeight="bold" fontSize={26} fontFamily="ヒラギノ角ゴシック">
+    <Box fontSize={15} mr={14} cursor="pointer" fontWeight="bold">
       {title}
-    </Text>
+    </Box>
   );
 });

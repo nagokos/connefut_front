@@ -64,7 +64,7 @@ export const LoginEmailModal: FC<Props> = memo((props) => {
       });
     } else {
       showFlash({ title: 'ログインしました', status: 'success' });
-      navigate('/');
+      navigate('/recruitments');
     }
   };
 

@@ -12,15 +12,20 @@ export const Recruitments: FC = memo(() => {
       display="flex"
       alignItems="center"
       cursor="pointer"
-      color={!location.pathname.includes('stocks') ? 'black' : 'blackAlpha.500'}
+      color={
+        !location.pathname.includes('stocks') &&
+        !location.pathname.includes('applied')
+          ? 'black'
+          : 'blackAlpha.500'
+      }
       onClick={() => navigate('/dashboard')}
       _hover={{ color: 'black' }}
     >
-      <Box fontSize={20} color="primary.main">
+      <Box fontSize={20} px={2} py={2} rounded="lg" color="primary.main">
         <MdOutlineArticle />
       </Box>
-      <Box ml={3} fontSize={21}>
-        Recruitments
+      <Box ml={3} fontWeight="bold" fontSize={15}>
+        募集管理
       </Box>
     </Box>
   );

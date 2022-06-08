@@ -105,6 +105,21 @@ query GetCurrentUserRecruitments {
   }
 }
 
+query GetAppliedRecruitments {
+  getAppliedRecruitments {
+    id
+    title
+    applicant {
+      createdAt
+    }
+    user {
+      id
+      name
+      avatar
+    }
+  }
+}
+
 query GetStockedRecruitments {
   getStockedRecruitments {
     id

@@ -13,7 +13,7 @@ export const Area: FC<Props> = memo((props) => {
     <Box display="flex" alignItems="center">
       <Box display="flex" alignItems="center" fontSize={14} minW={130}>
         <Box mr={1}>■</Box>
-        <Box>エリア・会場</Box>
+        <Box>{place ? 'エリア・会場' : 'エリア'}</Box>
       </Box>
       <Box
         fontFamily="ヒラギノ角ゴシック"

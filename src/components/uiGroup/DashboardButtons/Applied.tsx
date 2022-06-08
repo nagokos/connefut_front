@@ -1,9 +1,9 @@
 import { Box } from '@chakra-ui/react';
 import { FC, memo } from 'react';
-import { MdOutlineBookmarkBorder } from 'react-icons/md';
+import { MdOutlineEventNote } from 'react-icons/md';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-export const Stocks: FC = memo(() => {
+export const Applied: FC = memo(() => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -12,15 +12,15 @@ export const Stocks: FC = memo(() => {
       cursor="pointer"
       display="flex"
       alignItems="center"
-      color={location.pathname.includes('stocks') ? 'black' : 'blackAlpha.500'}
-      onClick={() => navigate('/dashboard/stocks')}
+      color={location.pathname.includes('applied') ? 'black' : 'blackAlpha.500'}
+      onClick={() => navigate('/dashboard/applied')}
       _hover={{ color: 'black' }}
     >
       <Box fontSize={20} px={2} py={2} rounded="lg" color="primary.main">
-        <MdOutlineBookmarkBorder />
+        <MdOutlineEventNote />
       </Box>
       <Box ml={3} fontSize={15} fontWeight="bold">
-        ストックリスト
+        応募管理
       </Box>
     </Box>
   );

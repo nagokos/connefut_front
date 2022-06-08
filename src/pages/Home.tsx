@@ -4,11 +4,11 @@ import {
   Divider,
   Grid,
   GridItem,
-  SimpleGrid,
 } from '@chakra-ui/react';
 import { FC, memo, Suspense } from 'react';
-import { HomeSearch, RecruitmentCard } from '../components/uiGroup';
+import { HomeSearch } from '../components/uiGroup';
 import { HomeOrder } from '../components/uiGroup/HomeOrder';
+import { RecruitmentCardList } from '../components/uiGroup/RecruitmentCardList';
 
 export const Home: FC = memo(() => {
   return (
@@ -40,9 +40,7 @@ export const Home: FC = memo(() => {
               </Box>
             }
           >
-            <SimpleGrid columns={2} spacing={10}>
-              <RecruitmentCard />
-            </SimpleGrid>
+            <RecruitmentCardList />
           </Suspense>
         </GridItem>
       </Grid>

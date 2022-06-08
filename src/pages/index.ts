@@ -7,3 +7,4 @@ export { RecruitmentDetails } from './RecruitmentDetails';
 export { Dashboard } from './Dashboard';
 export { DashboardRecruitments } from './DashboardRecruitments';
 export { DashboardStocks } from './DashboardStocks';
+export { Messages } from './Messages';

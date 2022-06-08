@@ -337,6 +337,11 @@ export type GetCurrentUserRecruitmentsQueryVariables = Exact<{ [key: string]: ne
 
 export type GetCurrentUserRecruitmentsQuery = { __typename?: 'Query', getCurrentUserRecruitments: Array<{ __typename?: 'Recruitment', id: string, title: string, status: Status, type: Type, closingAt?: any | null, createdAt: any, published_at?: any | null, competition?: { __typename?: 'Competition', id: string, name: string } | null }> };
 
+export type GetAppliedRecruitmentsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAppliedRecruitmentsQuery = { __typename?: 'Query', getAppliedRecruitments: Array<{ __typename?: 'Recruitment', id: string, title: string, applicant?: { __typename?: 'Applicant', createdAt: any } | null, user: { __typename?: 'User', id: string, name: string, avatar: string } }> };
+
 export type GetStockedRecruitmentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -590,6 +595,26 @@ export const GetCurrentUserRecruitmentsDocument = gql`
 
 export function useGetCurrentUserRecruitmentsQuery(options?: Omit<Urql.UseQueryArgs<GetCurrentUserRecruitmentsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetCurrentUserRecruitmentsQuery>({ query: GetCurrentUserRecruitmentsDocument, ...options });
+};
+export const GetAppliedRecruitmentsDocument = gql`
+    query GetAppliedRecruitments {
+  getAppliedRecruitments {
+    id
+    title
+    applicant {
+      createdAt
+    }
+    user {
+      id
+      name
+      avatar
+    }
+  }
+}
+    `;
+
+export function useGetAppliedRecruitmentsQuery(options?: Omit<Urql.UseQueryArgs<GetAppliedRecruitmentsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAppliedRecruitmentsQuery>({ query: GetAppliedRecruitmentsDocument, ...options });
 };
 export const GetStockedRecruitmentsDocument = gql`
     query GetStockedRecruitments {
