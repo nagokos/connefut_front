@@ -16,7 +16,7 @@ export const AppliedRecruitments: FC = memo(() => {
         <Box key={recruitment.id}>
           <Box display="flex" alignItems="center">
             <Box>
-              <Title title={recruitment.title} />
+              <Title id={recruitment.id} title={recruitment.title} />
               <OtherContents
                 avatar={recruitment.user.avatar}
                 name={recruitment.user.name}
