@@ -14,7 +14,7 @@ export const Title: FC<Props> = memo((props) => {
 
   return (
     <Box
-      fontSize={15}
+      fontSize={15.5}
       mr={10}
       cursor="pointer"
       fontWeight="bold"

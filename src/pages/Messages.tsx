@@ -10,12 +10,22 @@ import {
   Stack,
   Textarea,
 } from '@chakra-ui/react';
-import { FC, memo } from 'react';
+import { createRef, FC, memo, useEffect } from 'react';
 import ResizeTextarea from 'react-textarea-autosize';
 import { RiSendPlane2Line } from 'react-icons/ri';
 import { MdCheck, MdOutlineArticle } from 'react-icons/md';
 
 export const Messages: FC = memo(() => {
+  const ref = createRef<HTMLDivElement>();
+
+  const scrollToBottom = () => {
+    ref.current?.scrollIntoView({ block: 'end', behavior: 'auto' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, []);
+
   return (
     <Box maxW={1120} mx="auto">
       <Grid mt={8} templateColumns="repeat(12, 1fr)" gap={8}>
@@ -170,7 +180,7 @@ export const Messages: FC = memo(() => {
           </Box>
           <Divider />
           <Box overflow="scroll" maxH={573} px={3}>
-            <Stack mt={6} mb={4} spacing={8}>
+            <Stack ref={ref} mt={6} pb={4} spacing={8}>
               <Box display="flex" justifyContent="flex-end">
                 <Box
                   bg="primary.main"
@@ -267,7 +277,7 @@ export const Messages: FC = memo(() => {
               <Box display="flex" justifyContent="flex-end">
                 <Box
                   border="1px solid"
-                  borderColor="blackAlpha.100"
+                  borderColor="blackAlpha.50"
                   maxW={460}
                   px={5}
                   py={5}
