@@ -1,4 +1,9 @@
-import { MenuItemOption, MenuList, MenuOptionGroup } from '@chakra-ui/react';
+import {
+  Box,
+  MenuItemOption,
+  MenuList,
+  MenuOptionGroup,
+} from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { MdCheck } from 'react-icons/md';
@@ -34,7 +39,11 @@ export const TypeMenuList: FC<Props> = memo((props) => {
                 value={type.id}
                 fontSize={11.5}
                 fontFamily="Noto Sans JP"
-                icon={<MdCheck color="#009688" fontSize={14} />}
+                icon={
+                  <Box color="primary.main">
+                    <MdCheck fontSize={14} />
+                  </Box>
+                }
                 _hover={{
                   bg: 'primary.light',
                 }}
