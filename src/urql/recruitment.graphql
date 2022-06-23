@@ -13,7 +13,7 @@ query GetRecruitments($paginationInput: paginationInput!) {
         title
         type
         status
-        published_at
+        publishedAt
         closingAt
         user {
           name
@@ -97,7 +97,7 @@ query GetCurrentUserRecruitments {
     type
     closingAt
     createdAt
-    published_at
+    publishedAt
     competition {
       id
       name
