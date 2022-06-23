@@ -22,7 +22,7 @@ export type CardRecruitment = {
   competition?: CardCompetition | null | undefined;
   startAt?: string;
   closingAt?: string;
-  published_at?: string;
+  publishedAt?: string;
 };
 
 export type CardPrefecture = {
