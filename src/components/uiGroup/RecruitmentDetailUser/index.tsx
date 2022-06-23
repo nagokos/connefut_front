@@ -1,7 +1,19 @@
 import { Avatar, Box, Button, Stack, Text } from '@chakra-ui/react';
 import { FC, memo } from 'react';
+import { useParams } from 'react-router-dom';
+import { useGetRecruitmentQuery } from '../../../generated/graphql';
 
 export const RecruitmentDetailUser: FC = memo(() => {
+  const { recruitmentId } = useParams();
+
+  const [data] = useGetRecruitmentQuery({
+    variables: {
+      id: String(recruitmentId),
+    },
+  });
+
+  const recruitment = data.data?.getRecruitment;
+
   return (
     <Box
       px={5}
@@ -15,7 +27,7 @@ export const RecruitmentDetailUser: FC = memo(() => {
         <Avatar mr={2} w={16} h={16} />
         <Stack direction="column" spacing="0" fontSize={12}>
           <Text fontWeight="600" fontSize={15}>
-            kosuda
+            {recruitment?.user.name}
           </Text>
           <Button
             size="sm"
