@@ -12,7 +12,7 @@ export const Author: FC<Props> = memo((props) => {
   const { recruitment } = props;
 
   const distanceToNow = () => {
-    return formatDistanceToNow(new Date(String(recruitment.published_at)), {
+    return formatDistanceToNow(new Date(String(recruitment.publishedAt)), {
       locale: ja,
     }).replace('約', '');
   };
