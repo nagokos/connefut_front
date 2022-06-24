@@ -19,6 +19,8 @@ export type Scalars = {
 export type Applicant = {
   __typename?: 'Applicant';
   createdAt: Scalars['DateTime'];
+  message: Scalars['String'];
+  recruitment: Recruitment;
 };
 
 export type Competition = {
@@ -32,10 +34,24 @@ export enum EmailVerificationStatus {
   Verified = 'VERIFIED'
 }
 
+export type Entrie = {
+  __typename?: 'Entrie';
+  user: User;
+};
+
+export type Message = {
+  __typename?: 'Message';
+  applicant?: Maybe<Applicant>;
+  content?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  user: User;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addRecruitmentTag: Scalars['Boolean'];
   applyForRecruitment: Scalars['Boolean'];
+  createMessage: Message;
   createRecruitment: Recruitment;
   createStock: Scalars['Boolean'];
   createTag: Tag;
@@ -57,6 +73,12 @@ export type MutationAddRecruitmentTagArgs = {
 export type MutationApplyForRecruitmentArgs = {
   input?: InputMaybe<ApplicantInput>;
   recruitmentId: Scalars['String'];
+};
+
+
+export type MutationCreateMessageArgs = {
+  input: CreateMessageInput;
+  roomId: Scalars['String'];
 };
 
 
@@ -123,9 +145,12 @@ export type Query = {
   getCompetitions: Array<Competition>;
   getCurrentUser?: Maybe<User>;
   getCurrentUserRecruitments: Array<Recruitment>;
+  getCurrentUserRooms: Array<Room>;
+  getEntrieUser: User;
   getPrefectures: Array<Prefecture>;
   getRecruitment: Recruitment;
   getRecruitments: RecruitmentConnection;
+  getRoomMessages: Array<Message>;
   getStockedCount: Scalars['Int'];
   getStockedRecruitments: Array<Recruitment>;
   getTags: Array<Tag>;
@@ -147,6 +172,11 @@ export type QueryGetAppliedCountsArgs = {
 };
 
 
+export type QueryGetEntrieUserArgs = {
+  roomId: Scalars['String'];
+};
+
+
 export type QueryGetRecruitmentArgs = {
   id: Scalars['String'];
 };
@@ -154,6 +184,11 @@ export type QueryGetRecruitmentArgs = {
 
 export type QueryGetRecruitmentsArgs = {
   input: PaginationInput;
+};
+
+
+export type QueryGetRoomMessagesArgs = {
+  roomId?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -173,7 +208,7 @@ export type Recruitment = {
   locationLng?: Maybe<Scalars['Float']>;
   place?: Maybe<Scalars['String']>;
   prefecture?: Maybe<Prefecture>;
-  published_at?: Maybe<Scalars['DateTime']>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
   startAt?: Maybe<Scalars['DateTime']>;
   status: Status;
   tags: Array<Maybe<Tag>>;
@@ -199,6 +234,12 @@ export enum Role {
   Admin = 'ADMIN',
   General = 'GENERAL'
 }
+
+export type Room = {
+  __typename?: 'Room';
+  entrie: Entrie;
+  id: Scalars['String'];
+};
 
 export enum Status {
   Closed = 'CLOSED',
@@ -233,6 +274,10 @@ export type User = {
 
 export type ApplicantInput = {
   message: Scalars['String'];
+};
+
+export type CreateMessageInput = {
+  content: Scalars['String'];
 };
 
 export type CreateTagInput = {
@@ -306,6 +351,28 @@ export type GetCompetitionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetCompetitionsQuery = { __typename?: 'Query', getCompetitions: Array<{ __typename?: 'Competition', id: string, name: string }> };
 
+export type GetEntrieUserQueryVariables = Exact<{
+  roomId: Scalars['String'];
+}>;
+
+
+export type GetEntrieUserQuery = { __typename?: 'Query', getEntrieUser: { __typename?: 'User', id: string, name: string, avatar: string } };
+
+export type GetRoomMessagesQueryVariables = Exact<{
+  roomId: Scalars['String'];
+}>;
+
+
+export type GetRoomMessagesQuery = { __typename?: 'Query', getRoomMessages: Array<{ __typename?: 'Message', content?: string | null, user: { __typename?: 'User', name: string, avatar: string }, applicant?: { __typename?: 'Applicant', message: string, recruitment: { __typename?: 'Recruitment', title: string, startAt?: any | null, type: Type, prefecture?: { __typename?: 'Prefecture', name: string } | null, competition?: { __typename?: 'Competition', name: string } | null } } | null }> };
+
+export type CreateMessageMutationVariables = Exact<{
+  roomId: Scalars['String'];
+  createMessageInput: CreateMessageInput;
+}>;
+
+
+export type CreateMessageMutation = { __typename?: 'Mutation', createMessage: { __typename?: 'Message', content?: string | null } };
+
 export type GetPrefecturesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -316,7 +383,7 @@ export type GetRecruitmentsQueryVariables = Exact<{
 }>;
 
 
-export type GetRecruitmentsQuery = { __typename?: 'Query', getRecruitments: { __typename?: 'RecruitmentConnection', pageInfo: { __typename?: 'PageInfo', startCursor: string, endCursor: string, hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'RecruitmentEdge', cursor: string, node: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, published_at?: any | null, closingAt?: any | null, user: { __typename?: 'User', name: string, avatar: string }, prefecture?: { __typename?: 'Prefecture', name: string } | null, competition?: { __typename?: 'Competition', name: string } | null } }> } };
+export type GetRecruitmentsQuery = { __typename?: 'Query', getRecruitments: { __typename?: 'RecruitmentConnection', pageInfo: { __typename?: 'PageInfo', startCursor: string, endCursor: string, hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'RecruitmentEdge', cursor: string, node: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, publishedAt?: any | null, closingAt?: any | null, user: { __typename?: 'User', name: string, avatar: string }, prefecture?: { __typename?: 'Prefecture', name: string } | null, competition?: { __typename?: 'Competition', name: string } | null } }> } };
 
 export type GetRecruitmentQueryVariables = Exact<{
   id: Scalars['String'];
@@ -335,7 +402,7 @@ export type GetEditRecruitmentQuery = { __typename?: 'Query', getRecruitment: { 
 export type GetCurrentUserRecruitmentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetCurrentUserRecruitmentsQuery = { __typename?: 'Query', getCurrentUserRecruitments: Array<{ __typename?: 'Recruitment', id: string, title: string, status: Status, type: Type, closingAt?: any | null, createdAt: any, published_at?: any | null, competition?: { __typename?: 'Competition', id: string, name: string } | null }> };
+export type GetCurrentUserRecruitmentsQuery = { __typename?: 'Query', getCurrentUserRecruitments: Array<{ __typename?: 'Recruitment', id: string, title: string, status: Status, type: Type, closingAt?: any | null, createdAt: any, publishedAt?: any | null, competition?: { __typename?: 'Competition', id: string, name: string } | null }> };
 
 export type GetAppliedRecruitmentsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -368,6 +435,11 @@ export type DeleteRecruitmentMutationVariables = Exact<{
 
 
 export type DeleteRecruitmentMutation = { __typename?: 'Mutation', deleteRecruitment: { __typename?: 'Recruitment', id: string, title: string } };
+
+export type GetCurrentUserRoomsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCurrentUserRoomsQuery = { __typename?: 'Query', getCurrentUserRooms: Array<{ __typename?: 'Room', id: string, entrie: { __typename?: 'Entrie', user: { __typename?: 'User', name: string, avatar: string } } }> };
 
 export type CheckStockedQueryVariables = Exact<{
   recruitmentId: Scalars['String'];
@@ -457,6 +529,59 @@ export const GetCompetitionsDocument = gql`
 export function useGetCompetitionsQuery(options?: Omit<Urql.UseQueryArgs<GetCompetitionsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetCompetitionsQuery>({ query: GetCompetitionsDocument, ...options });
 };
+export const GetEntrieUserDocument = gql`
+    query GetEntrieUser($roomId: String!) {
+  getEntrieUser(roomId: $roomId) {
+    id
+    name
+    avatar
+  }
+}
+    `;
+
+export function useGetEntrieUserQuery(options: Omit<Urql.UseQueryArgs<GetEntrieUserQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetEntrieUserQuery>({ query: GetEntrieUserDocument, ...options });
+};
+export const GetRoomMessagesDocument = gql`
+    query GetRoomMessages($roomId: String!) {
+  getRoomMessages(roomId: $roomId) {
+    content
+    user {
+      name
+      avatar
+    }
+    applicant {
+      message
+      recruitment {
+        title
+        startAt
+        type
+        prefecture {
+          name
+        }
+        competition {
+          name
+        }
+      }
+    }
+  }
+}
+    `;
+
+export function useGetRoomMessagesQuery(options: Omit<Urql.UseQueryArgs<GetRoomMessagesQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetRoomMessagesQuery>({ query: GetRoomMessagesDocument, ...options });
+};
+export const CreateMessageDocument = gql`
+    mutation CreateMessage($roomId: String!, $createMessageInput: createMessageInput!) {
+  createMessage(roomId: $roomId, input: $createMessageInput) {
+    content
+  }
+}
+    `;
+
+export function useCreateMessageMutation() {
+  return Urql.useMutation<CreateMessageMutation, CreateMessageMutationVariables>(CreateMessageDocument);
+};
 export const GetPrefecturesDocument = gql`
     query GetPrefectures {
   getPrefectures {
@@ -485,7 +610,7 @@ export const GetRecruitmentsDocument = gql`
         title
         type
         status
-        published_at
+        publishedAt
         closingAt
         user {
           name
@@ -584,7 +709,7 @@ export const GetCurrentUserRecruitmentsDocument = gql`
     type
     closingAt
     createdAt
-    published_at
+    publishedAt
     competition {
       id
       name
@@ -669,6 +794,23 @@ export const DeleteRecruitmentDocument = gql`
 
 export function useDeleteRecruitmentMutation() {
   return Urql.useMutation<DeleteRecruitmentMutation, DeleteRecruitmentMutationVariables>(DeleteRecruitmentDocument);
+};
+export const GetCurrentUserRoomsDocument = gql`
+    query GetCurrentUserRooms {
+  getCurrentUserRooms {
+    id
+    entrie {
+      user {
+        name
+        avatar
+      }
+    }
+  }
+}
+    `;
+
+export function useGetCurrentUserRoomsQuery(options?: Omit<Urql.UseQueryArgs<GetCurrentUserRoomsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetCurrentUserRoomsQuery>({ query: GetCurrentUserRoomsDocument, ...options });
 };
 export const CheckStockedDocument = gql`
     query CheckStocked($recruitmentId: String!) {
@@ -790,6 +932,29 @@ export default {
               }
             },
             "args": []
+          },
+          {
+            "name": "message",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "recruitment",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Recruitment",
+                "ofType": null
+              }
+            },
+            "args": []
           }
         ],
         "interfaces": []
@@ -816,6 +981,72 @@ export default {
               "ofType": {
                 "kind": "SCALAR",
                 "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Entrie",
+        "fields": [
+          {
+            "name": "user",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Message",
+        "fields": [
+          {
+            "name": "applicant",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Applicant",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "content",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "user",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
               }
             },
             "args": []
@@ -878,6 +1109,39 @@ export default {
               },
               {
                 "name": "recruitmentId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "createMessage",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Message",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "input",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              },
+              {
+                "name": "roomId",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -1306,6 +1570,47 @@ export default {
             "args": []
           },
           {
+            "name": "getCurrentUserRooms",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Room",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "getEntrieUser",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "roomId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "getPrefectures",
             "type": {
               "kind": "NON_NULL",
@@ -1365,6 +1670,32 @@ export default {
                     "kind": "SCALAR",
                     "name": "Any"
                   }
+                }
+              }
+            ]
+          },
+          {
+            "name": "getRoomMessages",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Message",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": [
+              {
+                "name": "roomId",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
                 }
               }
             ]
@@ -1524,7 +1855,7 @@ export default {
             "args": []
           },
           {
-            "name": "published_at",
+            "name": "publishedAt",
             "type": {
               "kind": "SCALAR",
               "name": "Any"
@@ -1673,6 +2004,36 @@ export default {
                 "kind": "OBJECT",
                 "name": "Recruitment",
                 "ofType": null
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Room",
+        "fields": [
+          {
+            "name": "entrie",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Entrie",
+                "ofType": null
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
               }
             },
             "args": []

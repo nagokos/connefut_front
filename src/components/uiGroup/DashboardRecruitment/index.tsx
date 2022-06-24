@@ -31,7 +31,7 @@ export const DashboardRecruitment: FC = memo(() => {
           <Title id={recruitment.id} title={recruitment.title} />
           <OtherContents
             status={recruitment.status}
-            publishedAt={recruitment.published_at}
+            publishedAt={recruitment.publishedAt}
             createdAt={recruitment.createdAt}
             closingAt={recruitment.closingAt}
           />

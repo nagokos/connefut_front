@@ -1,0 +1,11 @@
+query GetCurrentUserRooms {
+  getCurrentUserRooms {
+    id
+    entrie {
+      user {
+        name
+        avatar
+      }
+    }
+  }
+}

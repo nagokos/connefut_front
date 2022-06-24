@@ -1,0 +1,32 @@
+query GetRoomMessages($roomId: String!) {
+  getRoomMessages(roomId: $roomId) {
+    content
+    user {
+      name
+      avatar
+    }
+    applicant {
+      message
+      recruitment {
+        title
+        startAt
+        type
+        prefecture {
+          name
+        }
+        competition {
+          name
+        }
+      }
+    }
+  }
+}
+
+mutation CreateMessage(
+  $roomId: String!
+  $createMessageInput: createMessageInput!
+) {
+  createMessage(roomId: $roomId, input: $createMessageInput) {
+    content
+  }
+}
