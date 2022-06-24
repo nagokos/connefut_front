@@ -10,6 +10,7 @@ import {
   DashboardStocks,
   RecruitmentEdit,
   Messages,
+  MessagesRoom,
 } from '../pages';
 import { DashboardApplied } from '../pages/DashboardApplied';
 
@@ -50,5 +51,6 @@ export const routes = (isLoggedIn: boolean) => [
   {
     path: 'messages',
     element: isLoggedIn ? <Messages /> : <Navigate to="/login" />,
+    children: [{ path: ':roomId', element: <MessagesRoom /> }],
   },
 ];
