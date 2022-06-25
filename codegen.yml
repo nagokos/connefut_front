@@ -11,3 +11,8 @@ generates:
   ./graphql.schema.json:
     plugins:
       - "introspection"
+  ./schema/schema.grapqhl:
+    plugins:
+      - schema-ast
+    config:
+      includeDirectives: true
