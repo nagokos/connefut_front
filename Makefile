@@ -30,3 +30,6 @@ build:
 
 preview:
 	${DC_FRONT} yarn preview --debug
+
+relay:
+	${DC_FRONT} yarn relay
