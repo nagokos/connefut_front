@@ -1,0 +1,208 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Applicant {
+  createdAt: DateTime!
+  message: String!
+  recruitment: Recruitment!
+}
+
+type Competition {
+  id: String!
+  name: String!
+}
+
+scalar DateTime
+
+enum EmailVerificationStatus {
+  PENDING
+  VERIFIED
+}
+
+type Entrie {
+  user: User!
+}
+
+type Message {
+  applicant: Applicant
+  content: String
+  createdAt: DateTime!
+  user: User!
+}
+
+type Mutation {
+  addRecruitmentTag(recruitmentId: String!, tagId: String!): Boolean!
+  applyForRecruitment(input: applicantInput, recruitmentId: String!): Boolean!
+  createMessage(input: createMessageInput!, roomId: String!): Message!
+  createRecruitment(input: recruitmentInput!): Recruitment!
+  createStock(recruitmentId: String!): Boolean!
+  createTag(input: createTagInput!): Tag!
+  createUser(input: createUserInput!): Boolean!
+  deleteRecruitment(id: String!): Recruitment!
+  deleteStock(recruitmentId: String!): Boolean!
+  loginUser(input: loginUserInput!): Boolean!
+  logoutUser: Boolean!
+  updateRecruitment(id: String!, input: recruitmentInput!): Recruitment!
+}
+
+type PageInfo {
+  endCursor: String!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String!
+}
+
+type Prefecture {
+  id: String!
+  name: String!
+}
+
+type Query {
+  checkAppliedForRecruitment(recruitmentId: String!): Boolean!
+  checkStocked(recruitmentId: String!): Boolean!
+  getAppliedCounts(recruitmentId: String!): Int!
+  getAppliedRecruitments: [Recruitment!]!
+  getCompetitions: [Competition!]!
+  getCurrentUser: User
+  getCurrentUserRecruitments: [Recruitment!]!
+  getCurrentUserRooms: [Room!]!
+  getEntrieUser(roomId: String!): User!
+  getPrefectures: [Prefecture!]!
+  getRecruitment(id: String!): Recruitment!
+  getRecruitments(input: paginationInput!): RecruitmentConnection!
+  getRoomMessages(roomId: String!): [Message!]!
+  getStockedCount(recruitmentId: String!): Int!
+  getStockedRecruitments: [Recruitment!]!
+  getTags: [Tag!]!
+}
+
+type Recruitment {
+  applicant: Applicant
+  closingAt: DateTime
+  competition: Competition
+  createdAt: DateTime!
+  detail: String
+  id: String!
+  locationLat: Float
+  locationLng: Float
+  place: String
+  prefecture: Prefecture
+  publishedAt: DateTime
+  startAt: DateTime
+  status: Status!
+  tags: [Tag]!
+  title: String!
+  type: Type!
+  updatedAt: DateTime!
+  user: User!
+}
+
+type RecruitmentConnection {
+  edges: [RecruitmentEdge!]!
+  pageInfo: PageInfo!
+}
+
+type RecruitmentEdge {
+  cursor: String!
+  node: Recruitment!
+}
+
+enum Role {
+  ADMIN
+  GENERAL
+}
+
+type Room {
+  entrie: Entrie!
+  id: String!
+}
+
+enum Status {
+  CLOSED
+  DRAFT
+  PUBLISHED
+}
+
+type Tag {
+  id: String!
+  name: String!
+}
+
+enum Type {
+  INDIVIDUAL
+  JOINING
+  MEMBER
+  OPPONENT
+  OTHERS
+}
+
+type User {
+  avatar: String!
+  email: String!
+  emailVerificationStatus: EmailVerificationStatus!
+  id: String!
+  introduction: String
+  name: String!
+  role: Role!
+}
+
+input applicantInput {
+  message: String!
+}
+
+input createMessageInput {
+  content: String!
+}
+
+input createTagInput {
+  name: String!
+}
+
+input createUserInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
+input loginUserInput {
+  email: String!
+  password: String!
+}
+
+input paginationInput {
+  after: String
+  before: String
+  first: Int
+  last: Int
+  options: searchRecruitmentInput
+}
+
+input recruitmentInput {
+  closingAt: DateTime
+  competitionId: String!
+  detail: String
+  locationLat: Float
+  locationLng: Float
+  place: String
+  prefectureId: String
+  startAt: DateTime
+  status: Status!
+  tags: [recruitmentTagInput]!
+  title: String!
+  type: Type!
+}
+
+input recruitmentTagInput {
+  id: String!
+  isNew: Boolean!
+  name: String!
+}
+
+input searchRecruitmentInput {
+  competitionId: String
+  prefectureId: String
+  startAt: DateTime
+  type: String
+}
