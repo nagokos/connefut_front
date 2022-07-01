@@ -10,11 +10,6 @@ import {
 import { FC, memo } from 'react';
 import { useForm } from 'react-hook-form';
 
-import {
-  LoginUserInput,
-  useLoginUserMutation,
-} from '../../../generated/graphql';
-import { GraphQLError } from 'graphql';
 import { useNavigate } from 'react-router-dom';
 import { EmailForm } from './EmailForm';
 import { PasswordForm } from './PasswordForm';
@@ -22,6 +17,36 @@ import { SubmitButton } from '../../uiParts/SubmitButton';
 import { loginSchema } from '../../../yup/userSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useFlash } from '../../../hooks/useFlash';
+import { graphql } from 'relay-runtime';
+import {
+  LoginEmailModal_UserLoginMutation,
+  UserLoginInput,
+} from './__generated__/LoginEmailModal_UserLoginMutation.graphql';
+import { useMutation } from 'react-relay';
+import { useSetRecoilState } from 'recoil';
+import { currentUserState } from '../../../recoil/user';
+
+const userLoginMutation = graphql`
+  mutation LoginEmailModal_UserLoginMutation($input: UserLoginInput!) {
+    userLogin(input: $input) {
+      user {
+        id
+        name
+        avatar
+      }
+      userErrors {
+        __typename
+        ... on UserLoginInvalidInputError {
+          message
+          field
+        }
+        ... on UserLoginAuthenticationError {
+          message
+        }
+      }
+    }
+  }
+`;
 
 type Props = {
   isOpen: boolean;
@@ -30,20 +55,21 @@ type Props = {
 
 export const LoginEmailModal: FC<Props> = memo((props) => {
   const { isOpen, onClose } = props;
-
   const { showFlash } = useFlash();
-
   const navigate = useNavigate();
 
-  const [_, loginUser] = useLoginUserMutation();
+  const [commit, isInFlight] =
+    useMutation<LoginEmailModal_UserLoginMutation>(userLoginMutation);
+
+  const setUser = useSetRecoilState(currentUserState);
 
   const {
     control,
     handleSubmit,
     reset,
     setError,
-    formState: { errors, isSubmitting, isValid },
-  } = useForm<LoginUserInput>({
+    formState: { isValid },
+  } = useForm<UserLoginInput>({
     defaultValues: {
       email: '',
       password: '',
@@ -52,20 +78,33 @@ export const LoginEmailModal: FC<Props> = memo((props) => {
     mode: 'onChange',
   });
 
-  const onSubmit = async (values: LoginUserInput) => {
-    const res = await loginUser({
-      loginUserInput: values,
+  const onSubmit = async (values: UserLoginInput) => {
+    commit({
+      variables: {
+        input: values,
+      },
+      onCompleted(response, errors) {
+        if (errors) {
+          return console.log(errors);
+        }
+        if (response.userLogin.user) {
+          setUser(response.userLogin.user);
+          navigate('/recruitments');
+        } else {
+          response.userLogin.userErrors.forEach((error) => {
+            if (error.__typename === 'UserLoginAuthenticationError') {
+              showFlash({ title: error.message, status: 'error' });
+            }
+            if (error.__typename === 'UserLoginInvalidInputError') {
+              const field = error.field as 'email' | 'password';
+              setError(field, {
+                message: error.message,
+              });
+            }
+          });
+        }
+      },
     });
-
-    if (res.error) {
-      res.error.graphQLErrors.forEach((error: GraphQLError) => {
-        const field = error.extensions['attribute'] as 'email' | 'password';
-        setError(field, { message: error.message });
-      });
-    } else {
-      showFlash({ title: 'ログインしました', status: 'success' });
-      navigate('/recruitments');
-    }
   };
 
   return (
@@ -85,7 +124,7 @@ export const LoginEmailModal: FC<Props> = memo((props) => {
             <SubmitButton
               isValid={isValid}
               displayName="ログイン"
-              isSubmitting={isSubmitting}
+              isSubmitting={isInFlight}
             />
           </ModalFooter>
         </form>
