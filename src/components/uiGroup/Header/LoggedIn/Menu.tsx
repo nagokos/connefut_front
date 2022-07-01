@@ -17,7 +17,6 @@ import {
   MdOutlineInfo,
   MdOutlineLogout,
 } from 'react-icons/md';
-import { useLogoutUserMutation, User } from '../../../../generated/graphql';
 import { AvatarMenuItem } from './MenuItem';
 import { useNavigate } from 'react-router-dom';
 
