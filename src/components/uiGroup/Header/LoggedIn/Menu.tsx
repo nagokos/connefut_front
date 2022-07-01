@@ -17,26 +17,15 @@ import {
   MdOutlineInfo,
   MdOutlineLogout,
 } from 'react-icons/md';
-import { useLogoutUserMutation, User } from '../../../../generated/graphql';
 import { AvatarMenuItem } from './MenuItem';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { currentUserQuery } from '../../../../recoil/user';
 
-type Props = {
-  user: User;
-};
-
-export const AvatarMenu: FC<Props> = memo((props) => {
-  const { user } = props;
-
+export const AvatarMenu: FC = memo(() => {
   const navigate = useNavigate();
 
-  const [_, logoutUser] = useLogoutUserMutation();
-  const logout = async () => {
-    const res = await logoutUser();
-    if (res.data?.logoutUser) {
-      window.location.href = '/recruitments';
-    }
-  };
+  const currentUser = useRecoilValue(currentUserQuery);
 
   const lists = [
     {
@@ -74,14 +63,13 @@ export const AvatarMenu: FC<Props> = memo((props) => {
     {
       icon: <MdOutlineLogout color="#78909c" fontSize={19} />,
       title: 'ログアウト',
-      onClick: logout,
     },
   ];
 
   return (
     <Menu>
       <MenuButton>
-        <Avatar w={9} height={9} src={user.avatar} />
+        <Avatar w={9} height={9} src={currentUser?.avatar} />
       </MenuButton>
       <MenuList minW={240} py={0} boxShadow="xl">
         <MenuItem
@@ -90,9 +78,9 @@ export const AvatarMenu: FC<Props> = memo((props) => {
           _focus={{ bg: 'white' }}
           _active={{ bg: 'primary.light' }}
         >
-          <Avatar w={9} height={9} mr={3} src={user.avatar} />
+          <Avatar w={9} height={9} mr={3} src={currentUser?.avatar} />
           <Text fontSize={14} fontFamily="ヒラギノ角ゴシック">
-            {user.name}
+            {currentUser?.name}
           </Text>
         </MenuItem>
         <MenuDivider my={0} borderColor="#ebf2f2" />

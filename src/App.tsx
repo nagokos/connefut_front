@@ -1,22 +1,20 @@
 import { Box, Image } from '@chakra-ui/react';
 import { FC, memo, Suspense, useEffect } from 'react';
 import { useLocation, useRoutes } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import { Header } from './components/uiGroup';
-import { useGetCurrentUserQuery } from './generated/graphql';
+import { currentUserQuery } from './recoil/user';
 import { routes } from './router/Router';
 
 export const App: FC = memo(() => {
-  const [data, executeQuery] = useGetCurrentUserQuery({
-    requestPolicy: 'network-only',
-  });
-
   const location = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
-    executeQuery();
   }, [location]);
 
-  const routing = useRoutes(routes(!!data.data?.getCurrentUser));
+  const currentUser = useRecoilValue(currentUserQuery);
+
+  const routing = useRoutes(routes(!!currentUser));
 
   const isNeedHeader = (): boolean => {
     return (

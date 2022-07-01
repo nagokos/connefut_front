@@ -39,6 +39,10 @@ export type Entrie = {
   user: User;
 };
 
+export type Error = {
+  message: Scalars['String'];
+};
+
 export type Message = {
   __typename?: 'Message';
   applicant?: Maybe<Applicant>;
@@ -49,18 +53,18 @@ export type Message = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  UserLogout: Scalars['Boolean'];
   addRecruitmentTag: Scalars['Boolean'];
   applyForRecruitment: Scalars['Boolean'];
   createMessage: Message;
   createRecruitment: Recruitment;
   createStock: Scalars['Boolean'];
   createTag: Tag;
-  createUser: Scalars['Boolean'];
   deleteRecruitment: Recruitment;
   deleteStock: Scalars['Boolean'];
-  loginUser: Scalars['Boolean'];
-  logoutUser: Scalars['Boolean'];
   updateRecruitment: Recruitment;
+  userLogin: UserLoginPayload;
+  userRegister: UserRegisterPayload;
 };
 
 
@@ -97,11 +101,6 @@ export type MutationCreateTagArgs = {
 };
 
 
-export type MutationCreateUserArgs = {
-  input: CreateUserInput;
-};
-
-
 export type MutationDeleteRecruitmentArgs = {
   id: Scalars['String'];
 };
@@ -112,14 +111,23 @@ export type MutationDeleteStockArgs = {
 };
 
 
-export type MutationLoginUserArgs = {
-  input: LoginUserInput;
-};
-
-
 export type MutationUpdateRecruitmentArgs = {
   id: Scalars['String'];
   input: RecruitmentInput;
+};
+
+
+export type MutationUserLoginArgs = {
+  input: UserLoginInput;
+};
+
+
+export type MutationUserRegisterArgs = {
+  input: UserRegisterInput;
+};
+
+export type Node = {
+  id: Scalars['ID'];
 };
 
 export type PageInfo = {
@@ -154,6 +162,7 @@ export type Query = {
   getStockedCount: Scalars['Int'];
   getStockedRecruitments: Array<Recruitment>;
   getTags: Array<Tag>;
+  node?: Maybe<Node>;
 };
 
 
@@ -188,12 +197,17 @@ export type QueryGetRecruitmentsArgs = {
 
 
 export type QueryGetRoomMessagesArgs = {
-  roomId?: InputMaybe<Scalars['String']>;
+  roomId: Scalars['String'];
 };
 
 
 export type QueryGetStockedCountArgs = {
   recruitmentId: Scalars['String'];
+};
+
+
+export type QueryNodeArgs = {
+  id: Scalars['ID'];
 };
 
 export type Recruitment = {
@@ -261,15 +275,69 @@ export enum Type {
   Others = 'OTHERS'
 }
 
-export type User = {
+export type User = Node & {
   __typename?: 'User';
   avatar: Scalars['String'];
+  databaseId?: Maybe<Scalars['Int']>;
   email: Scalars['String'];
   emailVerificationStatus: EmailVerificationStatus;
-  id: Scalars['String'];
+  id: Scalars['ID'];
   introduction?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   role: Role;
+};
+
+export type UserLoginAuthenticationError = Error & {
+  __typename?: 'UserLoginAuthenticationError';
+  message: Scalars['String'];
+};
+
+export type UserLoginError = UserLoginAuthenticationError | UserLoginInvalidInputError;
+
+export type UserLoginInput = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type UserLoginInvalidInputError = Error & {
+  __typename?: 'UserLoginInvalidInputError';
+  field: UserLoginInvalidInputField;
+  message: Scalars['String'];
+};
+
+export enum UserLoginInvalidInputField {
+  Email = 'EMAIL',
+  Password = 'PASSWORD'
+}
+
+export type UserLoginPayload = {
+  __typename?: 'UserLoginPayload';
+  user?: Maybe<User>;
+  userErrors: Array<UserLoginError>;
+};
+
+export type UserRegisterInput = {
+  email: Scalars['String'];
+  name: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type UserRegisterInvalidInputError = Error & {
+  __typename?: 'UserRegisterInvalidInputError';
+  field: UserRegisterInvalidInputField;
+  message: Scalars['String'];
+};
+
+export enum UserRegisterInvalidInputField {
+  Email = 'EMAIL',
+  Name = 'NAME',
+  Password = 'PASSWORD'
+}
+
+export type UserRegisterPayload = {
+  __typename?: 'UserRegisterPayload';
+  user?: Maybe<User>;
+  userErrors: Array<UserRegisterInvalidInputError>;
 };
 
 export type ApplicantInput = {
@@ -282,17 +350,6 @@ export type CreateMessageInput = {
 
 export type CreateTagInput = {
   name: Scalars['String'];
-};
-
-export type CreateUserInput = {
-  email: Scalars['String'];
-  name: Scalars['String'];
-  password: Scalars['String'];
-};
-
-export type LoginUserInput = {
-  email: Scalars['String'];
-  password: Scalars['String'];
 };
 
 export type PaginationInput = {
@@ -478,25 +535,6 @@ export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetCurrentUserQuery = { __typename?: 'Query', getCurrentUser?: { __typename?: 'User', id: string, name: string, email: string, role: Role, avatar: string, introduction?: string | null, emailVerificationStatus: EmailVerificationStatus } | null };
-
-export type CreateUserMutationVariables = Exact<{
-  createUserInput: CreateUserInput;
-}>;
-
-
-export type CreateUserMutation = { __typename?: 'Mutation', createUser: boolean };
-
-export type LoginUserMutationVariables = Exact<{
-  loginUserInput: LoginUserInput;
-}>;
-
-
-export type LoginUserMutation = { __typename?: 'Mutation', loginUser: boolean };
-
-export type LogoutUserMutationVariables = Exact<{ [key: string]: never; }>;
-
-
-export type LogoutUserMutation = { __typename?: 'Mutation', logoutUser: boolean };
 
 
 export const CheckAppliedForRecruitmentDocument = gql`
@@ -880,33 +918,6 @@ export const GetCurrentUserDocument = gql`
 export function useGetCurrentUserQuery(options?: Omit<Urql.UseQueryArgs<GetCurrentUserQueryVariables>, 'query'>) {
   return Urql.useQuery<GetCurrentUserQuery>({ query: GetCurrentUserDocument, ...options });
 };
-export const CreateUserDocument = gql`
-    mutation CreateUser($createUserInput: createUserInput!) {
-  createUser(input: $createUserInput)
-}
-    `;
-
-export function useCreateUserMutation() {
-  return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument);
-};
-export const LoginUserDocument = gql`
-    mutation LoginUser($loginUserInput: loginUserInput!) {
-  loginUser(input: $loginUserInput)
-}
-    `;
-
-export function useLoginUserMutation() {
-  return Urql.useMutation<LoginUserMutation, LoginUserMutationVariables>(LoginUserDocument);
-};
-export const LogoutUserDocument = gql`
-    mutation LogoutUser {
-  logoutUser
-}
-    `;
-
-export function useLogoutUserMutation() {
-  return Urql.useMutation<LogoutUserMutation, LogoutUserMutationVariables>(LogoutUserDocument);
-};
 import { IntrospectionQuery } from 'graphql';
 export default {
   "__schema": {
@@ -1008,6 +1019,38 @@ export default {
         "interfaces": []
       },
       {
+        "kind": "INTERFACE",
+        "name": "Error",
+        "fields": [
+          {
+            "name": "message",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": [],
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "UserLoginAuthenticationError"
+          },
+          {
+            "kind": "OBJECT",
+            "name": "UserLoginInvalidInputError"
+          },
+          {
+            "kind": "OBJECT",
+            "name": "UserRegisterInvalidInputError"
+          }
+        ]
+      },
+      {
         "kind": "OBJECT",
         "name": "Message",
         "fields": [
@@ -1058,6 +1101,17 @@ export default {
         "kind": "OBJECT",
         "name": "Mutation",
         "fields": [
+          {
+            "name": "UserLogout",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
           {
             "name": "addRecruitmentTag",
             "type": {
@@ -1221,28 +1275,6 @@ export default {
             ]
           },
           {
-            "name": "createUser",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": [
-              {
-                "name": "input",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
             "name": "deleteRecruitment",
             "type": {
               "kind": "NON_NULL",
@@ -1288,39 +1320,6 @@ export default {
             ]
           },
           {
-            "name": "loginUser",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": [
-              {
-                "name": "input",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "logoutUser",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
             "name": "updateRecruitment",
             "type": {
               "kind": "NON_NULL",
@@ -1352,9 +1351,79 @@ export default {
                 }
               }
             ]
+          },
+          {
+            "name": "userLogin",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserLoginPayload",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "input",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "userRegister",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserRegisterPayload",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "input",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           }
         ],
         "interfaces": []
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "Node",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": [],
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "User"
+          }
+        ]
       },
       {
         "kind": "OBJECT",
@@ -1694,8 +1763,11 @@ export default {
               {
                 "name": "roomId",
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "Any"
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
                 }
               }
             ]
@@ -1757,6 +1829,26 @@ export default {
               }
             },
             "args": []
+          },
+          {
+            "name": "node",
+            "type": {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "id",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           }
         ],
         "interfaces": []
@@ -2086,6 +2178,14 @@ export default {
             "args": []
           },
           {
+            "name": "databaseId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
             "name": "email",
             "type": {
               "kind": "NON_NULL",
@@ -2144,6 +2244,184 @@ export default {
               "ofType": {
                 "kind": "SCALAR",
                 "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node"
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UserLoginAuthenticationError",
+        "fields": [
+          {
+            "name": "message",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Error"
+          }
+        ]
+      },
+      {
+        "kind": "UNION",
+        "name": "UserLoginError",
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "UserLoginAuthenticationError"
+          },
+          {
+            "kind": "OBJECT",
+            "name": "UserLoginInvalidInputError"
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UserLoginInvalidInputError",
+        "fields": [
+          {
+            "name": "field",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "message",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Error"
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UserLoginPayload",
+        "fields": [
+          {
+            "name": "user",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "userErrors",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "UNION",
+                    "name": "UserLoginError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UserRegisterInvalidInputError",
+        "fields": [
+          {
+            "name": "field",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "message",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Error"
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UserRegisterPayload",
+        "fields": [
+          {
+            "name": "user",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
+            "name": "userErrors",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "UserRegisterInvalidInputError",
+                    "ofType": null
+                  }
+                }
               }
             },
             "args": []

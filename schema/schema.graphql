@@ -1,0 +1,255 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Applicant {
+  createdAt: DateTime!
+  message: String!
+  recruitment: Recruitment!
+}
+
+type Competition {
+  id: String!
+  name: String!
+}
+
+scalar DateTime
+
+enum EmailVerificationStatus {
+  PENDING
+  VERIFIED
+}
+
+type Entrie {
+  user: User!
+}
+
+interface Error {
+  message: String!
+}
+
+type Message {
+  applicant: Applicant
+  content: String
+  createdAt: DateTime!
+  user: User!
+}
+
+type Mutation {
+  UserLogout: Boolean!
+  addRecruitmentTag(recruitmentId: String!, tagId: String!): Boolean!
+  applyForRecruitment(input: applicantInput, recruitmentId: String!): Boolean!
+  createMessage(input: createMessageInput!, roomId: String!): Message!
+  createRecruitment(input: recruitmentInput!): Recruitment!
+  createStock(recruitmentId: String!): Boolean!
+  createTag(input: createTagInput!): Tag!
+  deleteRecruitment(id: String!): Recruitment!
+  deleteStock(recruitmentId: String!): Boolean!
+  updateRecruitment(id: String!, input: recruitmentInput!): Recruitment!
+  userLogin(input: UserLoginInput!): UserLoginPayload!
+  userRegister(input: UserRegisterInput!): UserRegisterPayload!
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  endCursor: String!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String!
+}
+
+type Prefecture {
+  id: String!
+  name: String!
+}
+
+type Query {
+  checkAppliedForRecruitment(recruitmentId: String!): Boolean!
+  checkStocked(recruitmentId: String!): Boolean!
+  getAppliedCounts(recruitmentId: String!): Int!
+  getAppliedRecruitments: [Recruitment!]!
+  getCompetitions: [Competition!]!
+  getCurrentUser: User
+  getCurrentUserRecruitments: [Recruitment!]!
+  getCurrentUserRooms: [Room!]!
+  getEntrieUser(roomId: String!): User!
+  getPrefectures: [Prefecture!]!
+  getRecruitment(id: String!): Recruitment!
+  getRecruitments(input: paginationInput!): RecruitmentConnection!
+  getRoomMessages(roomId: String!): [Message!]!
+  getStockedCount(recruitmentId: String!): Int!
+  getStockedRecruitments: [Recruitment!]!
+  getTags: [Tag!]!
+  node(id: ID!): Node
+}
+
+type Recruitment {
+  applicant: Applicant
+  closingAt: DateTime
+  competition: Competition
+  createdAt: DateTime!
+  detail: String
+  id: String!
+  locationLat: Float
+  locationLng: Float
+  place: String
+  prefecture: Prefecture
+  publishedAt: DateTime
+  startAt: DateTime
+  status: Status!
+  tags: [Tag]!
+  title: String!
+  type: Type!
+  updatedAt: DateTime!
+  user: User!
+}
+
+type RecruitmentConnection {
+  edges: [RecruitmentEdge!]!
+  pageInfo: PageInfo!
+}
+
+type RecruitmentEdge {
+  cursor: String!
+  node: Recruitment!
+}
+
+enum Role {
+  ADMIN
+  GENERAL
+}
+
+type Room {
+  entrie: Entrie!
+  id: String!
+}
+
+enum Status {
+  CLOSED
+  DRAFT
+  PUBLISHED
+}
+
+type Tag {
+  id: String!
+  name: String!
+}
+
+enum Type {
+  INDIVIDUAL
+  JOINING
+  MEMBER
+  OPPONENT
+  OTHERS
+}
+
+type User implements Node {
+  avatar: String!
+  databaseId: Int
+  email: String!
+  emailVerificationStatus: EmailVerificationStatus!
+  id: ID!
+  introduction: String
+  name: String!
+  role: Role!
+}
+
+type UserLoginAuthenticationError implements Error {
+  message: String!
+}
+
+union UserLoginError = UserLoginAuthenticationError | UserLoginInvalidInputError
+
+input UserLoginInput {
+  email: String!
+  password: String!
+}
+
+type UserLoginInvalidInputError implements Error {
+  field: UserLoginInvalidInputField!
+  message: String!
+}
+
+enum UserLoginInvalidInputField {
+  EMAIL
+  PASSWORD
+}
+
+type UserLoginPayload {
+  user: User
+  userErrors: [UserLoginError!]!
+}
+
+input UserRegisterInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
+type UserRegisterInvalidInputError implements Error {
+  field: UserRegisterInvalidInputField!
+  message: String!
+}
+
+enum UserRegisterInvalidInputField {
+  EMAIL
+  NAME
+  PASSWORD
+}
+
+type UserRegisterPayload {
+  user: User
+  userErrors: [UserRegisterInvalidInputError!]!
+}
+
+input applicantInput {
+  message: String!
+}
+
+input createMessageInput {
+  content: String!
+}
+
+input createTagInput {
+  name: String!
+}
+
+input paginationInput {
+  after: String
+  before: String
+  first: Int
+  last: Int
+  options: searchRecruitmentInput
+}
+
+input recruitmentInput {
+  closingAt: DateTime
+  competitionId: String!
+  detail: String
+  locationLat: Float
+  locationLng: Float
+  place: String
+  prefectureId: String
+  startAt: DateTime
+  status: Status!
+  tags: [recruitmentTagInput]!
+  title: String!
+  type: Type!
+}
+
+input recruitmentTagInput {
+  id: String!
+  isNew: Boolean!
+  name: String!
+}
+
+input searchRecruitmentInput {
+  competitionId: String
+  prefectureId: String
+  startAt: DateTime
+  type: String
+}
