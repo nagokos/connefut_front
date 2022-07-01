@@ -25,6 +25,10 @@ type Entrie {
   user: User!
 }
 
+interface Error {
+  message: String!
+}
+
 type Message {
   applicant: Applicant
   content: String
@@ -33,18 +37,22 @@ type Message {
 }
 
 type Mutation {
+  UserLogout: Boolean!
   addRecruitmentTag(recruitmentId: String!, tagId: String!): Boolean!
   applyForRecruitment(input: applicantInput, recruitmentId: String!): Boolean!
   createMessage(input: createMessageInput!, roomId: String!): Message!
   createRecruitment(input: recruitmentInput!): Recruitment!
   createStock(recruitmentId: String!): Boolean!
   createTag(input: createTagInput!): Tag!
-  createUser(input: createUserInput!): Boolean!
   deleteRecruitment(id: String!): Recruitment!
   deleteStock(recruitmentId: String!): Boolean!
-  loginUser(input: loginUserInput!): Boolean!
-  logoutUser: Boolean!
   updateRecruitment(id: String!, input: recruitmentInput!): Recruitment!
+  userLogin(input: UserLoginInput!): UserLoginPayload!
+  userRegister(input: UserRegisterInput!): UserRegisterPayload!
+}
+
+interface Node {
+  id: ID!
 }
 
 type PageInfo {
@@ -76,6 +84,7 @@ type Query {
   getStockedCount(recruitmentId: String!): Int!
   getStockedRecruitments: [Recruitment!]!
   getTags: [Tag!]!
+  node(id: ID!): Node
 }
 
 type Recruitment {
@@ -138,14 +147,63 @@ enum Type {
   OTHERS
 }
 
-type User {
+type User implements Node {
   avatar: String!
+  databaseId: Int
   email: String!
   emailVerificationStatus: EmailVerificationStatus!
-  id: String!
+  id: ID!
   introduction: String
   name: String!
   role: Role!
+}
+
+type UserLoginAuthenticationError implements Error {
+  message: String!
+}
+
+union UserLoginError = UserLoginAuthenticationError | UserLoginInvalidInputError
+
+input UserLoginInput {
+  email: String!
+  password: String!
+}
+
+type UserLoginInvalidInputError implements Error {
+  field: UserLoginInvalidInputField!
+  message: String!
+}
+
+enum UserLoginInvalidInputField {
+  EMAIL
+  PASSWORD
+}
+
+type UserLoginPayload {
+  user: User
+  userErrors: [UserLoginError!]!
+}
+
+input UserRegisterInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
+type UserRegisterInvalidInputError implements Error {
+  field: UserRegisterInvalidInputField!
+  message: String!
+}
+
+enum UserRegisterInvalidInputField {
+  EMAIL
+  NAME
+  PASSWORD
+}
+
+type UserRegisterPayload {
+  user: User
+  userErrors: [UserRegisterInvalidInputError!]!
 }
 
 input applicantInput {
@@ -158,17 +216,6 @@ input createMessageInput {
 
 input createTagInput {
   name: String!
-}
-
-input createUserInput {
-  email: String!
-  name: String!
-  password: String!
-}
-
-input loginUserInput {
-  email: String!
-  password: String!
 }
 
 input paginationInput {
