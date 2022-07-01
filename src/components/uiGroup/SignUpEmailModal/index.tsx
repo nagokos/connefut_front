@@ -10,11 +10,6 @@ import {
 import { FC, memo } from 'react';
 import { useForm } from 'react-hook-form';
 
-import {
-  CreateUserInput,
-  useCreateUserMutation,
-} from '../../../generated/graphql';
-import { GraphQLError } from 'graphql';
 import { useNavigate } from 'react-router-dom';
 import { NameForm } from './NameForm';
 import { EmailForm } from './EmailForm';
@@ -22,6 +17,33 @@ import { PasswordForm } from './PasswordForm';
 import { SubmitButton } from '../../uiParts/SubmitButton';
 import { signUpSchema } from '../../../yup/userSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { graphql } from 'relay-runtime';
+import { useMutation } from 'react-relay';
+import {
+  SignUpEmailModal_UserRegisterMutation,
+  UserRegisterInput,
+} from './__generated__/SignUpEmailModal_UserRegisterMutation.graphql';
+import { useSetRecoilState } from 'recoil';
+import { currentUserState } from '../../../recoil/user';
+
+const userRegisterMutation = graphql`
+  mutation SignUpEmailModal_UserRegisterMutation($input: UserRegisterInput!) {
+    userRegister(input: $input) {
+      user {
+        id
+        name
+        avatar
+      }
+      userErrors {
+        __typename
+        ... on UserRegisterInvalidInputError {
+          message
+          field
+        }
+      }
+    }
+  }
+`;
 
 type Props = {
   isOpen: boolean;
@@ -33,15 +55,18 @@ export const SignUpEmailModal: FC<Props> = memo((props) => {
 
   const navigate = useNavigate();
 
-  const [_, createUser] = useCreateUserMutation();
+  const setUser = useSetRecoilState(currentUserState);
+
+  const [commit, isInFlight] =
+    useMutation<SignUpEmailModal_UserRegisterMutation>(userRegisterMutation);
 
   const {
     control,
     handleSubmit,
     reset,
     setError,
-    formState: { isSubmitting, isValid },
-  } = useForm<CreateUserInput>({
+    formState: { isValid },
+  } = useForm<UserRegisterInput>({
     defaultValues: {
       name: '',
       email: '',
@@ -51,22 +76,30 @@ export const SignUpEmailModal: FC<Props> = memo((props) => {
     mode: 'onChange',
   });
 
-  const onSubmit = async (values: CreateUserInput) => {
-    const res = await createUser({
-      createUserInput: values,
+  const onSubmit = (values: UserRegisterInput) => {
+    commit({
+      variables: {
+        input: values,
+      },
+      onCompleted(response, errors) {
+        if (errors) {
+          return console.log(errors);
+        }
+        if (response.userRegister.user) {
+          setUser(response.userRegister.user);
+          navigate('/recruitments');
+        } else {
+          response.userRegister.userErrors.forEach((error) => {
+            if (error.__typename === 'UserRegisterInvalidInputError') {
+              const field = error.field as 'name' | 'email' | 'password';
+              setError(field, {
+                message: error.message,
+              });
+            }
+          });
+        }
+      },
     });
-
-    if (res.error) {
-      res.error.graphQLErrors.forEach((error: GraphQLError) => {
-        const field = error.extensions['attribute'] as
-          | 'name'
-          | 'email'
-          | 'password';
-        setError(field, { message: error.message });
-      });
-    } else {
-      navigate('/recruitments');
-    }
   };
 
   return (
@@ -87,7 +120,7 @@ export const SignUpEmailModal: FC<Props> = memo((props) => {
             <SubmitButton
               isValid={isValid}
               displayName="登録する"
-              isSubmitting={isSubmitting}
+              isSubmitting={isInFlight}
             />
           </ModalFooter>
         </form>
