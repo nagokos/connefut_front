@@ -18,7 +18,7 @@ export const SubmitButton: FC<Props> = memo((props) => {
       bg="primary.main"
       color="white"
       type="submit"
-      disabled={!isValid}
+      disabled={!isValid && !isSubmitting}
       _hover={{
         bg: 'primary.hover',
       }}
