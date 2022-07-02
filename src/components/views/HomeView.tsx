@@ -6,11 +6,27 @@ import {
   GridItem,
 } from '@chakra-ui/react';
 import { FC, memo, Suspense } from 'react';
-import { HomeSearch } from '../components/uiGroup';
-import { HomeOrder } from '../components/uiGroup/HomeOrder';
-import { RecruitmentCardList } from '../components/uiGroup/RecruitmentCardList';
+import { PreloadedQuery, usePreloadedQuery } from 'react-relay';
+import { recruitmentsQuery } from '../pages/Home';
+import { Home_GetSearchRecruitmentsQuery } from '../pages/__generated__/Home_GetSearchRecruitmentsQuery.graphql';
+import { RecruitmentCardList } from '../templates';
+import { HomeSearch } from '../uiGroup';
+import { HomeOrder } from '../uiGroup/HomeOrder';
 
-export const Home: FC = memo(() => {
+type Props = {
+  queryRef: PreloadedQuery<Home_GetSearchRecruitmentsQuery>;
+};
+
+export const HomeView: FC<Props> = memo((props) => {
+  const { queryRef } = props;
+
+  const data = usePreloadedQuery<Home_GetSearchRecruitmentsQuery>(
+    recruitmentsQuery,
+    queryRef
+  );
+
+  console.log(data);
+
   return (
     <Box mt={12} maxWidth={1000} mx="auto">
       <Grid templateColumns="repeat(4, 1fr)" gap={8}>
@@ -40,7 +56,7 @@ export const Home: FC = memo(() => {
               </Box>
             }
           >
-            <RecruitmentCardList />
+            <RecruitmentCardList recruitment={data} />
           </Suspense>
         </GridItem>
       </Grid>

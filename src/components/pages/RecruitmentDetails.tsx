@@ -6,7 +6,7 @@ import {
   RecruitmentDetailMain,
   RecruitmentDetailTags,
   RecruitmentDetailUser,
-} from '../components/uiGroup';
+} from '../uiGroup';
 
 export const RecruitmentDetails: FC = memo(() => {
   return (

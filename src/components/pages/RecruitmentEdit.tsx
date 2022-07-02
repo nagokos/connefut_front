@@ -2,13 +2,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { FC, memo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { RecruitmentForm } from '../components/uiGroup';
+import { RecruitmentForm } from '../uiGroup';
 import {
   RecruitmentInput,
   useGetEditRecruitmentQuery,
   useUpdateRecruitmentMutation,
-} from '../generated/graphql';
-import { recruitmentSchema } from '../yup/recruitmentSchema';
+} from '../../generated/graphql';
+import { recruitmentSchema } from '../../yup/recruitmentSchema';
 
 export const RecruitmentEdit: FC = memo(() => {
   const navigate = useNavigate();

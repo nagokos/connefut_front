@@ -1,8 +1,8 @@
 import { Box, CircularProgress } from '@chakra-ui/react';
 import { FC, memo, Suspense } from 'react';
-import { AppliedRecruitments } from '../components/uiGroup';
+import { StockRecruitment } from '../uiGroup';
 
-export const DashboardApplied: FC = memo(() => {
+export const DashboardStocks: FC = memo(() => {
   return (
     <Suspense
       fallback={
@@ -11,7 +11,7 @@ export const DashboardApplied: FC = memo(() => {
         </Box>
       }
     >
-      <AppliedRecruitments />
+      <StockRecruitment />
     </Suspense>
   );
 });

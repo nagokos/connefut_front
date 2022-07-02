@@ -9,10 +9,10 @@ import {
 import { FC, memo } from 'react';
 import { MdEmail } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import { LoginEmailModal } from '../components/uiGroup';
-import { AppInButton, ArrowLeftButton } from '../components/uiParts';
+import { SignUpEmailModal } from '../uiGroup';
+import { AppInButton, ArrowLeftButton } from '../uiParts';
 
-export const Login: FC = memo(() => {
+export const SignUp: FC = memo(() => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -29,42 +29,42 @@ export const Login: FC = memo(() => {
           fontSize={28}
           color="blackAlpha.800"
         >
-          ログイン
+          新規登録
         </Text>
         <Stack spacing={6}>
           <AppInButton
             clickEvent={onOpen}
             icon={<MdEmail color="#f42121" size={18} />}
-            title="メールアドレスでログイン"
+            title="メールアドレスで登録"
           />
           <AppInButton
             clickEvent={() => navigate('/recruitments')}
             icon={<Image src="/src/assets/img/google.png" w={4} />}
-            title="Googleでログイン"
+            title="Googleで登録"
           />
           <AppInButton
             clickEvent={() => navigate('/recruitments')}
             icon={<Image src="/src/assets/img/line.png" w={4} />}
-            title="LINEでログイン"
+            title="LINEで登録"
           />
           <Box pt={3}>
             <Divider border="1px solid #f0f5f4" borderColor="primary.light" />
           </Box>
           <Box textAlign="center">
             <Text color="blackAlpha.800" fontSize={13} fontWeight="bold">
-              アカウントをお持ちでない方
+              アカウントをお持ちの方
             </Text>
             <Box mt={5}>
               <AppInButton
                 color="primary.main"
-                clickEvent={() => navigate('/signup')}
-                title="新規登録"
+                clickEvent={() => navigate('/login')}
+                title="ログイン"
               />
             </Box>
           </Box>
         </Stack>
       </Box>
-      <LoginEmailModal isOpen={isOpen} onClose={onClose} />
+      <SignUpEmailModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 });

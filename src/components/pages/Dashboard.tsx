@@ -2,7 +2,7 @@ import { Box, Grid, GridItem, Stack } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
-import { DashboardButtons } from '../components/uiGroup';
+import { DashboardButtons } from '../uiGroup';
 
 export const Dashboard: FC = memo(() => {
   const location = useLocation();

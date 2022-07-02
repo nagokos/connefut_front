@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<afee5aac8408abe7239e4bc658f5aaf1>>
+ * @generated SignedSource<<99c593e707f39209efe7cd4c04f4ca7f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ export type DashboardRecruitments_GetCurrentUserRecruitmentsQuery$variables = {}
 export type DashboardRecruitments_GetCurrentUserRecruitmentsQuery$data = {
   readonly getCurrentUserRecruitments: ReadonlyArray<{
     readonly id: string;
+    readonly title: string;
   }>;
 };
 export type DashboardRecruitments_GetCurrentUserRecruitmentsQuery = {
@@ -35,6 +36,13 @@ var v0 = [
         "args": null,
         "kind": "ScalarField",
         "name": "id",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "title",
         "storageKey": null
       }
     ],
@@ -59,16 +67,16 @@ return {
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "abe64c618e8c32eb94d7a09b111c6116",
+    "cacheID": "77d288dac4079596c933ffe30cd9d959",
     "id": null,
     "metadata": {},
     "name": "DashboardRecruitments_GetCurrentUserRecruitmentsQuery",
     "operationKind": "query",
-    "text": "query DashboardRecruitments_GetCurrentUserRecruitmentsQuery {\n  getCurrentUserRecruitments {\n    id\n  }\n}\n"
+    "text": "query DashboardRecruitments_GetCurrentUserRecruitmentsQuery {\n  getCurrentUserRecruitments {\n    id\n    title\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "510efcf9efc38b7a993de2c061859d3c";
+(node as any).hash = "502bcd9aab7d5f24d944ea5704d6b590";
 
 export default node;

@@ -14,7 +14,7 @@ import { MdCheck, MdOutlineArticle } from 'react-icons/md';
 import {
   useGetEntrieUserQuery,
   useGetRoomMessagesQuery,
-} from '../generated/graphql';
+} from '../../generated/graphql';
 import { useParams } from 'react-router-dom';
 
 export const MessagesRoom: FC = memo(() => {

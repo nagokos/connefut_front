@@ -1,6 +1,6 @@
 import { Avatar, Box, Grid, GridItem, Spacer } from '@chakra-ui/react';
 import { FC, memo, Suspense, useEffect } from 'react';
-import { useGetCurrentUserRoomsQuery } from '../generated/graphql';
+import { useGetCurrentUserRoomsQuery } from '../../generated/graphql';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 export const Messages: FC = memo(() => {
