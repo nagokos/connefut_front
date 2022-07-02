@@ -9,12 +9,22 @@ type Applicant {
   recruitment: Recruitment!
 }
 
-type Competition {
-  id: String!
+type Competition implements Node {
+  id: ID!
   name: String!
 }
 
+interface Connection {
+  edges: [Edge!]!
+  pageInfo: PageInfo!
+}
+
 scalar DateTime
+
+interface Edge {
+  cursor: String!
+  node: Node!
+}
 
 enum EmailVerificationStatus {
   PENDING
@@ -37,7 +47,6 @@ type Message {
 }
 
 type Mutation {
-  UserLogout: Boolean!
   addRecruitmentTag(recruitmentId: String!, tagId: String!): Boolean!
   applyForRecruitment(input: applicantInput, recruitmentId: String!): Boolean!
   createMessage(input: createMessageInput!, roomId: String!): Message!
@@ -48,6 +57,7 @@ type Mutation {
   deleteStock(recruitmentId: String!): Boolean!
   updateRecruitment(id: String!, input: recruitmentInput!): Recruitment!
   userLogin(input: UserLoginInput!): UserLoginPayload!
+  userLogout: Boolean!
   userRegister(input: UserRegisterInput!): UserRegisterPayload!
 }
 
@@ -56,14 +66,14 @@ interface Node {
 }
 
 type PageInfo {
-  endCursor: String!
+  endCursor: String
   hasNextPage: Boolean!
   hasPreviousPage: Boolean!
-  startCursor: String!
+  startCursor: String
 }
 
-type Prefecture {
-  id: String!
+type Prefecture implements Node {
+  id: ID!
   name: String!
 }
 
@@ -79,21 +89,21 @@ type Query {
   getEntrieUser(roomId: String!): User!
   getPrefectures: [Prefecture!]!
   getRecruitment(id: String!): Recruitment!
-  getRecruitments(input: paginationInput!): RecruitmentConnection!
   getRoomMessages(roomId: String!): [Message!]!
+  getSearchRecruitments(after: String, before: String, first: Int, last: Int): RecruitmentConnection!
   getStockedCount(recruitmentId: String!): Int!
   getStockedRecruitments: [Recruitment!]!
   getTags: [Tag!]!
   node(id: ID!): Node
 }
 
-type Recruitment {
+type Recruitment implements Node {
   applicant: Applicant
   closingAt: DateTime
   competition: Competition
   createdAt: DateTime!
   detail: String
-  id: String!
+  id: ID!
   locationLat: Float
   locationLng: Float
   place: String
@@ -108,12 +118,12 @@ type Recruitment {
   user: User!
 }
 
-type RecruitmentConnection {
+type RecruitmentConnection implements Connection {
   edges: [RecruitmentEdge!]!
   pageInfo: PageInfo!
 }
 
-type RecruitmentEdge {
+type RecruitmentEdge implements Edge {
   cursor: String!
   node: Recruitment!
 }
@@ -216,14 +226,6 @@ input createMessageInput {
 
 input createTagInput {
   name: String!
-}
-
-input paginationInput {
-  after: String
-  before: String
-  first: Int
-  last: Int
-  options: searchRecruitmentInput
 }
 
 input recruitmentInput {

@@ -23,10 +23,20 @@ export type Applicant = {
   recruitment: Recruitment;
 };
 
-export type Competition = {
+export type Competition = Node & {
   __typename?: 'Competition';
-  id: Scalars['String'];
+  id: Scalars['ID'];
   name: Scalars['String'];
+};
+
+export type Connection = {
+  edges: Array<Edge>;
+  pageInfo: PageInfo;
+};
+
+export type Edge = {
+  cursor: Scalars['String'];
+  node: Node;
 };
 
 export enum EmailVerificationStatus {
@@ -53,7 +63,6 @@ export type Message = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  UserLogout: Scalars['Boolean'];
   addRecruitmentTag: Scalars['Boolean'];
   applyForRecruitment: Scalars['Boolean'];
   createMessage: Message;
@@ -64,6 +73,7 @@ export type Mutation = {
   deleteStock: Scalars['Boolean'];
   updateRecruitment: Recruitment;
   userLogin: UserLoginPayload;
+  userLogout: Scalars['Boolean'];
   userRegister: UserRegisterPayload;
 };
 
@@ -132,15 +142,15 @@ export type Node = {
 
 export type PageInfo = {
   __typename?: 'PageInfo';
-  endCursor: Scalars['String'];
+  endCursor?: Maybe<Scalars['String']>;
   hasNextPage: Scalars['Boolean'];
   hasPreviousPage: Scalars['Boolean'];
-  startCursor: Scalars['String'];
+  startCursor?: Maybe<Scalars['String']>;
 };
 
-export type Prefecture = {
+export type Prefecture = Node & {
   __typename?: 'Prefecture';
-  id: Scalars['String'];
+  id: Scalars['ID'];
   name: Scalars['String'];
 };
 
@@ -157,8 +167,8 @@ export type Query = {
   getEntrieUser: User;
   getPrefectures: Array<Prefecture>;
   getRecruitment: Recruitment;
-  getRecruitments: RecruitmentConnection;
   getRoomMessages: Array<Message>;
+  getSearchRecruitments: RecruitmentConnection;
   getStockedCount: Scalars['Int'];
   getStockedRecruitments: Array<Recruitment>;
   getTags: Array<Tag>;
@@ -191,13 +201,16 @@ export type QueryGetRecruitmentArgs = {
 };
 
 
-export type QueryGetRecruitmentsArgs = {
-  input: PaginationInput;
+export type QueryGetRoomMessagesArgs = {
+  roomId: Scalars['String'];
 };
 
 
-export type QueryGetRoomMessagesArgs = {
-  roomId: Scalars['String'];
+export type QueryGetSearchRecruitmentsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -210,14 +223,14 @@ export type QueryNodeArgs = {
   id: Scalars['ID'];
 };
 
-export type Recruitment = {
+export type Recruitment = Node & {
   __typename?: 'Recruitment';
   applicant?: Maybe<Applicant>;
   closingAt?: Maybe<Scalars['DateTime']>;
   competition?: Maybe<Competition>;
   createdAt: Scalars['DateTime'];
   detail?: Maybe<Scalars['String']>;
-  id: Scalars['String'];
+  id: Scalars['ID'];
   locationLat?: Maybe<Scalars['Float']>;
   locationLng?: Maybe<Scalars['Float']>;
   place?: Maybe<Scalars['String']>;
@@ -232,13 +245,13 @@ export type Recruitment = {
   user: User;
 };
 
-export type RecruitmentConnection = {
+export type RecruitmentConnection = Connection & {
   __typename?: 'RecruitmentConnection';
   edges: Array<RecruitmentEdge>;
   pageInfo: PageInfo;
 };
 
-export type RecruitmentEdge = {
+export type RecruitmentEdge = Edge & {
   __typename?: 'RecruitmentEdge';
   cursor: Scalars['String'];
   node: Recruitment;
@@ -352,14 +365,6 @@ export type CreateTagInput = {
   name: Scalars['String'];
 };
 
-export type PaginationInput = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  options?: InputMaybe<SearchRecruitmentInput>;
-};
-
 export type RecruitmentInput = {
   closingAt?: InputMaybe<Scalars['DateTime']>;
   competitionId: Scalars['String'];
@@ -436,11 +441,14 @@ export type GetPrefecturesQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetPrefecturesQuery = { __typename?: 'Query', getPrefectures: Array<{ __typename?: 'Prefecture', id: string, name: string }> };
 
 export type GetRecruitmentsQueryVariables = Exact<{
-  paginationInput: PaginationInput;
+  first?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  last?: InputMaybe<Scalars['Int']>;
+  before?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetRecruitmentsQuery = { __typename?: 'Query', getRecruitments: { __typename?: 'RecruitmentConnection', pageInfo: { __typename?: 'PageInfo', startCursor: string, endCursor: string, hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'RecruitmentEdge', cursor: string, node: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, publishedAt?: any | null, closingAt?: any | null, user: { __typename?: 'User', name: string, avatar: string }, prefecture?: { __typename?: 'Prefecture', name: string } | null, competition?: { __typename?: 'Competition', name: string } | null } }> } };
+export type GetRecruitmentsQuery = { __typename?: 'Query', getSearchRecruitments: { __typename?: 'RecruitmentConnection', pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'RecruitmentEdge', cursor: string, node: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, publishedAt?: any | null, closingAt?: any | null, user: { __typename?: 'User', name: string, avatar: string }, prefecture?: { __typename?: 'Prefecture', name: string } | null, competition?: { __typename?: 'Competition', name: string } | null } }> } };
 
 export type GetRecruitmentQueryVariables = Exact<{
   id: Scalars['String'];
@@ -633,8 +641,13 @@ export function useGetPrefecturesQuery(options?: Omit<Urql.UseQueryArgs<GetPrefe
   return Urql.useQuery<GetPrefecturesQuery>({ query: GetPrefecturesDocument, ...options });
 };
 export const GetRecruitmentsDocument = gql`
-    query GetRecruitments($paginationInput: paginationInput!) {
-  getRecruitments(input: $paginationInput) {
+    query GetRecruitments($first: Int, $after: String, $last: Int, $before: String) {
+  getSearchRecruitments(
+    first: $first
+    after: $after
+    last: $last
+    before: $before
+  ) {
     pageInfo {
       startCursor
       endCursor
@@ -666,7 +679,7 @@ export const GetRecruitmentsDocument = gql`
 }
     `;
 
-export function useGetRecruitmentsQuery(options: Omit<Urql.UseQueryArgs<GetRecruitmentsQueryVariables>, 'query'>) {
+export function useGetRecruitmentsQuery(options?: Omit<Urql.UseQueryArgs<GetRecruitmentsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetRecruitmentsQuery>({ query: GetRecruitmentsDocument, ...options });
 };
 export const GetRecruitmentDocument = gql`
@@ -997,7 +1010,91 @@ export default {
             "args": []
           }
         ],
-        "interfaces": []
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node"
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "Connection",
+        "fields": [
+          {
+            "name": "edges",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "INTERFACE",
+                    "name": "Edge",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageInfo",
+                "ofType": null
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": [],
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "RecruitmentConnection"
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "Edge",
+        "fields": [
+          {
+            "name": "cursor",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "node",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "INTERFACE",
+                "name": "Node",
+                "ofType": null
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": [],
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "RecruitmentEdge"
+          }
+        ]
       },
       {
         "kind": "OBJECT",
@@ -1101,17 +1198,6 @@ export default {
         "kind": "OBJECT",
         "name": "Mutation",
         "fields": [
-          {
-            "name": "UserLogout",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
           {
             "name": "addRecruitmentTag",
             "type": {
@@ -1376,6 +1462,17 @@ export default {
             ]
           },
           {
+            "name": "userLogout",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
             "name": "userRegister",
             "type": {
               "kind": "NON_NULL",
@@ -1421,6 +1518,18 @@ export default {
         "possibleTypes": [
           {
             "kind": "OBJECT",
+            "name": "Competition"
+          },
+          {
+            "kind": "OBJECT",
+            "name": "Prefecture"
+          },
+          {
+            "kind": "OBJECT",
+            "name": "Recruitment"
+          },
+          {
+            "kind": "OBJECT",
             "name": "User"
           }
         ]
@@ -1432,11 +1541,8 @@ export default {
           {
             "name": "endCursor",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
@@ -1465,11 +1571,8 @@ export default {
           {
             "name": "startCursor",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           }
@@ -1503,7 +1606,12 @@ export default {
             "args": []
           }
         ],
-        "interfaces": []
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node"
+          }
+        ]
       },
       {
         "kind": "OBJECT",
@@ -1721,29 +1829,6 @@ export default {
             ]
           },
           {
-            "name": "getRecruitments",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "RecruitmentConnection",
-                "ofType": null
-              }
-            },
-            "args": [
-              {
-                "name": "input",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
             "name": "getRoomMessages",
             "type": {
               "kind": "NON_NULL",
@@ -1768,6 +1853,47 @@ export default {
                     "kind": "SCALAR",
                     "name": "Any"
                   }
+                }
+              }
+            ]
+          },
+          {
+            "name": "getSearchRecruitments",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "RecruitmentConnection",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "after",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "before",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "first",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "last",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
                 }
               }
             ]
@@ -2034,7 +2160,12 @@ export default {
             "args": []
           }
         ],
-        "interfaces": []
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node"
+          }
+        ]
       },
       {
         "kind": "OBJECT",
@@ -2071,7 +2202,12 @@ export default {
             "args": []
           }
         ],
-        "interfaces": []
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Connection"
+          }
+        ]
       },
       {
         "kind": "OBJECT",
@@ -2101,7 +2237,12 @@ export default {
             "args": []
           }
         ],
-        "interfaces": []
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Edge"
+          }
+        ]
       },
       {
         "kind": "OBJECT",
