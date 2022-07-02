@@ -11,8 +11,8 @@ import {
   RecruitmentEdit,
   Messages,
   MessagesRoom,
-} from '../pages';
-import { DashboardApplied } from '../pages/DashboardApplied';
+} from '../components/pages';
+import { DashboardApplied } from '../components/pages/DashboardApplied';
 
 export const routes = (isLoggedIn: boolean) => [
   {
