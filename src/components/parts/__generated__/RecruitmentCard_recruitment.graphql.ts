@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e2bff31952ce50521f920736bf9b4c11>>
+ * @generated SignedSource<<f93ac0d3181e2613346516d85ada775f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,6 +20,7 @@ export type RecruitmentCard_recruitment$data = {
   readonly prefecture: {
     readonly name: string;
   } | null;
+  readonly publishedAt: any | null;
   readonly title: string;
   readonly type: Type;
   readonly user: {
@@ -83,6 +84,13 @@ return {
     {
       "alias": null,
       "args": null,
+      "kind": "ScalarField",
+      "name": "publishedAt",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "User",
       "kind": "LinkedField",
       "name": "user",
@@ -126,6 +134,6 @@ return {
 };
 })();
 
-(node as any).hash = "9092702577ea6a0af3f15917e26182b9";
+(node as any).hash = "1f8810a118cc44ab54fd1b0bde27cc6d";
 
 export default node;
