@@ -41,8 +41,6 @@ export const RecruitmentCardList: FC<Props> = memo((props) => {
     RecruitmentCardList_recruitment$key
   >(recruitmentsFragment, recruitment);
 
-  console.log(hasNext);
-
   return (
     <>
       <SimpleGrid columns={2} spacing={10}>
