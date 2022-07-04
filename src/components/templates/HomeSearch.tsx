@@ -1,10 +1,18 @@
+import { Box, Divider, Stack } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { useFragment } from 'react-relay';
 import { graphql } from 'relay-runtime';
-import { Competition, Prefecture } from '../../generated/graphql';
 import { SelectOption } from '../../type/type';
-import { HomeSearch_competitions$key } from './__generated__/HomeSearch_competitions.graphql';
-import { HomeSearch_prefectures$key } from './__generated__/HomeSearch_prefectures.graphql';
+import { SearchInput, SearchSelect, SearchTag } from '../parts';
+import { DatePicker } from '../uiParts';
+import {
+  HomeSearch_competitions$data,
+  HomeSearch_competitions$key,
+} from './__generated__/HomeSearch_competitions.graphql';
+import {
+  HomeSearch_prefectures$data,
+  HomeSearch_prefectures$key,
+} from './__generated__/HomeSearch_prefectures.graphql';
 import { HomeSearch_tags$key } from './__generated__/HomeSearch_tags.graphql';
 
 const searchCompetitionsFragment = graphql`
@@ -23,17 +31,18 @@ const searchPrefecturesFragment = graphql`
 
 const searchTagsFragment = graphql`
   fragment HomeSearch_tags on Tag @relay(plural: true) {
+    id
     ...SearchTag_tag
   }
 `;
 
-// const types = [
-//   { value: String(Type.Individual), label: '対戦相手の募集' },
-//   { value: String(Type.Opponent), label: '個人プレーヤーの募集' },
-//   { value: String(Type.Member), label: 'メンバーの募集' },
-//   { value: String(Type.Joining), label: 'チームに加入したい人の募集' },
-//   { value: String(Type.Others), label: 'その他' },
-// ];
+const types = [
+  { value: '1', label: '対戦相手の募集' },
+  { value: '2', label: '個人プレーヤーの募集' },
+  { value: '3', label: 'メンバーの募集' },
+  { value: '4', label: 'チームに加入したい人の募集' },
+  { value: '5', label: 'その他' },
+];
 
 type Props = {
   competitions: HomeSearch_competitions$key;
@@ -62,16 +71,18 @@ export const HomeSearch: FC<Props> = memo((props) => {
   const tagsData = useFragment<HomeSearch_tags$key>(searchTagsFragment, tags);
 
   const replaceOptions = (
-    data?: Prefecture[] | Competition[]
+    data?: HomeSearch_competitions$data | HomeSearch_prefectures$data
   ): SelectOption[] | undefined => {
     return data?.map((node) => {
       return { value: node.id, label: node.name };
     });
   };
 
+  console.log(competitionsData);
+
   return (
     <>
-      {/* <Box fontSize={13} fontWeight="bold" color="blackAlpha.500">
+      <Box fontSize={13} fontWeight="bold" color="blackAlpha.500">
         検索条件
       </Box>
       <Box mt={3}>
@@ -81,12 +92,12 @@ export const HomeSearch: FC<Props> = memo((props) => {
         <Stack spacing={3}>
           <SearchSelect
             placeholder="競技"
-            options={replaceOptions(compData.data?.getCompetitions)}
+            options={replaceOptions(competitionsData)}
           />
           <SearchSelect placeholder="募集タイプ" options={types} />
           <SearchSelect
             placeholder="エリア"
-            options={replaceOptions(prefData.data?.getPrefectures)}
+            options={replaceOptions(prefecturesData)}
           />
           <DatePicker />
         </Stack>
@@ -94,8 +105,8 @@ export const HomeSearch: FC<Props> = memo((props) => {
         <Box mt={-2} px={1}>
           <Box fontSize={13} fontWeight="bold" color="blackAlpha.500">
             タグ
-          </Blx>
-          {tags()?.map((tag) => (
+          </Box>
+          {tagsData.map((tag) => (
             <SearchTag key={tag.id} tag={tag} />
           ))}
           <Box
@@ -104,13 +115,13 @@ export const HomeSearch: FC<Props> = memo((props) => {
             color="#009688"
             fontWeight="bold"
             cursor="pointer"
-            onClick={() => setIsMore(true)}
-            display={isMore ? 'none' : ''}
+            // onClick={() => setIsMore(true)}
+            // display={isMore ? 'none' : ''}
           >
             もっとみる
-          </Text>
+          </Box>
         </Box>
-      </Box> */}
+      </Box>
     </>
   );
 });
