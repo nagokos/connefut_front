@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<593df99226ecac14f7cd5c4f37e16194>>
+ * @generated SignedSource<<beea62dbc2004b6ca143f2246a3557f0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,7 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type HomeSearch_tags$data = ReadonlyArray<{
+  readonly id: string;
   readonly " $fragmentSpreads": FragmentRefs<"SearchTag_tag">;
   readonly " $fragmentType": "HomeSearch_tags";
 }>;
@@ -28,6 +29,13 @@ const node: ReaderFragment = {
   "name": "HomeSearch_tags",
   "selections": [
     {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "SearchTag_tag"
@@ -37,6 +45,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "635c5a7962b1ed49cec750e2bdfa714a";
+(node as any).hash = "3af7ddc10a32830a572326c588693f79";
 
 export default node;
