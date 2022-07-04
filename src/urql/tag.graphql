@@ -1,12 +1,12 @@
 query GetTags {
-  getTags {
+  tags {
     id
     name
   }
 }
 
-mutation CreateTag($createTagInput: createTagInput!) {
-  createTag(input: $createTagInput) {
+mutation CreateTag($input: CreateTagInput!) {
+  createTag(input: $input) {
     id
     name
   }

@@ -1,5 +1,5 @@
 query GetCompetitions {
-  getCompetitions {
+  competitions {
     id
     name
   }
