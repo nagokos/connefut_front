@@ -10,6 +10,7 @@ type Applicant {
 }
 
 type Competition implements Node {
+  databaseId: Int
   id: ID!
   name: String!
 }
@@ -17,6 +18,10 @@ type Competition implements Node {
 interface Connection {
   edges: [Edge!]!
   pageInfo: PageInfo!
+}
+
+input CreateTagInput {
+  name: String!
 }
 
 scalar DateTime
@@ -39,6 +44,32 @@ interface Error {
   message: String!
 }
 
+type LoginUserAuthenticationError implements Error {
+  message: String!
+}
+
+union LoginUserError = LoginUserAuthenticationError | LoginUserInvalidInputError
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+type LoginUserInvalidInputError implements Error {
+  field: LoginUserInvalidInputField!
+  message: String!
+}
+
+enum LoginUserInvalidInputField {
+  EMAIL
+  PASSWORD
+}
+
+type LoginUserPayload {
+  user: User
+  userErrors: [LoginUserError!]!
+}
+
 type Message {
   applicant: Applicant
   content: String
@@ -52,13 +83,13 @@ type Mutation {
   createMessage(input: createMessageInput!, roomId: String!): Message!
   createRecruitment(input: recruitmentInput!): Recruitment!
   createStock(recruitmentId: String!): Boolean!
-  createTag(input: createTagInput!): Tag!
+  createTag(input: CreateTagInput!): Tag!
   deleteRecruitment(id: String!): Recruitment!
   deleteStock(recruitmentId: String!): Boolean!
+  loginUser(input: LoginUserInput!): LoginUserPayload!
+  logoutUser: Boolean!
+  registerUser(input: RegisterUserInput!): RegisterUserPayload!
   updateRecruitment(id: String!, input: recruitmentInput!): Recruitment!
-  userLogin(input: UserLoginInput!): UserLoginPayload!
-  userLogout: Boolean!
-  userRegister(input: UserRegisterInput!): UserRegisterPayload!
 }
 
 interface Node {
@@ -73,28 +104,29 @@ type PageInfo {
 }
 
 type Prefecture implements Node {
+  databaseId: Int
   id: ID!
   name: String!
 }
 
 type Query {
+  appliedRecruitments: [Recruitment!]!
   checkAppliedForRecruitment(recruitmentId: String!): Boolean!
   checkStocked(recruitmentId: String!): Boolean!
+  competitions: [Competition!]!
+  currentUser: User
+  currentUserRecruitments: [Recruitment!]!
   getAppliedCounts(recruitmentId: String!): Int!
-  getAppliedRecruitments: [Recruitment!]!
-  getCompetitions: [Competition!]!
-  getCurrentUser: User
-  getCurrentUserRecruitments: [Recruitment!]!
   getCurrentUserRooms: [Room!]!
   getEntrieUser(roomId: String!): User!
-  getPrefectures: [Prefecture!]!
-  getRecruitment(id: String!): Recruitment!
   getRoomMessages(roomId: String!): [Message!]!
-  getSearchRecruitments(after: String, before: String, first: Int, last: Int): RecruitmentConnection!
   getStockedCount(recruitmentId: String!): Int!
-  getStockedRecruitments: [Recruitment!]!
-  getTags: [Tag!]!
   node(id: ID!): Node
+  prefectures: [Prefecture!]!
+  recruitment(id: String!): Recruitment!
+  recruitments(after: String, before: String, first: Int, last: Int): RecruitmentConnection!
+  stockedRecruitments: [Recruitment!]!
+  tags: [Tag!]!
 }
 
 type Recruitment implements Node {
@@ -102,6 +134,7 @@ type Recruitment implements Node {
   closingAt: DateTime
   competition: Competition
   createdAt: DateTime!
+  databaseId: Int
   detail: String
   id: ID!
   locationLat: Float
@@ -128,6 +161,28 @@ type RecruitmentEdge implements Edge {
   node: Recruitment!
 }
 
+input RegisterUserInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
+type RegisterUserInvalidInputError implements Error {
+  field: RegisterUserInvalidInputField!
+  message: String!
+}
+
+enum RegisterUserInvalidInputField {
+  EMAIL
+  NAME
+  PASSWORD
+}
+
+type RegisterUserPayload {
+  user: User
+  userErrors: [RegisterUserInvalidInputError!]!
+}
+
 enum Role {
   ADMIN
   GENERAL
@@ -144,8 +199,9 @@ enum Status {
   PUBLISHED
 }
 
-type Tag {
-  id: String!
+type Tag implements Node {
+  databaseId: Int
+  id: ID!
   name: String!
 }
 
@@ -168,64 +224,12 @@ type User implements Node {
   role: Role!
 }
 
-type UserLoginAuthenticationError implements Error {
-  message: String!
-}
-
-union UserLoginError = UserLoginAuthenticationError | UserLoginInvalidInputError
-
-input UserLoginInput {
-  email: String!
-  password: String!
-}
-
-type UserLoginInvalidInputError implements Error {
-  field: UserLoginInvalidInputField!
-  message: String!
-}
-
-enum UserLoginInvalidInputField {
-  EMAIL
-  PASSWORD
-}
-
-type UserLoginPayload {
-  user: User
-  userErrors: [UserLoginError!]!
-}
-
-input UserRegisterInput {
-  email: String!
-  name: String!
-  password: String!
-}
-
-type UserRegisterInvalidInputError implements Error {
-  field: UserRegisterInvalidInputField!
-  message: String!
-}
-
-enum UserRegisterInvalidInputField {
-  EMAIL
-  NAME
-  PASSWORD
-}
-
-type UserRegisterPayload {
-  user: User
-  userErrors: [UserRegisterInvalidInputError!]!
-}
-
 input applicantInput {
   message: String!
 }
 
 input createMessageInput {
   content: String!
-}
-
-input createTagInput {
-  name: String!
 }
 
 input recruitmentInput {
@@ -247,11 +251,4 @@ input recruitmentTagInput {
   id: String!
   isNew: Boolean!
   name: String!
-}
-
-input searchRecruitmentInput {
-  competitionId: String
-  prefectureId: String
-  startAt: DateTime
-  type: String
 }
