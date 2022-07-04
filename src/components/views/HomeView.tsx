@@ -33,7 +33,7 @@ export const HomeView: FC<Props> = memo((props) => {
             </Box>
           </Suspense>
         </GridItem>
-        <GridItem pl={4} colSpan={3}>
+        <GridItem pl={7} colSpan={3}>
           <Suspense
             fallback={
               <Box textAlign="center">
