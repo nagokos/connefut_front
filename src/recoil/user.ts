@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 import { graphQLSelector } from 'recoil-relay';
 import { graphql } from 'relay-runtime';
 import { RelayEnvironment } from '../RelayEnvironment';
-import { user_GetCurrentUserQuery$data } from './__generated__/user_GetCurrentUserQuery.graphql';
+import { user_CurrentUserQuery$data } from './__generated__/user_CurrentUserQuery.graphql';
 
 type currentUser = {
   id: string;
@@ -19,8 +19,8 @@ export const currentUserQuery = graphQLSelector({
   key: 'currentUser',
   environment: RelayEnvironment,
   query: graphql`
-    query user_GetCurrentUserQuery {
-      getCurrentUser {
+    query user_CurrentUserQuery {
+      currentUser {
         id
         name
         avatar
@@ -29,11 +29,11 @@ export const currentUserQuery = graphQLSelector({
   `,
   default: null,
   variables: {},
-  mapResponse: (data: user_GetCurrentUserQuery$data, { get }) => {
+  mapResponse: (data: user_CurrentUserQuery$data, { get }) => {
     const user = get(currentUserState);
     if (user) {
       return user;
     }
-    return data.getCurrentUser;
+    return data.currentUser;
   },
 });
