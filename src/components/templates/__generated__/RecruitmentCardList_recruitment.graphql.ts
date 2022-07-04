@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8cd88bb03c9d4e129565818ddb8846d8>>
+ * @generated SignedSource<<a692c72c3d69b431860af2fd90ffb790>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RecruitmentCardList_recruitment$data = {
-  readonly getSearchRecruitments: {
+  readonly recruitments: {
     readonly edges: ReadonlyArray<{
       readonly cursor: string;
       readonly node: {
@@ -32,7 +32,7 @@ export type RecruitmentCardList_recruitment$key = {
 
 const node: ReaderFragment = (function(){
 var v0 = [
-  "getSearchRecruitments"
+  "recruitments"
 ];
 return {
   "argumentDefinitions": [
@@ -67,17 +67,17 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./SearchRecruitmentsQuery.graphql')
+      "operation": require('./RecruitmentsQuery.graphql')
     }
   },
   "name": "RecruitmentCardList_recruitment",
   "selections": [
     {
-      "alias": "getSearchRecruitments",
+      "alias": "recruitments",
       "args": null,
       "concreteType": "RecruitmentConnection",
       "kind": "LinkedField",
-      "name": "__RecruitmentCardList__getSearchRecruitments_connection",
+      "name": "__RecruitmentCardList__recruitments_connection",
       "plural": false,
       "selections": [
         {
@@ -155,6 +155,6 @@ return {
 };
 })();
 
-(node as any).hash = "b3870cc37abb5c8c02adec8fe6aa48e1";
+(node as any).hash = "85f4238e567428e73be75234dd774c15";
 
 export default node;
