@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6f0852e22bb3013c3caa47ec356f9c90>>
+ * @generated SignedSource<<a5cf869be1a49fe69cb585e5f83cf4f1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -335,12 +335,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "58031ace18aa78f66cf1fb8952e166eb",
+    "cacheID": "40c67e84b9d19eb4b0e463ee7f25ae9a",
     "id": null,
     "metadata": {},
     "name": "Home_SearchRecruitmentsQuery",
     "operationKind": "query",
-    "text": "query Home_SearchRecruitmentsQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentCardList_recruitment_2HEEH6\n  competitions {\n    ...HomeSearch_competitions\n    id\n  }\n  prefectures {\n    ...HomeSearch_prefectures\n    id\n  }\n  tags {\n    ...HomeSearch_tags\n    id\n  }\n}\n\nfragment HomeSearch_competitions on Competition {\n  id\n  name\n}\n\nfragment HomeSearch_prefectures on Prefecture {\n  id\n  name\n}\n\nfragment HomeSearch_tags on Tag {\n  ...SearchTag_tag\n}\n\nfragment RecruitmentCardList_recruitment_2HEEH6 on Query {\n  recruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentCard_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n\nfragment SearchTag_tag on Tag {\n  id\n  name\n}\n"
+    "text": "query Home_SearchRecruitmentsQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentCardList_recruitment_2HEEH6\n  competitions {\n    ...HomeSearch_competitions\n    id\n  }\n  prefectures {\n    ...HomeSearch_prefectures\n    id\n  }\n  tags {\n    ...HomeSearch_tags\n    id\n  }\n}\n\nfragment HomeSearch_competitions on Competition {\n  id\n  name\n}\n\nfragment HomeSearch_prefectures on Prefecture {\n  id\n  name\n}\n\nfragment HomeSearch_tags on Tag {\n  id\n  ...SearchTag_tag\n}\n\nfragment RecruitmentCardList_recruitment_2HEEH6 on Query {\n  recruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentCard_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n\nfragment SearchTag_tag on Tag {\n  id\n  name\n}\n"
   }
 };
 })();
