@@ -2,13 +2,13 @@ import { Box, CircularProgress } from '@chakra-ui/react';
 import { FC, memo, Suspense, useEffect } from 'react';
 import { useQueryLoader } from 'react-relay';
 import { graphql } from 'relay-runtime';
+import { DashboardRecruitments_currentUserRecruitmentsQuery } from './__generated__/DashboardRecruitments_currentUserRecruitmentsQuery.graphql';
 
 import { DashboardRecruitment } from '../uiGroup/DashboardRecruitment';
-import { DashboardRecruitments_GetCurrentUserRecruitmentsQuery } from './__generated__/DashboardRecruitments_GetCurrentUserRecruitmentsQuery.graphql';
 
 export const currentUserRecruitmentsQuery = graphql`
-  query DashboardRecruitments_GetCurrentUserRecruitmentsQuery {
-    getCurrentUserRecruitments {
+  query DashboardRecruitments_currentUserRecruitmentsQuery {
+    currentUserRecruitments {
       id
       title
     }
@@ -17,7 +17,7 @@ export const currentUserRecruitmentsQuery = graphql`
 
 export const DashboardRecruitments: FC = memo(() => {
   const [currentUserRecruitmentsQueryRef, loadCurrentUserRecruitmentsQuery] =
-    useQueryLoader<DashboardRecruitments_GetCurrentUserRecruitmentsQuery>(
+    useQueryLoader<DashboardRecruitments_currentUserRecruitmentsQuery>(
       currentUserRecruitmentsQuery
     );
 

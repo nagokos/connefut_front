@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<511b078eb5f2d457438de38b235ac9ca>>
+ * @generated SignedSource<<d6ba60e2f31f8aa8f1cf42c3f2af1881>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,32 +9,32 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
-export type UserRegisterInvalidInputField = "EMAIL" | "NAME" | "PASSWORD" | "%future added value";
-export type UserRegisterInput = {
+export type RegisterUserInvalidInputField = "EMAIL" | "NAME" | "PASSWORD" | "%future added value";
+export type RegisterUserInput = {
   email: string;
   name: string;
   password: string;
 };
-export type SignUpEmailModal_UserRegisterMutation$variables = {
-  input: UserRegisterInput;
+export type SignUpEmailModal_RegisterUserMutation$variables = {
+  input: RegisterUserInput;
 };
-export type SignUpEmailModal_UserRegisterMutation$data = {
-  readonly userRegister: {
+export type SignUpEmailModal_RegisterUserMutation$data = {
+  readonly registerUser: {
     readonly user: {
       readonly avatar: string;
       readonly id: string;
       readonly name: string;
     } | null;
     readonly userErrors: ReadonlyArray<{
-      readonly __typename: "UserRegisterInvalidInputError";
-      readonly field: UserRegisterInvalidInputField;
+      readonly __typename: "RegisterUserInvalidInputError";
+      readonly field: RegisterUserInvalidInputField;
       readonly message: string;
     }>;
   };
 };
-export type SignUpEmailModal_UserRegisterMutation = {
-  response: SignUpEmailModal_UserRegisterMutation$data;
-  variables: SignUpEmailModal_UserRegisterMutation$variables;
+export type SignUpEmailModal_RegisterUserMutation = {
+  response: SignUpEmailModal_RegisterUserMutation$data;
+  variables: SignUpEmailModal_RegisterUserMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -55,9 +55,9 @@ v1 = [
         "variableName": "input"
       }
     ],
-    "concreteType": "UserRegisterPayload",
+    "concreteType": "RegisterUserPayload",
     "kind": "LinkedField",
-    "name": "userRegister",
+    "name": "registerUser",
     "plural": false,
     "selections": [
       {
@@ -95,7 +95,7 @@ v1 = [
       {
         "alias": null,
         "args": null,
-        "concreteType": "UserRegisterInvalidInputError",
+        "concreteType": "RegisterUserInvalidInputError",
         "kind": "LinkedField",
         "name": "userErrors",
         "plural": true,
@@ -133,7 +133,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "SignUpEmailModal_UserRegisterMutation",
+    "name": "SignUpEmailModal_RegisterUserMutation",
     "selections": (v1/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -142,20 +142,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "SignUpEmailModal_UserRegisterMutation",
+    "name": "SignUpEmailModal_RegisterUserMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "dbe2620f30153e4915acc00faac28115",
+    "cacheID": "60e8a826ba1ccf737fa7d106dda4f62f",
     "id": null,
     "metadata": {},
-    "name": "SignUpEmailModal_UserRegisterMutation",
+    "name": "SignUpEmailModal_RegisterUserMutation",
     "operationKind": "mutation",
-    "text": "mutation SignUpEmailModal_UserRegisterMutation(\n  $input: UserRegisterInput!\n) {\n  userRegister(input: $input) {\n    user {\n      id\n      name\n      avatar\n    }\n    userErrors {\n      __typename\n      message\n      field\n    }\n  }\n}\n"
+    "text": "mutation SignUpEmailModal_RegisterUserMutation(\n  $input: RegisterUserInput!\n) {\n  registerUser(input: $input) {\n    user {\n      id\n      name\n      avatar\n    }\n    userErrors {\n      __typename\n      message\n      field\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "ca74e89a5afc49c7e86ac2cb24c6f410";
+(node as any).hash = "90d7900f84d65d823c4ec810658bf500";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b8b67265a604ba21fe4c240091d8d13a>>
+ * @generated SignedSource<<28d20fd5501647bee22240947b247165>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,17 +9,17 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
-export type user_GetCurrentUserQuery$variables = {};
-export type user_GetCurrentUserQuery$data = {
-  readonly getCurrentUser: {
+export type user_CurrentUserQuery$variables = {};
+export type user_CurrentUserQuery$data = {
+  readonly currentUser: {
     readonly avatar: string;
     readonly id: string;
     readonly name: string;
   } | null;
 };
-export type user_GetCurrentUserQuery = {
-  response: user_GetCurrentUserQuery$data;
-  variables: user_GetCurrentUserQuery$variables;
+export type user_CurrentUserQuery = {
+  response: user_CurrentUserQuery$data;
+  variables: user_CurrentUserQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -29,7 +29,7 @@ var v0 = [
     "args": null,
     "concreteType": "User",
     "kind": "LinkedField",
-    "name": "getCurrentUser",
+    "name": "currentUser",
     "plural": false,
     "selections": [
       {
@@ -62,7 +62,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "user_GetCurrentUserQuery",
+    "name": "user_CurrentUserQuery",
     "selections": (v0/*: any*/),
     "type": "Query",
     "abstractKey": null
@@ -71,20 +71,20 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "user_GetCurrentUserQuery",
+    "name": "user_CurrentUserQuery",
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "6898a458586200ef69397cf6b700a7f9",
+    "cacheID": "5c3e24408c4ba6f06bb7a87427b2bbad",
     "id": null,
     "metadata": {},
-    "name": "user_GetCurrentUserQuery",
+    "name": "user_CurrentUserQuery",
     "operationKind": "query",
-    "text": "query user_GetCurrentUserQuery {\n  getCurrentUser {\n    id\n    name\n    avatar\n  }\n}\n"
+    "text": "query user_CurrentUserQuery {\n  currentUser {\n    id\n    name\n    avatar\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "6201fb0eb45e04caf94c9f8df27b6ddd";
+(node as any).hash = "61ec91cd217fe61a85e5b60197b38970";
 
 export default node;

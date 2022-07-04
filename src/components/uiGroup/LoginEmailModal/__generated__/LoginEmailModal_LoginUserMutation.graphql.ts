@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8f47c2a30d6b5c7dbcb1dfd24091f77b>>
+ * @generated SignedSource<<23edadc4ef39e2f76f72f718f9a996a9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,27 +9,27 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
-export type UserLoginInvalidInputField = "EMAIL" | "PASSWORD" | "%future added value";
-export type UserLoginInput = {
+export type LoginUserInvalidInputField = "EMAIL" | "PASSWORD" | "%future added value";
+export type LoginUserInput = {
   email: string;
   password: string;
 };
-export type LoginEmailModal_UserLoginMutation$variables = {
-  input: UserLoginInput;
+export type LoginEmailModal_LoginUserMutation$variables = {
+  input: LoginUserInput;
 };
-export type LoginEmailModal_UserLoginMutation$data = {
-  readonly userLogin: {
+export type LoginEmailModal_LoginUserMutation$data = {
+  readonly loginUser: {
     readonly user: {
       readonly avatar: string;
       readonly id: string;
       readonly name: string;
     } | null;
     readonly userErrors: ReadonlyArray<{
-      readonly __typename: "UserLoginAuthenticationError";
+      readonly __typename: "LoginUserAuthenticationError";
       readonly message: string;
     } | {
-      readonly __typename: "UserLoginInvalidInputError";
-      readonly field: UserLoginInvalidInputField;
+      readonly __typename: "LoginUserInvalidInputError";
+      readonly field: LoginUserInvalidInputField;
       readonly message: string;
     } | {
       // This will never be '%other', but we need some
@@ -38,9 +38,9 @@ export type LoginEmailModal_UserLoginMutation$data = {
     }>;
   };
 };
-export type LoginEmailModal_UserLoginMutation = {
-  response: LoginEmailModal_UserLoginMutation$data;
-  variables: LoginEmailModal_UserLoginMutation$variables;
+export type LoginEmailModal_LoginUserMutation = {
+  response: LoginEmailModal_LoginUserMutation$data;
+  variables: LoginEmailModal_LoginUserMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -68,9 +68,9 @@ v2 = [
         "variableName": "input"
       }
     ],
-    "concreteType": "UserLoginPayload",
+    "concreteType": "LoginUserPayload",
     "kind": "LinkedField",
-    "name": "userLogin",
+    "name": "loginUser",
     "plural": false,
     "selections": [
       {
@@ -132,7 +132,7 @@ v2 = [
                 "storageKey": null
               }
             ],
-            "type": "UserLoginInvalidInputError",
+            "type": "LoginUserInvalidInputError",
             "abstractKey": null
           },
           {
@@ -140,7 +140,7 @@ v2 = [
             "selections": [
               (v1/*: any*/)
             ],
-            "type": "UserLoginAuthenticationError",
+            "type": "LoginUserAuthenticationError",
             "abstractKey": null
           }
         ],
@@ -155,7 +155,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "LoginEmailModal_UserLoginMutation",
+    "name": "LoginEmailModal_LoginUserMutation",
     "selections": (v2/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -164,20 +164,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "LoginEmailModal_UserLoginMutation",
+    "name": "LoginEmailModal_LoginUserMutation",
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "22396bbf47e51e5de6f46457f86ea3cb",
+    "cacheID": "ae720afa4edc308fe027267f92a52cc0",
     "id": null,
     "metadata": {},
-    "name": "LoginEmailModal_UserLoginMutation",
+    "name": "LoginEmailModal_LoginUserMutation",
     "operationKind": "mutation",
-    "text": "mutation LoginEmailModal_UserLoginMutation(\n  $input: UserLoginInput!\n) {\n  userLogin(input: $input) {\n    user {\n      id\n      name\n      avatar\n    }\n    userErrors {\n      __typename\n      ... on UserLoginInvalidInputError {\n        message\n        field\n      }\n      ... on UserLoginAuthenticationError {\n        message\n      }\n    }\n  }\n}\n"
+    "text": "mutation LoginEmailModal_LoginUserMutation(\n  $input: LoginUserInput!\n) {\n  loginUser(input: $input) {\n    user {\n      id\n      name\n      avatar\n    }\n    userErrors {\n      __typename\n      ... on LoginUserInvalidInputError {\n        message\n        field\n      }\n      ... on LoginUserAuthenticationError {\n        message\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "9cbec6d58786b31187459425e5cc1a46";
+(node as any).hash = "8dfb232bd7cb0907aab678be93855048";
 
 export default node;

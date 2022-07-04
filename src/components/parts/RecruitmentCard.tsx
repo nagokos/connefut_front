@@ -5,7 +5,10 @@ import { graphql } from 'relay-runtime';
 import { format, formatDistanceToNow } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import { useNavigate } from 'react-router-dom';
-import { RecruitmentCard_recruitment$key } from './__generated__/RecruitmentCard_recruitment.graphql';
+import {
+  RecruitmentCard_recruitment$key,
+  Type,
+} from './__generated__/RecruitmentCard_recruitment.graphql';
 import { useFragment } from 'react-relay';
 
 const recruitmentFragment = graphql`
@@ -14,6 +17,7 @@ const recruitmentFragment = graphql`
     title
     type
     closingAt
+    publishedAt
     user {
       id
       name
@@ -57,6 +61,38 @@ export const RecruitmentCard: FC<Props> = memo((props) => {
   const timeLimitFindS = (increment: string): string => {
     const timelimit = timeLimit(increment);
     return timelimit.replace(/\d+/g, '');
+  };
+
+  const typeString = (type: Type) => {
+    if (type === 'OPPONENT') {
+      return '対戦相手';
+    } else if (type === 'INDIVIDUAL') {
+      return '個人プレーヤー';
+    } else if (type === 'MEMBER') {
+      return 'メンバー';
+    } else if (type === 'JOINING') {
+      return 'チーム加入';
+    } else if (type === 'OTHERS') {
+      return 'その他';
+    } else {
+      return '';
+    }
+  };
+
+  const typeEmoji = (type: Type) => {
+    if (type === 'OPPONENT') {
+      return '🤝';
+    } else if (type === 'INDIVIDUAL') {
+      return '💪';
+    } else if (type === 'MEMBER') {
+      return '🧑‍🤝‍🧑';
+    } else if (type === 'JOINING') {
+      return '🙏';
+    } else if (type === 'OTHERS') {
+      return '💭';
+    } else {
+      return '';
+    }
   };
 
   return (
@@ -147,8 +183,12 @@ export const RecruitmentCard: FC<Props> = memo((props) => {
               px={2}
               py={0.5}
             >
-              <Box fontSize={12} mr={1}></Box>
-              <Box fontFamily="ヒラギノ角ゴシック" fontSize={11}></Box>
+              <Box fontSize={12} mr={1}>
+                {typeEmoji(recruitmentData.type)}
+              </Box>
+              <Box fontFamily="ヒラギノ角ゴシック" fontSize={11}>
+                {typeString(recruitmentData.type)}
+              </Box>
             </Box>
           </Box>
           <Box display="flex" alignItems="center">
@@ -175,19 +215,28 @@ export const RecruitmentCard: FC<Props> = memo((props) => {
                   {timeLimitFindNum(String(recruitmentData.closingAt))}
                 </Box>
                 {timeLimitFindS(String(recruitmentData.closingAt))}
-                <Box as="span" ml={1} color="blackAlpha.700"></Box>
+                <Box as="span" fontSize={10} ml={1} color="blackAlpha.700">
+                  {format(
+                    new Date(recruitmentData.closingAt),
+                    'yyyy年MM月dd日'
+                  )}
+                </Box>
               </Box>
             </Box>
           </Box>
           <Box display="flex" alignItems="center">
             <Avatar mr={2} w={10} h={10} src={recruitmentData.user.avatar} />
             <Stack direction="column" spacing="0" fontSize={12}>
-              <Text fontWeight="bold">{recruitmentData.user.name}</Text>
+              <Text fontWeight="bold" mb={0.5}>
+                {recruitmentData.user.name}
+              </Text>
               <Text
                 color="blackAlpha.600"
                 fontSize={10}
                 fontFamily="ヒラギノ角ゴシック"
-              ></Text>
+              >
+                {timeLimit(recruitmentData.publishedAt)}前に公開
+              </Text>
             </Stack>
           </Box>
         </Stack>

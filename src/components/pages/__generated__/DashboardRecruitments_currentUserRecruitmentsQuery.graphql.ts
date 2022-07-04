@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<99c593e707f39209efe7cd4c04f4ca7f>>
+ * @generated SignedSource<<c08325d0323accd6a76535d5318958ef>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,16 +9,16 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
-export type DashboardRecruitments_GetCurrentUserRecruitmentsQuery$variables = {};
-export type DashboardRecruitments_GetCurrentUserRecruitmentsQuery$data = {
-  readonly getCurrentUserRecruitments: ReadonlyArray<{
+export type DashboardRecruitments_currentUserRecruitmentsQuery$variables = {};
+export type DashboardRecruitments_currentUserRecruitmentsQuery$data = {
+  readonly currentUserRecruitments: ReadonlyArray<{
     readonly id: string;
     readonly title: string;
   }>;
 };
-export type DashboardRecruitments_GetCurrentUserRecruitmentsQuery = {
-  response: DashboardRecruitments_GetCurrentUserRecruitmentsQuery$data;
-  variables: DashboardRecruitments_GetCurrentUserRecruitmentsQuery$variables;
+export type DashboardRecruitments_currentUserRecruitmentsQuery = {
+  response: DashboardRecruitments_currentUserRecruitmentsQuery$data;
+  variables: DashboardRecruitments_currentUserRecruitmentsQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -28,7 +28,7 @@ var v0 = [
     "args": null,
     "concreteType": "Recruitment",
     "kind": "LinkedField",
-    "name": "getCurrentUserRecruitments",
+    "name": "currentUserRecruitments",
     "plural": true,
     "selections": [
       {
@@ -54,7 +54,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "DashboardRecruitments_GetCurrentUserRecruitmentsQuery",
+    "name": "DashboardRecruitments_currentUserRecruitmentsQuery",
     "selections": (v0/*: any*/),
     "type": "Query",
     "abstractKey": null
@@ -63,20 +63,20 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "DashboardRecruitments_GetCurrentUserRecruitmentsQuery",
+    "name": "DashboardRecruitments_currentUserRecruitmentsQuery",
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "77d288dac4079596c933ffe30cd9d959",
+    "cacheID": "9d02cde923878fd6b379a8b4d0016124",
     "id": null,
     "metadata": {},
-    "name": "DashboardRecruitments_GetCurrentUserRecruitmentsQuery",
+    "name": "DashboardRecruitments_currentUserRecruitmentsQuery",
     "operationKind": "query",
-    "text": "query DashboardRecruitments_GetCurrentUserRecruitmentsQuery {\n  getCurrentUserRecruitments {\n    id\n    title\n  }\n}\n"
+    "text": "query DashboardRecruitments_currentUserRecruitmentsQuery {\n  currentUserRecruitments {\n    id\n    title\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "502bcd9aab7d5f24d944ea5704d6b590";
+(node as any).hash = "55753201e8750d426275d7f06938b162";
 
 export default node;

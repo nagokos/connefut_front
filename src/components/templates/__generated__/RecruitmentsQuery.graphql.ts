@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8de60c098ba6a8e5c33e1693f56a4d8b>>
+ * @generated SignedSource<<747781dd8d58ef6388d0d098b27964fc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,30 +10,32 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type Home_GetSearchRecruitmentsQuery$variables = {
+export type RecruitmentsQuery$variables = {
   after?: string | null;
-  first: number;
+  first?: number | null;
 };
-export type Home_GetSearchRecruitmentsQuery$data = {
+export type RecruitmentsQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"RecruitmentCardList_recruitment">;
 };
-export type Home_GetSearchRecruitmentsQuery = {
-  response: Home_GetSearchRecruitmentsQuery$data;
-  variables: Home_GetSearchRecruitmentsQuery$variables;
+export type RecruitmentsQuery = {
+  response: RecruitmentsQuery$data;
+  variables: RecruitmentsQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "after"
-},
-v1 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "first"
-},
-v2 = [
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "after"
+  },
+  {
+    "defaultValue": 10,
+    "kind": "LocalArgument",
+    "name": "first"
+  }
+],
+v1 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -45,36 +47,33 @@ v2 = [
     "variableName": "first"
   }
 ],
-v3 = {
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v4 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v5 = [
-  (v4/*: any*/),
-  (v3/*: any*/)
+v4 = [
+  (v3/*: any*/),
+  (v2/*: any*/)
 ];
 return {
   "fragment": {
-    "argumentDefinitions": [
-      (v0/*: any*/),
-      (v1/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "Home_GetSearchRecruitmentsQuery",
+    "name": "RecruitmentsQuery",
     "selections": [
       {
-        "args": (v2/*: any*/),
+        "args": (v1/*: any*/),
         "kind": "FragmentSpread",
         "name": "RecruitmentCardList_recruitment"
       }
@@ -84,19 +83,16 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [
-      (v1/*: any*/),
-      (v0/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "Home_GetSearchRecruitmentsQuery",
+    "name": "RecruitmentsQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": "RecruitmentConnection",
         "kind": "LinkedField",
-        "name": "getSearchRecruitments",
+        "name": "recruitments",
         "plural": false,
         "selections": [
           {
@@ -122,7 +118,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v3/*: any*/),
+                  (v2/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -147,13 +143,20 @@ return {
                   {
                     "alias": null,
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "publishedAt",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
                     "concreteType": "User",
                     "kind": "LinkedField",
                     "name": "user",
                     "plural": false,
                     "selections": [
+                      (v2/*: any*/),
                       (v3/*: any*/),
-                      (v4/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -171,7 +174,7 @@ return {
                     "kind": "LinkedField",
                     "name": "competition",
                     "plural": false,
-                    "selections": (v5/*: any*/),
+                    "selections": (v4/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -181,7 +184,7 @@ return {
                     "kind": "LinkedField",
                     "name": "prefecture",
                     "plural": false,
-                    "selections": (v5/*: any*/),
+                    "selections": (v4/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -227,26 +230,26 @@ return {
       },
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v1/*: any*/),
         "filters": null,
         "handle": "connection",
-        "key": "RecruitmentCardList__getSearchRecruitments",
+        "key": "RecruitmentCardList__recruitments",
         "kind": "LinkedHandle",
-        "name": "getSearchRecruitments"
+        "name": "recruitments"
       }
     ]
   },
   "params": {
-    "cacheID": "fe118b0c57154a07dc9a8714bc8ca9b0",
+    "cacheID": "58ad98f9c6a3e2b55f1cb0825b09e0a4",
     "id": null,
     "metadata": {},
-    "name": "Home_GetSearchRecruitmentsQuery",
+    "name": "RecruitmentsQuery",
     "operationKind": "query",
-    "text": "query Home_GetSearchRecruitmentsQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentCardList_recruitment_2HEEH6\n}\n\nfragment RecruitmentCardList_recruitment_2HEEH6 on Query {\n  getSearchRecruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentCard_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n"
+    "text": "query RecruitmentsQuery(\n  $after: String\n  $first: Int = 10\n) {\n  ...RecruitmentCardList_recruitment_2HEEH6\n}\n\nfragment RecruitmentCardList_recruitment_2HEEH6 on Query {\n  recruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentCard_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "8aac451655c651ced8d542cb81448755";
+(node as any).hash = "85f4238e567428e73be75234dd774c15";
 
 export default node;

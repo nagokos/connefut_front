@@ -2,7 +2,8 @@ import { Box, Button, SimpleGrid } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { usePaginationFragment } from 'react-relay';
 import { graphql } from 'relay-runtime';
-import { Home_GetSearchRecruitmentsQuery } from '../pages/__generated__/Home_GetSearchRecruitmentsQuery.graphql';
+import { Home_SearchRecruitmentsQuery } from '../pages/__generated__/Home_SearchRecruitmentsQuery.graphql';
+
 import { RecruitmentCard } from '../parts';
 import { RecruitmentCardList_recruitment$key } from './__generated__/RecruitmentCardList_recruitment.graphql';
 
@@ -12,9 +13,9 @@ const recruitmentsFragment = graphql`
     first: { type: "Int", defaultValue: 10 }
     after: { type: "String" }
   )
-  @refetchable(queryName: "SearchRecruitmentsQuery") {
-    getSearchRecruitments(first: $first, after: $after)
-      @connection(key: "RecruitmentCardList__getSearchRecruitments") {
+  @refetchable(queryName: "RecruitmentsQuery") {
+    recruitments(first: $first, after: $after)
+      @connection(key: "RecruitmentCardList__recruitments") {
       edges {
         cursor
         node {
@@ -37,16 +38,14 @@ export const RecruitmentCardList: FC<Props> = memo((props) => {
   const { recruitment } = props;
 
   const { data, loadNext, hasNext } = usePaginationFragment<
-    Home_GetSearchRecruitmentsQuery,
+    Home_SearchRecruitmentsQuery,
     RecruitmentCardList_recruitment$key
   >(recruitmentsFragment, recruitment);
-
-  console.log(hasNext);
 
   return (
     <>
       <SimpleGrid columns={2} spacing={10}>
-        {data.getSearchRecruitments.edges.map((edge) => (
+        {data.recruitments.edges.map((edge) => (
           <RecruitmentCard key={edge.cursor} recruitment={edge.node} />
         ))}
       </SimpleGrid>

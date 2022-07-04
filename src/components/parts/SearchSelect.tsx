@@ -2,8 +2,7 @@ import { Spacer } from '@chakra-ui/react';
 import { Select, chakraComponents } from 'chakra-react-select';
 import { FC, memo } from 'react';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
-
-import { SelectOption } from '../../../type/type';
+import { SelectOption } from '../../type/type';
 
 type Props = {
   options?: SelectOption[];

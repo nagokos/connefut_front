@@ -1,37 +1,5 @@
-query GetRecruitments($paginationInput: paginationInput!) {
-  getRecruitments(input: $paginationInput) {
-    pageInfo {
-      startCursor
-      endCursor
-      hasNextPage
-      hasPreviousPage
-    }
-    edges {
-      cursor
-      node {
-        id
-        title
-        type
-        status
-        publishedAt
-        closingAt
-        user {
-          name
-          avatar
-        }
-        prefecture {
-          name
-        }
-        competition {
-          name
-        }
-      }
-    }
-  }
-}
-
 query GetRecruitment($id: String!) {
-  getRecruitment(id: $id) {
+  recruitment(id: $id) {
     id
     title
     type
@@ -63,7 +31,7 @@ query GetRecruitment($id: String!) {
 }
 
 query GetEditRecruitment($id: String!) {
-  getRecruitment(id: $id) {
+  recruitment(id: $id) {
     id
     title
     type
@@ -90,7 +58,7 @@ query GetEditRecruitment($id: String!) {
 }
 
 query GetCurrentUserRecruitments {
-  getCurrentUserRecruitments {
+  currentUserRecruitments {
     id
     title
     status
@@ -106,7 +74,7 @@ query GetCurrentUserRecruitments {
 }
 
 query GetAppliedRecruitments {
-  getAppliedRecruitments {
+  appliedRecruitments {
     id
     title
     applicant {
@@ -121,7 +89,7 @@ query GetAppliedRecruitments {
 }
 
 query GetStockedRecruitments {
-  getStockedRecruitments {
+  stockedRecruitments {
     id
     title
     closingAt
