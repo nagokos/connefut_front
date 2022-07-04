@@ -1,6 +1,4 @@
 export { Header } from './Header/index';
-export { HomeSearch } from './HomeSearch/index';
-export { RecruitmentCardList } from './RecruitmentCardList/index';
 export { SignUpEmailModal } from './SignUpEmailModal';
 export { LoginEmailModal } from './LoginEmailModal';
 export { RecruitmentDetailMain } from './RecruitmentDetailMain';
