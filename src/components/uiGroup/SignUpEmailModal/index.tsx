@@ -19,16 +19,17 @@ import { signUpSchema } from '../../../yup/userSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { graphql } from 'relay-runtime';
 import { useMutation } from 'react-relay';
-import {
-  SignUpEmailModal_UserRegisterMutation,
-  UserRegisterInput,
-} from './__generated__/SignUpEmailModal_UserRegisterMutation.graphql';
+
 import { useSetRecoilState } from 'recoil';
 import { currentUserState } from '../../../recoil/user';
+import {
+  RegisterUserInput,
+  SignUpEmailModal_RegisterUserMutation,
+} from './__generated__/SignUpEmailModal_RegisterUserMutation.graphql';
 
-const userRegisterMutation = graphql`
-  mutation SignUpEmailModal_UserRegisterMutation($input: UserRegisterInput!) {
-    userRegister(input: $input) {
+const registerUserMutation = graphql`
+  mutation SignUpEmailModal_RegisterUserMutation($input: RegisterUserInput!) {
+    registerUser(input: $input) {
       user {
         id
         name
@@ -36,7 +37,7 @@ const userRegisterMutation = graphql`
       }
       userErrors {
         __typename
-        ... on UserRegisterInvalidInputError {
+        ... on RegisterUserInvalidInputError {
           message
           field
         }
@@ -58,7 +59,7 @@ export const SignUpEmailModal: FC<Props> = memo((props) => {
   const setUser = useSetRecoilState(currentUserState);
 
   const [commit, isInFlight] =
-    useMutation<SignUpEmailModal_UserRegisterMutation>(userRegisterMutation);
+    useMutation<SignUpEmailModal_RegisterUserMutation>(registerUserMutation);
 
   const {
     control,
@@ -66,7 +67,7 @@ export const SignUpEmailModal: FC<Props> = memo((props) => {
     reset,
     setError,
     formState: { isValid },
-  } = useForm<UserRegisterInput>({
+  } = useForm<RegisterUserInput>({
     defaultValues: {
       name: '',
       email: '',
@@ -76,7 +77,7 @@ export const SignUpEmailModal: FC<Props> = memo((props) => {
     mode: 'onChange',
   });
 
-  const onSubmit = (values: UserRegisterInput) => {
+  const onSubmit = (values: RegisterUserInput) => {
     commit({
       variables: {
         input: values,
@@ -85,12 +86,12 @@ export const SignUpEmailModal: FC<Props> = memo((props) => {
         if (errors) {
           return console.log(errors);
         }
-        if (response.userRegister.user) {
-          setUser(response.userRegister.user);
+        if (response.registerUser.user) {
+          setUser(response.registerUser.user);
           navigate('/recruitments');
         } else {
-          response.userRegister.userErrors.forEach((error) => {
-            if (error.__typename === 'UserRegisterInvalidInputError') {
+          response.registerUser.userErrors.forEach((error) => {
+            if (error.__typename === 'RegisterUserInvalidInputError') {
               const field = error.field as 'name' | 'email' | 'password';
               setError(field, {
                 message: error.message,

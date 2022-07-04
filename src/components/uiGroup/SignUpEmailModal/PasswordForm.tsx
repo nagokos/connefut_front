@@ -11,10 +11,10 @@ import { FC, memo } from 'react';
 import { Control, Controller } from 'react-hook-form';
 
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { UserRegisterInput } from './__generated__/SignUpEmailModal_UserRegisterMutation.graphql';
+import { RegisterUserInput } from './__generated__/SignUpEmailModal_RegisterUserMutation.graphql';
 
 type Props = {
-  control: Control<UserRegisterInput>;
+  control: Control<RegisterUserInput>;
 };
 
 export const PasswordForm: FC<Props> = memo((props) => {

@@ -9,7 +9,6 @@ import {
 } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { useForm } from 'react-hook-form';
-
 import { useNavigate } from 'react-router-dom';
 import { EmailForm } from './EmailForm';
 import { PasswordForm } from './PasswordForm';
@@ -18,17 +17,17 @@ import { loginSchema } from '../../../yup/userSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useFlash } from '../../../hooks/useFlash';
 import { graphql } from 'relay-runtime';
-import {
-  LoginEmailModal_UserLoginMutation,
-  UserLoginInput,
-} from './__generated__/LoginEmailModal_UserLoginMutation.graphql';
 import { useMutation } from 'react-relay';
 import { useSetRecoilState } from 'recoil';
 import { currentUserState } from '../../../recoil/user';
+import {
+  LoginEmailModal_LoginUserMutation,
+  LoginUserInput,
+} from './__generated__/LoginEmailModal_LoginUserMutation.graphql';
 
-const userLoginMutation = graphql`
-  mutation LoginEmailModal_UserLoginMutation($input: UserLoginInput!) {
-    userLogin(input: $input) {
+const loginUserMutation = graphql`
+  mutation LoginEmailModal_LoginUserMutation($input: LoginUserInput!) {
+    loginUser(input: $input) {
       user {
         id
         name
@@ -36,11 +35,11 @@ const userLoginMutation = graphql`
       }
       userErrors {
         __typename
-        ... on UserLoginInvalidInputError {
+        ... on LoginUserInvalidInputError {
           message
           field
         }
-        ... on UserLoginAuthenticationError {
+        ... on LoginUserAuthenticationError {
           message
         }
       }
@@ -59,7 +58,7 @@ export const LoginEmailModal: FC<Props> = memo((props) => {
   const navigate = useNavigate();
 
   const [commit, isInFlight] =
-    useMutation<LoginEmailModal_UserLoginMutation>(userLoginMutation);
+    useMutation<LoginEmailModal_LoginUserMutation>(loginUserMutation);
 
   const setUser = useSetRecoilState(currentUserState);
 
@@ -69,7 +68,7 @@ export const LoginEmailModal: FC<Props> = memo((props) => {
     reset,
     setError,
     formState: { isValid },
-  } = useForm<UserLoginInput>({
+  } = useForm<LoginUserInput>({
     defaultValues: {
       email: '',
       password: '',
@@ -78,7 +77,7 @@ export const LoginEmailModal: FC<Props> = memo((props) => {
     mode: 'onChange',
   });
 
-  const onSubmit = async (values: UserLoginInput) => {
+  const onSubmit = async (values: LoginUserInput) => {
     commit({
       variables: {
         input: values,
@@ -87,15 +86,15 @@ export const LoginEmailModal: FC<Props> = memo((props) => {
         if (errors) {
           return console.log(errors);
         }
-        if (response.userLogin.user) {
-          setUser(response.userLogin.user);
+        if (response.loginUser.user) {
+          setUser(response.loginUser.user);
           navigate('/recruitments');
         } else {
-          response.userLogin.userErrors.forEach((error) => {
-            if (error.__typename === 'UserLoginAuthenticationError') {
+          response.loginUser.userErrors.forEach((error) => {
+            if (error.__typename === 'LoginUserAuthenticationError') {
               showFlash({ title: error.message, status: 'error' });
             }
-            if (error.__typename === 'UserLoginInvalidInputError') {
+            if (error.__typename === 'LoginUserInvalidInputError') {
               const field = error.field as 'email' | 'password';
               setError(field, {
                 message: error.message,

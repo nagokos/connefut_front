@@ -21,11 +21,31 @@ import { AvatarMenuItem } from './MenuItem';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { currentUserQuery } from '../../../../recoil/user';
+import { graphql } from 'relay-runtime';
+import { useMutation } from 'react-relay';
+import { Menu_LogoutUserMutation } from './__generated__/Menu_LogoutUserMutation.graphql';
+
+const logoutMutation = graphql`
+  mutation Menu_LogoutUserMutation {
+    logoutUser
+  }
+`;
 
 export const AvatarMenu: FC = memo(() => {
   const navigate = useNavigate();
 
   const currentUser = useRecoilValue(currentUserQuery);
+
+  const [commit] = useMutation<Menu_LogoutUserMutation>(logoutMutation);
+
+  const logout = () => {
+    commit({
+      variables: {},
+      onCompleted(response, errors) {
+        window.location.href = '/recruitments';
+      },
+    });
+  };
 
   const lists = [
     {
@@ -63,6 +83,7 @@ export const AvatarMenu: FC = memo(() => {
     {
       icon: <MdOutlineLogout color="#78909c" fontSize={19} />,
       title: 'ログアウト',
+      onClick: () => logout(),
     },
   ];
 
