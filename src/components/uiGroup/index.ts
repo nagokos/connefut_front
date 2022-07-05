@@ -1,6 +1,3 @@
-export { Header } from './Header/index';
-export { SignUpEmailModal } from './SignUpEmailModal';
-export { LoginEmailModal } from './LoginEmailModal';
 export { RecruitmentDetailMain } from './RecruitmentDetailMain';
 export { RecruitmentDetailTags } from './RecruitmentDetailTags';
 export { RecruitmentDetailActions } from './RecruitmentDetailActions';

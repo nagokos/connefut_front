@@ -3,7 +3,7 @@ import { FC, memo } from 'react';
 import { UseFormSetValue } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { RecruitmentInput, Status } from '../../../generated/graphql';
-import { ArrowLeftButton } from '../../uiParts';
+import { ArrowLeftButton } from '../../ui/ArrowLeftButton/ArrowLeftButton';
 
 type Props = {
   setValue: UseFormSetValue<RecruitmentInput>;

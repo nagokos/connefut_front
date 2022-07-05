@@ -32,4 +32,4 @@ preview:
 	${DC_FRONT} yarn preview --debug
 
 relay:
-	${DC_FRONT} yarn relay
+	${DC_FRONT} yarn relay && find src/ -type d -empty | xargs rm -r
