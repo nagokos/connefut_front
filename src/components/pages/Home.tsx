@@ -8,13 +8,13 @@ export const recruitmentsQuery = graphql`
   query Home_SearchRecruitmentsQuery($first: Int!, $after: String) {
     ...RecruitmentCardList_recruitment @arguments(first: $first, after: $after)
     competitions {
-      ...HomeSearch_competitions
+      ...RecruitmentListSearch_competitions
     }
     prefectures {
-      ...HomeSearch_prefectures
+      ...RecruitmentListSearch_prefectures
     }
     tags {
-      ...HomeSearch_tags
+      ...RecruitmentListSearch_tags
     }
   }
 `;

@@ -6,7 +6,6 @@ import {
   useCheckStockedQuery,
   useCreateStockMutation,
   useDeleteStockMutation,
-  useGetCurrentUserQuery,
 } from '../../../generated/graphql';
 import { useFlash } from '../../../hooks/useFlash';
 
@@ -16,7 +15,6 @@ export const Stock: FC = memo(() => {
   const navigate = useNavigate();
   const { showFlash } = useFlash();
 
-  const [userData] = useGetCurrentUserQuery();
   const [data, executeQuery] = useCheckStockedQuery({
     variables: {
       recruitmentId: String(recruitmentId),
@@ -27,28 +25,28 @@ export const Stock: FC = memo(() => {
 
   const isStocked = !!data.data?.checkStocked;
 
-  const createOrDeleteStock = async () => {
-    if (!userData.data?.getCurrentUser) {
-      navigate('/login');
-      showFlash({ title: 'ログインしてください', status: 'error' });
-    }
+  // const createOrDeleteStock = async () => {
+  //   if (!userData.data?.getCurrentUser) {
+  //     navigate('/login');
+  //     showFlash({ title: 'ログインしてください', status: 'error' });
+  //   }
 
-    const variables = { recruitmentId: String(recruitmentId) };
+  //   const variables = { recruitmentId: String(recruitmentId) };
 
-    executeQuery({
-      requestPolicy: 'network-only',
-    });
+  //   executeQuery({
+  //     requestPolicy: 'network-only',
+  //   });
 
-    if (isStocked) {
-      await deleteStock(variables);
-    } else {
-      await createStock(variables);
-    }
+  //   if (isStocked) {
+  //     await deleteStock(variables);
+  //   } else {
+  //     await createStock(variables);
+  //   }
 
-    executeQuery({
-      requestPolicy: 'network-only',
-    });
-  };
+  //   executeQuery({
+  //     requestPolicy: 'network-only',
+  //   });
+  // };
 
   return (
     <>
@@ -71,7 +69,7 @@ export const Stock: FC = memo(() => {
             )}
           </>
         }
-        onClick={createOrDeleteStock}
+        // onClick={createOrDeleteStock}
         _hover={{
           bg: 'blackAlpha.50',
         }}

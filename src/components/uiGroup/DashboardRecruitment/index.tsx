@@ -1,25 +1,25 @@
-import { Box, Divider, Spacer } from '@chakra-ui/react';
-import { FC, memo, useMemo } from 'react';
+import { FC, memo } from 'react';
 
-import {
-  Status,
-  useGetCurrentUserRecruitmentsQuery,
-} from '../../../generated/graphql';
-import { StatusTag } from './StatusTag';
-import { Title } from './Title';
-import { OtherContents } from './OtherContents';
-import { Edit } from './Edit';
-import { Trash } from './Trash';
-import { Applicants } from './Applicants';
+import { PreloadedQuery, usePreloadedQuery } from 'react-relay';
+import { currentUserRecruitmentsQuery } from '../../pages/DashboardRecruitments';
+import { DashboardRecruitments_currentUserRecruitmentsQuery } from '../../pages/__generated__/DashboardRecruitments_currentUserRecruitmentsQuery.graphql';
 
-export const DashboardRecruitment: FC = memo(() => {
-  const [data] = useGetCurrentUserRecruitmentsQuery({
-    context: useMemo(() => ({ additionalTypenames: ['Recruitment'] }), []),
-  });
+type Props = {
+  queryRef: PreloadedQuery<DashboardRecruitments_currentUserRecruitmentsQuery>;
+};
+
+export const DashboardRecruitment: FC<Props> = memo((props) => {
+  const { queryRef } = props;
+
+  const data =
+    usePreloadedQuery<DashboardRecruitments_currentUserRecruitmentsQuery>(
+      currentUserRecruitmentsQuery,
+      queryRef
+    );
 
   return (
     <>
-      {data.data?.getCurrentUserRecruitments.map((recruitment) => (
+      {/* {data.data?.getCurrentUserRecruitments.map((recruitment) => (
         <Box key={recruitment.id}>
           <Box display="flex" alignItems="center">
             <StatusTag status={recruitment.status} />
@@ -37,7 +37,7 @@ export const DashboardRecruitment: FC = memo(() => {
           />
           <Divider borderColor="#ebf2f2" my={4} />
         </Box>
-      ))}
+      ))} */}
     </>
   );
 });

@@ -1,8 +1,8 @@
-import { Box, Image } from '@chakra-ui/react';
-import { FC, memo, Suspense, useEffect } from 'react';
+import { Box } from '@chakra-ui/react';
+import { FC, memo, useEffect } from 'react';
 import { useLocation, useRoutes } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { Header } from './components/uiGroup';
+import { Header } from './components/ui';
 import { currentUserQuery } from './recoil/user';
 import { routes } from './router/Router';
 
@@ -29,22 +29,7 @@ export const App: FC = memo(() => {
 
   return (
     <Box>
-      {isNeedHeader() && (
-        <Suspense
-          fallback={
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              minH="100vh"
-            >
-              <Image src="/src/assets/img/logo.png" w={12} />
-            </Box>
-          }
-        >
-          <Header />
-        </Suspense>
-      )}
+      {isNeedHeader() && <Header />}
       <Box as="main">{routing}</Box>
     </Box>
   );

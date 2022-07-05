@@ -3,7 +3,6 @@ import { FC, memo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   useCheckAppliedForRecruitmentQuery,
-  useGetCurrentUserQuery,
   useGetRecruitmentQuery,
 } from '../../../../generated/graphql';
 import { useFlash } from '../../../../hooks/useFlash';
@@ -15,7 +14,6 @@ export const Apply: FC = memo(() => {
   const navigate = useNavigate();
   const { showFlash } = useFlash();
 
-  const [userData] = useGetCurrentUserQuery();
   const [checkData] = useCheckAppliedForRecruitmentQuery({
     variables: {
       recruitmentId: String(recruitmentId),
@@ -27,28 +25,28 @@ export const Apply: FC = memo(() => {
     },
   });
 
-  const isDisable =
-    userData.data?.getCurrentUser?.id ===
-      recData.data?.getRecruitment.user.id ||
-    checkData.data?.checkAppliedForRecruitment;
+  // const isDisable =
+  //   userData.data?.getCurrentUser?.id ===
+  //     recData.data?.getRecruitment.user.id ||
+  //   checkData.data?.checkAppliedForRecruitment;
 
-  const modalOpen = () => {
-    if (!userData.data?.getCurrentUser) {
-      navigate('/login');
-      showFlash({ title: 'ログインしてください', status: 'error' });
-    }
-    onOpen();
-  };
+  // const modalOpen = () => {
+  //   if (!userData.data?.getCurrentUser) {
+  //     navigate('/login');
+  //     showFlash({ title: 'ログインしてください', status: 'error' });
+  //   }
+  //   onOpen();
+  // };
 
-  const buttonDisplayName = () => {
-    if (
-      userData.data?.getCurrentUser?.id === recData.data?.getRecruitment.user.id
-    ) {
-      return '応募する';
-    } else {
-      return '応募済み';
-    }
-  };
+  // const buttonDisplayName = () => {
+  //   if (
+  //     userData.data?.getCurrentUser?.id === recData.data?.getRecruitment.user.id
+  //   ) {
+  //     return '応募する';
+  //   } else {
+  //     return '応募済み';
+  //   }
+  // };
 
   return (
     <>
@@ -58,10 +56,10 @@ export const Apply: FC = memo(() => {
       <Button
         mt={4}
         fontSize={13.5}
-        disabled={isDisable}
+        // disabled={isDisable}
         variant="solid"
         w="100%"
-        onClick={modalOpen}
+        // onClick={modalOpen}
         boxShadow="0 0 0 1px rgb(0 0 0 / 2%), 0 5px 8px 0 rgb(0 0 0 / 10%)"
         _active={{
           boxShadow: '0 0 0 1px rgb(0 0 0 / 2%), 0 5px 8px 0 rgb(0 0 0 / 10%)',
@@ -73,7 +71,7 @@ export const Apply: FC = memo(() => {
           bg: 'primary.hover',
         }}
       >
-        {buttonDisplayName()}
+        {/* {buttonDisplayName()} */}
       </Button>
       <ApplyModal isOpen={isOpen} onClose={onClose} />
     </>
