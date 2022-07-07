@@ -1,14 +1,13 @@
 import { Box, Text } from '@chakra-ui/react';
-import { FC, memo } from 'react';
-import { IoMdPricetag } from 'react-icons/io';
-import { Tag } from '../../../generated/graphql';
+import { FC, memo, ReactNode } from 'react';
 
 type Props = {
-  tag?: Tag | undefined | null;
+  icon: ReactNode;
+  displayName: string;
 };
 
-export const MainTag: FC<Props> = memo((props) => {
-  const { tag } = props;
+export const RecruitmentTag: FC<Props> = memo((props) => {
+  const { icon, displayName } = props;
 
   return (
     <Box display="flex" alignItems="center" justifyContent="start">
@@ -26,10 +25,10 @@ export const MainTag: FC<Props> = memo((props) => {
         color="primary.main"
         border="1px solid #eceff1"
       >
-        <IoMdPricetag />
+        {icon}
       </Box>
       <Text fontSize={11} fontFamily="ヒラギノ角ゴシック">
-        {tag?.name}
+        {displayName}
       </Text>
     </Box>
   );

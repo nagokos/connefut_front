@@ -8,25 +8,42 @@ import {
 } from '@chakra-ui/react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { FC, memo } from 'react';
+import { useFragment } from 'react-relay';
+import { graphql } from 'relay-runtime';
+import { RecruitmentLocationModal_recruitment$key } from './__generated__/RecruitmentLocationModal_recruitment.graphql';
+
+const locationModalFragment = graphql`
+  fragment RecruitmentLocationModal_recruitment on Recruitment {
+    locationLat
+    locationLng
+  }
+`;
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  lat: number;
-  lng: number;
+  recruitment: RecruitmentLocationModal_recruitment$key;
 };
 
 const googleMapApiKey: string = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
 
-export const LocationModal: FC<Props> = memo((props) => {
-  const { isOpen, onClose, lat, lng } = props;
+export const RecruitmentLocationModal: FC<Props> = memo((props) => {
+  const { isOpen, onClose, recruitment } = props;
 
   const containerStyle = {
     width: '400px',
     height: '400px',
   };
 
-  const latLng = { lat: lat, lng: lng };
+  const recruitmentData = useFragment<RecruitmentLocationModal_recruitment$key>(
+    locationModalFragment,
+    recruitment
+  );
+
+  const location = {
+    lat: Number(recruitmentData.locationLat),
+    lng: Number(recruitmentData.locationLng),
+  };
 
   return (
     <Modal isCentered isOpen={isOpen} onClose={onClose}>
@@ -38,10 +55,10 @@ export const LocationModal: FC<Props> = memo((props) => {
           <LoadScript googleMapsApiKey={googleMapApiKey}>
             <GoogleMap
               mapContainerStyle={containerStyle}
-              center={latLng}
+              center={location}
               zoom={16}
             >
-              <Marker position={latLng} />
+              <Marker position={location} />
             </GoogleMap>
           </LoadScript>
         </ModalBody>

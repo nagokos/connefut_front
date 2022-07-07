@@ -17,14 +17,9 @@ const recruitmentsFragment = graphql`
     recruitments(first: $first, after: $after)
       @connection(key: "RecruitmentCardList__recruitments") {
       edges {
-        cursor
         node {
           ...RecruitmentCard_recruitment
         }
-      }
-      pageInfo {
-        hasNextPage
-        endCursor
       }
     }
   }

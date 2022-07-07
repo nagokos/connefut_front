@@ -3,7 +3,7 @@ export { SignUp } from './SignUp';
 export { Login } from './Login';
 export { RecruitmentNew } from './RecruitmentNew';
 export { RecruitmentEdit } from './RecruitmentEdit';
-export { RecruitmentDetails } from './RecruitmentDetails';
+export { Recruitment } from './Recruitment';
 export { Dashboard } from './Dashboard';
 export { DashboardRecruitments } from './DashboardRecruitments';
 export { DashboardStocks } from './DashboardStocks';

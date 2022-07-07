@@ -2,18 +2,24 @@ import { Box } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 
 type Props = {
-  prefName?: string;
-  place?: string;
+  detailTitle: string;
+  displayName: string;
 };
 
-export const Area: FC<Props> = memo((props) => {
-  const { prefName, place } = props;
+export const RecruitmentDetailsTemplate: FC<Props> = memo((props) => {
+  const { detailTitle, displayName } = props;
 
   return (
     <Box display="flex" alignItems="center">
-      <Box display="flex" alignItems="center" fontSize={14} minW={130}>
+      <Box
+        display="flex"
+        alignItems="start"
+        fontSize={14}
+        justifyContent="start"
+        minW={130}
+      >
         <Box mr={1}>■</Box>
-        <Box>{place ? 'エリア・会場' : 'エリア'}</Box>
+        <Box>{detailTitle}</Box>
       </Box>
       <Box
         fontFamily="ヒラギノ角ゴシック"
@@ -23,7 +29,7 @@ export const Area: FC<Props> = memo((props) => {
         py={1}
         rounded="md"
       >
-        {place ? `${prefName} ・ ${place}` : prefName}
+        {displayName}
       </Box>
     </Box>
   );

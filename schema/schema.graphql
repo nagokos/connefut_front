@@ -3,10 +3,45 @@ schema {
   mutation: Mutation
 }
 
-type Applicant {
+directive @auth on FIELD_DEFINITION
+
+directive @goField(forceResolver: Boolean, name: String) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+
+directive @hasEmailVerificationStatus(status: EmailVerificationStatus!) on FIELD_DEFINITION
+
+type Applicant implements Node {
   createdAt: DateTime!
+  id: ID!
   message: String!
   recruitment: Recruitment!
+}
+
+type ApplyForRecruitmentAuthorizationError implements Error {
+  message: String!
+}
+
+union ApplyForRecruitmentError = ApplyForRecruitmentAuthorizationError | ApplyForRecruitmentInvalidInputError | ApplyForRecruitmentSelfGeneratedError
+
+input ApplyForRecruitmentInput {
+  message: String!
+}
+
+type ApplyForRecruitmentInvalidInputError implements Error {
+  field: ApplyForRecruitmentInvalidInputField!
+  message: String!
+}
+
+enum ApplyForRecruitmentInvalidInputField {
+  MESSAGE
+}
+
+type ApplyForRecruitmentPayload {
+  errors: [ApplyForRecruitmentError!]!
+  feedback: FeedbackApplicant
+}
+
+type ApplyForRecruitmentSelfGeneratedError implements Error {
+  message: String!
 }
 
 type Competition implements Node {
@@ -44,6 +79,11 @@ interface Error {
   message: String!
 }
 
+type FeedbackApplicant implements Node {
+  id: ID!
+  isAppliedFor: Boolean!
+}
+
 type LoginUserAuthenticationError implements Error {
   message: String!
 }
@@ -79,7 +119,7 @@ type Message {
 
 type Mutation {
   addRecruitmentTag(recruitmentId: String!, tagId: String!): Boolean!
-  applyForRecruitment(input: applicantInput, recruitmentId: String!): Boolean!
+  applyForRecruitment(input: applicantInput, recruitmentId: String!): ApplyForRecruitmentPayload!
   createMessage(input: createMessageInput!, roomId: String!): Message!
   createRecruitment(input: recruitmentInput!): Recruitment!
   createStock(recruitmentId: String!): Boolean!
@@ -111,12 +151,11 @@ type Prefecture implements Node {
 
 type Query {
   appliedRecruitments: [Recruitment!]!
-  checkAppliedForRecruitment(recruitmentId: String!): Boolean!
+  checkAppliedForRecruitment(recruitmentId: String!): FeedbackApplicant!
   checkStocked(recruitmentId: String!): Boolean!
   competitions: [Competition!]!
   currentUser: User
   currentUserRecruitments: [Recruitment!]!
-  getAppliedCounts(recruitmentId: String!): Int!
   getCurrentUserRooms: [Room!]!
   getEntrieUser(roomId: String!): User!
   getRoomMessages(roomId: String!): [Message!]!
@@ -132,7 +171,7 @@ type Query {
 type Recruitment implements Node {
   applicant: Applicant
   closingAt: DateTime
-  competition: Competition
+  competition: Competition!
   createdAt: DateTime!
   databaseId: Int
   detail: String
