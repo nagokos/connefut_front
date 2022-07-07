@@ -1,4 +1,4 @@
 export { HomeView } from './HomeView';
-export { RecruitmentDetailsView } from './RecruitmentDetailsView';
+export { RecruitmentView } from './RecruitmentView';
 export { SignUpView } from './SignUpView';
 export { LoginView } from './LoginView';
