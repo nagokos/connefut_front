@@ -4,3 +4,8 @@ export { RecruitmentListSearch } from './RecruitmentListSearch/RecruitmentListSe
 export { RecruitmentSearchInput } from './RecruitmentSearchInput/RecruitmentSearchInput';
 export { RecruitmentSearchSelect } from './RecruitmentSearchSelect/RecruitmentSearchSelect';
 export { RecruitmentSearchTag } from './RecruitmentSearchTag/RecruitmentSearchTag';
+export { RecruitmentDetails } from './RecruitmentDetails/RecruitmentDetails';
+export { RecruitmentDetailsTemplate } from './RecruitmentDetailsTemplate/RecruitmentDetailsTemplate';
+export { RecruitmentLocationModal } from './RecruitmentLocationModal/RecruitmentLocationModal';
+export { RecruitmentTag } from './RecruitmentTag/RecruitmentTag';
+export { RecruitmentTagList } from './RecruitmentTagList/RecruitmentTagList';
