@@ -3,9 +3,9 @@ import {
   Home,
   Login,
   SignUp,
-  RecruitmentDetails,
   RecruitmentNew,
   Dashboard,
+  Recruitment,
   DashboardRecruitments,
   DashboardStocks,
   RecruitmentEdit,
@@ -37,7 +37,7 @@ export const routes = (isLoggedIn: boolean) => [
   },
   {
     path: 'recruitments/:recruitmentId',
-    element: <RecruitmentDetails />,
+    element: <Recruitment />,
   },
   {
     path: 'dashboard',
