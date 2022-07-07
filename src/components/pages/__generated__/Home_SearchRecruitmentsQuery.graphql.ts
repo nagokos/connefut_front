@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<559e01b03f08c591f586422076ff35cb>>
+ * @generated SignedSource<<c8108f79973ac2470799f0194d456e1a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -171,13 +171,6 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "kind": "ScalarField",
-                "name": "cursor",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
                 "concreteType": "Recruitment",
                 "kind": "LinkedField",
                 "name": "node",
@@ -261,6 +254,13 @@ return {
                   }
                 ],
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "cursor",
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -277,14 +277,14 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "hasNextPage",
+                "name": "endCursor",
                 "storageKey": null
               },
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "endCursor",
+                "name": "hasNextPage",
                 "storageKey": null
               }
             ],
@@ -335,12 +335,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9ac2acc73ca20fde99b491b3c6b1a9ea",
+    "cacheID": "aaafb9479db0165424c8db25a9077d8c",
     "id": null,
     "metadata": {},
     "name": "Home_SearchRecruitmentsQuery",
     "operationKind": "query",
-    "text": "query Home_SearchRecruitmentsQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentCardList_recruitment_2HEEH6\n  competitions {\n    ...RecruitmentListSearch_competitions\n    id\n  }\n  prefectures {\n    ...RecruitmentListSearch_prefectures\n    id\n  }\n  tags {\n    ...RecruitmentListSearch_tags\n    id\n  }\n}\n\nfragment RecruitmentCardList_recruitment_2HEEH6 on Query {\n  recruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentCard_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n\nfragment RecruitmentListSearch_competitions on Competition {\n  id\n  name\n}\n\nfragment RecruitmentListSearch_prefectures on Prefecture {\n  id\n  name\n}\n\nfragment RecruitmentListSearch_tags on Tag {\n  id\n  ...RecruitmentSearchTag_tag\n}\n\nfragment RecruitmentSearchTag_tag on Tag {\n  id\n  name\n}\n"
+    "text": "query Home_SearchRecruitmentsQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentCardList_recruitment_2HEEH6\n  competitions {\n    ...RecruitmentListSearch_competitions\n    id\n  }\n  prefectures {\n    ...RecruitmentListSearch_prefectures\n    id\n  }\n  tags {\n    ...RecruitmentListSearch_tags\n    id\n  }\n}\n\nfragment RecruitmentCardList_recruitment_2HEEH6 on Query {\n  recruitments(first: $first, after: $after) {\n    edges {\n      node {\n        ...RecruitmentCard_recruitment\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n\nfragment RecruitmentListSearch_competitions on Competition {\n  id\n  name\n}\n\nfragment RecruitmentListSearch_prefectures on Prefecture {\n  id\n  name\n}\n\nfragment RecruitmentListSearch_tags on Tag {\n  id\n  ...RecruitmentSearchTag_tag\n}\n\nfragment RecruitmentSearchTag_tag on Tag {\n  id\n  name\n}\n"
   }
 };
 })();

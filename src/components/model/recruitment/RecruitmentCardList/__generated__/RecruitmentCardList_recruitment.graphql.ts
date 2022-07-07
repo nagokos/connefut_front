@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a692c72c3d69b431860af2fd90ffb790>>
+ * @generated SignedSource<<9db705fc34efad83005ed6c65f1946ee>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,15 +13,10 @@ import { FragmentRefs } from "relay-runtime";
 export type RecruitmentCardList_recruitment$data = {
   readonly recruitments: {
     readonly edges: ReadonlyArray<{
-      readonly cursor: string;
       readonly node: {
         readonly " $fragmentSpreads": FragmentRefs<"RecruitmentCard_recruitment">;
       };
     }>;
-    readonly pageInfo: {
-      readonly endCursor: string | null;
-      readonly hasNextPage: boolean;
-    };
   };
   readonly " $fragmentType": "RecruitmentCardList_recruitment";
 };
@@ -91,13 +86,6 @@ return {
             {
               "alias": null,
               "args": null,
-              "kind": "ScalarField",
-              "name": "cursor",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
               "concreteType": "Recruitment",
               "kind": "LinkedField",
               "name": "node",
@@ -117,6 +105,13 @@ return {
                 }
               ],
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "cursor",
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -133,14 +128,14 @@ return {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "hasNextPage",
+              "name": "endCursor",
               "storageKey": null
             },
             {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "endCursor",
+              "name": "hasNextPage",
               "storageKey": null
             }
           ],
@@ -155,6 +150,6 @@ return {
 };
 })();
 
-(node as any).hash = "85f4238e567428e73be75234dd774c15";
+(node as any).hash = "fcc9f23b406231413fffb15d61855629";
 
 export default node;

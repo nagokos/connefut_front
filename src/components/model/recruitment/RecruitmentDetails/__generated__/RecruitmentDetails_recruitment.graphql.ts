@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8f35206c6f491e8fae205a6af0a4f90a>>
+ * @generated SignedSource<<6b170fc288daa0b3be9ab16d53a076ba>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,28 +11,30 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 export type Type = "INDIVIDUAL" | "JOINING" | "MEMBER" | "OPPONENT" | "OTHERS" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
-export type RecruitmentCard_recruitment$data = {
+export type RecruitmentDetails_recruitment$data = {
   readonly closingAt: string | null;
   readonly competition: {
     readonly name: string;
   };
-  readonly id: string;
+  readonly detail: string | null;
+  readonly locationLat: number | null;
+  readonly locationLng: number | null;
   readonly prefecture: {
     readonly name: string;
   } | null;
-  readonly publishedAt: string | null;
+  readonly startAt: string | null;
   readonly title: string;
   readonly type: Type;
   readonly user: {
     readonly avatar: string;
-    readonly id: string;
     readonly name: string;
   };
-  readonly " $fragmentType": "RecruitmentCard_recruitment";
+  readonly " $fragmentSpreads": FragmentRefs<"RecruitmentLocationModal_recruitment">;
+  readonly " $fragmentType": "RecruitmentDetails_recruitment";
 };
-export type RecruitmentCard_recruitment$key = {
-  readonly " $data"?: RecruitmentCard_recruitment$data;
-  readonly " $fragmentSpreads": FragmentRefs<"RecruitmentCard_recruitment">;
+export type RecruitmentDetails_recruitment$key = {
+  readonly " $data"?: RecruitmentDetails_recruitment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"RecruitmentDetails_recruitment">;
 };
 
 const node: ReaderFragment = (function(){
@@ -40,38 +42,23 @@ var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v2 = [
-  (v1/*: any*/)
+v1 = [
+  (v0/*: any*/)
 ];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "RecruitmentCard_recruitment",
+  "name": "RecruitmentDetails_recruitment",
   "selections": [
-    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
       "name": "title",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "type",
       "storageKey": null
     },
     {
@@ -85,7 +72,55 @@ return {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "publishedAt",
+      "name": "startAt",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "locationLat",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "locationLng",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "detail",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "type",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Competition",
+      "kind": "LinkedField",
+      "name": "competition",
+      "plural": false,
+      "selections": (v1/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Prefecture",
+      "kind": "LinkedField",
+      "name": "prefecture",
+      "plural": false,
+      "selections": (v1/*: any*/),
       "storageKey": null
     },
     {
@@ -97,7 +132,6 @@ return {
       "plural": false,
       "selections": [
         (v0/*: any*/),
-        (v1/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -109,24 +143,9 @@ return {
       "storageKey": null
     },
     {
-      "alias": null,
       "args": null,
-      "concreteType": "Competition",
-      "kind": "LinkedField",
-      "name": "competition",
-      "plural": false,
-      "selections": (v2/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "Prefecture",
-      "kind": "LinkedField",
-      "name": "prefecture",
-      "plural": false,
-      "selections": (v2/*: any*/),
-      "storageKey": null
+      "kind": "FragmentSpread",
+      "name": "RecruitmentLocationModal_recruitment"
     }
   ],
   "type": "Recruitment",
@@ -134,6 +153,6 @@ return {
 };
 })();
 
-(node as any).hash = "1f8810a118cc44ab54fd1b0bde27cc6d";
+(node as any).hash = "43bcc1ec4f81046b4dd4ff83a7cf4ff2";
 
 export default node;
