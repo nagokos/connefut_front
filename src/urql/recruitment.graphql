@@ -101,15 +101,8 @@ query GetStockedRecruitments {
   }
 }
 
-mutation CreateRecruitment($recruitmentInput: recruitmentInput!) {
-  createRecruitment(input: $recruitmentInput) {
-    id
-    title
-  }
-}
-
-mutation UpdateRecruitment($id: String!, $recruitmentInput: recruitmentInput!) {
-  updateRecruitment(id: $id, input: $recruitmentInput) {
+mutation UpdateRecruitment($id: String!, $input: RecruitmentInput!) {
+  updateRecruitment(id: $id, input: $input) {
     id
     title
   }
