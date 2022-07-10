@@ -1,18 +1,24 @@
 import {
+  IconButton,
+  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Tooltip,
 } from '@chakra-ui/react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  StandaloneSearchBox,
+} from '@react-google-maps/api';
 import { FC, memo, useState } from 'react';
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
-
-import { RecruitmentInput } from '../../../../generated/graphql';
-import { RegisterButton } from './RegisterButton';
-import { SearchBox } from './SearchBox';
+import { MdOutlineAddLocationAlt } from 'react-icons/md';
+import { RecruitmentInput } from '../../../views/__generated__/RecruitmentNewView_CreateRecruitmentMutation.graphql';
 
 type Props = {
   isOpen: boolean;
@@ -25,7 +31,7 @@ type Libraries = ['places'];
 const libraries: Libraries = ['places'];
 const googleMapApiKey: string = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
 
-export const LocationModal: FC<Props> = memo((props) => {
+export const RecruitmentFormLocationMapModal: FC<Props> = memo((props) => {
   const { isOpen, onClose, watch, setValue } = props;
 
   const watchLat = watch('locationLat');
@@ -84,12 +90,68 @@ export const LocationModal: FC<Props> = memo((props) => {
               zoom={16}
               onClick={clickMap}
             >
-              <SearchBox
+              <StandaloneSearchBox
+                onLoad={onSBLoad}
                 onPlacesChanged={onPlacesChanged}
-                onSBLoad={onSBLoad}
-              />
+              >
+                <Input
+                  bg="white"
+                  h={14}
+                  _focusVisible={{ boxShadow: 'md' }}
+                  boxShadow="md"
+                  fontSize={13}
+                  _placeholder={{
+                    color: 'blackAlpha.600',
+                  }}
+                  placeholder="検索ワードを入力"
+                  borderRadius="none"
+                  borderColor="RGBA(0, 0, 0, 0.06)"
+                  border="1px solid RGBA(0, 0, 0, 0.06)"
+                  _hover={{
+                    border: '1px solid RGBA(0, 0, 0, 0.06)',
+                  }}
+                />
+              </StandaloneSearchBox>
               <Marker position={location} />
-              <RegisterButton setLatLng={setLatLng} />
+              <Tooltip
+                borderRadius="md"
+                label="登録する"
+                fontSize={11}
+                px={2.5}
+                py={1}
+                hasArrow
+                placement="top"
+              >
+                <IconButton
+                  aria-label="icon"
+                  icon={<MdOutlineAddLocationAlt />}
+                  position="absolute"
+                  bottom={7}
+                  color="red.500"
+                  bg="white"
+                  fontSize={22}
+                  border="1px solid RGBA(0, 0, 0, 0.06)"
+                  rounded="full"
+                  size="lg"
+                  w={14}
+                  h={14}
+                  boxShadow="lg"
+                  left={3}
+                  onClick={setLatLng}
+                  _hover={{
+                    bg: '#F7FAFC',
+                    boxShadow: 'lg',
+                  }}
+                  _active={{
+                    bg: '#F7FAFC',
+                    boxShadow: 'lg',
+                  }}
+                  _focus={{
+                    bg: '#F7FAFC',
+                    boxShadow: 'lg',
+                  }}
+                />
+              </Tooltip>
             </GoogleMap>
           </LoadScript>
         </ModalBody>

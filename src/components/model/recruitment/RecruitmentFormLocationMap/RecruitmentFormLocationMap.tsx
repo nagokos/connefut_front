@@ -1,16 +1,15 @@
 import { FormControl, FormLabel, Input, useDisclosure } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
-
-import { LocationModal } from './LocationModal';
-import { RecruitmentInput } from '../../../generated/graphql';
+import { RecruitmentInput } from '../../../views/__generated__/RecruitmentNewView_CreateRecruitmentMutation.graphql';
+import { RecruitmentFormLocationMapModal } from '../index';
 
 type Props = {
   watch: UseFormWatch<RecruitmentInput>;
   setValue: UseFormSetValue<RecruitmentInput>;
 };
 
-export const FormLocationMap: FC<Props> = memo((props) => {
+export const RecruitmentFormLocationMap: FC<Props> = memo((props) => {
   const { watch, setValue } = props;
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,7 +38,7 @@ export const FormLocationMap: FC<Props> = memo((props) => {
           _focus={{ border: 'none' }}
         />
       </FormControl>
-      <LocationModal
+      <RecruitmentFormLocationMapModal
         isOpen={isOpen}
         onClose={onClose}
         watch={watch}

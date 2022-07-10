@@ -66,13 +66,13 @@ export const RecruitmentCard: FC<Props> = memo((props) => {
   const typeString = (type: Type) => {
     if (type === 'OPPONENT') {
       return '対戦相手';
-    } else if (type === 'INDIVIDUAL') {
+    } else if (type === 'PERSONAL') {
       return '個人プレーヤー';
     } else if (type === 'MEMBER') {
       return 'メンバー';
-    } else if (type === 'JOINING') {
+    } else if (type === 'JOIN') {
       return 'チーム加入';
-    } else if (type === 'OTHERS') {
+    } else if (type === 'OTHER') {
       return 'その他';
     } else {
       return '';
@@ -82,13 +82,13 @@ export const RecruitmentCard: FC<Props> = memo((props) => {
   const typeEmoji = (type: Type) => {
     if (type === 'OPPONENT') {
       return '🤝';
-    } else if (type === 'INDIVIDUAL') {
+    } else if (type === 'PERSONAL') {
       return '💪';
     } else if (type === 'MEMBER') {
       return '🧑‍🤝‍🧑';
-    } else if (type === 'JOINING') {
+    } else if (type === 'JOIN') {
       return '🙏';
-    } else if (type === 'OTHERS') {
+    } else if (type === 'OTHER') {
       return '💭';
     } else {
       return '';
@@ -217,7 +217,7 @@ export const RecruitmentCard: FC<Props> = memo((props) => {
                 {timeLimitFindS(String(recruitmentData.closingAt))}
                 <Box as="span" fontSize={10} ml={1} color="blackAlpha.700">
                   {format(
-                    new Date(recruitmentData.closingAt),
+                    new Date(String(recruitmentData.closingAt)),
                     'yyyy年MM月dd日'
                   )}
                 </Box>
@@ -235,7 +235,7 @@ export const RecruitmentCard: FC<Props> = memo((props) => {
                 fontSize={10}
                 fontFamily="ヒラギノ角ゴシック"
               >
-                {timeLimit(recruitmentData.publishedAt)}前に公開
+                {timeLimit(String(recruitmentData.publishedAt))}前に公開
               </Text>
             </Stack>
           </Box>

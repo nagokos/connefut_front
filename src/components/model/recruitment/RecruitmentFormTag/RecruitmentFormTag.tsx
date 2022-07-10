@@ -1,5 +1,5 @@
 import { FC, memo } from 'react';
-import { FormControl, FormLabel, Spacer } from '@chakra-ui/react';
+import { Box, FormControl, FormLabel, Spacer } from '@chakra-ui/react';
 import {
   CreatableSelect,
   chakraComponents,
@@ -8,28 +8,41 @@ import {
 } from 'chakra-react-select';
 import { Control, Controller } from 'react-hook-form';
 
-import {
-  InputMaybe,
-  RecruitmentInput,
-  RecruitmentTagInput,
-  Tag,
-  useGetTagsQuery,
-} from '../../../../generated/graphql';
 import { SelectOption } from '../../../../type/type';
 import { recruitmentChakraStyle } from '../../../../assets/theme/chakraStyle';
-import { CreateLabel } from './CreateLabel';
+import { IoMdAdd } from 'react-icons/io';
+import { graphql } from 'relay-runtime';
+import {
+  RecruitmentFormTag_tags$data,
+  RecruitmentFormTag_tags$key,
+} from './__generated__/RecruitmentFormTag_tags.graphql';
+import { useFragment } from 'react-relay';
+import {
+  RecruitmentInput,
+  recruitmentTagInput,
+} from '../../../views/__generated__/RecruitmentNewView_CreateRecruitmentMutation.graphql';
+
+const tagsFragment = graphql`
+  fragment RecruitmentFormTag_tags on Tag @relay(plural: true) {
+    id
+    name
+  }
+`;
 
 type Props = {
+  tags: RecruitmentFormTag_tags$key;
   control: Control<RecruitmentInput>;
-  watchTags: InputMaybe<RecruitmentTagInput>[];
+  watchTags: readonly (recruitmentTagInput | null)[];
 };
 
-export const FormTags: FC<Props> = memo((props) => {
-  const { control, watchTags } = props;
+export const RecruitmentFormTag: FC<Props> = memo((props) => {
+  const { control, watchTags, tags } = props;
 
-  const [data] = useGetTagsQuery();
+  const tagsData = useFragment<RecruitmentFormTag_tags$key>(tagsFragment, tags);
 
-  const replaceOptions = (data?: Tag[]): SelectOption[] | undefined => {
+  const replaceOptions = (
+    data?: RecruitmentFormTag_tags$data
+  ): SelectOption[] | undefined => {
     return data?.map((node) => {
       return { value: node.id, label: node.name };
     });
@@ -78,11 +91,17 @@ export const FormTags: FC<Props> = memo((props) => {
             size="lg"
             isMulti
             placeholder=""
-            options={replaceOptions(data.data?.getTags)}
+            options={replaceOptions(tagsData)}
             chakraStyles={recruitmentChakraStyle}
             selectedOptionStyle="color"
             formatCreateLabel={(inputValue: string) => (
-              <CreateLabel input={inputValue} />
+              <Box display="flex" alignItems="center">
+                <IoMdAdd fontSize={13} />
+                <Box ml={2} fontWeight="bold" mr={2}>
+                  {inputValue}
+                </Box>
+                を作成する
+              </Box>
             )}
             value={selectTags()}
             components={{

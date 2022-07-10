@@ -1,13 +1,13 @@
 import { FormControl, FormLabel, Input } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { RecruitmentInput } from '../../../generated/graphql';
+import { RecruitmentInput } from '../../../views/__generated__/RecruitmentNewView_CreateRecruitmentMutation.graphql';
 
 type Props = {
   control: Control<RecruitmentInput>;
 };
 
-export const FormPlace: FC<Props> = memo((props) => {
+export const RecruitmentFormPlace: FC<Props> = memo((props) => {
   const { control } = props;
 
   return (

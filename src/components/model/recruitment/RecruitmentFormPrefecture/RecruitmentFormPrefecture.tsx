@@ -2,39 +2,57 @@ import { FormControl, FormLabel, Spacer } from '@chakra-ui/react';
 import { Select, chakraComponents, GroupBase } from 'chakra-react-select';
 import { FC, memo } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { recruitmentChakraStyle } from '../../../assets/theme/chakraStyle';
+import { useFragment } from 'react-relay';
+import { graphql } from 'relay-runtime';
+import { recruitmentChakraStyle } from '../../../../assets/theme/chakraStyle';
+import { SelectOption } from '../../../../type/type';
+import { RecruitmentInput } from '../../../views/__generated__/RecruitmentNewView_CreateRecruitmentMutation.graphql';
 import {
-  Prefecture,
-  RecruitmentInput,
-  useGetPrefecturesQuery,
-} from '../../../generated/graphql';
-import { SelectOption } from '../../../type/type';
+  RecruitmentFormPrefecture_prefectures$key,
+  RecruitmentFormPrefecture_prefectures$data,
+} from './__generated__/RecruitmentFormPrefecture_prefectures.graphql';
+
+const prefecturesFragemnt = graphql`
+  fragment RecruitmentFormPrefecture_prefectures on Prefecture
+  @relay(plural: true) {
+    id
+    name
+    databaseId
+  }
+`;
 
 type Props = {
+  prefectures: RecruitmentFormPrefecture_prefectures$key;
   control: Control<RecruitmentInput>;
   watchPrefectureId?: string | null;
 };
 
-export const FormPrefecture: FC<Props> = memo((props) => {
-  const { control, watchPrefectureId } = props;
+export const RecruitmentFormPrefecture: FC<Props> = memo((props) => {
+  const { control, watchPrefectureId, prefectures } = props;
 
-  const [data] = useGetPrefecturesQuery();
+  const prefecturesData =
+    useFragment<RecruitmentFormPrefecture_prefectures$key>(
+      prefecturesFragemnt,
+      prefectures
+    );
 
-  const replaceOptions = (data?: Prefecture[]): SelectOption[] | undefined => {
+  const replaceOptions = (
+    data?: RecruitmentFormPrefecture_prefectures$data
+  ): SelectOption[] | undefined => {
     return data?.map((node) => {
-      return { value: node.id, label: node.name };
+      return { value: String(node.databaseId), label: node.name };
     });
   };
 
   const selectValue = () => {
-    const findPrefecture = data.data?.getPrefectures.find(
-      (prefecture) => prefecture.id === watchPrefectureId
+    const findPrefecture = prefecturesData.find(
+      (prefecture) => String(prefecture.databaseId) === watchPrefectureId
     );
 
     if (findPrefecture) {
       return {
-        label: String(findPrefecture?.name),
-        value: String(findPrefecture?.id),
+        label: String(findPrefecture.name),
+        value: String(findPrefecture.databaseId),
       };
     } else {
       return { label: '', value: '' };
@@ -72,7 +90,7 @@ export const FormPrefecture: FC<Props> = memo((props) => {
                 </chakraComponents.Option>
               ),
             }}
-            options={replaceOptions(data.data?.getPrefectures)}
+            options={replaceOptions(prefecturesData)}
             chakraStyles={recruitmentChakraStyle}
             selectedOptionStyle="color"
           />

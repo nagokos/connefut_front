@@ -3,14 +3,14 @@ import { FC, memo } from 'react';
 import ReactDatePicker, { registerLocale } from 'react-datepicker';
 import ja from 'date-fns/locale/ja';
 import { Control, Controller } from 'react-hook-form';
-import { RecruitmentInput } from '../../../generated/graphql';
+import { RecruitmentInput } from '../../../views/__generated__/RecruitmentNewView_CreateRecruitmentMutation.graphql';
 registerLocale('ja', ja);
 
 type Props = {
   control: Control<RecruitmentInput>;
 };
 
-export const FormStartAt: FC<Props> = memo((props) => {
+export const RecruitmentFormStartAt: FC<Props> = memo((props) => {
   const { control } = props;
 
   return (
@@ -30,8 +30,10 @@ export const FormStartAt: FC<Props> = memo((props) => {
           </FormLabel>
           <ReactDatePicker
             id="startAt"
-            selected={field.value}
-            {...field}
+            selected={field.value ? new Date(String(field.value)) : null}
+            onChange={(date) => {
+              field.onChange(date);
+            }}
             autoComplete="off"
             placeholderText=""
             popperPlacement="top"

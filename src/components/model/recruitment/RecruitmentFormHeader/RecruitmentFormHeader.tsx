@@ -2,16 +2,16 @@ import { Box, Button, HStack, Spacer } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { UseFormSetValue } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { RecruitmentInput, Status } from '../../../generated/graphql';
-import { ArrowLeftButton } from '../../ui/ArrowLeftButton/ArrowLeftButton';
+import { ArrowLeftButton } from '../../../ui';
+import { RecruitmentInput } from '../../../views/__generated__/RecruitmentNewView_CreateRecruitmentMutation.graphql';
 
 type Props = {
   setValue: UseFormSetValue<RecruitmentInput>;
-  isSubmitting: boolean;
+  isInFlight: boolean;
 };
 
-export const Header: FC<Props> = memo((props) => {
-  const { setValue, isSubmitting } = props;
+export const RecruitmentFormHeader: FC<Props> = memo((props) => {
+  const { setValue, isInFlight } = props;
 
   const navigate = useNavigate();
 
@@ -43,8 +43,8 @@ export const Header: FC<Props> = memo((props) => {
           _active={{
             bg: 'whiteAlpha.600',
           }}
-          isLoading={isSubmitting}
-          onClick={() => setValue('status', Status.Draft)}
+          isLoading={isInFlight}
+          onClick={() => setValue('status', 'DRAFT')}
         >
           下書き保存
         </Button>
@@ -53,8 +53,8 @@ export const Header: FC<Props> = memo((props) => {
           border="1px solid #009688"
           fontSize={11}
           h={8}
-          isLoading={isSubmitting}
-          onClick={() => setValue('status', Status.Published)}
+          isLoading={isInFlight}
+          onClick={() => setValue('status', 'PUBLISHED')}
         >
           公開する
         </Button>

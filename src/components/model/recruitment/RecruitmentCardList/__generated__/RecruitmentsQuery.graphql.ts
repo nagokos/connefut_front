@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c54d6952c8b98a3deb59891bcf37f830>>
+ * @generated SignedSource<<bb7ba8f1bd2f8ea0411eb801f15a2196>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -106,6 +106,13 @@ return {
               {
                 "alias": null,
                 "args": null,
+                "kind": "ScalarField",
+                "name": "cursor",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
                 "concreteType": "Recruitment",
                 "kind": "LinkedField",
                 "name": "node",
@@ -189,13 +196,6 @@ return {
                   }
                 ],
                 "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "cursor",
-                "storageKey": null
               }
             ],
             "storageKey": null
@@ -224,6 +224,18 @@ return {
               }
             ],
             "storageKey": null
+          },
+          {
+            "kind": "ClientExtension",
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "__id",
+                "storageKey": null
+              }
+            ]
           }
         ],
         "storageKey": null
@@ -240,16 +252,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "db35780cadf5b0fce061312c284a5da1",
+    "cacheID": "7303960c1452a48c7f26702c7747b79e",
     "id": null,
     "metadata": {},
     "name": "RecruitmentsQuery",
     "operationKind": "query",
-    "text": "query RecruitmentsQuery(\n  $after: String\n  $first: Int = 10\n) {\n  ...RecruitmentCardList_recruitment_2HEEH6\n}\n\nfragment RecruitmentCardList_recruitment_2HEEH6 on Query {\n  recruitments(first: $first, after: $after) {\n    edges {\n      node {\n        ...RecruitmentCard_recruitment\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n"
+    "text": "query RecruitmentsQuery(\n  $after: String\n  $first: Int = 10\n) {\n  ...RecruitmentCardList_recruitment_2HEEH6\n}\n\nfragment RecruitmentCardList_recruitment_2HEEH6 on Query {\n  recruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentCard_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "fcc9f23b406231413fffb15d61855629";
+(node as any).hash = "e490ca2d3c3332ffeb4299d0b7cf5efa";
 
 export default node;
