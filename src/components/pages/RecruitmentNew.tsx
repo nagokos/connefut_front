@@ -1,56 +1,32 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import { FC, memo } from 'react';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { RecruitmentForm } from '../uiGroup';
-import {
-  RecruitmentInput,
-  Status,
-  useCreateRecruitmentMutation,
-} from '../../generated/graphql';
-import { recruitmentSchema } from '../../yup/recruitmentSchema';
+import { FC, memo, useEffect } from 'react';
+import { useQueryLoader } from 'react-relay';
+import { graphql } from 'relay-runtime';
+import { RecruitmentNewView } from '../views';
+import { RecruitmentNew_RecruitmentNewQuery } from './__generated__/RecruitmentNew_RecruitmentNewQuery.graphql';
+
+export const recruitmentNewQuery = graphql`
+  query RecruitmentNew_RecruitmentNewQuery {
+    competitions {
+      ...RecruitmentFormCompetition_competitions
+    }
+    prefectures {
+      ...RecruitmentFormPrefecture_prefectures
+    }
+    tags {
+      ...RecruitmentFormTag_tags
+    }
+  }
+`;
 
 export const RecruitmentNew: FC = memo(() => {
-  const navigate = useNavigate();
+  const [recruitmentNewQueryRef, loadRecruitmentNewQuery] =
+    useQueryLoader<RecruitmentNew_RecruitmentNewQuery>(recruitmentNewQuery);
 
-  const { control, handleSubmit, watch, resetField, setValue, formState } =
-    useForm<RecruitmentInput>({
-      defaultValues: {
-        title: '',
-        competitionId: undefined,
-        type: undefined,
-        detail: '',
-        prefectureId: null,
-        place: '',
-        startAt: '',
-        status: Status.Draft,
-        closingAt: '',
-        locationLat: undefined,
-        locationLng: undefined,
-        tags: [],
-      },
-      resolver: yupResolver(recruitmentSchema),
-      mode: 'onChange',
-    });
+  useEffect(() => {
+    loadRecruitmentNewQuery({});
+  }, []);
 
-  const [_, createRecruitment] = useCreateRecruitmentMutation();
+  if (!recruitmentNewQueryRef) return null;
 
-  const onSubmit = async (values: RecruitmentInput) => {
-    const res = await createRecruitment({
-      recruitmentInput: values,
-    });
-    navigate('/dashboard');
-  };
-
-  return (
-    <RecruitmentForm
-      control={control}
-      handleSubmit={handleSubmit}
-      watch={watch}
-      resetField={resetField}
-      setValue={setValue}
-      formState={formState}
-      onSubmit={onSubmit}
-    />
-  );
+  return <RecruitmentNewView queryRef={recruitmentNewQueryRef} />;
 });

@@ -1,29 +1,14 @@
 import { Button, Text, useDisclosure } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import {
-  useCheckAppliedForRecruitmentQuery,
-  useGetRecruitmentQuery,
-} from '../../../../generated/graphql';
+
 import { useFlash } from '../../../../hooks/useFlash';
-import { ApplyModal } from './Modal';
 
 export const Apply: FC = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { recruitmentId } = useParams();
   const navigate = useNavigate();
   const { showFlash } = useFlash();
-
-  const [checkData] = useCheckAppliedForRecruitmentQuery({
-    variables: {
-      recruitmentId: String(recruitmentId),
-    },
-  });
-  const [recData] = useGetRecruitmentQuery({
-    variables: {
-      id: String(recruitmentId),
-    },
-  });
 
   // const isDisable =
   //   userData.data?.getCurrentUser?.id ===
@@ -73,7 +58,7 @@ export const Apply: FC = memo(() => {
       >
         {/* {buttonDisplayName()} */}
       </Button>
-      <ApplyModal isOpen={isOpen} onClose={onClose} />
+      {/* <ApplyModal isOpen={isOpen} onClose={onClose} /> */}
     </>
   );
 });

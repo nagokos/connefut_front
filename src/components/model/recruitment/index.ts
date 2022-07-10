@@ -9,3 +9,16 @@ export { RecruitmentDetailsTemplate } from './RecruitmentDetailsTemplate/Recruit
 export { RecruitmentLocationModal } from './RecruitmentLocationModal/RecruitmentLocationModal';
 export { RecruitmentTag } from './RecruitmentTag/RecruitmentTag';
 export { RecruitmentTagList } from './RecruitmentTagList/RecruitmentTagList';
+export { RecruitmentForm } from './RecruitmentForm/RecruitmentForm';
+export { RecruitmentFormHeader } from './RecruitmentFormHeader/RecruitmentFormHeader';
+export { RecruitmentFormPlace } from './RecruitmentFormPlace/RecruitmentFormPlace';
+export { RecruitmentFormTag } from './RecruitmentFormTag/RecruitmentFormTag';
+export { RecruitmentFormLocationMap } from './RecruitmentFormLocationMap/RecruitmentFormLocationMap';
+export { RecruitmentFormLocationMapModal } from './RecruitmentFormLocationMapModal/RecruitmentFormLocationMapModal';
+export { RecruitmentFormClosingAt } from './RecruitmentFormClosingAt/RecruitmentFormClosingAt';
+export { RecruitmentFormStartAt } from './RecruitmentFormStartAt/RecruitmentFormStartAt';
+export { RecruitmentFormDetail } from './RecruitmentFormDetail/RecruitmentFormDetail';
+export { RecruitmentFormPrefecture } from './RecruitmentFormPrefecture/RecruitmentFormPrefecture';
+export { RecruitmentFormType } from './RecruitmentFormType/RecruitmentFormType';
+export { RecruitmentFormTitle } from './RecruitmentFormTitle/RecruitmentFormTitle';
+export { RecruitmentFormCompetition } from './RecruitmentFormCompetition/RecruitmentFormCompetition';

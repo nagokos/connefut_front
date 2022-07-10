@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9db705fc34efad83005ed6c65f1946ee>>
+ * @generated SignedSource<<ecf7366f0c7861d5a4a91d352f66a526>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,9 @@ import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RecruitmentCardList_recruitment$data = {
   readonly recruitments: {
+    readonly __id: string;
     readonly edges: ReadonlyArray<{
+      readonly cursor: string;
       readonly node: {
         readonly " $fragmentSpreads": FragmentRefs<"RecruitmentCard_recruitment">;
       };
@@ -86,6 +88,13 @@ return {
             {
               "alias": null,
               "args": null,
+              "kind": "ScalarField",
+              "name": "cursor",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
               "concreteType": "Recruitment",
               "kind": "LinkedField",
               "name": "node",
@@ -104,13 +113,6 @@ return {
                   "storageKey": null
                 }
               ],
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "cursor",
               "storageKey": null
             }
           ],
@@ -140,6 +142,18 @@ return {
             }
           ],
           "storageKey": null
+        },
+        {
+          "kind": "ClientExtension",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "__id",
+              "storageKey": null
+            }
+          ]
         }
       ],
       "storageKey": null
@@ -150,6 +164,6 @@ return {
 };
 })();
 
-(node as any).hash = "fcc9f23b406231413fffb15d61855629";
+(node as any).hash = "e490ca2d3c3332ffeb4299d0b7cf5efa";
 
 export default node;

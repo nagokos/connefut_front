@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6b170fc288daa0b3be9ab16d53a076ba>>
+ * @generated SignedSource<<9a9ab91cce121b27a93f46029a232df1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,7 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type Type = "INDIVIDUAL" | "JOINING" | "MEMBER" | "OPPONENT" | "OTHERS" | "%future added value";
+export type Type = "JOIN" | "MEMBER" | "OPPONENT" | "OTHER" | "PERSONAL" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type RecruitmentDetails_recruitment$data = {
   readonly closingAt: string | null;

@@ -85,7 +85,7 @@ export const RecruitmentDetails: FC<Props> = memo((props) => {
         boxShadow="0 2px 4px #4385bb12"
         rounded="xl"
       >
-        <Box fontWeight="bold" fontSize={26} fontFamily="ヒラギノ角ゴシック">
+        <Box fontWeight="bold" fontSize={27} fontFamily="ヒラギノ角ゴシック">
           {recruitmentData.title}
         </Box>
         <Divider borderColor="primary.50" mt={2} />
