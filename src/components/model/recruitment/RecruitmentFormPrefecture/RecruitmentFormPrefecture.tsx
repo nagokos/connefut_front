@@ -65,7 +65,7 @@ export const RecruitmentFormPrefecture: FC<Props> = memo((props) => {
       name="prefectureId"
       defaultValue=""
       render={({ field }) => (
-        <FormControl isRequired>
+        <FormControl>
           <FormLabel
             fontSize={12}
             fontWeight="bold"

@@ -16,7 +16,7 @@ export const RecruitmentFormVenue: FC<Props> = memo((props) => {
       name="venue"
       defaultValue=""
       render={({ field }) => (
-        <FormControl isRequired>
+        <FormControl>
           <FormLabel
             fontSize={12}
             fontWeight="bold"

@@ -83,6 +83,8 @@ export const RecruitmentForm: FC<Props> = memo((props) => {
     }
   }, [formState.errors]);
 
+  console.log(watchType === 'OPPONENT');
+
   return (
     <>
       <Box bg="primary.light">
@@ -105,28 +107,24 @@ export const RecruitmentForm: FC<Props> = memo((props) => {
             <Box mt={1}>
               <RecruitmentFormDetail control={control} />
             </Box>
-            <Box mt={10}>
-              <DividerText displayName="募集エリア" />
-            </Box>
             <SimpleGrid columns={2} gap={8} mt={6}>
               <RecruitmentFormPrefecture
                 prefectures={prefectures}
                 watchPrefectureId={watch('prefectureId')}
                 control={control}
               />
-              <RecruitmentFormVenue control={control} />
-            </SimpleGrid>
-            <Box mt={10}>
-              <DividerText displayName="募集の日程" />
-            </Box>
-            <SimpleGrid columns={2} gap={8} mt={6}>
-              <RecruitmentFormStartAt control={control} />
+              {watchType === 'OPPONENT' || watchType === 'PERSONAL' ? (
+                <RecruitmentFormVenue control={control} />
+              ) : null}
+              {watchType === 'OPPONENT' || watchType === 'PERSONAL' ? (
+                <RecruitmentFormStartAt control={control} />
+              ) : null}
               <RecruitmentFormClosingAt control={control} />
             </SimpleGrid>
             <Box mt={10}>
               <DividerText displayName="任意項目" />
             </Box>
-            <SimpleGrid mt={6} columns={2} gap={8}>
+            <SimpleGrid columns={2} gap={8} mt={5}>
               <RecruitmentFormTag
                 watchTags={watch('tags')}
                 control={control}
