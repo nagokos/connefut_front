@@ -179,7 +179,6 @@ type Recruitment implements Node {
   id: ID!
   locationLat: Float
   locationLng: Float
-  place: String
   prefecture: Prefecture
   publishedAt: DateTime
   startAt: DateTime
@@ -188,6 +187,7 @@ type Recruitment implements Node {
   title: String!
   type: Type!
   user: User!
+  venue: String
 }
 
 type RecruitmentConnection implements Connection {
@@ -206,13 +206,13 @@ input RecruitmentInput {
   detail: String
   locationLat: Float
   locationLng: Float
-  place: String
   prefectureId: String
   startAt: DateTime
   status: Status!
   tags: [recruitmentTagInput]!
   title: String!
   type: Type!
+  venue: String
 }
 
 input RegisterUserInput {

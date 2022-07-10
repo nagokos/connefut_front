@@ -303,7 +303,6 @@ export type Recruitment = Node & {
   id: Scalars['ID'];
   locationLat?: Maybe<Scalars['Float']>;
   locationLng?: Maybe<Scalars['Float']>;
-  place?: Maybe<Scalars['String']>;
   prefecture?: Maybe<Prefecture>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   startAt?: Maybe<Scalars['DateTime']>;
@@ -312,6 +311,7 @@ export type Recruitment = Node & {
   title: Scalars['String'];
   type: Type;
   user: User;
+  venue?: Maybe<Scalars['String']>;
 };
 
 export type RecruitmentConnection = Connection & {
@@ -332,13 +332,13 @@ export type RecruitmentInput = {
   detail?: InputMaybe<Scalars['String']>;
   locationLat?: InputMaybe<Scalars['Float']>;
   locationLng?: InputMaybe<Scalars['Float']>;
-  place?: InputMaybe<Scalars['String']>;
   prefectureId?: InputMaybe<Scalars['String']>;
   startAt?: InputMaybe<Scalars['DateTime']>;
   status: Status;
   tags: Array<InputMaybe<RecruitmentTagInput>>;
   title: Scalars['String'];
   type: Type;
+  venue?: InputMaybe<Scalars['String']>;
 };
 
 export type RegisterUserInput = {
@@ -460,14 +460,14 @@ export type GetRecruitmentQueryVariables = Exact<{
 }>;
 
 
-export type GetRecruitmentQuery = { __typename?: 'Query', recruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, place?: string | null, startAt?: any | null, detail?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition: { __typename?: 'Competition', id: string, name: string }, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, user: { __typename?: 'User', id: string, name: string, avatar: string }, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
+export type GetRecruitmentQuery = { __typename?: 'Query', recruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, venue?: string | null, startAt?: any | null, detail?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition: { __typename?: 'Competition', id: string, name: string }, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, user: { __typename?: 'User', id: string, name: string, avatar: string }, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
 
 export type GetEditRecruitmentQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type GetEditRecruitmentQuery = { __typename?: 'Query', recruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, place?: string | null, startAt?: any | null, detail?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, status: Status, competition: { __typename?: 'Competition', id: string, name: string }, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
+export type GetEditRecruitmentQuery = { __typename?: 'Query', recruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, venue?: string | null, startAt?: any | null, detail?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, status: Status, competition: { __typename?: 'Competition', id: string, name: string }, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
 
 export type GetCurrentUserRecruitmentsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -627,7 +627,7 @@ export const GetRecruitmentDocument = gql`
     title
     type
     status
-    place
+    venue
     startAt
     detail
     closingAt
@@ -663,7 +663,7 @@ export const GetEditRecruitmentDocument = gql`
     id
     title
     type
-    place
+    venue
     startAt
     detail
     closingAt
@@ -2320,14 +2320,6 @@ export default {
             "args": []
           },
           {
-            "name": "place",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
             "name": "prefecture",
             "type": {
               "kind": "OBJECT",
@@ -2409,6 +2401,14 @@ export default {
                 "name": "User",
                 "ofType": null
               }
+            },
+            "args": []
+          },
+          {
+            "name": "venue",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           }

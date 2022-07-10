@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9a9ab91cce121b27a93f46029a232df1>>
+ * @generated SignedSource<<a38979f4861ff9ea1c65f1f683832482>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -29,6 +29,7 @@ export type RecruitmentDetails_recruitment$data = {
     readonly avatar: string;
     readonly name: string;
   };
+  readonly venue: string | null;
   readonly " $fragmentSpreads": FragmentRefs<"RecruitmentLocationModal_recruitment">;
   readonly " $fragmentType": "RecruitmentDetails_recruitment";
 };
@@ -73,6 +74,13 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "startAt",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "venue",
       "storageKey": null
     },
     {
@@ -153,6 +161,6 @@ return {
 };
 })();
 
-(node as any).hash = "43bcc1ec4f81046b4dd4ff83a7cf4ff2";
+(node as any).hash = "346ccaa1a587527becc7c4776cd778ee";
 
 export default node;

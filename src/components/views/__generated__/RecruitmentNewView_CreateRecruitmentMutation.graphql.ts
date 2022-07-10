@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c1a143a0a344c3e1f9386d2778a4d74b>>
+ * @generated SignedSource<<19d697f04320b05c8071ee4ac2592065>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,13 +17,13 @@ export type RecruitmentInput = {
   detail?: string | null;
   locationLat?: number | null;
   locationLng?: number | null;
-  place?: string | null;
   prefectureId?: string | null;
   startAt?: string | null;
   status: Status;
   tags: ReadonlyArray<recruitmentTagInput | null>;
   title: string;
   type: Type;
+  venue?: string | null;
 };
 export type recruitmentTagInput = {
   id: string;

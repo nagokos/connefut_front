@@ -11,7 +11,7 @@ export { RecruitmentTag } from './RecruitmentTag/RecruitmentTag';
 export { RecruitmentTagList } from './RecruitmentTagList/RecruitmentTagList';
 export { RecruitmentForm } from './RecruitmentForm/RecruitmentForm';
 export { RecruitmentFormHeader } from './RecruitmentFormHeader/RecruitmentFormHeader';
-export { RecruitmentFormPlace } from './RecruitmentFormPlace/RecruitmentFormPlace';
+export { RecruitmentFormVenue } from './RecruitmentFormVenue/RecruitmentFormVenue';
 export { RecruitmentFormTag } from './RecruitmentFormTag/RecruitmentFormTag';
 export { RecruitmentFormLocationMap } from './RecruitmentFormLocationMap/RecruitmentFormLocationMap';
 export { RecruitmentFormLocationMapModal } from './RecruitmentFormLocationMapModal/RecruitmentFormLocationMapModal';

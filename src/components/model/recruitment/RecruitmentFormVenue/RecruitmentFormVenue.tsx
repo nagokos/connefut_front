@@ -7,16 +7,16 @@ type Props = {
   control: Control<RecruitmentInput>;
 };
 
-export const RecruitmentFormPlace: FC<Props> = memo((props) => {
+export const RecruitmentFormVenue: FC<Props> = memo((props) => {
   const { control } = props;
 
   return (
     <Controller
       control={control}
-      name="place"
+      name="venue"
       defaultValue=""
       render={({ field }) => (
-        <FormControl>
+        <FormControl isRequired>
           <FormLabel
             fontSize={12}
             fontWeight="bold"
@@ -29,7 +29,7 @@ export const RecruitmentFormPlace: FC<Props> = memo((props) => {
             ref={field.ref}
             onChange={field.onChange}
             value={String(field.value)}
-            id="place"
+            id="venue"
             bg="white"
             fontSize={13}
             border="none"

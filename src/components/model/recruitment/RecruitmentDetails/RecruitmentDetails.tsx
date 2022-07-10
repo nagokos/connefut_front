@@ -22,6 +22,7 @@ const recruitmentDetailsFragment = graphql`
     title
     closingAt
     startAt
+    venue
     locationLat
     locationLng
     detail
@@ -58,9 +59,9 @@ export const RecruitmentDetails: FC<Props> = memo((props) => {
   const typeDisplayName = (type: Type) => {
     if (type === 'OPPONENT') {
       return '対戦相手の募集';
-    } else if (type === 'INDIVIDUAL') {
+    } else if (type === 'PERSONAL') {
       return '個人プレーヤーの募集';
-    } else if (type === 'JOINING') {
+    } else if (type === 'JOIN') {
       return 'チームに加入したい人の募集';
     } else if (type === 'MEMBER') {
       return 'メンバーの募集';

@@ -57,7 +57,7 @@ export const RecruitmentNewView: FC<Props> = memo((props) => {
         type: 'OPPONENT',
         detail: '',
         prefectureId: null,
-        place: '',
+        venue: '',
         startAt: '',
         status: 'DRAFT',
         closingAt: '',

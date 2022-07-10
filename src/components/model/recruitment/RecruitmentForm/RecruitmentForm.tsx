@@ -22,7 +22,7 @@ import {
   RecruitmentFormDetail,
   RecruitmentFormPrefecture,
   RecruitmentFormClosingAt,
-  RecruitmentFormPlace,
+  RecruitmentFormVenue,
   RecruitmentFormTag,
   RecruitmentFormLocationMap,
   RecruitmentFormStartAt,
@@ -69,7 +69,7 @@ export const RecruitmentForm: FC<Props> = memo((props) => {
       watchType === 'JOIN' ||
       watchType === 'OTHER'
     ) {
-      setValue('place', '');
+      setValue('venue', '');
       setValue('startAt', '');
       setValue('locationLat', undefined);
       setValue('locationLng', undefined);
@@ -114,7 +114,7 @@ export const RecruitmentForm: FC<Props> = memo((props) => {
                 watchPrefectureId={watch('prefectureId')}
                 control={control}
               />
-              <RecruitmentFormPlace control={control} />
+              <RecruitmentFormVenue control={control} />
             </SimpleGrid>
             <Box mt={10}>
               <DividerText displayName="募集の日程" />
