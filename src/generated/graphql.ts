@@ -19,6 +19,7 @@ export type Scalars = {
 export type Applicant = Node & {
   __typename?: 'Applicant';
   createdAt: Scalars['DateTime'];
+  databaseId: Scalars['Int'];
   id: Scalars['ID'];
   message: Scalars['String'];
   recruitment: Recruitment;
@@ -58,7 +59,7 @@ export type ApplyForRecruitmentSelfGeneratedError = Error & {
 
 export type Competition = Node & {
   __typename?: 'Competition';
-  databaseId?: Maybe<Scalars['Int']>;
+  databaseId: Scalars['Int'];
   id: Scalars['ID'];
   name: Scalars['String'];
 };
@@ -139,7 +140,7 @@ export type Mutation = {
   addRecruitmentTag: Scalars['Boolean'];
   applyForRecruitment: ApplyForRecruitmentPayload;
   createMessage: Message;
-  createRecruitment: Recruitment;
+  createRecruitment: RecruitmentEdge;
   createStock: Scalars['Boolean'];
   createTag: Tag;
   deleteRecruitment: Recruitment;
@@ -223,7 +224,7 @@ export type PageInfo = {
 
 export type Prefecture = Node & {
   __typename?: 'Prefecture';
-  databaseId?: Maybe<Scalars['Int']>;
+  databaseId: Scalars['Int'];
   id: Scalars['ID'];
   name: Scalars['String'];
 };
@@ -297,7 +298,7 @@ export type Recruitment = Node & {
   closingAt?: Maybe<Scalars['DateTime']>;
   competition: Competition;
   createdAt: Scalars['DateTime'];
-  databaseId?: Maybe<Scalars['Int']>;
+  databaseId: Scalars['Int'];
   detail?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   locationLat?: Maybe<Scalars['Float']>;
@@ -310,7 +311,6 @@ export type Recruitment = Node & {
   tags: Array<Maybe<Tag>>;
   title: Scalars['String'];
   type: Type;
-  updatedAt: Scalars['DateTime'];
   user: User;
 };
 
@@ -324,6 +324,21 @@ export type RecruitmentEdge = Edge & {
   __typename?: 'RecruitmentEdge';
   cursor: Scalars['String'];
   node: Recruitment;
+};
+
+export type RecruitmentInput = {
+  closingAt?: InputMaybe<Scalars['DateTime']>;
+  competitionId: Scalars['String'];
+  detail?: InputMaybe<Scalars['String']>;
+  locationLat?: InputMaybe<Scalars['Float']>;
+  locationLng?: InputMaybe<Scalars['Float']>;
+  place?: InputMaybe<Scalars['String']>;
+  prefectureId?: InputMaybe<Scalars['String']>;
+  startAt?: InputMaybe<Scalars['DateTime']>;
+  status: Status;
+  tags: Array<InputMaybe<RecruitmentTagInput>>;
+  title: Scalars['String'];
+  type: Type;
 };
 
 export type RegisterUserInput = {
@@ -369,23 +384,23 @@ export enum Status {
 
 export type Tag = Node & {
   __typename?: 'Tag';
-  databaseId?: Maybe<Scalars['Int']>;
+  databaseId: Scalars['Int'];
   id: Scalars['ID'];
   name: Scalars['String'];
 };
 
 export enum Type {
-  Individual = 'INDIVIDUAL',
-  Joining = 'JOINING',
+  Join = 'JOIN',
   Member = 'MEMBER',
   Opponent = 'OPPONENT',
-  Others = 'OTHERS'
+  Other = 'OTHER',
+  Personal = 'PERSONAL'
 }
 
 export type User = Node & {
   __typename?: 'User';
   avatar: Scalars['String'];
-  databaseId?: Maybe<Scalars['Int']>;
+  databaseId: Scalars['Int'];
   email: Scalars['String'];
   emailVerificationStatus: EmailVerificationStatus;
   id: Scalars['ID'];
@@ -400,21 +415,6 @@ export type ApplicantInput = {
 
 export type CreateMessageInput = {
   content: Scalars['String'];
-};
-
-export type RecruitmentInput = {
-  closingAt?: InputMaybe<Scalars['DateTime']>;
-  competitionId: Scalars['String'];
-  detail?: InputMaybe<Scalars['String']>;
-  locationLat?: InputMaybe<Scalars['Float']>;
-  locationLng?: InputMaybe<Scalars['Float']>;
-  place?: InputMaybe<Scalars['String']>;
-  prefectureId?: InputMaybe<Scalars['String']>;
-  startAt?: InputMaybe<Scalars['DateTime']>;
-  status: Status;
-  tags: Array<InputMaybe<RecruitmentTagInput>>;
-  title: Scalars['String'];
-  type: Type;
 };
 
 export type RecruitmentTagInput = {
@@ -484,16 +484,9 @@ export type GetStockedRecruitmentsQueryVariables = Exact<{ [key: string]: never;
 
 export type GetStockedRecruitmentsQuery = { __typename?: 'Query', stockedRecruitments: Array<{ __typename?: 'Recruitment', id: string, title: string, closingAt?: any | null, user: { __typename?: 'User', id: string, name: string, avatar: string } }> };
 
-export type CreateRecruitmentMutationVariables = Exact<{
-  recruitmentInput: RecruitmentInput;
-}>;
-
-
-export type CreateRecruitmentMutation = { __typename?: 'Mutation', createRecruitment: { __typename?: 'Recruitment', id: string, title: string } };
-
 export type UpdateRecruitmentMutationVariables = Exact<{
   id: Scalars['String'];
-  recruitmentInput: RecruitmentInput;
+  input: RecruitmentInput;
 }>;
 
 
@@ -755,21 +748,9 @@ export const GetStockedRecruitmentsDocument = gql`
 export function useGetStockedRecruitmentsQuery(options?: Omit<Urql.UseQueryArgs<GetStockedRecruitmentsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetStockedRecruitmentsQuery>({ query: GetStockedRecruitmentsDocument, ...options });
 };
-export const CreateRecruitmentDocument = gql`
-    mutation CreateRecruitment($recruitmentInput: recruitmentInput!) {
-  createRecruitment(input: $recruitmentInput) {
-    id
-    title
-  }
-}
-    `;
-
-export function useCreateRecruitmentMutation() {
-  return Urql.useMutation<CreateRecruitmentMutation, CreateRecruitmentMutationVariables>(CreateRecruitmentDocument);
-};
 export const UpdateRecruitmentDocument = gql`
-    mutation UpdateRecruitment($id: String!, $recruitmentInput: recruitmentInput!) {
-  updateRecruitment(id: $id, input: $recruitmentInput) {
+    mutation UpdateRecruitment($id: String!, $input: RecruitmentInput!) {
+  updateRecruitment(id: $id, input: $input) {
     id
     title
   }
@@ -893,6 +874,17 @@ export default {
         "fields": [
           {
             "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "databaseId",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -1083,8 +1075,11 @@ export default {
           {
             "name": "databaseId",
             "type": {
-              "kind": "SCALAR",
-              "name": "Any"
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
             "args": []
           },
@@ -1551,7 +1546,7 @@ export default {
               "kind": "NON_NULL",
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Recruitment",
+                "name": "RecruitmentEdge",
                 "ofType": null
               }
             },
@@ -1851,8 +1846,11 @@ export default {
           {
             "name": "databaseId",
             "type": {
-              "kind": "SCALAR",
-              "name": "Any"
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
             "args": []
           },
@@ -2278,8 +2276,11 @@ export default {
           {
             "name": "databaseId",
             "type": {
-              "kind": "SCALAR",
-              "name": "Any"
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
             "args": []
           },
@@ -2390,17 +2391,6 @@ export default {
           },
           {
             "name": "type",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "updatedAt",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -2612,8 +2602,11 @@ export default {
           {
             "name": "databaseId",
             "type": {
-              "kind": "SCALAR",
-              "name": "Any"
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
             "args": []
           },
@@ -2665,8 +2658,11 @@ export default {
           {
             "name": "databaseId",
             "type": {
-              "kind": "SCALAR",
-              "name": "Any"
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
             },
             "args": []
           },

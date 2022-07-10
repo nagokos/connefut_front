@@ -3,14 +3,15 @@ schema {
   mutation: Mutation
 }
 
-directive @auth on FIELD_DEFINITION
+directive @emailVerified(status: EmailVerificationStatus!) on FIELD_DEFINITION
 
 directive @goField(forceResolver: Boolean, name: String) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
 
-directive @hasEmailVerificationStatus(status: EmailVerificationStatus!) on FIELD_DEFINITION
+directive @hasLoggedIn on FIELD_DEFINITION | OBJECT
 
 type Applicant implements Node {
   createdAt: DateTime!
+  databaseId: Int!
   id: ID!
   message: String!
   recruitment: Recruitment!
@@ -45,7 +46,7 @@ type ApplyForRecruitmentSelfGeneratedError implements Error {
 }
 
 type Competition implements Node {
-  databaseId: Int
+  databaseId: Int!
   id: ID!
   name: String!
 }
@@ -121,7 +122,7 @@ type Mutation {
   addRecruitmentTag(recruitmentId: String!, tagId: String!): Boolean!
   applyForRecruitment(input: applicantInput, recruitmentId: String!): ApplyForRecruitmentPayload!
   createMessage(input: createMessageInput!, roomId: String!): Message!
-  createRecruitment(input: recruitmentInput!): Recruitment!
+  createRecruitment(input: RecruitmentInput!): RecruitmentEdge!
   createStock(recruitmentId: String!): Boolean!
   createTag(input: CreateTagInput!): Tag!
   deleteRecruitment(id: String!): Recruitment!
@@ -129,7 +130,7 @@ type Mutation {
   loginUser(input: LoginUserInput!): LoginUserPayload!
   logoutUser: Boolean!
   registerUser(input: RegisterUserInput!): RegisterUserPayload!
-  updateRecruitment(id: String!, input: recruitmentInput!): Recruitment!
+  updateRecruitment(id: String!, input: RecruitmentInput!): Recruitment!
 }
 
 interface Node {
@@ -144,7 +145,7 @@ type PageInfo {
 }
 
 type Prefecture implements Node {
-  databaseId: Int
+  databaseId: Int!
   id: ID!
   name: String!
 }
@@ -173,7 +174,7 @@ type Recruitment implements Node {
   closingAt: DateTime
   competition: Competition!
   createdAt: DateTime!
-  databaseId: Int
+  databaseId: Int!
   detail: String
   id: ID!
   locationLat: Float
@@ -186,7 +187,6 @@ type Recruitment implements Node {
   tags: [Tag]!
   title: String!
   type: Type!
-  updatedAt: DateTime!
   user: User!
 }
 
@@ -198,6 +198,21 @@ type RecruitmentConnection implements Connection {
 type RecruitmentEdge implements Edge {
   cursor: String!
   node: Recruitment!
+}
+
+input RecruitmentInput {
+  closingAt: DateTime
+  competitionId: String!
+  detail: String
+  locationLat: Float
+  locationLng: Float
+  place: String
+  prefectureId: String
+  startAt: DateTime
+  status: Status!
+  tags: [recruitmentTagInput]!
+  title: String!
+  type: Type!
 }
 
 input RegisterUserInput {
@@ -239,22 +254,22 @@ enum Status {
 }
 
 type Tag implements Node {
-  databaseId: Int
+  databaseId: Int!
   id: ID!
   name: String!
 }
 
 enum Type {
-  INDIVIDUAL
-  JOINING
+  JOIN
   MEMBER
   OPPONENT
-  OTHERS
+  OTHER
+  PERSONAL
 }
 
 type User implements Node {
   avatar: String!
-  databaseId: Int
+  databaseId: Int!
   email: String!
   emailVerificationStatus: EmailVerificationStatus!
   id: ID!
@@ -269,21 +284,6 @@ input applicantInput {
 
 input createMessageInput {
   content: String!
-}
-
-input recruitmentInput {
-  closingAt: DateTime
-  competitionId: String!
-  detail: String
-  locationLat: Float
-  locationLng: Float
-  place: String
-  prefectureId: String
-  startAt: DateTime
-  status: Status!
-  tags: [recruitmentTagInput]!
-  title: String!
-  type: Type!
 }
 
 input recruitmentTagInput {
