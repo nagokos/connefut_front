@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<73b6f717f7c0871e9af7ab915a693b9c>>
+ * @generated SignedSource<<1c4642ec110167f8367d070be911efea>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -127,6 +127,13 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
+            "name": "venue",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "locationLat",
             "storageKey": null
           },
@@ -211,12 +218,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ad9af6075e09e0c7691fc331ca8ff22e",
+    "cacheID": "76f6960772afaf2d29fb4bcfc4383f27",
     "id": null,
     "metadata": {},
     "name": "Recruitment_RecruitmentQuery",
     "operationKind": "query",
-    "text": "query Recruitment_RecruitmentQuery(\n  $id: String!\n) {\n  recruitment(id: $id) {\n    ...RecruitmentDetails_recruitment\n    ...RecruitmentTagList_recruitment\n    id\n  }\n}\n\nfragment RecruitmentDetails_recruitment on Recruitment {\n  title\n  closingAt\n  startAt\n  locationLat\n  locationLng\n  detail\n  type\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n  user {\n    name\n    avatar\n    id\n  }\n  ...RecruitmentLocationModal_recruitment\n}\n\nfragment RecruitmentLocationModal_recruitment on Recruitment {\n  locationLat\n  locationLng\n}\n\nfragment RecruitmentTagList_recruitment on Recruitment {\n  type\n  competition {\n    name\n    id\n  }\n  tags {\n    id\n    name\n  }\n}\n"
+    "text": "query Recruitment_RecruitmentQuery(\n  $id: String!\n) {\n  recruitment(id: $id) {\n    ...RecruitmentDetails_recruitment\n    ...RecruitmentTagList_recruitment\n    id\n  }\n}\n\nfragment RecruitmentDetails_recruitment on Recruitment {\n  title\n  closingAt\n  startAt\n  venue\n  locationLat\n  locationLng\n  detail\n  type\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n  user {\n    name\n    avatar\n    id\n  }\n  ...RecruitmentLocationModal_recruitment\n}\n\nfragment RecruitmentLocationModal_recruitment on Recruitment {\n  locationLat\n  locationLng\n}\n\nfragment RecruitmentTagList_recruitment on Recruitment {\n  type\n  competition {\n    name\n    id\n  }\n  tags {\n    id\n    name\n  }\n}\n"
   }
 };
 })();

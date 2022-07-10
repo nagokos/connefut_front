@@ -4,7 +4,7 @@ query GetRecruitment($id: String!) {
     title
     type
     status
-    place
+    venue
     startAt
     detail
     closingAt
@@ -35,7 +35,7 @@ query GetEditRecruitment($id: String!) {
     id
     title
     type
-    place
+    venue
     startAt
     detail
     closingAt
