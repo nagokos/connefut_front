@@ -1,4 +1,4 @@
-import { Box, Divider, SimpleGrid } from '@chakra-ui/react';
+import { Box, SimpleGrid } from '@chakra-ui/react';
 import { FC, memo, useEffect } from 'react';
 import { registerLocale } from 'react-datepicker';
 import ja from 'date-fns/locale/ja';
@@ -30,6 +30,7 @@ import {
 import { RecruitmentFormCompetition_competitions$key } from '../RecruitmentFormCompetition/__generated__/RecruitmentFormCompetition_competitions.graphql';
 import { RecruitmentFormPrefecture_prefectures$key } from '../RecruitmentFormPrefecture/__generated__/RecruitmentFormPrefecture_prefectures.graphql';
 import { RecruitmentFormTag_tags$key } from '../RecruitmentFormTag/__generated__/RecruitmentFormTag_tags.graphql';
+import { DividerText } from '../../../ui';
 
 type Props = {
   competitions: RecruitmentFormCompetition_competitions$key;
@@ -89,7 +90,7 @@ export const RecruitmentForm: FC<Props> = memo((props) => {
           <RecruitmentFormHeader setValue={setValue} isInFlight={isInFlight} />
           <Box maxW={700} mx="auto" pt={16} pb={60} zIndex={0}>
             <RecruitmentFormTitle control={control} />
-            <Box mt={5} display="flex">
+            <Box mt={4} display="flex">
               <Box mr={3}>
                 <RecruitmentFormCompetition
                   competitions={competitions}
@@ -101,35 +102,31 @@ export const RecruitmentForm: FC<Props> = memo((props) => {
                 <RecruitmentFormType control={control} watchType={watchType} />
               </Box>
             </Box>
-            <RecruitmentFormDetail control={control} />
-            <SimpleGrid columns={2} gap={8} mt={7}>
+            <Box mt={1}>
+              <RecruitmentFormDetail control={control} />
+            </Box>
+            <Box mt={10}>
+              <DividerText displayName="募集エリア" />
+            </Box>
+            <SimpleGrid columns={2} gap={8} mt={6}>
               <RecruitmentFormPrefecture
                 prefectures={prefectures}
                 watchPrefectureId={watch('prefectureId')}
                 control={control}
               />
-
-              {watchType === 'OPPONENT' || watchType === 'PERSONAL' ? (
-                <>
-                  <RecruitmentFormPlace control={control} />
-                  <RecruitmentFormStartAt control={control} />
-                </>
-              ) : null}
+              <RecruitmentFormPlace control={control} />
+            </SimpleGrid>
+            <Box mt={10}>
+              <DividerText displayName="募集の日程" />
+            </Box>
+            <SimpleGrid columns={2} gap={8} mt={6}>
+              <RecruitmentFormStartAt control={control} />
               <RecruitmentFormClosingAt control={control} />
             </SimpleGrid>
-            <Box display="flex" mt={9} mb={6} alignItems="center">
-              <Divider borderColor="blackAlpha.300" />
-              <Box
-                textAlign="center"
-                fontSize={12}
-                w={60}
-                color="blackAlpha.600"
-              >
-                任意項目
-              </Box>
-              <Divider borderColor="blackAlpha.300" />
+            <Box mt={10}>
+              <DividerText displayName="任意項目" />
             </Box>
-            <SimpleGrid columns={2} gap={8}>
+            <SimpleGrid mt={6} columns={2} gap={8}>
               <RecruitmentFormTag
                 watchTags={watch('tags')}
                 control={control}

@@ -24,11 +24,11 @@ export const RecruitmentFormDetail: FC<Props> = memo((props) => {
           mt={6}
           bg="white"
           border="none"
-          px={6}
-          py={6}
+          px={7}
+          py={7}
           minH={300}
           placeholder="募集の詳細"
-          fontSize={14}
+          fontSize={14.5}
           wordBreak="break-word"
           wrap="break-word"
           fontFamily="ヒラギノ角ゴシック"
