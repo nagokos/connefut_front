@@ -47,7 +47,7 @@ export const RecruitmentFormCompetition: FC<Props> = memo((props) => {
         bg="primary.50"
         color="primary.main"
         as={Button}
-        fontSize={10}
+        fontSize={11}
         px={3.5}
         pr={2}
         h={8}
@@ -79,7 +79,7 @@ export const RecruitmentFormCompetition: FC<Props> = memo((props) => {
             <MenuOptionGroup
               defaultValue={String(competitionsData[0].databaseId)}
               title="募集競技"
-              fontSize={12}
+              fontSize={12.5}
               type="radio"
               onChange={field.onChange}
             >
@@ -88,7 +88,7 @@ export const RecruitmentFormCompetition: FC<Props> = memo((props) => {
                   key={String(competition.databaseId)}
                   bg="white"
                   value={String(competition.databaseId)}
-                  fontSize={11.5}
+                  fontSize={12}
                   fontFamily="Noto Sans JP"
                   icon={
                     <Box color="primary.main">

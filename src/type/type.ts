@@ -1,4 +1,4 @@
-import { Type } from '../generated/graphql';
+import { Type } from '../components/views/__generated__/RecruitmentNewView_CreateRecruitmentMutation.graphql';
 
 export type SelectOption = {
   value: string;

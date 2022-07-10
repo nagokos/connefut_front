@@ -15,6 +15,11 @@ export const currentUserState = atom<currentUser | null>({
   default: null,
 });
 
+export const recruitmentsIDState = atom<string>({
+  key: 'recruitmentsIDState',
+  default: '',
+});
+
 export const currentUserQuery = graphQLSelector({
   key: 'currentUser',
   environment: RelayEnvironment,

@@ -41,7 +41,7 @@ export const RecruitmentFormType: FC<Props> = memo((props) => {
         bg="primary.50"
         color="primary.main"
         as={Button}
-        fontSize={10}
+        fontSize={11}
         h={8}
         px={3.5}
         pr={2}
@@ -77,7 +77,7 @@ export const RecruitmentFormType: FC<Props> = memo((props) => {
                   key={type.id}
                   bg="white"
                   value={type.id}
-                  fontSize={11.5}
+                  fontSize={12}
                   fontFamily="Noto Sans JP"
                   icon={
                     <Box color="primary.main">

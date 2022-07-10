@@ -72,7 +72,7 @@ export const RecruitmentFormPrefecture: FC<Props> = memo((props) => {
             color="blackAlpha.600"
             htmlFor="prefecture"
           >
-            募集エリア
+            都道府県
           </FormLabel>
           <Select<SelectOption, false, GroupBase<SelectOption>>
             size="lg"
