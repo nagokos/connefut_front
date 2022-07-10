@@ -107,7 +107,7 @@ export const RecruitmentForm: FC<Props> = memo((props) => {
             <Box mt={1}>
               <RecruitmentFormDetail control={control} />
             </Box>
-            <SimpleGrid columns={2} gap={8} mt={6}>
+            <SimpleGrid columns={2} gap={9} mt={9}>
               <RecruitmentFormPrefecture
                 prefectures={prefectures}
                 watchPrefectureId={watch('prefectureId')}
@@ -124,7 +124,7 @@ export const RecruitmentForm: FC<Props> = memo((props) => {
             <Box mt={10}>
               <DividerText displayName="任意項目" />
             </Box>
-            <SimpleGrid columns={2} gap={8} mt={5}>
+            <SimpleGrid columns={2} gap={9} mt={5}>
               <RecruitmentFormTag
                 watchTags={watch('tags')}
                 control={control}

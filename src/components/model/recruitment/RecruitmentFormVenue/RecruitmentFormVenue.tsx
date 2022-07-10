@@ -1,4 +1,4 @@
-import { FormControl, FormLabel, Input } from '@chakra-ui/react';
+import { Box, FormControl, FormLabel, Input } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { RecruitmentInput } from '../../../views/__generated__/RecruitmentNewView_CreateRecruitmentMutation.graphql';
@@ -21,7 +21,7 @@ export const RecruitmentFormVenue: FC<Props> = memo((props) => {
             fontSize={12}
             fontWeight="bold"
             color="blackAlpha.600"
-            htmlFor="place"
+            htmlFor="venue"
           >
             会場
           </FormLabel>
@@ -36,6 +36,9 @@ export const RecruitmentFormVenue: FC<Props> = memo((props) => {
             _focus={{ boxShadow: 'none !important' }}
             size="lg"
           />
+          <Box color="blackAlpha.600" fontSize={10.5} mt={1} ml={1}>
+            ※ 会場名、又は会場の住所を入力してください
+          </Box>
         </FormControl>
       )}
     />
