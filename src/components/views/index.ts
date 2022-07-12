@@ -4,3 +4,5 @@ export { SignUpView } from './SignUpView';
 export { LoginView } from './LoginView';
 export { RecruitmentNewView } from './RecruitmentNewView';
 export { RecruitmentEditView } from './RecruitmentEditView';
+export { DashboardView } from './DashboardView';
+export { DashboardRecruitmentsView } from './DashboardRecruitmentsView';

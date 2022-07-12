@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c8d87618ab477bd2cc34fbbe9e9ae14c>>
+ * @generated SignedSource<<98aff7440f456e05e9224f1f88062341>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,25 +10,25 @@
 
 import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RecruitmentCardList_recruitment$data = {
-  readonly recruitments: {
+export type RecruitmentSelfCreatedList_recruitment$data = {
+  readonly currentUserRecruitments: {
     readonly edges: ReadonlyArray<{
       readonly cursor: string;
       readonly node: {
-        readonly " $fragmentSpreads": FragmentRefs<"RecruitmentCard_recruitment">;
+        readonly " $fragmentSpreads": FragmentRefs<"RecruitmentSelfCreatedTrashModal_recruitment" | "RecruitmentSelfCreated_recruitment">;
       };
     }>;
   };
-  readonly " $fragmentType": "RecruitmentCardList_recruitment";
+  readonly " $fragmentType": "RecruitmentSelfCreatedList_recruitment";
 };
-export type RecruitmentCardList_recruitment$key = {
-  readonly " $data"?: RecruitmentCardList_recruitment$data;
-  readonly " $fragmentSpreads": FragmentRefs<"RecruitmentCardList_recruitment">;
+export type RecruitmentSelfCreatedList_recruitment$key = {
+  readonly " $data"?: RecruitmentSelfCreatedList_recruitment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"RecruitmentSelfCreatedList_recruitment">;
 };
 
 const node: ReaderFragment = (function(){
 var v0 = [
-  "recruitments"
+  "currentUserRecruitments"
 ];
 return {
   "argumentDefinitions": [
@@ -38,7 +38,7 @@ return {
       "name": "after"
     },
     {
-      "defaultValue": 10,
+      "defaultValue": 20,
       "kind": "LocalArgument",
       "name": "first"
     }
@@ -63,17 +63,17 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./RecruitmentsQuery.graphql')
+      "operation": require('./CurrentUserRecruitmentsQuery.graphql')
     }
   },
-  "name": "RecruitmentCardList_recruitment",
+  "name": "RecruitmentSelfCreatedList_recruitment",
   "selections": [
     {
-      "alias": "recruitments",
+      "alias": "currentUserRecruitments",
       "args": null,
       "concreteType": "RecruitmentConnection",
       "kind": "LinkedField",
-      "name": "__RecruitmentCardList__recruitments_connection",
+      "name": "__RecruitmentSelfCreatedList__currentUserRecruitments_connection",
       "plural": false,
       "selections": [
         {
@@ -102,7 +102,12 @@ return {
                 {
                   "args": null,
                   "kind": "FragmentSpread",
-                  "name": "RecruitmentCard_recruitment"
+                  "name": "RecruitmentSelfCreated_recruitment"
+                },
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "RecruitmentSelfCreatedTrashModal_recruitment"
                 },
                 {
                   "alias": null,
@@ -151,6 +156,6 @@ return {
 };
 })();
 
-(node as any).hash = "1691254461c9eebe70b246b3028a08e3";
+(node as any).hash = "7ca86288a9279fc28ad7a5ce289941f0";
 
 export default node;

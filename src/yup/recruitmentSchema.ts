@@ -1,6 +1,9 @@
 import { differenceInMinutes, format } from 'date-fns';
 import * as yup from 'yup';
-import { Status, Type } from '../generated/graphql';
+import {
+  Status,
+  Type,
+} from '../components/views/__generated__/RecruitmentNewView_CreateRecruitmentMutation.graphql';
 
 export const recruitmentSchema = yup.object().shape({
   title: yup
@@ -8,30 +11,24 @@ export const recruitmentSchema = yup.object().shape({
     .required('タイトルを入力してください')
     .max(60, 'タイトルは60文字以内で入力してください'),
   competitionId: yup.string().required('募集競技を選択してください'),
-  type: yup
-    .string()
-    .required('募集タイプを選択してください')
-    .oneOf(
-      [Type.Individual, Type.Opponent, Type.Member, Type.Joining, Type.Others],
-      '募集タイプは選択肢の中から選んでください'
-    ),
+  type: yup.string().required('募集タイプを選択してください'),
   detail: yup
     .string()
     .max(10000, '募集の詳細は10000文字以内で入力してください')
     .when('status', {
-      is: Status.Published,
+      is: (status: Status) => status === 'PUBLISHED',
       then: yup.string().optional().required('募集の詳細を入力してください'),
       otherwise: yup.string().optional(),
     }),
   prefectureId: yup.string().when('status', {
-    is: Status.Published,
+    is: (status: Status) => status === 'PUBLISHED',
     then: yup.string().nullable().required('募集エリアを選択してください'),
     otherwise: yup.string().nullable(),
   }),
   place: yup.string().when('status', {
-    is: Status.Published,
+    is: (status: Status) => status === 'PUBLISHED',
     then: yup.string().when('type', {
-      is: (value: Type) => value === Type.Opponent || value === Type.Individual,
+      is: (value: Type) => value === 'OPPONENT' || value === 'PERSONAL',
       then: yup.string().required('会場を入力してください'),
       otherwise: yup.string().optional(),
     }),
@@ -43,10 +40,9 @@ export const recruitmentSchema = yup.object().shape({
       value === '' ? '' : format(new Date(String(value)), 'yyyy/MM/dd HH:mm')
     )
     .when('status', {
-      is: Status.Published,
+      is: (status: Status) => status === 'PUBLISHED',
       then: yup.string().when('type', {
-        is: (value: Type) =>
-          value === Type.Opponent || value === Type.Individual,
+        is: (value: Type) => value === 'OPPONENT' || value === 'PERSONAL',
         then: yup
           .string()
           .required('開催日時を設定してください')
@@ -74,7 +70,7 @@ export const recruitmentSchema = yup.object().shape({
       value === '' ? '' : format(new Date(String(value)), 'yyyy/MM/dd HH:mm')
     )
     .when('status', {
-      is: Status.Published,
+      is: (status: Status) => status === 'PUBLISHED',
       then: yup
         .string()
         .required('募集期限を設定してください')
@@ -109,5 +105,5 @@ export const recruitmentSchema = yup.object().shape({
     }),
   locationLat: yup.number().optional(),
   locationLng: yup.number().optional(),
-  status: yup.string().required().oneOf([Status.Draft, Status.Published]),
+  status: yup.string().required(),
 });

@@ -83,8 +83,6 @@ export const RecruitmentForm: FC<Props> = memo((props) => {
     }
   }, [formState.errors]);
 
-  console.log(watchType === 'OPPONENT');
-
   return (
     <>
       <Box bg="primary.light">

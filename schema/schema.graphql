@@ -156,7 +156,7 @@ type Query {
   checkStocked(recruitmentId: String!): Boolean!
   competitions: [Competition!]!
   currentUser: User
-  currentUserRecruitments: [Recruitment!]!
+  currentUserRecruitments(after: String, first: Int): RecruitmentConnection!
   getCurrentUserRooms: [Room!]!
   getEntrieUser(roomId: String!): User!
   getRoomMessages(roomId: String!): [Message!]!
@@ -164,7 +164,7 @@ type Query {
   node(id: ID!): Node
   prefectures: [Prefecture!]!
   recruitment(id: String!): Recruitment!
-  recruitments(after: String, before: String, first: Int, last: Int): RecruitmentConnection!
+  recruitments(after: String, first: Int): RecruitmentConnection!
   stockedRecruitments: [Recruitment!]!
   tags: [Tag!]!
 }

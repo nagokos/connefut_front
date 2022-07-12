@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<61dbc7e69dd91db75a466ce8da11e6de>>
+ * @generated SignedSource<<098e72d3aea351ccaec747a85638bfa1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,16 +10,16 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RecruitmentsQuery$variables = {
+export type CurrentUserRecruitmentsQuery$variables = {
   after?: string | null;
   first?: number | null;
 };
-export type RecruitmentsQuery$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"RecruitmentCardList_recruitment">;
+export type CurrentUserRecruitmentsQuery$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"RecruitmentSelfCreatedList_recruitment">;
 };
-export type RecruitmentsQuery = {
-  response: RecruitmentsQuery$data;
-  variables: RecruitmentsQuery$variables;
+export type CurrentUserRecruitmentsQuery = {
+  response: CurrentUserRecruitmentsQuery$data;
+  variables: CurrentUserRecruitmentsQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -30,7 +30,7 @@ var v0 = [
     "name": "after"
   },
   {
-    "defaultValue": 10,
+    "defaultValue": 20,
     "kind": "LocalArgument",
     "name": "first"
   }
@@ -46,36 +46,18 @@ v1 = [
     "name": "first",
     "variableName": "first"
   }
-],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v4 = [
-  (v3/*: any*/),
-  (v2/*: any*/)
 ];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "RecruitmentsQuery",
+    "name": "CurrentUserRecruitmentsQuery",
     "selections": [
       {
         "args": (v1/*: any*/),
         "kind": "FragmentSpread",
-        "name": "RecruitmentCardList_recruitment"
+        "name": "RecruitmentSelfCreatedList_recruitment"
       }
     ],
     "type": "Query",
@@ -85,14 +67,14 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "RecruitmentsQuery",
+    "name": "CurrentUserRecruitmentsQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
         "concreteType": "RecruitmentConnection",
         "kind": "LinkedField",
-        "name": "recruitments",
+        "name": "currentUserRecruitments",
         "plural": false,
         "selections": [
           {
@@ -118,7 +100,13 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v2/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "id",
+                    "storageKey": null
+                  },
                   {
                     "alias": null,
                     "args": null,
@@ -130,14 +118,14 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "type",
+                    "name": "status",
                     "storageKey": null
                   },
                   {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "closingAt",
+                    "name": "createdAt",
                     "storageKey": null
                   },
                   {
@@ -150,41 +138,8 @@ return {
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "User",
-                    "kind": "LinkedField",
-                    "name": "user",
-                    "plural": false,
-                    "selections": [
-                      (v2/*: any*/),
-                      (v3/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "avatar",
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "Competition",
-                    "kind": "LinkedField",
-                    "name": "competition",
-                    "plural": false,
-                    "selections": (v4/*: any*/),
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "Prefecture",
-                    "kind": "LinkedField",
-                    "name": "prefecture",
-                    "plural": false,
-                    "selections": (v4/*: any*/),
+                    "kind": "ScalarField",
+                    "name": "closingAt",
                     "storageKey": null
                   },
                   {
@@ -233,23 +188,23 @@ return {
         "args": (v1/*: any*/),
         "filters": null,
         "handle": "connection",
-        "key": "RecruitmentCardList__recruitments",
+        "key": "RecruitmentSelfCreatedList__currentUserRecruitments",
         "kind": "LinkedHandle",
-        "name": "recruitments"
+        "name": "currentUserRecruitments"
       }
     ]
   },
   "params": {
-    "cacheID": "7303960c1452a48c7f26702c7747b79e",
+    "cacheID": "2e27cb6793d42d9bbea865cd771fd37d",
     "id": null,
     "metadata": {},
-    "name": "RecruitmentsQuery",
+    "name": "CurrentUserRecruitmentsQuery",
     "operationKind": "query",
-    "text": "query RecruitmentsQuery(\n  $after: String\n  $first: Int = 10\n) {\n  ...RecruitmentCardList_recruitment_2HEEH6\n}\n\nfragment RecruitmentCardList_recruitment_2HEEH6 on Query {\n  recruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentCard_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n"
+    "text": "query CurrentUserRecruitmentsQuery(\n  $after: String\n  $first: Int = 20\n) {\n  ...RecruitmentSelfCreatedList_recruitment_2HEEH6\n}\n\nfragment RecruitmentSelfCreatedList_recruitment_2HEEH6 on Query {\n  currentUserRecruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentSelfCreated_recruitment\n        ...RecruitmentSelfCreatedTrashModal_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentSelfCreatedTrashModal_recruitment on Recruitment {\n  id\n  title\n}\n\nfragment RecruitmentSelfCreated_recruitment on Recruitment {\n  id\n  title\n  status\n  createdAt\n  publishedAt\n  closingAt\n}\n"
   }
 };
 })();
 
-(node as any).hash = "1691254461c9eebe70b246b3028a08e3";
+(node as any).hash = "7ca86288a9279fc28ad7a5ce289941f0";
 
 export default node;
