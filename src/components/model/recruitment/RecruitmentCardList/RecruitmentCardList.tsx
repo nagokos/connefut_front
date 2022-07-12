@@ -1,9 +1,7 @@
 import { Box, Button, SimpleGrid } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { usePaginationFragment } from 'react-relay';
-import { useSetRecoilState } from 'recoil';
 import { graphql } from 'relay-runtime';
-import { recruitmentsIDState } from '../../../../recoil/user';
 import { Home_SearchRecruitmentsQuery } from '../../../pages/__generated__/Home_SearchRecruitmentsQuery.graphql';
 import { RecruitmentCard } from '../RecruitmentCard/RecruitmentCard';
 
@@ -18,7 +16,6 @@ export const recruitmentsFragment = graphql`
   @refetchable(queryName: "RecruitmentsQuery") {
     recruitments(first: $first, after: $after)
       @connection(key: "RecruitmentCardList__recruitments") {
-      __id
       edges {
         cursor
         node {
@@ -40,9 +37,6 @@ export const RecruitmentCardList: FC<Props> = memo((props) => {
     Home_SearchRecruitmentsQuery,
     RecruitmentCardList_recruitment$key
   >(recruitmentsFragment, recruitment);
-
-  const setState = useSetRecoilState(recruitmentsIDState);
-  setState(data.recruitments.__id);
 
   return (
     <>

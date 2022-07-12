@@ -43,6 +43,7 @@ export const RecruitmentFormHeader: FC<Props> = memo((props) => {
           _active={{
             bg: 'whiteAlpha.600',
           }}
+          disabled={isInFlight}
           isLoading={isInFlight}
           onClick={() => setValue('status', 'DRAFT')}
         >
@@ -53,6 +54,7 @@ export const RecruitmentFormHeader: FC<Props> = memo((props) => {
           border="1px solid #009688"
           fontSize={11}
           h={8}
+          disabled={isInFlight}
           isLoading={isInFlight}
           onClick={() => setValue('status', 'PUBLISHED')}
         >

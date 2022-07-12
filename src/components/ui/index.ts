@@ -6,3 +6,4 @@ export { HeaderMenu } from './HeaderMenu/HeaderMenu';
 export { HeaderMenuItem } from './HeaderMenuItem/HeaderMenuItem';
 export { SubmitButton } from './SubmitButton/SubmitButton';
 export { DividerText } from './DividerText/DividerText';
+export { DashboardNavigation } from './DashboardNavigation/DashboardNavigation';

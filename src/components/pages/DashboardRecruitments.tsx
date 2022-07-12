@@ -2,28 +2,31 @@ import { Box, CircularProgress } from '@chakra-ui/react';
 import { FC, memo, Suspense, useEffect } from 'react';
 import { useQueryLoader } from 'react-relay';
 import { graphql } from 'relay-runtime';
-import { DashboardRecruitments_currentUserRecruitmentsQuery } from './__generated__/DashboardRecruitments_currentUserRecruitmentsQuery.graphql';
-
-import { DashboardRecruitment } from '../uiGroup/DashboardRecruitment';
+import { DashboardRecruitmentsView } from '../views';
+import { DashboardRecruitments_CurrentUserRecruitmentsQuery } from './__generated__/DashboardRecruitments_CurrentUserRecruitmentsQuery.graphql';
 
 export const currentUserRecruitmentsQuery = graphql`
-  query DashboardRecruitments_currentUserRecruitmentsQuery {
-    currentUserRecruitments {
-      id
-      title
-    }
+  query DashboardRecruitments_CurrentUserRecruitmentsQuery(
+    $first: Int!
+    $after: String
+  ) {
+    ...RecruitmentSelfCreatedList_recruitment
+      @arguments(first: $first, after: $after)
   }
 `;
 
 export const DashboardRecruitments: FC = memo(() => {
   const [currentUserRecruitmentsQueryRef, loadCurrentUserRecruitmentsQuery] =
-    useQueryLoader<DashboardRecruitments_currentUserRecruitmentsQuery>(
+    useQueryLoader<DashboardRecruitments_CurrentUserRecruitmentsQuery>(
       currentUserRecruitmentsQuery
     );
 
   useEffect(() => {
-    loadCurrentUserRecruitmentsQuery({});
+    loadCurrentUserRecruitmentsQuery({
+      first: 20,
+    });
   }, []);
+
   if (!currentUserRecruitmentsQueryRef) return null;
 
   return (
@@ -34,7 +37,7 @@ export const DashboardRecruitments: FC = memo(() => {
         </Box>
       }
     >
-      <DashboardRecruitment queryRef={currentUserRecruitmentsQueryRef} />
+      <DashboardRecruitmentsView queryRef={currentUserRecruitmentsQueryRef} />
     </Suspense>
   );
 });

@@ -69,6 +69,8 @@ export const RecruitmentNewView: FC<Props> = memo((props) => {
       mode: 'onChange',
     });
 
+  console.log(isInFlight);
+
   const onSubmit = (values: RecruitmentInput) => {
     commit({
       variables: {
@@ -76,10 +78,17 @@ export const RecruitmentNewView: FC<Props> = memo((props) => {
         connections: [value],
       },
       onCompleted(response, errors) {
+        if (errors) {
+          console.log(errors);
+        }
         console.log(response);
+        navigate('/dashboard');
       },
       onError(error) {
         console.log(error);
+      },
+      updater(store) {
+        console.log(store);
       },
     });
   };
