@@ -1,15 +1,15 @@
 import { Avatar, Box, Grid, GridItem, Spacer } from '@chakra-ui/react';
 import { FC, memo, Suspense, useEffect } from 'react';
-import { useGetCurrentUserRoomsQuery } from '../../generated/graphql';
+import { useGetViewerRoomsQuery } from '../../generated/graphql';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 export const Messages: FC = memo(() => {
   const { roomId } = useParams();
 
-  const [data] = useGetCurrentUserRoomsQuery();
+  const [data] = useGetViewerRoomsQuery();
   const navigate = useNavigate();
 
-  const topRoomId = data.data?.getCurrentUserRooms[0].id;
+  const topRoomId = data.data?.getViewerRooms[0].id;
 
   useEffect(() => {
     console.log(topRoomId);
@@ -24,7 +24,7 @@ export const Messages: FC = memo(() => {
             メッセージ
           </Box>
           <Box overflow="scroll" h="600" mt={8}>
-            {data.data?.getCurrentUserRooms.map((room) => (
+            {data.data?.getViewerRooms.map((room) => (
               <Box
                 cursor="pointer"
                 key={room.id}

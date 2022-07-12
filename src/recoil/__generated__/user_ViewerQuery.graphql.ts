@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<28d20fd5501647bee22240947b247165>>
+ * @generated SignedSource<<d83ceb342c30717b655c7e71df2f85a4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,17 +9,17 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
-export type user_CurrentUserQuery$variables = {};
-export type user_CurrentUserQuery$data = {
-  readonly currentUser: {
+export type user_ViewerQuery$variables = {};
+export type user_ViewerQuery$data = {
+  readonly viewer: {
     readonly avatar: string;
     readonly id: string;
     readonly name: string;
   } | null;
 };
-export type user_CurrentUserQuery = {
-  response: user_CurrentUserQuery$data;
-  variables: user_CurrentUserQuery$variables;
+export type user_ViewerQuery = {
+  response: user_ViewerQuery$data;
+  variables: user_ViewerQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -27,9 +27,9 @@ var v0 = [
   {
     "alias": null,
     "args": null,
-    "concreteType": "User",
+    "concreteType": "Viewer",
     "kind": "LinkedField",
-    "name": "currentUser",
+    "name": "viewer",
     "plural": false,
     "selections": [
       {
@@ -62,7 +62,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "user_CurrentUserQuery",
+    "name": "user_ViewerQuery",
     "selections": (v0/*: any*/),
     "type": "Query",
     "abstractKey": null
@@ -71,20 +71,20 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "user_CurrentUserQuery",
+    "name": "user_ViewerQuery",
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "5c3e24408c4ba6f06bb7a87427b2bbad",
+    "cacheID": "1a75eeac4977a00ba11a1429e1c78eeb",
     "id": null,
     "metadata": {},
-    "name": "user_CurrentUserQuery",
+    "name": "user_ViewerQuery",
     "operationKind": "query",
-    "text": "query user_CurrentUserQuery {\n  currentUser {\n    id\n    name\n    avatar\n  }\n}\n"
+    "text": "query user_ViewerQuery {\n  viewer {\n    id\n    name\n    avatar\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "61ec91cd217fe61a85e5b60197b38970";
+(node as any).hash = "598bd32d8d5129be1d356ebd451e0736";
 
 export default node;

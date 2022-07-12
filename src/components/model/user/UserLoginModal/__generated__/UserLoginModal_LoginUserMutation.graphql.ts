@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e5ae9ed1e3866ed96bade9b3bb26cbc5>>
+ * @generated SignedSource<<db2027fff07ec1cf3467e9856e980ce2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,11 +19,6 @@ export type UserLoginModal_LoginUserMutation$variables = {
 };
 export type UserLoginModal_LoginUserMutation$data = {
   readonly loginUser: {
-    readonly user: {
-      readonly avatar: string;
-      readonly id: string;
-      readonly name: string;
-    } | null;
     readonly userErrors: ReadonlyArray<{
       readonly __typename: "LoginUserAuthenticationError";
       readonly message: string;
@@ -36,6 +31,11 @@ export type UserLoginModal_LoginUserMutation$data = {
       // value in case none of the concrete values match.
       readonly __typename: "%other";
     }>;
+    readonly viewer: {
+      readonly avatar: string;
+      readonly id: string;
+      readonly name: string;
+    } | null;
   };
 };
 export type UserLoginModal_LoginUserMutation = {
@@ -76,9 +76,9 @@ v2 = [
       {
         "alias": null,
         "args": null,
-        "concreteType": "User",
+        "concreteType": "Viewer",
         "kind": "LinkedField",
-        "name": "user",
+        "name": "viewer",
         "plural": false,
         "selections": [
           {
@@ -168,16 +168,16 @@ return {
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "2d4c0b982347afec9aed83adc590b3a7",
+    "cacheID": "1a28e6a872dbb1c755f96cdaaaba7614",
     "id": null,
     "metadata": {},
     "name": "UserLoginModal_LoginUserMutation",
     "operationKind": "mutation",
-    "text": "mutation UserLoginModal_LoginUserMutation(\n  $input: LoginUserInput!\n) {\n  loginUser(input: $input) {\n    user {\n      id\n      name\n      avatar\n    }\n    userErrors {\n      __typename\n      ... on LoginUserInvalidInputError {\n        message\n        field\n      }\n      ... on LoginUserAuthenticationError {\n        message\n      }\n    }\n  }\n}\n"
+    "text": "mutation UserLoginModal_LoginUserMutation(\n  $input: LoginUserInput!\n) {\n  loginUser(input: $input) {\n    viewer {\n      id\n      name\n      avatar\n    }\n    userErrors {\n      __typename\n      ... on LoginUserInvalidInputError {\n        message\n        field\n      }\n      ... on LoginUserAuthenticationError {\n        message\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "d1d9f6093bf9ddc4ae8d3e521040c4cd";
+(node as any).hash = "eeabbdf05716669fa127d47de713ad60";
 
 export default node;

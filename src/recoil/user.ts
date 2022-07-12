@@ -2,16 +2,16 @@ import { atom } from 'recoil';
 import { graphQLSelector } from 'recoil-relay';
 import { graphql } from 'relay-runtime';
 import { RelayEnvironment } from '../RelayEnvironment';
-import { user_CurrentUserQuery$data } from './__generated__/user_CurrentUserQuery.graphql';
+import { user_ViewerQuery$data } from './__generated__/user_ViewerQuery.graphql';
 
-type currentUser = {
+type viewer = {
   id: string;
   name: string;
   avatar: string;
 };
 
-export const currentUserState = atom<currentUser | null>({
-  key: 'currentUserState',
+export const viewerState = atom<viewer | null>({
+  key: 'viewerState',
   default: null,
 });
 
@@ -20,12 +20,12 @@ export const recruitmentsIDState = atom<string>({
   default: '',
 });
 
-export const currentUserQuery = graphQLSelector({
-  key: 'currentUser',
+export const viewerQuery = graphQLSelector({
+  key: 'viewer',
   environment: RelayEnvironment,
   query: graphql`
-    query user_CurrentUserQuery {
-      currentUser {
+    query user_ViewerQuery {
+      viewer {
         id
         name
         avatar
@@ -34,11 +34,11 @@ export const currentUserQuery = graphQLSelector({
   `,
   default: null,
   variables: {},
-  mapResponse: (data: user_CurrentUserQuery$data, { get }) => {
-    const user = get(currentUserState);
-    if (user) {
-      return user;
+  mapResponse: (data: user_ViewerQuery$data, { get }) => {
+    const viewer = get(viewerState);
+    if (viewer) {
+      return viewer;
     }
-    return data.currentUser;
+    return data.viewer;
   },
 });

@@ -21,7 +21,7 @@ import {
   LoginUserInput,
   UserLoginModal_LoginUserMutation,
 } from './__generated__/UserLoginModal_LoginUserMutation.graphql';
-import { currentUserState } from '../../../../recoil/user';
+import { viewerState } from '../../../../recoil/user';
 import { loginSchema } from '../../../../yup/userSchema';
 import { UserLoginEmailForm } from '../UserLoginEmailForm/UserLoginEmailForm';
 import { UserLoginPasswordForm } from '../UserLoginPasswordForm/UserLoginPasswordForm';
@@ -30,7 +30,7 @@ import { SubmitButton } from '../../../ui/SubmitButton/SubmitButton';
 const loginUserMutation = graphql`
   mutation UserLoginModal_LoginUserMutation($input: LoginUserInput!) {
     loginUser(input: $input) {
-      user {
+      viewer {
         id
         name
         avatar
@@ -62,7 +62,7 @@ export const UserLoginModal: FC<Props> = memo((props) => {
   const [commit, isInFlight] =
     useMutation<UserLoginModal_LoginUserMutation>(loginUserMutation);
 
-  const setUser = useSetRecoilState(currentUserState);
+  const setUser = useSetRecoilState(viewerState);
 
   const {
     control,
@@ -88,8 +88,8 @@ export const UserLoginModal: FC<Props> = memo((props) => {
         if (errors) {
           return console.log(errors);
         }
-        if (response.loginUser.user) {
-          setUser(response.loginUser.user);
+        if (response.loginUser.viewer) {
+          setUser(response.loginUser.viewer);
           navigate('/recruitments');
         } else {
           response.loginUser.userErrors.forEach((error) => {

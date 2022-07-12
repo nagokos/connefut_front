@@ -3,7 +3,7 @@ import { FC, memo, useEffect } from 'react';
 import { useLocation, useRoutes } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { Header } from './components/ui';
-import { currentUserQuery } from './recoil/user';
+import { viewerQuery } from './recoil/user';
 import { routes } from './router/Router';
 
 export const App: FC = memo(() => {
@@ -12,7 +12,7 @@ export const App: FC = memo(() => {
     window.scrollTo(0, 0);
   }, [location]);
 
-  const currentUser = useRecoilValue(currentUserQuery);
+  const currentUser = useRecoilValue(viewerQuery);
 
   const routing = useRoutes(routes(!!currentUser));
 

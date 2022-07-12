@@ -21,7 +21,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { graphql } from 'relay-runtime';
 import { useMutation } from 'react-relay';
-import { currentUserQuery } from '../../../recoil/user';
+import { viewerQuery } from '../../../recoil/user';
 import { HeaderMenuItem } from '../HeaderMenuItem/HeaderMenuItem';
 import { HeaderMenu_LogoutUserMutation } from './__generated__/HeaderMenu_LogoutUserMutation.graphql';
 
@@ -34,7 +34,7 @@ const logoutMutation = graphql`
 export const HeaderMenu: FC = memo(() => {
   const navigate = useNavigate();
 
-  const currentUser = useRecoilValue(currentUserQuery);
+  const currentUser = useRecoilValue(viewerQuery);
 
   const [commit] = useMutation<HeaderMenu_LogoutUserMutation>(logoutMutation);
 

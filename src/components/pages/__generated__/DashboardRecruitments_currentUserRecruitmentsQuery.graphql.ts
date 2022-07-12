@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ad20d7757d9da7351bd15567451d42fe>>
+ * @generated SignedSource<<0dd34e8af6c306f75a18f77ced44a66c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -78,7 +78,7 @@ return {
         "args": (v2/*: any*/),
         "concreteType": "RecruitmentConnection",
         "kind": "LinkedField",
-        "name": "currentUserRecruitments",
+        "name": "viewerRecruitments",
         "plural": false,
         "selections": [
           {
@@ -192,19 +192,19 @@ return {
         "args": (v2/*: any*/),
         "filters": null,
         "handle": "connection",
-        "key": "RecruitmentSelfCreatedList__currentUserRecruitments",
+        "key": "RecruitmentSelfCreatedList__viewerRecruitments",
         "kind": "LinkedHandle",
-        "name": "currentUserRecruitments"
+        "name": "viewerRecruitments"
       }
     ]
   },
   "params": {
-    "cacheID": "83e39c0983fc5933aa1ea5fbfd2b67a5",
+    "cacheID": "2ee5d60cf46a65d7cff6e8af2f2bd33e",
     "id": null,
     "metadata": {},
     "name": "DashboardRecruitments_CurrentUserRecruitmentsQuery",
     "operationKind": "query",
-    "text": "query DashboardRecruitments_CurrentUserRecruitmentsQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentSelfCreatedList_recruitment_2HEEH6\n}\n\nfragment RecruitmentSelfCreatedList_recruitment_2HEEH6 on Query {\n  currentUserRecruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentSelfCreated_recruitment\n        ...RecruitmentSelfCreatedTrashModal_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentSelfCreatedTrashModal_recruitment on Recruitment {\n  id\n  title\n}\n\nfragment RecruitmentSelfCreated_recruitment on Recruitment {\n  id\n  title\n  status\n  createdAt\n  publishedAt\n  closingAt\n}\n"
+    "text": "query DashboardRecruitments_CurrentUserRecruitmentsQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentSelfCreatedList_recruitment_2HEEH6\n}\n\nfragment RecruitmentSelfCreatedList_recruitment_2HEEH6 on Query {\n  viewerRecruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentSelfCreated_recruitment\n        ...RecruitmentSelfCreatedTrashModal_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentSelfCreatedTrashModal_recruitment on Recruitment {\n  id\n  title\n}\n\nfragment RecruitmentSelfCreated_recruitment on Recruitment {\n  id\n  title\n  status\n  createdAt\n  publishedAt\n  closingAt\n}\n"
   }
 };
 })();

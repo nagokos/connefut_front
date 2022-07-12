@@ -107,8 +107,8 @@ enum LoginUserInvalidInputField {
 }
 
 type LoginUserPayload {
-  user: User
   userErrors: [LoginUserError!]!
+  viewer: Viewer
 }
 
 type Message {
@@ -155,18 +155,18 @@ type Query {
   checkAppliedForRecruitment(recruitmentId: String!): FeedbackApplicant!
   checkStocked(recruitmentId: String!): Boolean!
   competitions: [Competition!]!
-  currentUser: User
-  currentUserRecruitments(after: String, first: Int): RecruitmentConnection!
-  getCurrentUserRooms: [Room!]!
   getEntrieUser(roomId: String!): User!
   getRoomMessages(roomId: String!): [Message!]!
   getStockedCount(recruitmentId: String!): Int!
+  getViewerRooms: [Room!]!
   node(id: ID!): Node
   prefectures: [Prefecture!]!
   recruitment(id: String!): Recruitment!
   recruitments(after: String, first: Int): RecruitmentConnection!
   stockedRecruitments: [Recruitment!]!
   tags: [Tag!]!
+  viewer: Viewer
+  viewerRecruitments(after: String, first: Int): RecruitmentConnection!
 }
 
 type Recruitment implements Node {
@@ -233,8 +233,8 @@ enum RegisterUserInvalidInputField {
 }
 
 type RegisterUserPayload {
-  user: User
   userErrors: [RegisterUserInvalidInputError!]!
+  viewer: Viewer
 }
 
 enum Role {
@@ -268,6 +268,16 @@ enum Type {
 }
 
 type User implements Node {
+  avatar: String!
+  databaseId: Int!
+  email: String!
+  emailVerificationStatus: EmailVerificationStatus!
+  id: ID!
+  introduction: String
+  name: String!
+}
+
+type Viewer implements Node {
   avatar: String!
   databaseId: Int!
   email: String!

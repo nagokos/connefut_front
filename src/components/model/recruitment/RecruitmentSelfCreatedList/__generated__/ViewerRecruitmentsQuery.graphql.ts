@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<098e72d3aea351ccaec747a85638bfa1>>
+ * @generated SignedSource<<3b8a46b4095c6295ac69434feb0fd155>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,16 +10,16 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CurrentUserRecruitmentsQuery$variables = {
+export type ViewerRecruitmentsQuery$variables = {
   after?: string | null;
   first?: number | null;
 };
-export type CurrentUserRecruitmentsQuery$data = {
+export type ViewerRecruitmentsQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"RecruitmentSelfCreatedList_recruitment">;
 };
-export type CurrentUserRecruitmentsQuery = {
-  response: CurrentUserRecruitmentsQuery$data;
-  variables: CurrentUserRecruitmentsQuery$variables;
+export type ViewerRecruitmentsQuery = {
+  response: ViewerRecruitmentsQuery$data;
+  variables: ViewerRecruitmentsQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -52,7 +52,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "CurrentUserRecruitmentsQuery",
+    "name": "ViewerRecruitmentsQuery",
     "selections": [
       {
         "args": (v1/*: any*/),
@@ -67,14 +67,14 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "CurrentUserRecruitmentsQuery",
+    "name": "ViewerRecruitmentsQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
         "concreteType": "RecruitmentConnection",
         "kind": "LinkedField",
-        "name": "currentUserRecruitments",
+        "name": "viewerRecruitments",
         "plural": false,
         "selections": [
           {
@@ -188,23 +188,23 @@ return {
         "args": (v1/*: any*/),
         "filters": null,
         "handle": "connection",
-        "key": "RecruitmentSelfCreatedList__currentUserRecruitments",
+        "key": "RecruitmentSelfCreatedList__viewerRecruitments",
         "kind": "LinkedHandle",
-        "name": "currentUserRecruitments"
+        "name": "viewerRecruitments"
       }
     ]
   },
   "params": {
-    "cacheID": "2e27cb6793d42d9bbea865cd771fd37d",
+    "cacheID": "d80c28b32ef171871c54586803a3fc9e",
     "id": null,
     "metadata": {},
-    "name": "CurrentUserRecruitmentsQuery",
+    "name": "ViewerRecruitmentsQuery",
     "operationKind": "query",
-    "text": "query CurrentUserRecruitmentsQuery(\n  $after: String\n  $first: Int = 20\n) {\n  ...RecruitmentSelfCreatedList_recruitment_2HEEH6\n}\n\nfragment RecruitmentSelfCreatedList_recruitment_2HEEH6 on Query {\n  currentUserRecruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentSelfCreated_recruitment\n        ...RecruitmentSelfCreatedTrashModal_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentSelfCreatedTrashModal_recruitment on Recruitment {\n  id\n  title\n}\n\nfragment RecruitmentSelfCreated_recruitment on Recruitment {\n  id\n  title\n  status\n  createdAt\n  publishedAt\n  closingAt\n}\n"
+    "text": "query ViewerRecruitmentsQuery(\n  $after: String\n  $first: Int = 20\n) {\n  ...RecruitmentSelfCreatedList_recruitment_2HEEH6\n}\n\nfragment RecruitmentSelfCreatedList_recruitment_2HEEH6 on Query {\n  viewerRecruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentSelfCreated_recruitment\n        ...RecruitmentSelfCreatedTrashModal_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentSelfCreatedTrashModal_recruitment on Recruitment {\n  id\n  title\n}\n\nfragment RecruitmentSelfCreated_recruitment on Recruitment {\n  id\n  title\n  status\n  createdAt\n  publishedAt\n  closingAt\n}\n"
   }
 };
 })();
 
-(node as any).hash = "7ca86288a9279fc28ad7a5ce289941f0";
+(node as any).hash = "376b0637feba3c43dc8acfe972b110f7";
 
 export default node;
