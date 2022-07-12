@@ -236,7 +236,7 @@ export type Query = {
   checkStocked: Scalars['Boolean'];
   competitions: Array<Competition>;
   currentUser?: Maybe<User>;
-  currentUserRecruitments: Array<Recruitment>;
+  currentUserRecruitments: RecruitmentConnection;
   getCurrentUserRooms: Array<Room>;
   getEntrieUser: User;
   getRoomMessages: Array<Message>;
@@ -257,6 +257,12 @@ export type QueryCheckAppliedForRecruitmentArgs = {
 
 export type QueryCheckStockedArgs = {
   recruitmentId: Scalars['String'];
+};
+
+
+export type QueryCurrentUserRecruitmentsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -287,9 +293,7 @@ export type QueryRecruitmentArgs = {
 
 export type QueryRecruitmentsArgs = {
   after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
 };
 
 export type Recruitment = Node & {
@@ -469,11 +473,6 @@ export type GetEditRecruitmentQueryVariables = Exact<{
 
 export type GetEditRecruitmentQuery = { __typename?: 'Query', recruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, venue?: string | null, startAt?: any | null, detail?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, status: Status, competition: { __typename?: 'Competition', id: string, name: string }, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
 
-export type GetCurrentUserRecruitmentsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetCurrentUserRecruitmentsQuery = { __typename?: 'Query', currentUserRecruitments: Array<{ __typename?: 'Recruitment', id: string, title: string, status: Status, type: Type, closingAt?: any | null, createdAt: any, publishedAt?: any | null, competition: { __typename?: 'Competition', id: string, name: string } }> };
-
 export type GetAppliedRecruitmentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -491,13 +490,6 @@ export type UpdateRecruitmentMutationVariables = Exact<{
 
 
 export type UpdateRecruitmentMutation = { __typename?: 'Mutation', updateRecruitment: { __typename?: 'Recruitment', id: string, title: string } };
-
-export type DeleteRecruitmentMutationVariables = Exact<{
-  id: Scalars['String'];
-}>;
-
-
-export type DeleteRecruitmentMutation = { __typename?: 'Mutation', deleteRecruitment: { __typename?: 'Recruitment', id: string, title: string } };
 
 export type GetCurrentUserRoomsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -689,27 +681,6 @@ export const GetEditRecruitmentDocument = gql`
 export function useGetEditRecruitmentQuery(options: Omit<Urql.UseQueryArgs<GetEditRecruitmentQueryVariables>, 'query'>) {
   return Urql.useQuery<GetEditRecruitmentQuery>({ query: GetEditRecruitmentDocument, ...options });
 };
-export const GetCurrentUserRecruitmentsDocument = gql`
-    query GetCurrentUserRecruitments {
-  currentUserRecruitments {
-    id
-    title
-    status
-    type
-    closingAt
-    createdAt
-    publishedAt
-    competition {
-      id
-      name
-    }
-  }
-}
-    `;
-
-export function useGetCurrentUserRecruitmentsQuery(options?: Omit<Urql.UseQueryArgs<GetCurrentUserRecruitmentsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetCurrentUserRecruitmentsQuery>({ query: GetCurrentUserRecruitmentsDocument, ...options });
-};
 export const GetAppliedRecruitmentsDocument = gql`
     query GetAppliedRecruitments {
   appliedRecruitments {
@@ -759,18 +730,6 @@ export const UpdateRecruitmentDocument = gql`
 
 export function useUpdateRecruitmentMutation() {
   return Urql.useMutation<UpdateRecruitmentMutation, UpdateRecruitmentMutationVariables>(UpdateRecruitmentDocument);
-};
-export const DeleteRecruitmentDocument = gql`
-    mutation DeleteRecruitment($id: String!) {
-  deleteRecruitment(id: $id) {
-    id
-    title
-  }
-}
-    `;
-
-export function useDeleteRecruitmentMutation() {
-  return Urql.useMutation<DeleteRecruitmentMutation, DeleteRecruitmentMutationVariables>(DeleteRecruitmentDocument);
 };
 export const GetCurrentUserRoomsDocument = gql`
     query GetCurrentUserRooms {
@@ -1983,18 +1942,27 @@ export default {
             "type": {
               "kind": "NON_NULL",
               "ofType": {
-                "kind": "LIST",
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "Recruitment",
-                    "ofType": null
-                  }
-                }
+                "kind": "OBJECT",
+                "name": "RecruitmentConnection",
+                "ofType": null
               }
             },
-            "args": []
+            "args": [
+              {
+                "name": "after",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "first",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              }
+            ]
           },
           {
             "name": "getCurrentUserRooms",
@@ -2168,21 +2136,7 @@ export default {
                 }
               },
               {
-                "name": "before",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Any"
-                }
-              },
-              {
                 "name": "first",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Any"
-                }
-              },
-              {
-                "name": "last",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Any"
