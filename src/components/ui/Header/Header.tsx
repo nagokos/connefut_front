@@ -11,7 +11,7 @@ import { FC, memo } from 'react';
 import { TbBell, TbMessage2, TbSearch } from 'react-icons/tb';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { currentUserQuery } from '../../../recoil/user';
+import { viewerQuery } from '../../../recoil/user';
 import { HeaderMenu } from '../HeaderMenu/HeaderMenu';
 
 export const Header: FC = memo(() => {
@@ -19,7 +19,7 @@ export const Header: FC = memo(() => {
   const navigate = useNavigate();
   const [flag, setFlag] = useBoolean();
 
-  const currentUser = useRecoilValue(currentUserQuery);
+  const currentUser = useRecoilValue(viewerQuery);
 
   return (
     <>

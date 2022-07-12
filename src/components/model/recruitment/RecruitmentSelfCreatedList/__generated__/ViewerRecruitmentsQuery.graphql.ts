@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0dd34e8af6c306f75a18f77ced44a66c>>
+ * @generated SignedSource<<3b8a46b4095c6295ac69434feb0fd155>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,30 +10,32 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type DashboardRecruitments_CurrentUserRecruitmentsQuery$variables = {
+export type ViewerRecruitmentsQuery$variables = {
   after?: string | null;
-  first: number;
+  first?: number | null;
 };
-export type DashboardRecruitments_CurrentUserRecruitmentsQuery$data = {
+export type ViewerRecruitmentsQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"RecruitmentSelfCreatedList_recruitment">;
 };
-export type DashboardRecruitments_CurrentUserRecruitmentsQuery = {
-  response: DashboardRecruitments_CurrentUserRecruitmentsQuery$data;
-  variables: DashboardRecruitments_CurrentUserRecruitmentsQuery$variables;
+export type ViewerRecruitmentsQuery = {
+  response: ViewerRecruitmentsQuery$data;
+  variables: ViewerRecruitmentsQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "after"
-},
-v1 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "first"
-},
-v2 = [
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "after"
+  },
+  {
+    "defaultValue": 20,
+    "kind": "LocalArgument",
+    "name": "first"
+  }
+],
+v1 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -47,16 +49,13 @@ v2 = [
 ];
 return {
   "fragment": {
-    "argumentDefinitions": [
-      (v0/*: any*/),
-      (v1/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "DashboardRecruitments_CurrentUserRecruitmentsQuery",
+    "name": "ViewerRecruitmentsQuery",
     "selections": [
       {
-        "args": (v2/*: any*/),
+        "args": (v1/*: any*/),
         "kind": "FragmentSpread",
         "name": "RecruitmentSelfCreatedList_recruitment"
       }
@@ -66,16 +65,13 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [
-      (v1/*: any*/),
-      (v0/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "DashboardRecruitments_CurrentUserRecruitmentsQuery",
+    "name": "ViewerRecruitmentsQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": "RecruitmentConnection",
         "kind": "LinkedField",
         "name": "viewerRecruitments",
@@ -189,7 +185,7 @@ return {
       },
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v1/*: any*/),
         "filters": null,
         "handle": "connection",
         "key": "RecruitmentSelfCreatedList__viewerRecruitments",
@@ -199,16 +195,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2ee5d60cf46a65d7cff6e8af2f2bd33e",
+    "cacheID": "d80c28b32ef171871c54586803a3fc9e",
     "id": null,
     "metadata": {},
-    "name": "DashboardRecruitments_CurrentUserRecruitmentsQuery",
+    "name": "ViewerRecruitmentsQuery",
     "operationKind": "query",
-    "text": "query DashboardRecruitments_CurrentUserRecruitmentsQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentSelfCreatedList_recruitment_2HEEH6\n}\n\nfragment RecruitmentSelfCreatedList_recruitment_2HEEH6 on Query {\n  viewerRecruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentSelfCreated_recruitment\n        ...RecruitmentSelfCreatedTrashModal_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentSelfCreatedTrashModal_recruitment on Recruitment {\n  id\n  title\n}\n\nfragment RecruitmentSelfCreated_recruitment on Recruitment {\n  id\n  title\n  status\n  createdAt\n  publishedAt\n  closingAt\n}\n"
+    "text": "query ViewerRecruitmentsQuery(\n  $after: String\n  $first: Int = 20\n) {\n  ...RecruitmentSelfCreatedList_recruitment_2HEEH6\n}\n\nfragment RecruitmentSelfCreatedList_recruitment_2HEEH6 on Query {\n  viewerRecruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentSelfCreated_recruitment\n        ...RecruitmentSelfCreatedTrashModal_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentSelfCreatedTrashModal_recruitment on Recruitment {\n  id\n  title\n}\n\nfragment RecruitmentSelfCreated_recruitment on Recruitment {\n  id\n  title\n  status\n  createdAt\n  publishedAt\n  closingAt\n}\n"
   }
 };
 })();
 
-(node as any).hash = "24a7aefec5894e36002ff49488e4de5d";
+(node as any).hash = "376b0637feba3c43dc8acfe972b110f7";
 
 export default node;

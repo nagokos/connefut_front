@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6936626fb89e3b183d273b1a5c14cfb5>>
+ * @generated SignedSource<<e5e0ccd80f38436f8009e07b0935b9a9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,16 +20,16 @@ export type UserRegisterModal_RegisterUserMutation$variables = {
 };
 export type UserRegisterModal_RegisterUserMutation$data = {
   readonly registerUser: {
-    readonly user: {
-      readonly avatar: string;
-      readonly id: string;
-      readonly name: string;
-    } | null;
     readonly userErrors: ReadonlyArray<{
       readonly __typename: "RegisterUserInvalidInputError";
       readonly field: RegisterUserInvalidInputField;
       readonly message: string;
     }>;
+    readonly viewer: {
+      readonly avatar: string;
+      readonly id: string;
+      readonly name: string;
+    } | null;
   };
 };
 export type UserRegisterModal_RegisterUserMutation = {
@@ -63,9 +63,9 @@ v1 = [
       {
         "alias": null,
         "args": null,
-        "concreteType": "User",
+        "concreteType": "Viewer",
         "kind": "LinkedField",
-        "name": "user",
+        "name": "viewer",
         "plural": false,
         "selections": [
           {
@@ -146,16 +146,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "1890f59701804bc0ab2435cf565bd1fd",
+    "cacheID": "5f087deccaba9ea54f74109991451813",
     "id": null,
     "metadata": {},
     "name": "UserRegisterModal_RegisterUserMutation",
     "operationKind": "mutation",
-    "text": "mutation UserRegisterModal_RegisterUserMutation(\n  $input: RegisterUserInput!\n) {\n  registerUser(input: $input) {\n    user {\n      id\n      name\n      avatar\n    }\n    userErrors {\n      __typename\n      message\n      field\n    }\n  }\n}\n"
+    "text": "mutation UserRegisterModal_RegisterUserMutation(\n  $input: RegisterUserInput!\n) {\n  registerUser(input: $input) {\n    viewer {\n      id\n      name\n      avatar\n    }\n    userErrors {\n      __typename\n      message\n      field\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "9f92e9cc6a27aeb987dc9822cffcebff";
+(node as any).hash = "ff01f235b0f5880130f9e76492e460d2";
 
 export default node;

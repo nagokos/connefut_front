@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<98aff7440f456e05e9224f1f88062341>>
+ * @generated SignedSource<<884f567decd5e133fd8cae83661e6dd0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,13 +11,16 @@
 import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RecruitmentSelfCreatedList_recruitment$data = {
-  readonly currentUserRecruitments: {
+  readonly viewerRecruitments: {
     readonly edges: ReadonlyArray<{
       readonly cursor: string;
       readonly node: {
         readonly " $fragmentSpreads": FragmentRefs<"RecruitmentSelfCreatedTrashModal_recruitment" | "RecruitmentSelfCreated_recruitment">;
       };
     }>;
+    readonly pageInfo: {
+      readonly endCursor: string | null;
+    };
   };
   readonly " $fragmentType": "RecruitmentSelfCreatedList_recruitment";
 };
@@ -28,7 +31,7 @@ export type RecruitmentSelfCreatedList_recruitment$key = {
 
 const node: ReaderFragment = (function(){
 var v0 = [
-  "currentUserRecruitments"
+  "viewerRecruitments"
 ];
 return {
   "argumentDefinitions": [
@@ -63,17 +66,17 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./CurrentUserRecruitmentsQuery.graphql')
+      "operation": require('./ViewerRecruitmentsQuery.graphql')
     }
   },
   "name": "RecruitmentSelfCreatedList_recruitment",
   "selections": [
     {
-      "alias": "currentUserRecruitments",
+      "alias": "viewerRecruitments",
       "args": null,
       "concreteType": "RecruitmentConnection",
       "kind": "LinkedField",
-      "name": "__RecruitmentSelfCreatedList__currentUserRecruitments_connection",
+      "name": "__RecruitmentSelfCreatedList__viewerRecruitments_connection",
       "plural": false,
       "selections": [
         {
@@ -156,6 +159,6 @@ return {
 };
 })();
 
-(node as any).hash = "7ca86288a9279fc28ad7a5ce289941f0";
+(node as any).hash = "376b0637feba3c43dc8acfe972b110f7";
 
 export default node;

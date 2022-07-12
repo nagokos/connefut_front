@@ -1,6 +1,5 @@
 import {
   Box,
-  Divider,
   IconButton,
   Spacer,
   Tooltip,
@@ -238,7 +237,6 @@ export const RecruitmentSelfCreated: FC<Props> = memo((props) => {
           )}
           {statusFormatDistanceToNow()}
         </Box>
-        <Divider borderColor="#ebf2f2" my={4} />
       </Box>
       <RecruitmentSelfCreatedApplicantsModal
         isOpen={isOpenApplicants}
