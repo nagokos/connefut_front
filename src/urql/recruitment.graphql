@@ -57,22 +57,6 @@ query GetEditRecruitment($id: String!) {
   }
 }
 
-query GetCurrentUserRecruitments {
-  currentUserRecruitments {
-    id
-    title
-    status
-    type
-    closingAt
-    createdAt
-    publishedAt
-    competition {
-      id
-      name
-    }
-  }
-}
-
 query GetAppliedRecruitments {
   appliedRecruitments {
     id
@@ -103,13 +87,6 @@ query GetStockedRecruitments {
 
 mutation UpdateRecruitment($id: String!, $input: RecruitmentInput!) {
   updateRecruitment(id: $id, input: $input) {
-    id
-    title
-  }
-}
-
-mutation DeleteRecruitment($id: String!) {
-  deleteRecruitment(id: $id) {
     id
     title
   }
