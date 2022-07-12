@@ -1,5 +1,5 @@
-query GetCurrentUserRooms {
-  getCurrentUserRooms {
+query GetViewerRooms {
+  getViewerRooms {
     id
     entrie {
       user {

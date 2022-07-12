@@ -1,5 +1,5 @@
-query CurrentUser {
-  currentUser {
+query Viewer {
+  viewer {
     id
     name
     email
