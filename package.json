@@ -13,7 +13,7 @@
     "relay": "relay-compiler"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.2.1",
+    "@chakra-ui/react": "^2.2.3",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@hookform/resolvers": "^2.9.4",
@@ -45,9 +45,9 @@
     "@graphql-codegen/cli": "2.7.0",
     "@graphql-codegen/introspection": "2.2.0",
     "@graphql-codegen/schema-ast": "^2.4.1",
-    "@graphql-codegen/typescript": "2.6.0",
+    "@graphql-codegen/typescript": "2.7.1",
     "@graphql-codegen/typescript-operations": "2.4.3",
-    "@graphql-codegen/typescript-urql": "^3.5.13",
+    "@graphql-codegen/typescript-urql": "^3.6.1",
     "@graphql-codegen/urql-introspection": "2.1.1",
     "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@types/react": "^18.0.15",
