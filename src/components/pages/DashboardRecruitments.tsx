@@ -3,31 +3,26 @@ import { FC, memo, Suspense, useEffect } from 'react';
 import { useQueryLoader } from 'react-relay';
 import { graphql } from 'relay-runtime';
 import { DashboardRecruitmentsView } from '../views';
-import { DashboardRecruitments_CurrentUserRecruitmentsQuery } from './__generated__/DashboardRecruitments_CurrentUserRecruitmentsQuery.graphql';
+import { DashboardRecruitments_ViewerQuery } from './__generated__/DashboardRecruitments_ViewerQuery.graphql';
 
-export const currentUserRecruitmentsQuery = graphql`
-  query DashboardRecruitments_CurrentUserRecruitmentsQuery(
-    $first: Int!
-    $after: String
-  ) {
+export const viewerQuery = graphql`
+  query DashboardRecruitments_ViewerQuery($first: Int!, $after: String) {
     ...RecruitmentSelfCreatedList_recruitment
       @arguments(first: $first, after: $after)
   }
 `;
 
 export const DashboardRecruitments: FC = memo(() => {
-  const [currentUserRecruitmentsQueryRef, loadCurrentUserRecruitmentsQuery] =
-    useQueryLoader<DashboardRecruitments_CurrentUserRecruitmentsQuery>(
-      currentUserRecruitmentsQuery
-    );
+  const [viewerQueryRef, loadViewerQuery] =
+    useQueryLoader<DashboardRecruitments_ViewerQuery>(viewerQuery);
 
   useEffect(() => {
-    loadCurrentUserRecruitmentsQuery({
+    loadViewerQuery({
       first: 20,
     });
   }, []);
 
-  if (!currentUserRecruitmentsQueryRef) return null;
+  if (!viewerQueryRef) return null;
 
   return (
     <Suspense
@@ -37,7 +32,7 @@ export const DashboardRecruitments: FC = memo(() => {
         </Box>
       }
     >
-      <DashboardRecruitmentsView queryRef={currentUserRecruitmentsQueryRef} />
+      <DashboardRecruitmentsView queryRef={viewerQueryRef} />
     </Suspense>
   );
 });
