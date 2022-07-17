@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<19d697f04320b05c8071ee4ac2592065>>
+ * @generated SignedSource<<455e342b115bdc94ed5de6d5568d05be>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { FragmentRefs } from "relay-runtime";
 export type Status = "CLOSED" | "DRAFT" | "PUBLISHED" | "%future added value";
 export type Type = "JOIN" | "MEMBER" | "OPPONENT" | "OTHER" | "PERSONAL" | "%future added value";
 export type RecruitmentInput = {
@@ -36,9 +37,11 @@ export type RecruitmentNewView_CreateRecruitmentMutation$variables = {
 };
 export type RecruitmentNewView_CreateRecruitmentMutation$data = {
   readonly createRecruitment: {
-    readonly cursor: string;
-    readonly node: {
-      readonly id: string;
+    readonly feedbackRecruitmentEdge: {
+      readonly cursor: string;
+      readonly node: {
+        readonly " $fragmentSpreads": FragmentRefs<"RecruitmentCard_recruitment" | "RecruitmentSelfCreatedTrashModal_recruitment" | "RecruitmentSelfCreated_recruitment">;
+      };
     };
   };
 };
@@ -69,40 +72,29 @@ v1 = [
 ],
 v2 = {
   "alias": null,
-  "args": (v1/*: any*/),
-  "concreteType": "RecruitmentEdge",
-  "kind": "LinkedField",
-  "name": "createRecruitment",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "cursor",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "Recruitment",
-      "kind": "LinkedField",
-      "name": "node",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "id",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
-  ],
+  "args": null,
+  "kind": "ScalarField",
+  "name": "cursor",
   "storageKey": null
-};
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v5 = [
+  (v4/*: any*/),
+  (v3/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -110,7 +102,55 @@ return {
     "metadata": null,
     "name": "RecruitmentNewView_CreateRecruitmentMutation",
     "selections": [
-      (v2/*: any*/)
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "RecruitmentPayload",
+        "kind": "LinkedField",
+        "name": "createRecruitment",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "RecruitmentEdge",
+            "kind": "LinkedField",
+            "name": "feedbackRecruitmentEdge",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Recruitment",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  {
+                    "args": null,
+                    "kind": "FragmentSpread",
+                    "name": "RecruitmentSelfCreated_recruitment"
+                  },
+                  {
+                    "args": null,
+                    "kind": "FragmentSpread",
+                    "name": "RecruitmentSelfCreatedTrashModal_recruitment"
+                  },
+                  {
+                    "args": null,
+                    "kind": "FragmentSpread",
+                    "name": "RecruitmentCard_recruitment"
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
     ],
     "type": "Mutation",
     "abstractKey": null
@@ -121,36 +161,152 @@ return {
     "kind": "Operation",
     "name": "RecruitmentNewView_CreateRecruitmentMutation",
     "selections": [
-      (v2/*: any*/),
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "filters": null,
-        "handle": "appendEdge",
-        "key": "",
-        "kind": "LinkedHandle",
+        "concreteType": "RecruitmentPayload",
+        "kind": "LinkedField",
         "name": "createRecruitment",
-        "handleArgs": [
+        "plural": false,
+        "selections": [
           {
-            "kind": "Variable",
-            "name": "connections",
-            "variableName": "connections"
+            "alias": null,
+            "args": null,
+            "concreteType": "RecruitmentEdge",
+            "kind": "LinkedField",
+            "name": "feedbackRecruitmentEdge",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Recruitment",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v3/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "title",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "status",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "createdAt",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "publishedAt",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "closingAt",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "type",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "User",
+                    "kind": "LinkedField",
+                    "name": "user",
+                    "plural": false,
+                    "selections": [
+                      (v3/*: any*/),
+                      (v4/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "avatar",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Competition",
+                    "kind": "LinkedField",
+                    "name": "competition",
+                    "plural": false,
+                    "selections": (v5/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Prefecture",
+                    "kind": "LinkedField",
+                    "name": "prefecture",
+                    "plural": false,
+                    "selections": (v5/*: any*/),
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "filters": null,
+            "handle": "prependEdge",
+            "key": "",
+            "kind": "LinkedHandle",
+            "name": "feedbackRecruitmentEdge",
+            "handleArgs": [
+              {
+                "kind": "Variable",
+                "name": "connections",
+                "variableName": "connections"
+              }
+            ]
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "06f412240d17591194c76fe0b247cbef",
+    "cacheID": "3dfd0d874ae55bdb8170e0545bb6eb64",
     "id": null,
     "metadata": {},
     "name": "RecruitmentNewView_CreateRecruitmentMutation",
     "operationKind": "mutation",
-    "text": "mutation RecruitmentNewView_CreateRecruitmentMutation(\n  $input: RecruitmentInput!\n) {\n  createRecruitment(input: $input) {\n    cursor\n    node {\n      id\n    }\n  }\n}\n"
+    "text": "mutation RecruitmentNewView_CreateRecruitmentMutation(\n  $input: RecruitmentInput!\n) {\n  createRecruitment(input: $input) {\n    feedbackRecruitmentEdge {\n      cursor\n      node {\n        ...RecruitmentSelfCreated_recruitment\n        ...RecruitmentSelfCreatedTrashModal_recruitment\n        ...RecruitmentCard_recruitment\n        id\n      }\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n\nfragment RecruitmentSelfCreatedTrashModal_recruitment on Recruitment {\n  id\n  title\n}\n\nfragment RecruitmentSelfCreated_recruitment on Recruitment {\n  id\n  title\n  status\n  createdAt\n  publishedAt\n  closingAt\n}\n"
   }
 };
 })();
 
-(node as any).hash = "9890d9db07f325110fe5981e296a550a";
+(node as any).hash = "6cf5538e791799b2aafb4e421655b0e5";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1c4642ec110167f8367d070be911efea>>
+ * @generated SignedSource<<8c1960cf3a6ae3d66ef859767b6e8f7a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,8 +14,11 @@ export type Recruitment_RecruitmentQuery$variables = {
   id: string;
 };
 export type Recruitment_RecruitmentQuery$data = {
+  readonly checkStocked: {
+    readonly " $fragmentSpreads": FragmentRefs<"RecruitmentStock_feedbackStock">;
+  };
   readonly recruitment: {
-    readonly " $fragmentSpreads": FragmentRefs<"RecruitmentDetails_recruitment" | "RecruitmentTagList_recruitment">;
+    readonly " $fragmentSpreads": FragmentRefs<"RecruitmentApply_recruitment" | "RecruitmentDetails_recruitment" | "RecruitmentTagList_recruitment">;
   };
 };
 export type Recruitment_RecruitmentQuery = {
@@ -38,23 +41,30 @@ v1 = [
     "variableName": "id"
   }
 ],
-v2 = {
+v2 = [
+  {
+    "kind": "Variable",
+    "name": "recruitmentId",
+    "variableName": "id"
+  }
+],
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v3 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v4 = [
-  (v2/*: any*/),
-  (v3/*: any*/)
+v5 = [
+  (v3/*: any*/),
+  (v4/*: any*/)
 ];
 return {
   "fragment": {
@@ -80,6 +90,27 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "RecruitmentTagList_recruitment"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "RecruitmentApply_recruitment"
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": (v2/*: any*/),
+        "concreteType": "FeedbackStock",
+        "kind": "LinkedField",
+        "name": "checkStocked",
+        "plural": false,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "RecruitmentStock_feedbackStock"
           }
         ],
         "storageKey": null
@@ -165,7 +196,7 @@ return {
             "kind": "LinkedField",
             "name": "competition",
             "plural": false,
-            "selections": (v4/*: any*/),
+            "selections": (v5/*: any*/),
             "storageKey": null
           },
           {
@@ -175,7 +206,7 @@ return {
             "kind": "LinkedField",
             "name": "prefecture",
             "plural": false,
-            "selections": (v4/*: any*/),
+            "selections": (v5/*: any*/),
             "storageKey": null
           },
           {
@@ -186,7 +217,7 @@ return {
             "name": "user",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
+              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -194,7 +225,7 @@ return {
                 "name": "avatar",
                 "storageKey": null
               },
-              (v3/*: any*/)
+              (v4/*: any*/)
             ],
             "storageKey": null
           },
@@ -206,28 +237,47 @@ return {
             "name": "tags",
             "plural": true,
             "selections": [
-              (v3/*: any*/),
-              (v2/*: any*/)
+              (v4/*: any*/),
+              (v3/*: any*/)
             ],
             "storageKey": null
           },
-          (v3/*: any*/)
+          (v4/*: any*/)
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": (v2/*: any*/),
+        "concreteType": "FeedbackStock",
+        "kind": "LinkedField",
+        "name": "checkStocked",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "viewerDoesStock",
+            "storageKey": null
+          },
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "76f6960772afaf2d29fb4bcfc4383f27",
+    "cacheID": "148b8306f3f6559cfd0b23001a84b025",
     "id": null,
     "metadata": {},
     "name": "Recruitment_RecruitmentQuery",
     "operationKind": "query",
-    "text": "query Recruitment_RecruitmentQuery(\n  $id: String!\n) {\n  recruitment(id: $id) {\n    ...RecruitmentDetails_recruitment\n    ...RecruitmentTagList_recruitment\n    id\n  }\n}\n\nfragment RecruitmentDetails_recruitment on Recruitment {\n  title\n  closingAt\n  startAt\n  venue\n  locationLat\n  locationLng\n  detail\n  type\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n  user {\n    name\n    avatar\n    id\n  }\n  ...RecruitmentLocationModal_recruitment\n}\n\nfragment RecruitmentLocationModal_recruitment on Recruitment {\n  locationLat\n  locationLng\n}\n\nfragment RecruitmentTagList_recruitment on Recruitment {\n  type\n  competition {\n    name\n    id\n  }\n  tags {\n    id\n    name\n  }\n}\n"
+    "text": "query Recruitment_RecruitmentQuery(\n  $id: String!\n) {\n  recruitment(id: $id) {\n    ...RecruitmentDetails_recruitment\n    ...RecruitmentTagList_recruitment\n    ...RecruitmentApply_recruitment\n    id\n  }\n  checkStocked(recruitmentId: $id) {\n    ...RecruitmentStock_feedbackStock\n    id\n  }\n}\n\nfragment RecruitmentApply_recruitment on Recruitment {\n  user {\n    id\n  }\n  closingAt\n}\n\nfragment RecruitmentDetails_recruitment on Recruitment {\n  title\n  closingAt\n  startAt\n  venue\n  locationLat\n  locationLng\n  detail\n  type\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n  user {\n    name\n    avatar\n    id\n  }\n  ...RecruitmentLocationModal_recruitment\n}\n\nfragment RecruitmentLocationModal_recruitment on Recruitment {\n  locationLat\n  locationLng\n}\n\nfragment RecruitmentStock_feedbackStock on FeedbackStock {\n  viewerDoesStock\n}\n\nfragment RecruitmentTagList_recruitment on Recruitment {\n  type\n  competition {\n    name\n    id\n  }\n  tags {\n    id\n    name\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "e0c5f0e5386d0f70bf8d349abf2b7d30";
+(node as any).hash = "abbbbf55abaa40048ad844d67312b900";
 
 export default node;

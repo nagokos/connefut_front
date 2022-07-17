@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c8d87618ab477bd2cc34fbbe9e9ae14c>>
+ * @generated SignedSource<<ecf7366f0c7861d5a4a91d352f66a526>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,7 @@ import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RecruitmentCardList_recruitment$data = {
   readonly recruitments: {
+    readonly __id: string;
     readonly edges: ReadonlyArray<{
       readonly cursor: string;
       readonly node: {
@@ -141,6 +142,18 @@ return {
             }
           ],
           "storageKey": null
+        },
+        {
+          "kind": "ClientExtension",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "__id",
+              "storageKey": null
+            }
+          ]
         }
       ],
       "storageKey": null
@@ -151,6 +164,6 @@ return {
 };
 })();
 
-(node as any).hash = "1691254461c9eebe70b246b3028a08e3";
+(node as any).hash = "e490ca2d3c3332ffeb4299d0b7cf5efa";
 
 export default node;
