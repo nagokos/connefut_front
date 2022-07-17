@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dfc8bc9cad8faa2ee4110ab32024210f>>
+ * @generated SignedSource<<1a645775addfe6c0a4ee03f60f58a109>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,16 +10,16 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type DashboardRecruitments_ViewerQuery$variables = {
+export type DashboardRecruitments_ViewerRecruitmentsQuery$variables = {
   after?: string | null;
   first: number;
 };
-export type DashboardRecruitments_ViewerQuery$data = {
+export type DashboardRecruitments_ViewerRecruitmentsQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"RecruitmentSelfCreatedList_recruitment">;
 };
-export type DashboardRecruitments_ViewerQuery = {
-  response: DashboardRecruitments_ViewerQuery$data;
-  variables: DashboardRecruitments_ViewerQuery$variables;
+export type DashboardRecruitments_ViewerRecruitmentsQuery = {
+  response: DashboardRecruitments_ViewerRecruitmentsQuery$data;
+  variables: DashboardRecruitments_ViewerRecruitmentsQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -53,7 +53,7 @@ return {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "DashboardRecruitments_ViewerQuery",
+    "name": "DashboardRecruitments_ViewerRecruitmentsQuery",
     "selections": [
       {
         "args": (v2/*: any*/),
@@ -71,7 +71,7 @@ return {
       (v0/*: any*/)
     ],
     "kind": "Operation",
-    "name": "DashboardRecruitments_ViewerQuery",
+    "name": "DashboardRecruitments_ViewerRecruitmentsQuery",
     "selections": [
       {
         "alias": null,
@@ -211,16 +211,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9d78d8d119b6e3d7bf7114399027bc0e",
+    "cacheID": "6f39428f8bf745cdb4ff63be4a7770a4",
     "id": null,
     "metadata": {},
-    "name": "DashboardRecruitments_ViewerQuery",
+    "name": "DashboardRecruitments_ViewerRecruitmentsQuery",
     "operationKind": "query",
-    "text": "query DashboardRecruitments_ViewerQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentSelfCreatedList_recruitment_2HEEH6\n}\n\nfragment RecruitmentSelfCreatedList_recruitment_2HEEH6 on Query {\n  viewerRecruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentSelfCreated_recruitment\n        ...RecruitmentSelfCreatedTrashModal_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentSelfCreatedTrashModal_recruitment on Recruitment {\n  id\n  title\n}\n\nfragment RecruitmentSelfCreated_recruitment on Recruitment {\n  id\n  title\n  status\n  createdAt\n  publishedAt\n  closingAt\n}\n"
+    "text": "query DashboardRecruitments_ViewerRecruitmentsQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentSelfCreatedList_recruitment_2HEEH6\n}\n\nfragment RecruitmentSelfCreatedList_recruitment_2HEEH6 on Query {\n  viewerRecruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentSelfCreated_recruitment\n        ...RecruitmentSelfCreatedTrashModal_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentSelfCreatedTrashModal_recruitment on Recruitment {\n  id\n  title\n}\n\nfragment RecruitmentSelfCreated_recruitment on Recruitment {\n  id\n  title\n  status\n  createdAt\n  publishedAt\n  closingAt\n}\n"
   }
 };
 })();
 
-(node as any).hash = "c040fc721972d1849835aaa397ff5a89";
+(node as any).hash = "c5fff1937dbe9d5602eee10c72f9ecc3";
 
 export default node;
