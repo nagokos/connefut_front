@@ -10,6 +10,10 @@ export const recruitmentQuery = graphql`
     recruitment(id: $id) {
       ...RecruitmentDetails_recruitment
       ...RecruitmentTagList_recruitment
+      ...RecruitmentApply_recruitment
+    }
+    checkStocked(recruitmentId: $id) {
+      ...RecruitmentStock_feedbackStock
     }
   }
 `;

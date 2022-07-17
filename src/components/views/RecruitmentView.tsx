@@ -1,7 +1,10 @@
-import { Box, Grid, GridItem } from '@chakra-ui/react';
+import { Box, Divider, Grid, GridItem } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { PreloadedQuery, usePreloadedQuery } from 'react-relay';
-import { RecruitmentDetails } from '../model/recruitment';
+import { RecruitmentApply } from '../model/recruitment/RecruitmentApply/RecruitmentApply';
+import { RecruitmentDetails } from '../model/recruitment/RecruitmentDetails/RecruitmentDetails';
+import { RecruitmentStock } from '../model/recruitment/RecruitmentStock/RecruitmentStock';
+
 import { RecruitmentTagList } from '../model/recruitment/RecruitmentTagList/RecruitmentTagList';
 import { recruitmentQuery } from '../pages/Recruitment';
 import { Recruitment_RecruitmentQuery } from '../pages/__generated__/Recruitment_RecruitmentQuery.graphql';
@@ -36,9 +39,9 @@ export const RecruitmentView: FC<Props> = memo((props) => {
                 boxShadow="0 2px 4px #4385bb12"
                 rounded="lg"
               >
-                {/* <Apply />
-                <Divider my={6} />
-                <Stock /> */}
+                <RecruitmentApply recruitment={data.recruitment} />
+                <Divider mt={5} mb={6} />
+                <RecruitmentStock feedbackStock={data.checkStocked} />
               </Box>
             </Box>
           </GridItem>

@@ -1,8 +1,10 @@
 import { Box, Button, Divider } from '@chakra-ui/react';
-import { FC, memo } from 'react';
+import { FC, memo, useEffect } from 'react';
 import { usePaginationFragment } from 'react-relay';
+import { useSetRecoilState } from 'recoil';
 import { graphql } from 'relay-runtime';
-import { DashboardRecruitments_CurrentUserRecruitmentsQuery } from '../../../pages/__generated__/DashboardRecruitments_CurrentUserRecruitmentsQuery.graphql';
+import { recruitmentSelfCreatedConnection } from '../../../../recoil/recruitment';
+import { DashboardRecruitments_ViewerQuery } from '../../../pages/__generated__/DashboardRecruitments_ViewerQuery.graphql';
 import { RecruitmentSelfCreated } from '../RecruitmentSelfCreated/RecruitmentSelfCreated';
 import { RecruitmentSelfCreatedList_recruitment$key } from './__generated__/RecruitmentSelfCreatedList_recruitment.graphql';
 
@@ -15,6 +17,7 @@ const recruitmentsFragment = graphql`
   @refetchable(queryName: "ViewerRecruitmentsQuery") {
     viewerRecruitments(first: $first, after: $after)
       @connection(key: "RecruitmentSelfCreatedList__viewerRecruitments") {
+      __id
       edges {
         cursor
         node {
@@ -37,23 +40,28 @@ export const RecruitmentSelfCreatedList: FC<Props> = memo((props) => {
   const { recruitment } = props;
 
   const { data, loadNext, hasNext } = usePaginationFragment<
-    DashboardRecruitments_CurrentUserRecruitmentsQuery,
+    DashboardRecruitments_ViewerQuery,
     RecruitmentSelfCreatedList_recruitment$key
   >(recruitmentsFragment, recruitment);
+
+  const setValue = useSetRecoilState(recruitmentSelfCreatedConnection);
+
+  useEffect(() => {
+    setValue(data.viewerRecruitments.__id);
+  }, []);
 
   return (
     <>
       {data.viewerRecruitments.edges.map((edge) => (
-        <>
+        <Box key={edge.cursor}>
           <RecruitmentSelfCreated
             recruitment={edge.node}
             trashRecruitment={edge.node}
-            key={edge.cursor}
           />
           {data.viewerRecruitments.pageInfo.endCursor !== edge.cursor && (
             <Divider borderColor="#ebf2f2" my={4} />
           )}
-        </>
+        </Box>
       ))}
       {hasNext && (
         <Box display="flex" justifyContent="center" mt={10} mb={4}>
