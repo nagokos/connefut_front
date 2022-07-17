@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<018d7372f94b3ee39a8b16f4e4d15f56>>
+ * @generated SignedSource<<01827721bf18273122b576c8430647f6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,11 +10,12 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation$variables = {
+  connections: ReadonlyArray<string>;
   id: string;
 };
 export type RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation$data = {
   readonly deleteRecruitment: {
-    readonly id: string;
+    readonly deletedRecruitmentId: string;
   };
 };
 export type RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation = {
@@ -24,6 +25,11 @@ export type RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation = {
 
 const node: ConcreteRequest = (function(){
 var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "connections"
+  },
   {
     "defaultValue": null,
     "kind": "LocalArgument",
@@ -41,7 +47,7 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "deletedRecruitmentId",
   "storageKey": null
 };
 return {
@@ -54,7 +60,7 @@ return {
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Recruitment",
+        "concreteType": "DeleteRecruitmentPayload",
         "kind": "LinkedField",
         "name": "deleteRecruitment",
         "plural": false,
@@ -76,7 +82,7 @@ return {
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Recruitment",
+        "concreteType": "DeleteRecruitmentPayload",
         "kind": "LinkedField",
         "name": "deleteRecruitment",
         "plural": false,
@@ -86,10 +92,17 @@ return {
             "alias": null,
             "args": null,
             "filters": null,
-            "handle": "deleteRecord",
+            "handle": "deleteEdge",
             "key": "",
             "kind": "ScalarHandle",
-            "name": "id"
+            "name": "deletedRecruitmentId",
+            "handleArgs": [
+              {
+                "kind": "Variable",
+                "name": "connections",
+                "variableName": "connections"
+              }
+            ]
           }
         ],
         "storageKey": null
@@ -97,16 +110,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5ed2974abd2c4332a05628d537fb324e",
+    "cacheID": "6583c19ce3dfd602a9129871c6907eca",
     "id": null,
     "metadata": {},
     "name": "RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation",
     "operationKind": "mutation",
-    "text": "mutation RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation(\n  $id: String!\n) {\n  deleteRecruitment(id: $id) {\n    id\n  }\n}\n"
+    "text": "mutation RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation(\n  $id: String!\n) {\n  deleteRecruitment(id: $id) {\n    deletedRecruitmentId\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "fa8f08cb56e1d8c0fe467bf44fb650a7";
+(node as any).hash = "7ded9bee1744221c9a40cb01676f9686";
 
 export default node;

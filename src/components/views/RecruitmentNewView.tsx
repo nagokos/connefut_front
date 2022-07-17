@@ -5,9 +5,13 @@ import { PreloadedQuery, useMutation, usePreloadedQuery } from 'react-relay';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { graphql } from 'relay-runtime';
-import { recruitmentsIDState } from '../../recoil/user';
+import {
+  recruitmentCardConnection,
+  recruitmentSelfCreatedConnection,
+} from '../../recoil/recruitment';
+
 import { recruitmentSchema } from '../../yup/recruitmentSchema';
-import { RecruitmentForm } from '../model/recruitment';
+import { RecruitmentForm } from '../model/recruitment/RecruitmentForm/RecruitmentForm';
 import { recruitmentNewQuery } from '../pages/RecruitmentNew';
 import { RecruitmentNew_RecruitmentNewQuery } from '../pages/__generated__/RecruitmentNew_RecruitmentNewQuery.graphql';
 import {
@@ -20,10 +24,14 @@ const createRecruitmentMutation = graphql`
     $connections: [ID!]!
     $input: RecruitmentInput!
   ) {
-    createRecruitment(input: $input) @appendEdge(connections: $connections) {
-      cursor
-      node {
-        id
+    createRecruitment(input: $input) {
+      feedbackRecruitmentEdge @prependEdge(connections: $connections) {
+        cursor
+        node {
+          ...RecruitmentSelfCreated_recruitment
+          ...RecruitmentSelfCreatedTrashModal_recruitment
+          ...RecruitmentCard_recruitment
+        }
       }
     }
   }
@@ -37,7 +45,8 @@ export const RecruitmentNewView: FC<Props> = memo((props) => {
   const { queryRef } = props;
 
   const navigate = useNavigate();
-  const value = useRecoilValue(recruitmentsIDState);
+  const selfConnection = useRecoilValue(recruitmentSelfCreatedConnection);
+  const cardConnection = useRecoilValue(recruitmentCardConnection);
 
   const data = usePreloadedQuery<RecruitmentNew_RecruitmentNewQuery>(
     recruitmentNewQuery,
@@ -69,13 +78,14 @@ export const RecruitmentNewView: FC<Props> = memo((props) => {
       mode: 'onChange',
     });
 
-  console.log(isInFlight);
-
   const onSubmit = (values: RecruitmentInput) => {
     commit({
       variables: {
         input: values,
-        connections: [value],
+        connections:
+          values.status === 'PUBLISHED'
+            ? [selfConnection, cardConnection]
+            : [selfConnection],
       },
       onCompleted(response, errors) {
         if (errors) {

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0dd34e8af6c306f75a18f77ced44a66c>>
+ * @generated SignedSource<<dfc8bc9cad8faa2ee4110ab32024210f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,16 +10,16 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type DashboardRecruitments_CurrentUserRecruitmentsQuery$variables = {
+export type DashboardRecruitments_ViewerQuery$variables = {
   after?: string | null;
   first: number;
 };
-export type DashboardRecruitments_CurrentUserRecruitmentsQuery$data = {
+export type DashboardRecruitments_ViewerQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"RecruitmentSelfCreatedList_recruitment">;
 };
-export type DashboardRecruitments_CurrentUserRecruitmentsQuery = {
-  response: DashboardRecruitments_CurrentUserRecruitmentsQuery$data;
-  variables: DashboardRecruitments_CurrentUserRecruitmentsQuery$variables;
+export type DashboardRecruitments_ViewerQuery = {
+  response: DashboardRecruitments_ViewerQuery$data;
+  variables: DashboardRecruitments_ViewerQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -53,7 +53,7 @@ return {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "DashboardRecruitments_CurrentUserRecruitmentsQuery",
+    "name": "DashboardRecruitments_ViewerQuery",
     "selections": [
       {
         "args": (v2/*: any*/),
@@ -71,7 +71,7 @@ return {
       (v0/*: any*/)
     ],
     "kind": "Operation",
-    "name": "DashboardRecruitments_CurrentUserRecruitmentsQuery",
+    "name": "DashboardRecruitments_ViewerQuery",
     "selections": [
       {
         "alias": null,
@@ -183,6 +183,18 @@ return {
               }
             ],
             "storageKey": null
+          },
+          {
+            "kind": "ClientExtension",
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "__id",
+                "storageKey": null
+              }
+            ]
           }
         ],
         "storageKey": null
@@ -199,16 +211,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2ee5d60cf46a65d7cff6e8af2f2bd33e",
+    "cacheID": "9d78d8d119b6e3d7bf7114399027bc0e",
     "id": null,
     "metadata": {},
-    "name": "DashboardRecruitments_CurrentUserRecruitmentsQuery",
+    "name": "DashboardRecruitments_ViewerQuery",
     "operationKind": "query",
-    "text": "query DashboardRecruitments_CurrentUserRecruitmentsQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentSelfCreatedList_recruitment_2HEEH6\n}\n\nfragment RecruitmentSelfCreatedList_recruitment_2HEEH6 on Query {\n  viewerRecruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentSelfCreated_recruitment\n        ...RecruitmentSelfCreatedTrashModal_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentSelfCreatedTrashModal_recruitment on Recruitment {\n  id\n  title\n}\n\nfragment RecruitmentSelfCreated_recruitment on Recruitment {\n  id\n  title\n  status\n  createdAt\n  publishedAt\n  closingAt\n}\n"
+    "text": "query DashboardRecruitments_ViewerQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentSelfCreatedList_recruitment_2HEEH6\n}\n\nfragment RecruitmentSelfCreatedList_recruitment_2HEEH6 on Query {\n  viewerRecruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentSelfCreated_recruitment\n        ...RecruitmentSelfCreatedTrashModal_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentSelfCreatedTrashModal_recruitment on Recruitment {\n  id\n  title\n}\n\nfragment RecruitmentSelfCreated_recruitment on Recruitment {\n  id\n  title\n  status\n  createdAt\n  publishedAt\n  closingAt\n}\n"
   }
 };
 })();
 
-(node as any).hash = "24a7aefec5894e36002ff49488e4de5d";
+(node as any).hash = "c040fc721972d1849835aaa397ff5a89";
 
 export default node;

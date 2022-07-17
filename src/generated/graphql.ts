@@ -73,6 +73,11 @@ export type CreateTagInput = {
   name: Scalars['String'];
 };
 
+export type DeleteRecruitmentPayload = {
+  __typename?: 'DeleteRecruitmentPayload';
+  deletedRecruitmentId: Scalars['ID'];
+};
+
 export type Edge = {
   cursor: Scalars['String'];
   node: Node;
@@ -96,6 +101,12 @@ export type FeedbackApplicant = Node & {
   __typename?: 'FeedbackApplicant';
   id: Scalars['ID'];
   isAppliedFor: Scalars['Boolean'];
+};
+
+export type FeedbackStock = Node & {
+  __typename?: 'FeedbackStock';
+  id: Scalars['ID'];
+  viewerDoesStock: Scalars['Boolean'];
 };
 
 export type LoginUserAuthenticationError = Error & {
@@ -138,16 +149,16 @@ export type Message = {
 export type Mutation = {
   __typename?: 'Mutation';
   addRecruitmentTag: Scalars['Boolean'];
+  addStock: FeedbackStock;
   applyForRecruitment: ApplyForRecruitmentPayload;
   createMessage: Message;
-  createRecruitment: RecruitmentEdge;
-  createStock: Scalars['Boolean'];
+  createRecruitment: RecruitmentPayload;
   createTag: Tag;
-  deleteRecruitment: Recruitment;
-  deleteStock: Scalars['Boolean'];
+  deleteRecruitment: DeleteRecruitmentPayload;
   loginUser: LoginUserPayload;
   logoutUser: Scalars['Boolean'];
   registerUser: RegisterUserPayload;
+  removeStock: FeedbackStock;
   updateRecruitment: Recruitment;
 };
 
@@ -155,6 +166,11 @@ export type Mutation = {
 export type MutationAddRecruitmentTagArgs = {
   recruitmentId: Scalars['String'];
   tagId: Scalars['String'];
+};
+
+
+export type MutationAddStockArgs = {
+  recruitmentId: Scalars['String'];
 };
 
 
@@ -175,11 +191,6 @@ export type MutationCreateRecruitmentArgs = {
 };
 
 
-export type MutationCreateStockArgs = {
-  recruitmentId: Scalars['String'];
-};
-
-
 export type MutationCreateTagArgs = {
   input: CreateTagInput;
 };
@@ -190,11 +201,6 @@ export type MutationDeleteRecruitmentArgs = {
 };
 
 
-export type MutationDeleteStockArgs = {
-  recruitmentId: Scalars['String'];
-};
-
-
 export type MutationLoginUserArgs = {
   input: LoginUserInput;
 };
@@ -202,6 +208,11 @@ export type MutationLoginUserArgs = {
 
 export type MutationRegisterUserArgs = {
   input: RegisterUserInput;
+};
+
+
+export type MutationRemoveStockArgs = {
+  recruitmentId: Scalars['String'];
 };
 
 
@@ -233,11 +244,11 @@ export type Query = {
   __typename?: 'Query';
   appliedRecruitments: Array<Recruitment>;
   checkAppliedForRecruitment: FeedbackApplicant;
-  checkStocked: Scalars['Boolean'];
+  checkStocked: FeedbackStock;
   competitions: Array<Competition>;
   getEntrieUser: User;
   getRoomMessages: Array<Message>;
-  getStockedCount: Scalars['Int'];
+  getStockedCount: FeedbackStock;
   getViewerRooms: Array<Room>;
   node?: Maybe<Node>;
   prefectures: Array<Prefecture>;
@@ -343,6 +354,11 @@ export type RecruitmentInput = {
   title: Scalars['String'];
   type: Type;
   venue?: InputMaybe<Scalars['String']>;
+};
+
+export type RecruitmentPayload = {
+  __typename?: 'RecruitmentPayload';
+  feedbackRecruitmentEdge: RecruitmentEdge;
 };
 
 export type RegisterUserInput = {
@@ -506,27 +522,6 @@ export type GetViewerRoomsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetViewerRoomsQuery = { __typename?: 'Query', getViewerRooms: Array<{ __typename?: 'Room', id: string, entrie: { __typename?: 'Entrie', user: { __typename?: 'User', name: string, avatar: string } } }> };
-
-export type CheckStockedQueryVariables = Exact<{
-  recruitmentId: Scalars['String'];
-}>;
-
-
-export type CheckStockedQuery = { __typename?: 'Query', checkStocked: boolean };
-
-export type CreateStockMutationVariables = Exact<{
-  recruitmentId: Scalars['String'];
-}>;
-
-
-export type CreateStockMutation = { __typename?: 'Mutation', createStock: boolean };
-
-export type DeleteStockMutationVariables = Exact<{
-  recruitmentId: Scalars['String'];
-}>;
-
-
-export type DeleteStockMutation = { __typename?: 'Mutation', deleteStock: boolean };
 
 export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -758,33 +753,6 @@ export const GetViewerRoomsDocument = gql`
 
 export function useGetViewerRoomsQuery(options?: Omit<Urql.UseQueryArgs<GetViewerRoomsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetViewerRoomsQuery>({ query: GetViewerRoomsDocument, ...options });
-};
-export const CheckStockedDocument = gql`
-    query CheckStocked($recruitmentId: String!) {
-  checkStocked(recruitmentId: $recruitmentId)
-}
-    `;
-
-export function useCheckStockedQuery(options: Omit<Urql.UseQueryArgs<CheckStockedQueryVariables>, 'query'>) {
-  return Urql.useQuery<CheckStockedQuery>({ query: CheckStockedDocument, ...options });
-};
-export const CreateStockDocument = gql`
-    mutation CreateStock($recruitmentId: String!) {
-  createStock(recruitmentId: $recruitmentId)
-}
-    `;
-
-export function useCreateStockMutation() {
-  return Urql.useMutation<CreateStockMutation, CreateStockMutationVariables>(CreateStockDocument);
-};
-export const DeleteStockDocument = gql`
-    mutation DeleteStock($recruitmentId: String!) {
-  deleteStock(recruitmentId: $recruitmentId)
-}
-    `;
-
-export function useDeleteStockMutation() {
-  return Urql.useMutation<DeleteStockMutation, DeleteStockMutationVariables>(DeleteStockDocument);
 };
 export const GetTagsDocument = gql`
     query GetTags {
@@ -1127,6 +1095,24 @@ export default {
         ]
       },
       {
+        "kind": "OBJECT",
+        "name": "DeleteRecruitmentPayload",
+        "fields": [
+          {
+            "name": "deletedRecruitmentId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
         "kind": "INTERFACE",
         "name": "Edge",
         "fields": [
@@ -1242,6 +1228,40 @@ export default {
           },
           {
             "name": "isAppliedFor",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node"
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "FeedbackStock",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "viewerDoesStock",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -1448,6 +1468,29 @@ export default {
             ]
           },
           {
+            "name": "addStock",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "FeedbackStock",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "recruitmentId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "applyForRecruitment",
             "type": {
               "kind": "NON_NULL",
@@ -1516,35 +1559,13 @@ export default {
               "kind": "NON_NULL",
               "ofType": {
                 "kind": "OBJECT",
-                "name": "RecruitmentEdge",
+                "name": "RecruitmentPayload",
                 "ofType": null
               }
             },
             "args": [
               {
                 "name": "input",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "createStock",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": [
-              {
-                "name": "recruitmentId",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -1584,35 +1605,13 @@ export default {
               "kind": "NON_NULL",
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Recruitment",
+                "name": "DeleteRecruitmentPayload",
                 "ofType": null
               }
             },
             "args": [
               {
                 "name": "id",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "deleteStock",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": [
-              {
-                "name": "recruitmentId",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -1670,6 +1669,29 @@ export default {
             "args": [
               {
                 "name": "input",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "removeStock",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "FeedbackStock",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "recruitmentId",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -1745,6 +1767,10 @@ export default {
           {
             "kind": "OBJECT",
             "name": "FeedbackApplicant"
+          },
+          {
+            "kind": "OBJECT",
+            "name": "FeedbackStock"
           },
           {
             "kind": "OBJECT",
@@ -1908,8 +1934,9 @@ export default {
             "type": {
               "kind": "NON_NULL",
               "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
+                "kind": "OBJECT",
+                "name": "FeedbackStock",
+                "ofType": null
               }
             },
             "args": [
@@ -2000,8 +2027,9 @@ export default {
             "type": {
               "kind": "NON_NULL",
               "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
+                "kind": "OBJECT",
+                "name": "FeedbackStock",
+                "ofType": null
               }
             },
             "args": [
@@ -2465,6 +2493,25 @@ export default {
             "name": "Edge"
           }
         ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "RecruitmentPayload",
+        "fields": [
+          {
+            "name": "feedbackRecruitmentEdge",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "RecruitmentEdge",
+                "ofType": null
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
       },
       {
         "kind": "OBJECT",

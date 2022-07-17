@@ -11,7 +11,13 @@ import {
 } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 import { useFragment, useMutation } from 'react-relay';
+import { useRecoilValue } from 'recoil';
 import { graphql } from 'relay-runtime';
+import {
+  recruitmentCardConnection,
+  recruitmentSelfCreatedConnection,
+} from '../../../../recoil/recruitment';
+
 import { RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation } from './__generated__/RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation.graphql';
 import { RecruitmentSelfCreatedTrashModal_recruitment$key } from './__generated__/RecruitmentSelfCreatedTrashModal_recruitment.graphql';
 
@@ -24,10 +30,11 @@ const recruitmentFragemnt = graphql`
 
 const deleteRecruitmentMutation = graphql`
   mutation RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation(
+    $connections: [ID!]!
     $id: String!
   ) {
     deleteRecruitment(id: $id) {
-      id @deleteRecord
+      deletedRecruitmentId @deleteEdge(connections: $connections)
     }
   }
 `;
@@ -40,6 +47,9 @@ type Props = {
 
 export const RecruitmentSelfCreatedTrashModal: FC<Props> = memo((props) => {
   const { isOpen, onClose, recruitment } = props;
+
+  const selfConnection = useRecoilValue(recruitmentSelfCreatedConnection);
+  const cardConnection = useRecoilValue(recruitmentCardConnection);
 
   const recruitmentData =
     useFragment<RecruitmentSelfCreatedTrashModal_recruitment$key>(
@@ -56,6 +66,7 @@ export const RecruitmentSelfCreatedTrashModal: FC<Props> = memo((props) => {
     commit({
       variables: {
         id: String(recruitmentData.id),
+        connections: [selfConnection, cardConnection],
       },
       onCompleted(response, errors) {
         if (!errors) {

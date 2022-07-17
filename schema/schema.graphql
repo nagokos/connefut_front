@@ -62,6 +62,10 @@ input CreateTagInput {
 
 scalar DateTime
 
+type DeleteRecruitmentPayload {
+  deletedRecruitmentId: ID!
+}
+
 interface Edge {
   cursor: String!
   node: Node!
@@ -83,6 +87,11 @@ interface Error {
 type FeedbackApplicant implements Node {
   id: ID!
   isAppliedFor: Boolean!
+}
+
+type FeedbackStock implements Node {
+  id: ID!
+  viewerDoesStock: Boolean!
 }
 
 type LoginUserAuthenticationError implements Error {
@@ -120,16 +129,16 @@ type Message {
 
 type Mutation {
   addRecruitmentTag(recruitmentId: String!, tagId: String!): Boolean!
+  addStock(recruitmentId: String!): FeedbackStock!
   applyForRecruitment(input: applicantInput, recruitmentId: String!): ApplyForRecruitmentPayload!
   createMessage(input: createMessageInput!, roomId: String!): Message!
-  createRecruitment(input: RecruitmentInput!): RecruitmentEdge!
-  createStock(recruitmentId: String!): Boolean!
+  createRecruitment(input: RecruitmentInput!): RecruitmentPayload!
   createTag(input: CreateTagInput!): Tag!
-  deleteRecruitment(id: String!): Recruitment!
-  deleteStock(recruitmentId: String!): Boolean!
+  deleteRecruitment(id: String!): DeleteRecruitmentPayload!
   loginUser(input: LoginUserInput!): LoginUserPayload!
   logoutUser: Boolean!
   registerUser(input: RegisterUserInput!): RegisterUserPayload!
+  removeStock(recruitmentId: String!): FeedbackStock!
   updateRecruitment(id: String!, input: RecruitmentInput!): Recruitment!
 }
 
@@ -153,11 +162,11 @@ type Prefecture implements Node {
 type Query {
   appliedRecruitments: [Recruitment!]!
   checkAppliedForRecruitment(recruitmentId: String!): FeedbackApplicant!
-  checkStocked(recruitmentId: String!): Boolean!
+  checkStocked(recruitmentId: String!): FeedbackStock!
   competitions: [Competition!]!
   getEntrieUser(roomId: String!): User!
   getRoomMessages(roomId: String!): [Message!]!
-  getStockedCount(recruitmentId: String!): Int!
+  getStockedCount(recruitmentId: String!): FeedbackStock!
   getViewerRooms: [Room!]!
   node(id: ID!): Node
   prefectures: [Prefecture!]!
@@ -213,6 +222,10 @@ input RecruitmentInput {
   title: String!
   type: Type!
   venue: String
+}
+
+type RecruitmentPayload {
+  feedbackRecruitmentEdge: RecruitmentEdge!
 }
 
 input RegisterUserInput {
