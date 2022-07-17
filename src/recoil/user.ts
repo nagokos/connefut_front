@@ -15,11 +15,6 @@ export const viewerState = atom<viewer | null>({
   default: null,
 });
 
-export const recruitmentsIDState = atom<string>({
-  key: 'recruitmentsIDState',
-  default: '',
-});
-
 export const viewerQuery = graphQLSelector({
   key: 'viewer',
   environment: RelayEnvironment,
