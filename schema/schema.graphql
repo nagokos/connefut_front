@@ -90,7 +90,9 @@ type FeedbackApplicant implements Node {
 }
 
 type FeedbackStock implements Node {
+  feedbackRecruitmentEdge: RecruitmentEdge
   id: ID!
+  removedRecruitmentId: ID
   viewerDoesStock: Boolean!
 }
 
@@ -117,7 +119,7 @@ enum LoginUserInvalidInputField {
 
 type LoginUserPayload {
   userErrors: [LoginUserError!]!
-  viewer: Viewer
+  viewer: User
 }
 
 type Message {
@@ -172,9 +174,9 @@ type Query {
   prefectures: [Prefecture!]!
   recruitment(id: String!): Recruitment!
   recruitments(after: String, first: Int): RecruitmentConnection!
-  stockedRecruitments: [Recruitment!]!
+  stockedRecruitments(after: String, first: Int): RecruitmentConnection!
   tags: [Tag!]!
-  viewer: Viewer
+  viewer: User
   viewerRecruitments(after: String, first: Int): RecruitmentConnection!
 }
 
@@ -247,7 +249,7 @@ enum RegisterUserInvalidInputField {
 
 type RegisterUserPayload {
   userErrors: [RegisterUserInvalidInputError!]!
-  viewer: Viewer
+  viewer: User
 }
 
 enum Role {
@@ -281,16 +283,6 @@ enum Type {
 }
 
 type User implements Node {
-  avatar: String!
-  databaseId: Int!
-  email: String!
-  emailVerificationStatus: EmailVerificationStatus!
-  id: ID!
-  introduction: String
-  name: String!
-}
-
-type Viewer implements Node {
   avatar: String!
   databaseId: Int!
   email: String!
