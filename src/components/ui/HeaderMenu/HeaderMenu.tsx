@@ -69,7 +69,7 @@ export const HeaderMenu: FC = memo(() => {
       ),
       title: 'ストックの管理',
       divider: true,
-      onClick: () => navigate('/dashboard/stocks'),
+      onClick: () => navigate('/dashboard/stocked'),
     },
     {
       icon: <MdOutlineSettings color="RGBA(0, 0, 0, 0.48)" fontSize={19} />,

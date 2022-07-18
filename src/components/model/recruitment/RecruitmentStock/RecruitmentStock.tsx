@@ -3,7 +3,9 @@ import { FC, memo } from 'react';
 import { MdBookmark, MdOutlineBookmarkBorder } from 'react-icons/md';
 import { useFragment, useMutation } from 'react-relay';
 import { useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import { graphql } from 'relay-runtime';
+import { recruitmentStockedConnection } from '../../../../recoil/recruitment';
 import { RecruitmentStock_AddStockMutation } from './__generated__/RecruitmentStock_AddStockMutation.graphql';
 
 import { RecruitmentStock_feedbackStock$key } from './__generated__/RecruitmentStock_feedbackStock.graphql';
@@ -16,17 +18,29 @@ const feedbackStockFragment = graphql`
 `;
 
 const addStockMutation = graphql`
-  mutation RecruitmentStock_AddStockMutation($recruitmentId: String!) {
+  mutation RecruitmentStock_AddStockMutation(
+    $connections: [ID!]!
+    $recruitmentId: String!
+  ) {
     addStock(recruitmentId: $recruitmentId) {
       ...RecruitmentStock_feedbackStock
+      feedbackRecruitmentEdge @prependEdge(connections: $connections) {
+        node {
+          ...RecruitmentStocked_recruitment
+        }
+      }
     }
   }
 `;
 
 const removeStockMutation = graphql`
-  mutation RecruitmentStock_RemoveStockMutation($recruitmentId: String!) {
+  mutation RecruitmentStock_RemoveStockMutation(
+    $connections: [ID!]!
+    $recruitmentId: String!
+  ) {
     removeStock(recruitmentId: $recruitmentId) {
       ...RecruitmentStock_feedbackStock
+      removedRecruitmentId @deleteEdge(connections: $connections)
     }
   }
 `;
@@ -50,10 +64,13 @@ export const RecruitmentStock: FC<Props> = memo((props) => {
   const [commitRemove, isInFlightRemove] =
     useMutation<RecruitmentStock_RemoveStockMutation>(removeStockMutation);
 
+  const stockedConnection = useRecoilValue(recruitmentStockedConnection);
+
   const addStock = () => {
     commitAdd({
       variables: {
         recruitmentId: String(recruitmentId),
+        connections: [stockedConnection],
       },
     });
   };
@@ -62,6 +79,7 @@ export const RecruitmentStock: FC<Props> = memo((props) => {
     commitRemove({
       variables: {
         recruitmentId: String(recruitmentId),
+        connections: [stockedConnection],
       },
     });
   };

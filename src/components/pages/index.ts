@@ -6,6 +6,6 @@ export { RecruitmentEdit } from './RecruitmentEdit';
 export { Recruitment } from './Recruitment';
 export { Dashboard } from './Dashboard';
 export { DashboardRecruitments } from './DashboardRecruitments';
-export { DashboardStocks } from './DashboardStocks';
+export { DashboardStocked } from './DashboardStocked';
 export { Messages } from './Messages';
 export { MessagesRoom } from './MessagesRoom';
