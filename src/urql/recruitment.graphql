@@ -72,19 +72,6 @@ query GetAppliedRecruitments {
   }
 }
 
-query GetStockedRecruitments {
-  stockedRecruitments {
-    id
-    title
-    closingAt
-    user {
-      id
-      name
-      avatar
-    }
-  }
-}
-
 mutation UpdateRecruitment($id: String!, $input: RecruitmentInput!) {
   updateRecruitment(id: $id, input: $input) {
     id
