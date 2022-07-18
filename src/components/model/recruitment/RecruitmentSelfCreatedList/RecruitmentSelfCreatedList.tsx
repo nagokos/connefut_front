@@ -4,7 +4,7 @@ import { usePaginationFragment } from 'react-relay';
 import { useSetRecoilState } from 'recoil';
 import { graphql } from 'relay-runtime';
 import { recruitmentSelfCreatedConnection } from '../../../../recoil/recruitment';
-import { DashboardRecruitments_ViewerQuery } from '../../../pages/__generated__/DashboardRecruitments_ViewerQuery.graphql';
+import { DashboardRecruitments_ViewerRecruitmentsQuery } from '../../../pages/__generated__/DashboardRecruitments_ViewerRecruitmentsQuery.graphql';
 import { RecruitmentSelfCreated } from '../RecruitmentSelfCreated/RecruitmentSelfCreated';
 import { RecruitmentSelfCreatedList_recruitment$key } from './__generated__/RecruitmentSelfCreatedList_recruitment.graphql';
 
@@ -40,7 +40,7 @@ export const RecruitmentSelfCreatedList: FC<Props> = memo((props) => {
   const { recruitment } = props;
 
   const { data, loadNext, hasNext } = usePaginationFragment<
-    DashboardRecruitments_ViewerQuery,
+    DashboardRecruitments_ViewerRecruitmentsQuery,
     RecruitmentSelfCreatedList_recruitment$key
   >(recruitmentsFragment, recruitment);
 

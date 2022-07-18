@@ -7,7 +7,7 @@ import {
   Dashboard,
   Recruitment,
   DashboardRecruitments,
-  DashboardStocks,
+  DashboardStocked,
   RecruitmentEdit,
   Messages,
   MessagesRoom,
@@ -45,7 +45,7 @@ export const routes = (isLoggedIn: boolean) => [
     children: [
       { path: '/dashboard', element: <DashboardRecruitments /> },
       { path: 'applied', element: <DashboardApplied /> },
-      { path: 'stocks', element: <DashboardStocks /> },
+      { path: 'stocked', element: <DashboardStocked /> },
     ],
   },
   {

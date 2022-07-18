@@ -27,3 +27,5 @@ export { RecruitmentSelfCreatedTrashModal } from './RecruitmentSelfCreatedTrashM
 export { RecruitmentSelfCreatedApplicantsModal } from './RecruitmentSelfCreatedApplicantsModal/RecruitmentSelfCreatedApplicantsModal';
 export { RecruitmentApply } from './RecruitmentApply/RecruitmentApply';
 export { RecruitmentStock } from './RecruitmentStock/RecruitmentStock';
+export { RecruitmentStocked } from './RecruitmentStocked/RecruitmentStock';
+export { RecruitmentStockedList } from './RecruitmentStockedList/RecruitmentStockedList';

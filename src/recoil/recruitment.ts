@@ -9,3 +9,8 @@ export const recruitmentCardConnection = atom<string>({
   key: 'recruitmentCardConnection',
   default: '',
 });
+
+export const recruitmentStockedConnection = atom<string>({
+  key: 'recruitmentStockedConnection',
+  default: '',
+});

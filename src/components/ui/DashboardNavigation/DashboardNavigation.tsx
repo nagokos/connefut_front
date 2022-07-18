@@ -18,7 +18,7 @@ export const DashboardNavigation: FC = memo(() => {
         alignItems="center"
         cursor="pointer"
         color={
-          !location.pathname.includes('stocks') &&
+          !location.pathname.includes('stocked') &&
           !location.pathname.includes('applied')
             ? 'black'
             : 'blackAlpha.500'
@@ -55,9 +55,9 @@ export const DashboardNavigation: FC = memo(() => {
         display="flex"
         alignItems="center"
         color={
-          location.pathname.includes('stocks') ? 'black' : 'blackAlpha.500'
+          location.pathname.includes('stocked') ? 'black' : 'blackAlpha.500'
         }
-        onClick={() => navigate('/dashboard/stocks')}
+        onClick={() => navigate('/dashboard/stocked')}
         _hover={{ color: 'black' }}
       >
         <Box fontSize={20} px={2} py={2} rounded="lg" color="primary.main">

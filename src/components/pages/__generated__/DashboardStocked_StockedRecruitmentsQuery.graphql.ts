@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dfc8bc9cad8faa2ee4110ab32024210f>>
+ * @generated SignedSource<<7a1b83b3074246dd25a78e67a4b4b708>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,16 +10,16 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type DashboardRecruitments_ViewerQuery$variables = {
+export type DashboardStocked_StockedRecruitmentsQuery$variables = {
   after?: string | null;
   first: number;
 };
-export type DashboardRecruitments_ViewerQuery$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"RecruitmentSelfCreatedList_recruitment">;
+export type DashboardStocked_StockedRecruitmentsQuery$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"RecruitmentStockedList_recruitment">;
 };
-export type DashboardRecruitments_ViewerQuery = {
-  response: DashboardRecruitments_ViewerQuery$data;
-  variables: DashboardRecruitments_ViewerQuery$variables;
+export type DashboardStocked_StockedRecruitmentsQuery = {
+  response: DashboardStocked_StockedRecruitmentsQuery$data;
+  variables: DashboardStocked_StockedRecruitmentsQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -44,7 +44,14 @@ v2 = [
     "name": "first",
     "variableName": "first"
   }
-];
+],
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -53,12 +60,12 @@ return {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "DashboardRecruitments_ViewerQuery",
+    "name": "DashboardStocked_StockedRecruitmentsQuery",
     "selections": [
       {
         "args": (v2/*: any*/),
         "kind": "FragmentSpread",
-        "name": "RecruitmentSelfCreatedList_recruitment"
+        "name": "RecruitmentStockedList_recruitment"
       }
     ],
     "type": "Query",
@@ -71,14 +78,14 @@ return {
       (v0/*: any*/)
     ],
     "kind": "Operation",
-    "name": "DashboardRecruitments_ViewerQuery",
+    "name": "DashboardStocked_StockedRecruitmentsQuery",
     "selections": [
       {
         "alias": null,
         "args": (v2/*: any*/),
         "concreteType": "RecruitmentConnection",
         "kind": "LinkedField",
-        "name": "viewerRecruitments",
+        "name": "stockedRecruitments",
         "plural": false,
         "selections": [
           {
@@ -104,13 +111,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  },
+                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -122,28 +123,33 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "status",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "createdAt",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "publishedAt",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
                     "name": "closingAt",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "User",
+                    "kind": "LinkedField",
+                    "name": "user",
+                    "plural": false,
+                    "selections": [
+                      (v3/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "name",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "avatar",
+                        "storageKey": null
+                      }
+                    ],
                     "storageKey": null
                   },
                   {
@@ -204,23 +210,23 @@ return {
         "args": (v2/*: any*/),
         "filters": null,
         "handle": "connection",
-        "key": "RecruitmentSelfCreatedList__viewerRecruitments",
+        "key": "RecruitmentSelfCreatedList__stockedRecruitments",
         "kind": "LinkedHandle",
-        "name": "viewerRecruitments"
+        "name": "stockedRecruitments"
       }
     ]
   },
   "params": {
-    "cacheID": "9d78d8d119b6e3d7bf7114399027bc0e",
+    "cacheID": "1c240a87cabb11b30d0581101eaaacd5",
     "id": null,
     "metadata": {},
-    "name": "DashboardRecruitments_ViewerQuery",
+    "name": "DashboardStocked_StockedRecruitmentsQuery",
     "operationKind": "query",
-    "text": "query DashboardRecruitments_ViewerQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentSelfCreatedList_recruitment_2HEEH6\n}\n\nfragment RecruitmentSelfCreatedList_recruitment_2HEEH6 on Query {\n  viewerRecruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentSelfCreated_recruitment\n        ...RecruitmentSelfCreatedTrashModal_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentSelfCreatedTrashModal_recruitment on Recruitment {\n  id\n  title\n}\n\nfragment RecruitmentSelfCreated_recruitment on Recruitment {\n  id\n  title\n  status\n  createdAt\n  publishedAt\n  closingAt\n}\n"
+    "text": "query DashboardStocked_StockedRecruitmentsQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentStockedList_recruitment_2HEEH6\n}\n\nfragment RecruitmentStockedList_recruitment_2HEEH6 on Query {\n  stockedRecruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentStocked_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentStocked_recruitment on Recruitment {\n  id\n  title\n  closingAt\n  user {\n    id\n    name\n    avatar\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "c040fc721972d1849835aaa397ff5a89";
+(node as any).hash = "059671e8afacc7ef503e05cdb688a64a";
 
 export default node;

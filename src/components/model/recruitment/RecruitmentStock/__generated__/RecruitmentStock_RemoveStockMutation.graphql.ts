@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<09db74cd8e907890c6b5f9d27c0ce0e4>>
+ * @generated SignedSource<<2ce5161589fc26b3b201d1320d6ac499>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,10 +11,12 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RecruitmentStock_RemoveStockMutation$variables = {
+  connections: ReadonlyArray<string>;
   recruitmentId: string;
 };
 export type RecruitmentStock_RemoveStockMutation$data = {
   readonly removeStock: {
+    readonly removedRecruitmentId: string | null;
     readonly " $fragmentSpreads": FragmentRefs<"RecruitmentStock_feedbackStock">;
   };
 };
@@ -28,6 +30,11 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
+    "name": "connections"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
     "name": "recruitmentId"
   }
 ],
@@ -37,7 +44,14 @@ v1 = [
     "name": "recruitmentId",
     "variableName": "recruitmentId"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "removedRecruitmentId",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -57,7 +71,8 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "RecruitmentStock_feedbackStock"
-          }
+          },
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
@@ -86,6 +101,23 @@ return {
             "name": "viewerDoesStock",
             "storageKey": null
           },
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "filters": null,
+            "handle": "deleteEdge",
+            "key": "",
+            "kind": "ScalarHandle",
+            "name": "removedRecruitmentId",
+            "handleArgs": [
+              {
+                "kind": "Variable",
+                "name": "connections",
+                "variableName": "connections"
+              }
+            ]
+          },
           {
             "alias": null,
             "args": null,
@@ -99,16 +131,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ce304c7255f145a799dcbd68a51e2a56",
+    "cacheID": "39972e69f3e37824783cc7172b9269a7",
     "id": null,
     "metadata": {},
     "name": "RecruitmentStock_RemoveStockMutation",
     "operationKind": "mutation",
-    "text": "mutation RecruitmentStock_RemoveStockMutation(\n  $recruitmentId: String!\n) {\n  removeStock(recruitmentId: $recruitmentId) {\n    ...RecruitmentStock_feedbackStock\n    id\n  }\n}\n\nfragment RecruitmentStock_feedbackStock on FeedbackStock {\n  viewerDoesStock\n}\n"
+    "text": "mutation RecruitmentStock_RemoveStockMutation(\n  $recruitmentId: String!\n) {\n  removeStock(recruitmentId: $recruitmentId) {\n    ...RecruitmentStock_feedbackStock\n    removedRecruitmentId\n    id\n  }\n}\n\nfragment RecruitmentStock_feedbackStock on FeedbackStock {\n  viewerDoesStock\n}\n"
   }
 };
 })();
 
-(node as any).hash = "86f0b2cfcc4accaac27fdd32bd0b0193";
+(node as any).hash = "7412c58bae5c8dedc801795370328a67";
 
 export default node;

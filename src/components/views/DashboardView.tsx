@@ -7,7 +7,7 @@ export const DashboardView: FC = memo(() => {
   const location = useLocation();
 
   const pageTitle = () => {
-    if (location.pathname.includes('stocks')) {
+    if (location.pathname.includes('stocked')) {
       return 'ストックリスト';
     } else if (location.pathname.includes('applied')) {
       return '応募管理';

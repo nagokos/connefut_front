@@ -105,7 +105,9 @@ export type FeedbackApplicant = Node & {
 
 export type FeedbackStock = Node & {
   __typename?: 'FeedbackStock';
+  feedbackRecruitmentEdge?: Maybe<RecruitmentEdge>;
   id: Scalars['ID'];
+  removedRecruitmentId?: Maybe<Scalars['ID']>;
   viewerDoesStock: Scalars['Boolean'];
 };
 
@@ -135,7 +137,7 @@ export enum LoginUserInvalidInputField {
 export type LoginUserPayload = {
   __typename?: 'LoginUserPayload';
   userErrors: Array<LoginUserError>;
-  viewer?: Maybe<Viewer>;
+  viewer?: Maybe<User>;
 };
 
 export type Message = {
@@ -254,9 +256,9 @@ export type Query = {
   prefectures: Array<Prefecture>;
   recruitment: Recruitment;
   recruitments: RecruitmentConnection;
-  stockedRecruitments: Array<Recruitment>;
+  stockedRecruitments: RecruitmentConnection;
   tags: Array<Tag>;
-  viewer?: Maybe<Viewer>;
+  viewer?: Maybe<User>;
   viewerRecruitments: RecruitmentConnection;
 };
 
@@ -297,6 +299,12 @@ export type QueryRecruitmentArgs = {
 
 
 export type QueryRecruitmentsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryStockedRecruitmentsArgs = {
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
 };
@@ -382,7 +390,7 @@ export enum RegisterUserInvalidInputField {
 export type RegisterUserPayload = {
   __typename?: 'RegisterUserPayload';
   userErrors: Array<RegisterUserInvalidInputError>;
-  viewer?: Maybe<Viewer>;
+  viewer?: Maybe<User>;
 };
 
 export enum Role {
@@ -419,17 +427,6 @@ export enum Type {
 
 export type User = Node & {
   __typename?: 'User';
-  avatar: Scalars['String'];
-  databaseId: Scalars['Int'];
-  email: Scalars['String'];
-  emailVerificationStatus: EmailVerificationStatus;
-  id: Scalars['ID'];
-  introduction?: Maybe<Scalars['String']>;
-  name: Scalars['String'];
-};
-
-export type Viewer = Node & {
-  __typename?: 'Viewer';
   avatar: Scalars['String'];
   databaseId: Scalars['Int'];
   email: Scalars['String'];
@@ -505,11 +502,6 @@ export type GetAppliedRecruitmentsQueryVariables = Exact<{ [key: string]: never;
 
 export type GetAppliedRecruitmentsQuery = { __typename?: 'Query', appliedRecruitments: Array<{ __typename?: 'Recruitment', id: string, title: string, applicant?: { __typename?: 'Applicant', createdAt: any } | null, user: { __typename?: 'User', id: string, name: string, avatar: string } }> };
 
-export type GetStockedRecruitmentsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetStockedRecruitmentsQuery = { __typename?: 'Query', stockedRecruitments: Array<{ __typename?: 'Recruitment', id: string, title: string, closingAt?: any | null, user: { __typename?: 'User', id: string, name: string, avatar: string } }> };
-
 export type UpdateRecruitmentMutationVariables = Exact<{
   id: Scalars['String'];
   input: RecruitmentInput;
@@ -538,7 +530,7 @@ export type CreateTagMutation = { __typename?: 'Mutation', createTag: { __typena
 export type ViewerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ViewerQuery = { __typename?: 'Query', viewer?: { __typename?: 'Viewer', id: string, name: string, email: string, role: Role, avatar: string, introduction?: string | null, emailVerificationStatus: EmailVerificationStatus } | null };
+export type ViewerQuery = { __typename?: 'Query', viewer?: { __typename?: 'User', id: string, name: string, email: string, role: Role, avatar: string, introduction?: string | null, emailVerificationStatus: EmailVerificationStatus } | null };
 
 
 export const GetCompetitionsDocument = gql`
@@ -706,24 +698,6 @@ export const GetAppliedRecruitmentsDocument = gql`
 
 export function useGetAppliedRecruitmentsQuery(options?: Omit<Urql.UseQueryArgs<GetAppliedRecruitmentsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAppliedRecruitmentsQuery>({ query: GetAppliedRecruitmentsDocument, ...options });
-};
-export const GetStockedRecruitmentsDocument = gql`
-    query GetStockedRecruitments {
-  stockedRecruitments {
-    id
-    title
-    closingAt
-    user {
-      id
-      name
-      avatar
-    }
-  }
-}
-    `;
-
-export function useGetStockedRecruitmentsQuery(options?: Omit<Urql.UseQueryArgs<GetStockedRecruitmentsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetStockedRecruitmentsQuery>({ query: GetStockedRecruitmentsDocument, ...options });
 };
 export const UpdateRecruitmentDocument = gql`
     mutation UpdateRecruitment($id: String!, $input: RecruitmentInput!) {
@@ -1250,6 +1224,15 @@ export default {
         "name": "FeedbackStock",
         "fields": [
           {
+            "name": "feedbackRecruitmentEdge",
+            "type": {
+              "kind": "OBJECT",
+              "name": "RecruitmentEdge",
+              "ofType": null
+            },
+            "args": []
+          },
+          {
             "name": "id",
             "type": {
               "kind": "NON_NULL",
@@ -1257,6 +1240,14 @@ export default {
                 "kind": "SCALAR",
                 "name": "Any"
               }
+            },
+            "args": []
+          },
+          {
+            "name": "removedRecruitmentId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
@@ -1376,7 +1367,7 @@ export default {
             "name": "viewer",
             "type": {
               "kind": "OBJECT",
-              "name": "Viewer",
+              "name": "User",
               "ofType": null
             },
             "args": []
@@ -1787,10 +1778,6 @@ export default {
           {
             "kind": "OBJECT",
             "name": "User"
-          },
-          {
-            "kind": "OBJECT",
-            "name": "Viewer"
           }
         ]
       },
@@ -2156,18 +2143,27 @@ export default {
             "type": {
               "kind": "NON_NULL",
               "ofType": {
-                "kind": "LIST",
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "Recruitment",
-                    "ofType": null
-                  }
-                }
+                "kind": "OBJECT",
+                "name": "RecruitmentConnection",
+                "ofType": null
               }
             },
-            "args": []
+            "args": [
+              {
+                "name": "after",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "first",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              }
+            ]
           },
           {
             "name": "tags",
@@ -2191,7 +2187,7 @@ export default {
             "name": "viewer",
             "type": {
               "kind": "OBJECT",
-              "name": "Viewer",
+              "name": "User",
               "ofType": null
             },
             "args": []
@@ -2573,7 +2569,7 @@ export default {
             "name": "viewer",
             "type": {
               "kind": "OBJECT",
-              "name": "Viewer",
+              "name": "User",
               "ofType": null
             },
             "args": []
@@ -2659,92 +2655,6 @@ export default {
       {
         "kind": "OBJECT",
         "name": "User",
-        "fields": [
-          {
-            "name": "avatar",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "databaseId",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "email",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "emailVerificationStatus",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "id",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "introduction",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "name",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          }
-        ],
-        "interfaces": [
-          {
-            "kind": "INTERFACE",
-            "name": "Node"
-          }
-        ]
-      },
-      {
-        "kind": "OBJECT",
-        "name": "Viewer",
         "fields": [
           {
             "name": "avatar",
