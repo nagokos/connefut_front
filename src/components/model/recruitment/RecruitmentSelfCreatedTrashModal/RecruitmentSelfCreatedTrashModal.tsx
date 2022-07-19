@@ -16,6 +16,7 @@ import { graphql } from 'relay-runtime';
 import {
   recruitmentCardConnection,
   recruitmentSelfCreatedConnection,
+  recruitmentStockedConnection,
 } from '../../../../recoil/recruitment';
 
 import { RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation } from './__generated__/RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation.graphql';
@@ -31,7 +32,7 @@ const recruitmentFragemnt = graphql`
 const deleteRecruitmentMutation = graphql`
   mutation RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation(
     $connections: [ID!]!
-    $id: String!
+    $id: ID!
   ) {
     deleteRecruitment(id: $id) {
       deletedRecruitmentId @deleteEdge(connections: $connections)
@@ -50,6 +51,7 @@ export const RecruitmentSelfCreatedTrashModal: FC<Props> = memo((props) => {
 
   const selfConnection = useRecoilValue(recruitmentSelfCreatedConnection);
   const cardConnection = useRecoilValue(recruitmentCardConnection);
+  const stockedConnection = useRecoilValue(recruitmentStockedConnection);
 
   const recruitmentData =
     useFragment<RecruitmentSelfCreatedTrashModal_recruitment$key>(
@@ -62,11 +64,23 @@ export const RecruitmentSelfCreatedTrashModal: FC<Props> = memo((props) => {
       deleteRecruitmentMutation
     );
 
+  const connections = () => {
+    if (cardConnection && stockedConnection) {
+      return [selfConnection, cardConnection, stockedConnection];
+    } else if (cardConnection) {
+      return [selfConnection, cardConnection];
+    } else if (stockedConnection) {
+      return [selfConnection, stockedConnection];
+    } else {
+      return [selfConnection];
+    }
+  };
+
   const deleteRecruitment = () => {
     commit({
       variables: {
         id: String(recruitmentData.id),
-        connections: [selfConnection, cardConnection],
+        connections: connections(),
       },
       onCompleted(response, errors) {
         if (!errors) {

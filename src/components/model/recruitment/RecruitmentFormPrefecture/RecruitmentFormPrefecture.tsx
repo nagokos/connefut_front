@@ -17,7 +17,6 @@ const prefecturesFragemnt = graphql`
   @relay(plural: true) {
     id
     name
-    databaseId
   }
 `;
 
@@ -40,22 +39,22 @@ export const RecruitmentFormPrefecture: FC<Props> = memo((props) => {
     data?: RecruitmentFormPrefecture_prefectures$data
   ): SelectOption[] | undefined => {
     return data?.map((node) => {
-      return { value: String(node.databaseId), label: node.name };
+      return { value: String(node.id), label: node.name };
     });
   };
 
   const selectValue = () => {
     const findPrefecture = prefecturesData.find(
-      (prefecture) => String(prefecture.databaseId) === watchPrefectureId
+      (prefecture) => String(prefecture.id) === watchPrefectureId
     );
 
     if (findPrefecture) {
       return {
         label: String(findPrefecture.name),
-        value: String(findPrefecture.databaseId),
+        value: String(findPrefecture.id),
       };
     } else {
-      return { label: '', value: '' };
+      return { label: prefecturesData[0].name, value: prefecturesData[0].id };
     }
   };
 
@@ -63,7 +62,7 @@ export const RecruitmentFormPrefecture: FC<Props> = memo((props) => {
     <Controller
       control={control}
       name="prefectureId"
-      defaultValue=""
+      defaultValue={prefecturesData[0].id}
       render={({ field }) => (
         <FormControl>
           <FormLabel
@@ -79,6 +78,7 @@ export const RecruitmentFormPrefecture: FC<Props> = memo((props) => {
             ref={field.ref}
             onChange={(e) => field.onChange(e?.value)}
             placeholder=""
+            defaultValue={selectValue()}
             value={selectValue()}
             components={{
               IndicatorSeparator: () => null,

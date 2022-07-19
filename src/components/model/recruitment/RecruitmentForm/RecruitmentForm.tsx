@@ -3,14 +3,7 @@ import { FC, memo, useEffect } from 'react';
 import { registerLocale } from 'react-datepicker';
 import ja from 'date-fns/locale/ja';
 registerLocale('ja', ja);
-import {
-  Control,
-  FormState,
-  UseFormHandleSubmit,
-  UseFormResetField,
-  UseFormSetValue,
-  UseFormWatch,
-} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import { RecruitmentInput } from '../../../views/__generated__/RecruitmentNewView_CreateRecruitmentMutation.graphql';
 import { useFlash } from '../../../../hooks/useFlash';
@@ -31,34 +24,75 @@ import { RecruitmentFormCompetition_competitions$key } from '../RecruitmentFormC
 import { RecruitmentFormPrefecture_prefectures$key } from '../RecruitmentFormPrefecture/__generated__/RecruitmentFormPrefecture_prefectures.graphql';
 import { RecruitmentFormTag_tags$key } from '../RecruitmentFormTag/__generated__/RecruitmentFormTag_tags.graphql';
 import { DividerText } from '../../../ui';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { recruitmentSchema } from '../../../../yup/recruitmentSchema';
+import { graphql } from 'relay-runtime';
+import { useFragment } from 'react-relay';
+import { RecruitmentForm_recruitment$key } from './__generated__/RecruitmentForm_recruitment.graphql';
+
+const recruitmentFragment = graphql`
+  fragment RecruitmentForm_recruitment on Recruitment {
+    title
+    competition {
+      id
+    }
+    type
+    detail
+    startAt
+    closingAt
+    prefecture {
+      id
+    }
+    status
+    venue
+    locationLat
+    locationLng
+    tags {
+      id
+      name
+    }
+  }
+`;
 
 type Props = {
   competitions: RecruitmentFormCompetition_competitions$key;
   prefectures: RecruitmentFormPrefecture_prefectures$key;
   tags: RecruitmentFormTag_tags$key;
-  control: Control<RecruitmentInput>;
-  resetField: UseFormResetField<RecruitmentInput>;
-  handleSubmit: UseFormHandleSubmit<RecruitmentInput>;
-  setValue: UseFormSetValue<RecruitmentInput>;
-  watch: UseFormWatch<RecruitmentInput>;
   isInFlight: boolean;
-  formState: FormState<RecruitmentInput>;
   onSubmit: (values: RecruitmentInput) => void;
+  recruitment: RecruitmentForm_recruitment$key | null;
 };
 
 export const RecruitmentForm: FC<Props> = memo((props) => {
-  const {
-    watch,
-    control,
-    handleSubmit,
-    setValue,
-    isInFlight,
-    onSubmit,
-    competitions,
-    prefectures,
-    formState,
-    tags,
-  } = props;
+  const { competitions, prefectures, tags, isInFlight, onSubmit, recruitment } =
+    props;
+
+  const recruitmentData = useFragment<RecruitmentForm_recruitment$key>(
+    recruitmentFragment,
+    recruitment
+  );
+
+  console.log(recruitmentData?.prefecture?.id);
+
+  const { control, handleSubmit, watch, resetField, setValue, formState } =
+    useForm<RecruitmentInput>({
+      defaultValues: {
+        title: recruitmentData?.title || '',
+        competitionId: recruitmentData?.competition.id || undefined,
+        type: recruitmentData?.type || 'OPPONENT',
+        detail: recruitmentData?.detail || '',
+        prefectureId: recruitmentData?.prefecture?.id || undefined,
+        venue: recruitmentData?.venue || '',
+        startAt: recruitmentData?.startAt || '',
+        status: recruitmentData?.status || 'DRAFT',
+        closingAt: recruitmentData?.closingAt || '',
+        locationLat: recruitmentData?.locationLat || undefined,
+        locationLng: recruitmentData?.locationLng || undefined,
+        tags: recruitmentData?.tags || [],
+      },
+      resolver: yupResolver(recruitmentSchema),
+      mode: 'onChange',
+    });
 
   const { showFlash } = useFlash();
   const watchType = watch('type');

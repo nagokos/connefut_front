@@ -1,6 +1,4 @@
-import { yupResolver } from '@hookform/resolvers/yup';
 import { FC, memo } from 'react';
-import { useForm } from 'react-hook-form';
 import { PreloadedQuery, useMutation, usePreloadedQuery } from 'react-relay';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
@@ -10,13 +8,13 @@ import {
   recruitmentSelfCreatedConnection,
 } from '../../recoil/recruitment';
 
-import { recruitmentSchema } from '../../yup/recruitmentSchema';
 import { RecruitmentForm } from '../model/recruitment/RecruitmentForm/RecruitmentForm';
 import { recruitmentNewQuery } from '../pages/RecruitmentNew';
 import { RecruitmentNew_RecruitmentNewQuery } from '../pages/__generated__/RecruitmentNew_RecruitmentNewQuery.graphql';
 import {
   RecruitmentInput,
   RecruitmentNewView_CreateRecruitmentMutation,
+  Status,
 } from './__generated__/RecruitmentNewView_CreateRecruitmentMutation.graphql';
 
 const createRecruitmentMutation = graphql`
@@ -31,6 +29,7 @@ const createRecruitmentMutation = graphql`
           ...RecruitmentSelfCreated_recruitment
           ...RecruitmentSelfCreatedTrashModal_recruitment
           ...RecruitmentCard_recruitment
+          ...RecruitmentForm_recruitment
         }
       }
     }
@@ -58,34 +57,27 @@ export const RecruitmentNewView: FC<Props> = memo((props) => {
       createRecruitmentMutation
     );
 
-  const { control, handleSubmit, watch, resetField, setValue, formState } =
-    useForm<RecruitmentInput>({
-      defaultValues: {
-        title: '',
-        competitionId: undefined,
-        type: 'OPPONENT',
-        detail: '',
-        prefectureId: null,
-        venue: '',
-        startAt: '',
-        status: 'DRAFT',
-        closingAt: '',
-        locationLat: undefined,
-        locationLng: undefined,
-        tags: [],
-      },
-      resolver: yupResolver(recruitmentSchema),
-      mode: 'onChange',
-    });
+  const connections = (status: Status) => {
+    if (status === 'PUBLISHED') {
+      if (cardConnection && selfConnection) {
+        return [selfConnection, cardConnection];
+      } else if (cardConnection) {
+        return [cardConnection];
+      } else if (selfConnection) {
+        return [selfConnection];
+      } else {
+        return [];
+      }
+    } else {
+      return [selfConnection];
+    }
+  };
 
   const onSubmit = (values: RecruitmentInput) => {
     commit({
       variables: {
         input: values,
-        connections:
-          values.status === 'PUBLISHED'
-            ? [selfConnection, cardConnection]
-            : [selfConnection],
+        connections: connections(values.status),
       },
       onCompleted(response, errors) {
         if (errors) {
@@ -106,12 +98,7 @@ export const RecruitmentNewView: FC<Props> = memo((props) => {
   return (
     <RecruitmentForm
       {...data}
-      control={control}
-      handleSubmit={handleSubmit}
-      watch={watch}
-      resetField={resetField}
-      setValue={setValue}
-      formState={formState}
+      recruitment={null}
       isInFlight={isInFlight}
       onSubmit={onSubmit}
     />

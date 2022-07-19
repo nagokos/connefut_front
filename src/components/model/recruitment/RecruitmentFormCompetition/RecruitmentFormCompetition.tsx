@@ -21,7 +21,6 @@ const competitionsFragment = graphql`
   @relay(plural: true) {
     id
     name
-    databaseId
   }
 `;
 
@@ -62,8 +61,7 @@ export const RecruitmentFormCompetition: FC<Props> = memo((props) => {
           <Box as="span" mr={1}>
             {watchCompetitionId
               ? competitionsData.find(
-                  (competition) =>
-                    String(competition.databaseId) === watchCompetitionId
+                  (competition) => competition.id === watchCompetitionId
                 )?.name
               : competitionsData[0].name}
           </Box>
@@ -74,10 +72,10 @@ export const RecruitmentFormCompetition: FC<Props> = memo((props) => {
         <Controller
           control={control}
           name="competitionId"
-          defaultValue={String(competitionsData[0].databaseId)}
+          defaultValue={String(competitionsData[0].id)}
           render={({ field }) => (
             <MenuOptionGroup
-              defaultValue={String(competitionsData[0].databaseId)}
+              defaultValue={String(competitionsData[0].id)}
               title="募集競技"
               fontSize={12.5}
               type="radio"
@@ -85,9 +83,9 @@ export const RecruitmentFormCompetition: FC<Props> = memo((props) => {
             >
               {competitionsData.map((competition) => (
                 <MenuItemOption
-                  key={String(competition.databaseId)}
+                  key={String(competition.id)}
                   bg="white"
-                  value={String(competition.databaseId)}
+                  value={String(competition.id)}
                   fontSize={12}
                   fontFamily="Noto Sans JP"
                   icon={

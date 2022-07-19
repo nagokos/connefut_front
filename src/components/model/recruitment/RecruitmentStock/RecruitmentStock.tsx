@@ -20,7 +20,7 @@ const feedbackStockFragment = graphql`
 const addStockMutation = graphql`
   mutation RecruitmentStock_AddStockMutation(
     $connections: [ID!]!
-    $recruitmentId: String!
+    $recruitmentId: ID!
   ) {
     addStock(recruitmentId: $recruitmentId) {
       ...RecruitmentStock_feedbackStock
@@ -36,7 +36,7 @@ const addStockMutation = graphql`
 const removeStockMutation = graphql`
   mutation RecruitmentStock_RemoveStockMutation(
     $connections: [ID!]!
-    $recruitmentId: String!
+    $recruitmentId: ID!
   ) {
     removeStock(recruitmentId: $recruitmentId) {
       ...RecruitmentStock_feedbackStock

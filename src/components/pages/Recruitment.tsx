@@ -6,7 +6,7 @@ import { RecruitmentView } from '../views';
 import { Recruitment_RecruitmentQuery } from './__generated__/Recruitment_RecruitmentQuery.graphql';
 
 export const recruitmentQuery = graphql`
-  query Recruitment_RecruitmentQuery($id: String!) {
+  query Recruitment_RecruitmentQuery($id: ID!) {
     recruitment(id: $id) {
       ...RecruitmentDetails_recruitment
       ...RecruitmentTagList_recruitment
