@@ -1,4 +1,4 @@
-DC = docker-compose
+DC = docker compose
 DC_FRONT = $(DC) exec front
 
 package_name:
