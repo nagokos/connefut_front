@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1b224272dc807e8adeee0a5650bc4b01>>
+ * @generated SignedSource<<c19eb56b77533ceca3553f72b9628965>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,6 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RecruitmentFormCompetition_competitions$data = ReadonlyArray<{
-  readonly databaseId: number;
   readonly id: string;
   readonly name: string;
   readonly " $fragmentType": "RecruitmentFormCompetition_competitions";
@@ -42,19 +41,12 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "name",
       "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "databaseId",
-      "storageKey": null
     }
   ],
   "type": "Competition",
   "abstractKey": null
 };
 
-(node as any).hash = "4dbd6c7efff9160671990c605b1dfc18";
+(node as any).hash = "1f09f2a3fd3adab54f59125f1a99aa13";
 
 export default node;

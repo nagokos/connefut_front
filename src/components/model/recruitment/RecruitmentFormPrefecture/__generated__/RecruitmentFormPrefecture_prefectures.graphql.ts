@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<63d6c1ed5032e6905bfb0a45d0a7a6dc>>
+ * @generated SignedSource<<50ae10f92d076e80abfa5fc90c346615>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,6 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RecruitmentFormPrefecture_prefectures$data = ReadonlyArray<{
-  readonly databaseId: number;
   readonly id: string;
   readonly name: string;
   readonly " $fragmentType": "RecruitmentFormPrefecture_prefectures";
@@ -42,19 +41,12 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "name",
       "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "databaseId",
-      "storageKey": null
     }
   ],
   "type": "Prefecture",
   "abstractKey": null
 };
 
-(node as any).hash = "033440275601cd8566d4d699b22663d0";
+(node as any).hash = "0b2c5c1a73fe1650e017ce33d4d674a8";
 
 export default node;

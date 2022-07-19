@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4c9fa1190dee525f1cc2ba5dde225501>>
+ * @generated SignedSource<<ae7efc8d7027ead255a2f7924ac66637>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -217,16 +217,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6f9cf47e9f5e20e855c20462cb59cc6a",
+    "cacheID": "a53f70ab09cadcbd813f26ee1fe98da1",
     "id": null,
     "metadata": {},
     "name": "RecruitmentStock_AddStockMutation",
     "operationKind": "mutation",
-    "text": "mutation RecruitmentStock_AddStockMutation(\n  $recruitmentId: String!\n) {\n  addStock(recruitmentId: $recruitmentId) {\n    ...RecruitmentStock_feedbackStock\n    feedbackRecruitmentEdge {\n      node {\n        ...RecruitmentStocked_recruitment\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment RecruitmentStock_feedbackStock on FeedbackStock {\n  viewerDoesStock\n}\n\nfragment RecruitmentStocked_recruitment on Recruitment {\n  id\n  title\n  closingAt\n  user {\n    id\n    name\n    avatar\n  }\n}\n"
+    "text": "mutation RecruitmentStock_AddStockMutation(\n  $recruitmentId: ID!\n) {\n  addStock(recruitmentId: $recruitmentId) {\n    ...RecruitmentStock_feedbackStock\n    feedbackRecruitmentEdge {\n      node {\n        ...RecruitmentStocked_recruitment\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment RecruitmentStock_feedbackStock on FeedbackStock {\n  viewerDoesStock\n}\n\nfragment RecruitmentStocked_recruitment on Recruitment {\n  id\n  title\n  closingAt\n  user {\n    id\n    name\n    avatar\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "ad8088ccfcdea83c9de5004681f2157f";
+(node as any).hash = "8d3a3017a5206e44657063f06565d1f5";
 
 export default node;

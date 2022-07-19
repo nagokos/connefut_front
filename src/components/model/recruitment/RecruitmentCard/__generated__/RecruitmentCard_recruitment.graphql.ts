@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a3df0f944550dfa933cae5105f2ec86f>>
+ * @generated SignedSource<<50533de474c44edffac91a39116ca3ba>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,7 +19,7 @@ export type RecruitmentCard_recruitment$data = {
   readonly id: string;
   readonly prefecture: {
     readonly name: string;
-  } | null;
+  };
   readonly publishedAt: string | null;
   readonly title: string;
   readonly type: Type;

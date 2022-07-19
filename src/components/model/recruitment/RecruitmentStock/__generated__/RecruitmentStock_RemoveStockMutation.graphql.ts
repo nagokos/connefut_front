@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2ce5161589fc26b3b201d1320d6ac499>>
+ * @generated SignedSource<<acd09a1304c26e1b7f889b96b9530bd0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -131,16 +131,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "39972e69f3e37824783cc7172b9269a7",
+    "cacheID": "5768e771e83e76d1794d69e6e7aa4651",
     "id": null,
     "metadata": {},
     "name": "RecruitmentStock_RemoveStockMutation",
     "operationKind": "mutation",
-    "text": "mutation RecruitmentStock_RemoveStockMutation(\n  $recruitmentId: String!\n) {\n  removeStock(recruitmentId: $recruitmentId) {\n    ...RecruitmentStock_feedbackStock\n    removedRecruitmentId\n    id\n  }\n}\n\nfragment RecruitmentStock_feedbackStock on FeedbackStock {\n  viewerDoesStock\n}\n"
+    "text": "mutation RecruitmentStock_RemoveStockMutation(\n  $recruitmentId: ID!\n) {\n  removeStock(recruitmentId: $recruitmentId) {\n    ...RecruitmentStock_feedbackStock\n    removedRecruitmentId\n    id\n  }\n}\n\nfragment RecruitmentStock_feedbackStock on FeedbackStock {\n  viewerDoesStock\n}\n"
   }
 };
 })();
 
-(node as any).hash = "7412c58bae5c8dedc801795370328a67";
+(node as any).hash = "bcaa008c7fd95b8694858646003bd946";
 
 export default node;
