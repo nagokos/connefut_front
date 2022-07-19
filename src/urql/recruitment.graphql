@@ -1,4 +1,4 @@
-query GetRecruitment($id: String!) {
+query GetRecruitment($id: ID!) {
   recruitment(id: $id) {
     id
     title
@@ -27,33 +27,6 @@ query GetRecruitment($id: String!) {
     }
     locationLat
     locationLng
-  }
-}
-
-query GetEditRecruitment($id: String!) {
-  recruitment(id: $id) {
-    id
-    title
-    type
-    venue
-    startAt
-    detail
-    closingAt
-    competition {
-      id
-      name
-    }
-    prefecture {
-      id
-      name
-    }
-    locationLat
-    locationLng
-    status
-    tags {
-      id
-      name
-    }
   }
 }
 
@@ -69,12 +42,5 @@ query GetAppliedRecruitments {
       name
       avatar
     }
-  }
-}
-
-mutation UpdateRecruitment($id: String!, $input: RecruitmentInput!) {
-  updateRecruitment(id: $id, input: $input) {
-    id
-    title
   }
 }
