@@ -72,8 +72,6 @@ export const RecruitmentForm: FC<Props> = memo((props) => {
     recruitment
   );
 
-  console.log(recruitmentData?.prefecture?.id);
-
   const { control, handleSubmit, watch, resetField, setValue, formState } =
     useForm<RecruitmentInput>({
       defaultValues: {
