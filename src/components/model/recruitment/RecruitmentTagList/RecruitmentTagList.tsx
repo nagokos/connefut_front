@@ -37,11 +37,11 @@ export const RecruitmentTagList: FC<Props> = memo((props) => {
   const typeDisplayName = (type: Type) => {
     if (type === 'OPPONENT') {
       return '対戦相手';
-    } else if (type === 'INDIVIDUAL') {
+    } else if (type === 'PERSONAL') {
       return '個人プレーヤ';
     } else if (type === 'MEMBER') {
       return 'メンバー';
-    } else if (type === 'JOINING') {
+    } else if (type === 'JOIN') {
       return 'チーム加入';
     } else {
       return 'その他';
@@ -51,11 +51,11 @@ export const RecruitmentTagList: FC<Props> = memo((props) => {
   const typeIcon = (type: Type) => {
     if (type === 'OPPONENT') {
       return '🤝';
-    } else if (type === 'INDIVIDUAL') {
+    } else if (type === 'PERSONAL') {
       return '💪';
     } else if (type === 'MEMBER') {
       return '🧑‍🤝‍🧑';
-    } else if (type === 'JOINING') {
+    } else if (type === 'JOIN') {
       return '🙏';
     } else {
       return '💭';

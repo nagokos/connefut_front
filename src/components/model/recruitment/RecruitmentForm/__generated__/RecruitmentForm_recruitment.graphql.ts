@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9b0ac0df47aac4e0cbcdb3de8cf382e5>>
+ * @generated SignedSource<<743cb001f994b82e8940229fc1c611ef>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,33 +9,34 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type Status = "CLOSED" | "DRAFT" | "PUBLISHED" | "%future added value";
 export type Type = "JOIN" | "MEMBER" | "OPPONENT" | "OTHER" | "PERSONAL" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
-export type RecruitmentDetails_recruitment$data = {
+export type RecruitmentForm_recruitment$data = {
   readonly closingAt: string | null;
   readonly competition: {
-    readonly name: string;
+    readonly id: string;
   };
   readonly detail: string | null;
   readonly locationLat: number | null;
   readonly locationLng: number | null;
   readonly prefecture: {
-    readonly name: string;
+    readonly id: string;
   };
   readonly startAt: string | null;
+  readonly status: Status;
+  readonly tags: ReadonlyArray<{
+    readonly id: string;
+    readonly name: string;
+  } | null>;
   readonly title: string;
   readonly type: Type;
-  readonly user: {
-    readonly avatar: string;
-    readonly name: string;
-  };
   readonly venue: string | null;
-  readonly " $fragmentSpreads": FragmentRefs<"RecruitmentLocationModal_recruitment">;
-  readonly " $fragmentType": "RecruitmentDetails_recruitment";
+  readonly " $fragmentType": "RecruitmentForm_recruitment";
 };
-export type RecruitmentDetails_recruitment$key = {
-  readonly " $data"?: RecruitmentDetails_recruitment$data;
-  readonly " $fragmentSpreads": FragmentRefs<"RecruitmentDetails_recruitment">;
+export type RecruitmentForm_recruitment$key = {
+  readonly " $data"?: RecruitmentForm_recruitment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"RecruitmentForm_recruitment">;
 };
 
 const node: ReaderFragment = (function(){
@@ -43,7 +44,7 @@ var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "id",
   "storageKey": null
 },
 v1 = [
@@ -53,13 +54,44 @@ return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "RecruitmentDetails_recruitment",
+  "name": "RecruitmentForm_recruitment",
   "selections": [
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
       "name": "title",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Competition",
+      "kind": "LinkedField",
+      "name": "competition",
+      "plural": false,
+      "selections": (v1/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "type",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "detail",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "startAt",
       "storageKey": null
     },
     {
@@ -72,8 +104,18 @@ return {
     {
       "alias": null,
       "args": null,
+      "concreteType": "Prefecture",
+      "kind": "LinkedField",
+      "name": "prefecture",
+      "plural": false,
+      "selections": (v1/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "kind": "ScalarField",
-      "name": "startAt",
+      "name": "status",
       "storageKey": null
     },
     {
@@ -100,60 +142,21 @@ return {
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "detail",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "type",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "Competition",
+      "concreteType": "Tag",
       "kind": "LinkedField",
-      "name": "competition",
-      "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "Prefecture",
-      "kind": "LinkedField",
-      "name": "prefecture",
-      "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "User",
-      "kind": "LinkedField",
-      "name": "user",
-      "plural": false,
+      "name": "tags",
+      "plural": true,
       "selections": [
         (v0/*: any*/),
         {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
-          "name": "avatar",
+          "name": "name",
           "storageKey": null
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "RecruitmentLocationModal_recruitment"
     }
   ],
   "type": "Recruitment",
@@ -161,6 +164,6 @@ return {
 };
 })();
 
-(node as any).hash = "346ccaa1a587527becc7c4776cd778ee";
+(node as any).hash = "fe5c98297f972cb1d0485732adde59ea";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<01827721bf18273122b576c8430647f6>>
+ * @generated SignedSource<<01ea3aaa083ce49217977f8800cb3397>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -110,16 +110,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6583c19ce3dfd602a9129871c6907eca",
+    "cacheID": "36b909f88364617f04358365db67dec4",
     "id": null,
     "metadata": {},
     "name": "RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation",
     "operationKind": "mutation",
-    "text": "mutation RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation(\n  $id: String!\n) {\n  deleteRecruitment(id: $id) {\n    deletedRecruitmentId\n  }\n}\n"
+    "text": "mutation RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation(\n  $id: ID!\n) {\n  deleteRecruitment(id: $id) {\n    deletedRecruitmentId\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "7ded9bee1744221c9a40cb01676f9686";
+(node as any).hash = "98180f9ecb499f1756b88279f0a6c49d";
 
 export default node;

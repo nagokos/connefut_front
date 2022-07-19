@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<98a4f8d885d8c3be4a53f6467534158c>>
+ * @generated SignedSource<<a73f406853b1812be171b11675b542b2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -28,28 +28,19 @@ export type RecruitmentNew_RecruitmentNewQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v2 = [
-  (v0/*: any*/),
-  (v1/*: any*/),
+var v0 = [
   {
     "alias": null,
     "args": null,
     "kind": "ScalarField",
-    "name": "databaseId",
+    "name": "id",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "name",
     "storageKey": null
   }
 ];
@@ -125,7 +116,7 @@ return {
         "kind": "LinkedField",
         "name": "competitions",
         "plural": true,
-        "selections": (v2/*: any*/),
+        "selections": (v0/*: any*/),
         "storageKey": null
       },
       {
@@ -135,7 +126,7 @@ return {
         "kind": "LinkedField",
         "name": "prefectures",
         "plural": true,
-        "selections": (v2/*: any*/),
+        "selections": (v0/*: any*/),
         "storageKey": null
       },
       {
@@ -145,21 +136,18 @@ return {
         "kind": "LinkedField",
         "name": "tags",
         "plural": true,
-        "selections": [
-          (v0/*: any*/),
-          (v1/*: any*/)
-        ],
+        "selections": (v0/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "1e6680d8963c611e97515349ac93c6c7",
+    "cacheID": "e758b8df9ae285e1b41fc4129cce6dba",
     "id": null,
     "metadata": {},
     "name": "RecruitmentNew_RecruitmentNewQuery",
     "operationKind": "query",
-    "text": "query RecruitmentNew_RecruitmentNewQuery {\n  competitions {\n    ...RecruitmentFormCompetition_competitions\n    id\n  }\n  prefectures {\n    ...RecruitmentFormPrefecture_prefectures\n    id\n  }\n  tags {\n    ...RecruitmentFormTag_tags\n    id\n  }\n}\n\nfragment RecruitmentFormCompetition_competitions on Competition {\n  id\n  name\n  databaseId\n}\n\nfragment RecruitmentFormPrefecture_prefectures on Prefecture {\n  id\n  name\n  databaseId\n}\n\nfragment RecruitmentFormTag_tags on Tag {\n  id\n  name\n}\n"
+    "text": "query RecruitmentNew_RecruitmentNewQuery {\n  competitions {\n    ...RecruitmentFormCompetition_competitions\n    id\n  }\n  prefectures {\n    ...RecruitmentFormPrefecture_prefectures\n    id\n  }\n  tags {\n    ...RecruitmentFormTag_tags\n    id\n  }\n}\n\nfragment RecruitmentFormCompetition_competitions on Competition {\n  id\n  name\n}\n\nfragment RecruitmentFormPrefecture_prefectures on Prefecture {\n  id\n  name\n}\n\nfragment RecruitmentFormTag_tags on Tag {\n  id\n  name\n}\n"
   }
 };
 })();

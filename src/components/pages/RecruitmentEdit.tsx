@@ -6,15 +6,18 @@ import { RecruitmentEditView } from '../views';
 import { RecruitmentEdit_RecruitmentEditQuery } from './__generated__/RecruitmentEdit_RecruitmentEditQuery.graphql';
 
 export const recruitmentEditQuery = graphql`
-  query RecruitmentEdit_RecruitmentEditQuery($id: String!) {
+  query RecruitmentEdit_RecruitmentEditQuery($id: ID!) {
     recruitment(id: $id) {
-      id
+      ...RecruitmentForm_recruitment
     }
     competitions {
       ...RecruitmentFormCompetition_competitions
     }
     prefectures {
       ...RecruitmentFormPrefecture_prefectures
+    }
+    tags {
+      ...RecruitmentFormTag_tags
     }
   }
 `;
@@ -31,5 +34,5 @@ export const RecruitmentEdit: FC = memo(() => {
 
   if (!recruitmentEditQueryRef) return null;
 
-  return <RecruitmentEditView />;
+  return <RecruitmentEditView queryRef={recruitmentEditQueryRef} />;
 });

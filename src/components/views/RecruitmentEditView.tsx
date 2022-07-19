@@ -1,31 +1,80 @@
 import { FC, memo } from 'react';
+import { PreloadedQuery, useMutation, usePreloadedQuery } from 'react-relay';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { graphql } from 'relay-runtime';
+import {
+  recruitmentCardConnection,
+  recruitmentSelfCreatedConnection,
+} from '../../recoil/recruitment';
+import { RecruitmentForm } from '../model/recruitment';
+import { recruitmentEditQuery } from '../pages/RecruitmentEdit';
+import { RecruitmentEdit_RecruitmentEditQuery } from '../pages/__generated__/RecruitmentEdit_RecruitmentEditQuery.graphql';
+import {
+  RecruitmentEditView_UpdateRecruitmentMutation,
+  RecruitmentInput,
+  Status,
+} from './__generated__/RecruitmentEditView_UpdateRecruitmentMutation.graphql';
 
-export const RecruitmentEditView: FC = memo(() => {
-  const { control, handleSubmit, watch, resetField, setValue, formState } =
-    useForm<RecruitmentInput>({
-      defaultValues: {
-        title: recruitment.title,
-        competitionId: recruitment.competition?.id,
-        type: recruitment.type,
-        detail: recruitment.detail,
-        prefectureId: recruitment.prefecture?.id
-          ? recruitment.prefecture.id
-          : null,
-        place: recruitment.place,
-        startAt: recruitment.startAt ? new Date(recruitment.startAt) : '',
-        status: recruitment.status,
-        closingAt: recruitment.closingAt ? new Date(recruitment.closingAt) : '',
-        locationLat: recruitment.locationLat
-          ? recruitment.locationLat
-          : undefined,
-        locationLng: recruitment.locationLng
-          ? recruitment.locationLng
-          : undefined,
-        tags: recruitment.tags,
-      },
-      resolver: yupResolver(recruitmentSchema),
-      mode: 'onChange',
-    });
+const updateRecruitmentMutation = graphql`
+  mutation RecruitmentEditView_UpdateRecruitmentMutation(
+    $connections: [ID!]!
+    $id: ID!
+    $input: RecruitmentInput!
+  ) {
+    updateRecruitment(id: $id, input: $input) {
+      feedbackRecruitmentEdge @prependEdge(connections: $connections) {
+        cursor
+        node {
+          ...RecruitmentSelfCreated_recruitment
+          ...RecruitmentSelfCreatedTrashModal_recruitment
+          ...RecruitmentCard_recruitment
+          ...RecruitmentForm_recruitment
+        }
+      }
+      deletedRecruitmentId @deleteEdge(connections: $connections)
+    }
+  }
+`;
+
+type Props = {
+  queryRef: PreloadedQuery<RecruitmentEdit_RecruitmentEditQuery>;
+};
+
+export const RecruitmentEditView: FC<Props> = memo((props) => {
+  const { queryRef } = props;
+
+  const { recruitmentId } = useParams();
+  const navigate = useNavigate();
+
+  const data = usePreloadedQuery<RecruitmentEdit_RecruitmentEditQuery>(
+    recruitmentEditQuery,
+    queryRef
+  );
+
+  const [commit, isInFlight] =
+    useMutation<RecruitmentEditView_UpdateRecruitmentMutation>(
+      updateRecruitmentMutation
+    );
+
+  const selfConnection = useRecoilValue(recruitmentSelfCreatedConnection);
+  const cardConnection = useRecoilValue(recruitmentCardConnection);
+
+  const connections = (status: Status) => {
+    if (status === 'PUBLISHED') {
+      if (cardConnection) {
+        return [cardConnection];
+      } else {
+        return [];
+      }
+    } else {
+      if (cardConnection) {
+        return [cardConnection];
+      } else {
+        return [];
+      }
+    }
+  };
 
   const onSubmit = async (values: RecruitmentInput) => {
     if (values.tags.length !== 0) {
@@ -39,22 +88,17 @@ export const RecruitmentEditView: FC = memo(() => {
       values.tags = transformTags;
     }
 
-    const res = await updateRecruitment({
-      id: String(recruitmentId),
-      recruitmentInput: values,
+    commit({
+      variables: {
+        id: String(recruitmentId),
+        input: values,
+        connections: connections(values.status),
+      },
     });
     navigate('/dashboard');
   };
 
   return (
-    <RecruitmentForm
-      control={control}
-      handleSubmit={handleSubmit}
-      watch={watch}
-      resetField={resetField}
-      setValue={setValue}
-      formState={formState}
-      onSubmit={onSubmit}
-    />
+    <RecruitmentForm {...data} isInFlight={isInFlight} onSubmit={onSubmit} />
   );
 });

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8c1960cf3a6ae3d66ef859767b6e8f7a>>
+ * @generated SignedSource<<849b893ef722aa1844a3bcc42bae1891>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -268,16 +268,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "148b8306f3f6559cfd0b23001a84b025",
+    "cacheID": "d18fb7c0223e872a941e7f07822295a2",
     "id": null,
     "metadata": {},
     "name": "Recruitment_RecruitmentQuery",
     "operationKind": "query",
-    "text": "query Recruitment_RecruitmentQuery(\n  $id: String!\n) {\n  recruitment(id: $id) {\n    ...RecruitmentDetails_recruitment\n    ...RecruitmentTagList_recruitment\n    ...RecruitmentApply_recruitment\n    id\n  }\n  checkStocked(recruitmentId: $id) {\n    ...RecruitmentStock_feedbackStock\n    id\n  }\n}\n\nfragment RecruitmentApply_recruitment on Recruitment {\n  user {\n    id\n  }\n  closingAt\n}\n\nfragment RecruitmentDetails_recruitment on Recruitment {\n  title\n  closingAt\n  startAt\n  venue\n  locationLat\n  locationLng\n  detail\n  type\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n  user {\n    name\n    avatar\n    id\n  }\n  ...RecruitmentLocationModal_recruitment\n}\n\nfragment RecruitmentLocationModal_recruitment on Recruitment {\n  locationLat\n  locationLng\n}\n\nfragment RecruitmentStock_feedbackStock on FeedbackStock {\n  viewerDoesStock\n}\n\nfragment RecruitmentTagList_recruitment on Recruitment {\n  type\n  competition {\n    name\n    id\n  }\n  tags {\n    id\n    name\n  }\n}\n"
+    "text": "query Recruitment_RecruitmentQuery(\n  $id: ID!\n) {\n  recruitment(id: $id) {\n    ...RecruitmentDetails_recruitment\n    ...RecruitmentTagList_recruitment\n    ...RecruitmentApply_recruitment\n    id\n  }\n  checkStocked(recruitmentId: $id) {\n    ...RecruitmentStock_feedbackStock\n    id\n  }\n}\n\nfragment RecruitmentApply_recruitment on Recruitment {\n  user {\n    id\n  }\n  closingAt\n}\n\nfragment RecruitmentDetails_recruitment on Recruitment {\n  title\n  closingAt\n  startAt\n  venue\n  locationLat\n  locationLng\n  detail\n  type\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n  user {\n    name\n    avatar\n    id\n  }\n  ...RecruitmentLocationModal_recruitment\n}\n\nfragment RecruitmentLocationModal_recruitment on Recruitment {\n  locationLat\n  locationLng\n}\n\nfragment RecruitmentStock_feedbackStock on FeedbackStock {\n  viewerDoesStock\n}\n\nfragment RecruitmentTagList_recruitment on Recruitment {\n  type\n  competition {\n    name\n    id\n  }\n  tags {\n    id\n    name\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "abbbbf55abaa40048ad844d67312b900";
+(node as any).hash = "58daf51289daa09dddb445e2f6a01f23";
 
 export default node;

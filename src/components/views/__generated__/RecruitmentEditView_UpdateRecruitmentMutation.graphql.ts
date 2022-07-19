@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b2146b914985de646e0739aec7a683d2>>
+ * @generated SignedSource<<72ffd6cd524fa8b99c2871a6bd38d24a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -31,12 +31,14 @@ export type recruitmentTagInput = {
   isNew: boolean;
   name: string;
 };
-export type RecruitmentNewView_CreateRecruitmentMutation$variables = {
+export type RecruitmentEditView_UpdateRecruitmentMutation$variables = {
   connections: ReadonlyArray<string>;
+  id: string;
   input: RecruitmentInput;
 };
-export type RecruitmentNewView_CreateRecruitmentMutation$data = {
-  readonly createRecruitment: {
+export type RecruitmentEditView_UpdateRecruitmentMutation$data = {
+  readonly updateRecruitment: {
+    readonly deletedRecruitmentId: string | null;
     readonly feedbackRecruitmentEdge: {
       readonly cursor: string;
       readonly node: {
@@ -45,9 +47,9 @@ export type RecruitmentNewView_CreateRecruitmentMutation$data = {
     };
   };
 };
-export type RecruitmentNewView_CreateRecruitmentMutation = {
-  response: RecruitmentNewView_CreateRecruitmentMutation$data;
-  variables: RecruitmentNewView_CreateRecruitmentMutation$variables;
+export type RecruitmentEditView_UpdateRecruitmentMutation = {
+  response: RecruitmentEditView_UpdateRecruitmentMutation$data;
+  variables: RecruitmentEditView_UpdateRecruitmentMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -60,10 +62,20 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
+    "name": "id"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
     "name": "input"
   }
 ],
 v1 = [
+  {
+    "kind": "Variable",
+    "name": "id",
+    "variableName": "id"
+  },
   {
     "kind": "Variable",
     "name": "input",
@@ -81,33 +93,47 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "deletedRecruitmentId",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v5 = [
-  (v4/*: any*/),
-  (v3/*: any*/)
+v6 = [
+  (v5/*: any*/),
+  (v4/*: any*/)
+],
+v7 = [
+  {
+    "kind": "Variable",
+    "name": "connections",
+    "variableName": "connections"
+  }
 ];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "RecruitmentNewView_CreateRecruitmentMutation",
+    "name": "RecruitmentEditView_UpdateRecruitmentMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "CreateRecruitmentPayload",
+        "concreteType": "UpdateRecruitmentPayload",
         "kind": "LinkedField",
-        "name": "createRecruitment",
+        "name": "updateRecruitment",
         "plural": false,
         "selections": [
           {
@@ -152,7 +178,8 @@ return {
               }
             ],
             "storageKey": null
-          }
+          },
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
@@ -164,14 +191,14 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "RecruitmentNewView_CreateRecruitmentMutation",
+    "name": "RecruitmentEditView_UpdateRecruitmentMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "CreateRecruitmentPayload",
+        "concreteType": "UpdateRecruitmentPayload",
         "kind": "LinkedField",
-        "name": "createRecruitment",
+        "name": "updateRecruitment",
         "plural": false,
         "selections": [
           {
@@ -191,7 +218,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v3/*: any*/),
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -242,8 +269,8 @@ return {
                     "name": "user",
                     "plural": false,
                     "selections": [
-                      (v3/*: any*/),
                       (v4/*: any*/),
+                      (v5/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -261,7 +288,7 @@ return {
                     "kind": "LinkedField",
                     "name": "competition",
                     "plural": false,
-                    "selections": (v5/*: any*/),
+                    "selections": (v6/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -271,7 +298,7 @@ return {
                     "kind": "LinkedField",
                     "name": "prefecture",
                     "plural": false,
-                    "selections": (v5/*: any*/),
+                    "selections": (v6/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -317,8 +344,8 @@ return {
                     "name": "tags",
                     "plural": true,
                     "selections": [
-                      (v3/*: any*/),
-                      (v4/*: any*/)
+                      (v4/*: any*/),
+                      (v5/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -336,13 +363,18 @@ return {
             "key": "",
             "kind": "LinkedHandle",
             "name": "feedbackRecruitmentEdge",
-            "handleArgs": [
-              {
-                "kind": "Variable",
-                "name": "connections",
-                "variableName": "connections"
-              }
-            ]
+            "handleArgs": (v7/*: any*/)
+          },
+          (v3/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "filters": null,
+            "handle": "deleteEdge",
+            "key": "",
+            "kind": "ScalarHandle",
+            "name": "deletedRecruitmentId",
+            "handleArgs": (v7/*: any*/)
           }
         ],
         "storageKey": null
@@ -350,16 +382,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "42cd9b9f77cdb99761ae5661f8d757d8",
+    "cacheID": "f6489bb5a06b5cdbafb892829b79b7b1",
     "id": null,
     "metadata": {},
-    "name": "RecruitmentNewView_CreateRecruitmentMutation",
+    "name": "RecruitmentEditView_UpdateRecruitmentMutation",
     "operationKind": "mutation",
-    "text": "mutation RecruitmentNewView_CreateRecruitmentMutation(\n  $input: RecruitmentInput!\n) {\n  createRecruitment(input: $input) {\n    feedbackRecruitmentEdge {\n      cursor\n      node {\n        ...RecruitmentSelfCreated_recruitment\n        ...RecruitmentSelfCreatedTrashModal_recruitment\n        ...RecruitmentCard_recruitment\n        ...RecruitmentForm_recruitment\n        id\n      }\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n\nfragment RecruitmentForm_recruitment on Recruitment {\n  title\n  competition {\n    id\n  }\n  type\n  detail\n  startAt\n  closingAt\n  prefecture {\n    id\n  }\n  status\n  venue\n  locationLat\n  locationLng\n  tags {\n    id\n    name\n  }\n}\n\nfragment RecruitmentSelfCreatedTrashModal_recruitment on Recruitment {\n  id\n  title\n}\n\nfragment RecruitmentSelfCreated_recruitment on Recruitment {\n  id\n  title\n  status\n  createdAt\n  publishedAt\n  closingAt\n}\n"
+    "text": "mutation RecruitmentEditView_UpdateRecruitmentMutation(\n  $id: ID!\n  $input: RecruitmentInput!\n) {\n  updateRecruitment(id: $id, input: $input) {\n    feedbackRecruitmentEdge {\n      cursor\n      node {\n        ...RecruitmentSelfCreated_recruitment\n        ...RecruitmentSelfCreatedTrashModal_recruitment\n        ...RecruitmentCard_recruitment\n        ...RecruitmentForm_recruitment\n        id\n      }\n    }\n    deletedRecruitmentId\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n\nfragment RecruitmentForm_recruitment on Recruitment {\n  title\n  competition {\n    id\n  }\n  type\n  detail\n  startAt\n  closingAt\n  prefecture {\n    id\n  }\n  status\n  venue\n  locationLat\n  locationLng\n  tags {\n    id\n    name\n  }\n}\n\nfragment RecruitmentSelfCreatedTrashModal_recruitment on Recruitment {\n  id\n  title\n}\n\nfragment RecruitmentSelfCreated_recruitment on Recruitment {\n  id\n  title\n  status\n  createdAt\n  publishedAt\n  closingAt\n}\n"
   }
 };
 })();
 
-(node as any).hash = "f3676be03b5496e1c62d5bce2df522a8";
+(node as any).hash = "131ff3056b46ea47dd7f99b0dbb5c182";
 
 export default node;

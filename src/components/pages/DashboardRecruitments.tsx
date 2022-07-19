@@ -23,7 +23,7 @@ export const DashboardRecruitments: FC = memo(() => {
 
   useEffect(() => {
     loadViewerQuery({
-      first: 20,
+      first: 10,
     });
   }, []);
 

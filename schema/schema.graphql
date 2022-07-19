@@ -56,6 +56,10 @@ interface Connection {
   pageInfo: PageInfo!
 }
 
+type CreateRecruitmentPayload {
+  feedbackRecruitmentEdge: RecruitmentEdge!
+}
+
 input CreateTagInput {
   name: String!
 }
@@ -131,17 +135,17 @@ type Message {
 
 type Mutation {
   addRecruitmentTag(recruitmentId: String!, tagId: String!): Boolean!
-  addStock(recruitmentId: String!): FeedbackStock!
+  addStock(recruitmentId: ID!): FeedbackStock!
   applyForRecruitment(input: applicantInput, recruitmentId: String!): ApplyForRecruitmentPayload!
   createMessage(input: createMessageInput!, roomId: String!): Message!
-  createRecruitment(input: RecruitmentInput!): RecruitmentPayload!
+  createRecruitment(input: RecruitmentInput!): CreateRecruitmentPayload!
   createTag(input: CreateTagInput!): Tag!
-  deleteRecruitment(id: String!): DeleteRecruitmentPayload!
+  deleteRecruitment(id: ID!): DeleteRecruitmentPayload!
   loginUser(input: LoginUserInput!): LoginUserPayload!
   logoutUser: Boolean!
   registerUser(input: RegisterUserInput!): RegisterUserPayload!
-  removeStock(recruitmentId: String!): FeedbackStock!
-  updateRecruitment(id: String!, input: RecruitmentInput!): Recruitment!
+  removeStock(recruitmentId: ID!): FeedbackStock!
+  updateRecruitment(id: ID!, input: RecruitmentInput!): UpdateRecruitmentPayload!
 }
 
 interface Node {
@@ -164,15 +168,15 @@ type Prefecture implements Node {
 type Query {
   appliedRecruitments: [Recruitment!]!
   checkAppliedForRecruitment(recruitmentId: String!): FeedbackApplicant!
-  checkStocked(recruitmentId: String!): FeedbackStock!
+  checkStocked(recruitmentId: ID!): FeedbackStock!
   competitions: [Competition!]!
   getEntrieUser(roomId: String!): User!
   getRoomMessages(roomId: String!): [Message!]!
-  getStockedCount(recruitmentId: String!): FeedbackStock!
+  getStockedCount(recruitmentId: ID!): FeedbackStock!
   getViewerRooms: [Room!]!
   node(id: ID!): Node
   prefectures: [Prefecture!]!
-  recruitment(id: String!): Recruitment!
+  recruitment(id: ID!): Recruitment!
   recruitments(after: String, first: Int): RecruitmentConnection!
   stockedRecruitments(after: String, first: Int): RecruitmentConnection!
   tags: [Tag!]!
@@ -190,7 +194,7 @@ type Recruitment implements Node {
   id: ID!
   locationLat: Float
   locationLng: Float
-  prefecture: Prefecture
+  prefecture: Prefecture!
   publishedAt: DateTime
   startAt: DateTime
   status: Status!
@@ -213,21 +217,17 @@ type RecruitmentEdge implements Edge {
 
 input RecruitmentInput {
   closingAt: DateTime
-  competitionId: String!
+  competitionId: ID!
   detail: String
   locationLat: Float
   locationLng: Float
-  prefectureId: String
+  prefectureId: ID!
   startAt: DateTime
   status: Status!
   tags: [recruitmentTagInput]!
   title: String!
   type: Type!
   venue: String
-}
-
-type RecruitmentPayload {
-  feedbackRecruitmentEdge: RecruitmentEdge!
 }
 
 input RegisterUserInput {
@@ -280,6 +280,11 @@ enum Type {
   OPPONENT
   OTHER
   PERSONAL
+}
+
+type UpdateRecruitmentPayload {
+  deletedRecruitmentId: ID
+  feedbackRecruitmentEdge: RecruitmentEdge!
 }
 
 type User implements Node {
