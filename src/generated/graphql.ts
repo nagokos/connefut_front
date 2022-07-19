@@ -69,6 +69,11 @@ export type Connection = {
   pageInfo: PageInfo;
 };
 
+export type CreateRecruitmentPayload = {
+  __typename?: 'CreateRecruitmentPayload';
+  feedbackRecruitmentEdge: RecruitmentEdge;
+};
+
 export type CreateTagInput = {
   name: Scalars['String'];
 };
@@ -154,14 +159,14 @@ export type Mutation = {
   addStock: FeedbackStock;
   applyForRecruitment: ApplyForRecruitmentPayload;
   createMessage: Message;
-  createRecruitment: RecruitmentPayload;
+  createRecruitment: CreateRecruitmentPayload;
   createTag: Tag;
   deleteRecruitment: DeleteRecruitmentPayload;
   loginUser: LoginUserPayload;
   logoutUser: Scalars['Boolean'];
   registerUser: RegisterUserPayload;
   removeStock: FeedbackStock;
-  updateRecruitment: Recruitment;
+  updateRecruitment: UpdateRecruitmentPayload;
 };
 
 
@@ -172,7 +177,7 @@ export type MutationAddRecruitmentTagArgs = {
 
 
 export type MutationAddStockArgs = {
-  recruitmentId: Scalars['String'];
+  recruitmentId: Scalars['ID'];
 };
 
 
@@ -199,7 +204,7 @@ export type MutationCreateTagArgs = {
 
 
 export type MutationDeleteRecruitmentArgs = {
-  id: Scalars['String'];
+  id: Scalars['ID'];
 };
 
 
@@ -214,12 +219,12 @@ export type MutationRegisterUserArgs = {
 
 
 export type MutationRemoveStockArgs = {
-  recruitmentId: Scalars['String'];
+  recruitmentId: Scalars['ID'];
 };
 
 
 export type MutationUpdateRecruitmentArgs = {
-  id: Scalars['String'];
+  id: Scalars['ID'];
   input: RecruitmentInput;
 };
 
@@ -269,7 +274,7 @@ export type QueryCheckAppliedForRecruitmentArgs = {
 
 
 export type QueryCheckStockedArgs = {
-  recruitmentId: Scalars['String'];
+  recruitmentId: Scalars['ID'];
 };
 
 
@@ -284,7 +289,7 @@ export type QueryGetRoomMessagesArgs = {
 
 
 export type QueryGetStockedCountArgs = {
-  recruitmentId: Scalars['String'];
+  recruitmentId: Scalars['ID'];
 };
 
 
@@ -294,7 +299,7 @@ export type QueryNodeArgs = {
 
 
 export type QueryRecruitmentArgs = {
-  id: Scalars['String'];
+  id: Scalars['ID'];
 };
 
 
@@ -326,7 +331,7 @@ export type Recruitment = Node & {
   id: Scalars['ID'];
   locationLat?: Maybe<Scalars['Float']>;
   locationLng?: Maybe<Scalars['Float']>;
-  prefecture?: Maybe<Prefecture>;
+  prefecture: Prefecture;
   publishedAt?: Maybe<Scalars['DateTime']>;
   startAt?: Maybe<Scalars['DateTime']>;
   status: Status;
@@ -351,22 +356,17 @@ export type RecruitmentEdge = Edge & {
 
 export type RecruitmentInput = {
   closingAt?: InputMaybe<Scalars['DateTime']>;
-  competitionId: Scalars['String'];
+  competitionId: Scalars['ID'];
   detail?: InputMaybe<Scalars['String']>;
   locationLat?: InputMaybe<Scalars['Float']>;
   locationLng?: InputMaybe<Scalars['Float']>;
-  prefectureId?: InputMaybe<Scalars['String']>;
+  prefectureId: Scalars['ID'];
   startAt?: InputMaybe<Scalars['DateTime']>;
   status: Status;
   tags: Array<InputMaybe<RecruitmentTagInput>>;
   title: Scalars['String'];
   type: Type;
   venue?: InputMaybe<Scalars['String']>;
-};
-
-export type RecruitmentPayload = {
-  __typename?: 'RecruitmentPayload';
-  feedbackRecruitmentEdge: RecruitmentEdge;
 };
 
 export type RegisterUserInput = {
@@ -425,6 +425,12 @@ export enum Type {
   Personal = 'PERSONAL'
 }
 
+export type UpdateRecruitmentPayload = {
+  __typename?: 'UpdateRecruitmentPayload';
+  deletedRecruitmentId?: Maybe<Scalars['ID']>;
+  feedbackRecruitmentEdge: RecruitmentEdge;
+};
+
 export type User = Node & {
   __typename?: 'User';
   avatar: Scalars['String'];
@@ -468,7 +474,7 @@ export type GetRoomMessagesQueryVariables = Exact<{
 }>;
 
 
-export type GetRoomMessagesQuery = { __typename?: 'Query', getRoomMessages: Array<{ __typename?: 'Message', content?: string | null, user: { __typename?: 'User', name: string, avatar: string }, applicant?: { __typename?: 'Applicant', message: string, recruitment: { __typename?: 'Recruitment', title: string, startAt?: any | null, type: Type, prefecture?: { __typename?: 'Prefecture', name: string } | null, competition: { __typename?: 'Competition', name: string } } } | null }> };
+export type GetRoomMessagesQuery = { __typename?: 'Query', getRoomMessages: Array<{ __typename?: 'Message', content?: string | null, user: { __typename?: 'User', name: string, avatar: string }, applicant?: { __typename?: 'Applicant', message: string, recruitment: { __typename?: 'Recruitment', title: string, startAt?: any | null, type: Type, prefecture: { __typename?: 'Prefecture', name: string }, competition: { __typename?: 'Competition', name: string } } } | null }> };
 
 export type CreateMessageMutationVariables = Exact<{
   roomId: Scalars['String'];
@@ -484,31 +490,16 @@ export type GetPrefecturesQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetPrefecturesQuery = { __typename?: 'Query', prefectures: Array<{ __typename?: 'Prefecture', id: string, name: string }> };
 
 export type GetRecruitmentQueryVariables = Exact<{
-  id: Scalars['String'];
+  id: Scalars['ID'];
 }>;
 
 
-export type GetRecruitmentQuery = { __typename?: 'Query', recruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, venue?: string | null, startAt?: any | null, detail?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition: { __typename?: 'Competition', id: string, name: string }, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, user: { __typename?: 'User', id: string, name: string, avatar: string }, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
-
-export type GetEditRecruitmentQueryVariables = Exact<{
-  id: Scalars['String'];
-}>;
-
-
-export type GetEditRecruitmentQuery = { __typename?: 'Query', recruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, venue?: string | null, startAt?: any | null, detail?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, status: Status, competition: { __typename?: 'Competition', id: string, name: string }, prefecture?: { __typename?: 'Prefecture', id: string, name: string } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
+export type GetRecruitmentQuery = { __typename?: 'Query', recruitment: { __typename?: 'Recruitment', id: string, title: string, type: Type, status: Status, venue?: string | null, startAt?: any | null, detail?: string | null, closingAt?: any | null, locationLat?: number | null, locationLng?: number | null, competition: { __typename?: 'Competition', id: string, name: string }, prefecture: { __typename?: 'Prefecture', id: string, name: string }, user: { __typename?: 'User', id: string, name: string, avatar: string }, tags: Array<{ __typename?: 'Tag', id: string, name: string } | null> } };
 
 export type GetAppliedRecruitmentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAppliedRecruitmentsQuery = { __typename?: 'Query', appliedRecruitments: Array<{ __typename?: 'Recruitment', id: string, title: string, applicant?: { __typename?: 'Applicant', createdAt: any } | null, user: { __typename?: 'User', id: string, name: string, avatar: string } }> };
-
-export type UpdateRecruitmentMutationVariables = Exact<{
-  id: Scalars['String'];
-  input: RecruitmentInput;
-}>;
-
-
-export type UpdateRecruitmentMutation = { __typename?: 'Mutation', updateRecruitment: { __typename?: 'Recruitment', id: string, title: string } };
 
 export type GetViewerRoomsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -611,7 +602,7 @@ export function useGetPrefecturesQuery(options?: Omit<Urql.UseQueryArgs<GetPrefe
   return Urql.useQuery<GetPrefecturesQuery>({ query: GetPrefecturesDocument, ...options });
 };
 export const GetRecruitmentDocument = gql`
-    query GetRecruitment($id: String!) {
+    query GetRecruitment($id: ID!) {
   recruitment(id: $id) {
     id
     title
@@ -647,38 +638,6 @@ export const GetRecruitmentDocument = gql`
 export function useGetRecruitmentQuery(options: Omit<Urql.UseQueryArgs<GetRecruitmentQueryVariables>, 'query'>) {
   return Urql.useQuery<GetRecruitmentQuery>({ query: GetRecruitmentDocument, ...options });
 };
-export const GetEditRecruitmentDocument = gql`
-    query GetEditRecruitment($id: String!) {
-  recruitment(id: $id) {
-    id
-    title
-    type
-    venue
-    startAt
-    detail
-    closingAt
-    competition {
-      id
-      name
-    }
-    prefecture {
-      id
-      name
-    }
-    locationLat
-    locationLng
-    status
-    tags {
-      id
-      name
-    }
-  }
-}
-    `;
-
-export function useGetEditRecruitmentQuery(options: Omit<Urql.UseQueryArgs<GetEditRecruitmentQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetEditRecruitmentQuery>({ query: GetEditRecruitmentDocument, ...options });
-};
 export const GetAppliedRecruitmentsDocument = gql`
     query GetAppliedRecruitments {
   appliedRecruitments {
@@ -698,18 +657,6 @@ export const GetAppliedRecruitmentsDocument = gql`
 
 export function useGetAppliedRecruitmentsQuery(options?: Omit<Urql.UseQueryArgs<GetAppliedRecruitmentsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetAppliedRecruitmentsQuery>({ query: GetAppliedRecruitmentsDocument, ...options });
-};
-export const UpdateRecruitmentDocument = gql`
-    mutation UpdateRecruitment($id: String!, $input: RecruitmentInput!) {
-  updateRecruitment(id: $id, input: $input) {
-    id
-    title
-  }
-}
-    `;
-
-export function useUpdateRecruitmentMutation() {
-  return Urql.useMutation<UpdateRecruitmentMutation, UpdateRecruitmentMutationVariables>(UpdateRecruitmentDocument);
 };
 export const GetViewerRoomsDocument = gql`
     query GetViewerRooms {
@@ -1067,6 +1014,25 @@ export default {
             "name": "RecruitmentConnection"
           }
         ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "CreateRecruitmentPayload",
+        "fields": [
+          {
+            "name": "feedbackRecruitmentEdge",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "RecruitmentEdge",
+                "ofType": null
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
       },
       {
         "kind": "OBJECT",
@@ -1550,7 +1516,7 @@ export default {
               "kind": "NON_NULL",
               "ofType": {
                 "kind": "OBJECT",
-                "name": "RecruitmentPayload",
+                "name": "CreateRecruitmentPayload",
                 "ofType": null
               }
             },
@@ -1699,7 +1665,7 @@ export default {
               "kind": "NON_NULL",
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Recruitment",
+                "name": "UpdateRecruitmentPayload",
                 "ofType": null
               }
             },
@@ -2315,9 +2281,12 @@ export default {
           {
             "name": "prefecture",
             "type": {
-              "kind": "OBJECT",
-              "name": "Prefecture",
-              "ofType": null
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Prefecture",
+                "ofType": null
+              }
             },
             "args": []
           },
@@ -2492,25 +2461,6 @@ export default {
       },
       {
         "kind": "OBJECT",
-        "name": "RecruitmentPayload",
-        "fields": [
-          {
-            "name": "feedbackRecruitmentEdge",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "RecruitmentEdge",
-                "ofType": null
-              }
-            },
-            "args": []
-          }
-        ],
-        "interfaces": []
-      },
-      {
-        "kind": "OBJECT",
         "name": "RegisterUserInvalidInputError",
         "fields": [
           {
@@ -2651,6 +2601,33 @@ export default {
             "name": "Node"
           }
         ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UpdateRecruitmentPayload",
+        "fields": [
+          {
+            "name": "deletedRecruitmentId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "feedbackRecruitmentEdge",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "RecruitmentEdge",
+                "ofType": null
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
       },
       {
         "kind": "OBJECT",
