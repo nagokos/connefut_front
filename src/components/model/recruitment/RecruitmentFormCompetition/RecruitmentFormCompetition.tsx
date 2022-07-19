@@ -72,10 +72,12 @@ export const RecruitmentFormCompetition: FC<Props> = memo((props) => {
         <Controller
           control={control}
           name="competitionId"
-          defaultValue={String(competitionsData[0].id)}
+          defaultValue={watchCompetitionId || String(competitionsData[0].id)}
           render={({ field }) => (
             <MenuOptionGroup
-              defaultValue={String(competitionsData[0].id)}
+              defaultValue={
+                watchCompetitionId || String(competitionsData[0].id)
+              }
               title="募集競技"
               fontSize={12.5}
               type="radio"

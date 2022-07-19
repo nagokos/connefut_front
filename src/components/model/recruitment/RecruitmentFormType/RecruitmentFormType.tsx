@@ -63,10 +63,10 @@ export const RecruitmentFormType: FC<Props> = memo((props) => {
         <Controller
           control={control}
           name="type"
-          defaultValue={types[0].id}
+          defaultValue={watchType || types[0].id}
           render={({ field }) => (
             <MenuOptionGroup
-              defaultValue={types[0].id}
+              defaultValue={watchType || types[0].id}
               title="募集タイプ"
               fontSize={12}
               type="radio"
