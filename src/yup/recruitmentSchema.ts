@@ -20,12 +20,8 @@ export const recruitmentSchema = yup.object().shape({
       then: yup.string().optional().required('募集の詳細を入力してください'),
       otherwise: yup.string().optional(),
     }),
-  prefectureId: yup.string().when('status', {
-    is: (status: Status) => status === 'PUBLISHED',
-    then: yup.string().nullable().required('募集エリアを選択してください'),
-    otherwise: yup.string().nullable(),
-  }),
-  place: yup.string().when('status', {
+  prefectureId: yup.string().required('募集エリアを選択してください'),
+  venue: yup.string().when('status', {
     is: (status: Status) => status === 'PUBLISHED',
     then: yup.string().when('type', {
       is: (value: Type) => value === 'OPPONENT' || value === 'PERSONAL',
