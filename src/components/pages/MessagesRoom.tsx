@@ -32,8 +32,6 @@ export const MessagesRoom: FC = memo(() => {
     },
   });
 
-  console.log(messageData.data?.getRoomMessages);
-
   const ref = createRef<HTMLDivElement>();
   const scrollToBottom = () => {
     ref.current?.scrollIntoView({ block: 'end', behavior: 'auto' });

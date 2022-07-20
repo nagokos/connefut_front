@@ -13,9 +13,7 @@ export const recruitmentsQuery = graphql`
     prefectures {
       ...RecruitmentListSearch_prefectures
     }
-    tags {
-      ...RecruitmentListSearch_tags
-    }
+    ...RecruitmentListSearch_tags
   }
 `;
 

@@ -86,7 +86,7 @@ export const RecruitmentForm: FC<Props> = memo((props) => {
         closingAt: recruitmentData?.closingAt || '',
         locationLat: recruitmentData?.locationLat || undefined,
         locationLng: recruitmentData?.locationLng || undefined,
-        tags: recruitmentData?.tags || [],
+        tagIds: recruitmentData?.tags.map((tag) => tag?.id) || [],
       },
       resolver: yupResolver(recruitmentSchema),
       mode: 'onChange',
@@ -156,7 +156,7 @@ export const RecruitmentForm: FC<Props> = memo((props) => {
             </Box>
             <SimpleGrid columns={2} gap={9} mt={5}>
               <RecruitmentFormTag
-                watchTags={watch('tags')}
+                watchTags={watch('tagIds')}
                 control={control}
                 tags={tags}
               />

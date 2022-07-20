@@ -52,8 +52,6 @@ export const RecruitmentDetails: FC<Props> = memo((props) => {
     recruitment
   );
 
-  console.log(recruitmentData);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const typeDisplayName = (type: Type) => {
@@ -109,7 +107,9 @@ export const RecruitmentDetails: FC<Props> = memo((props) => {
           <Box>
             <RecruitmentDetailsTemplate
               detailTitle="募集エリア"
-              displayName={String(recruitmentData.prefecture?.name)}
+              displayName={`${String(
+                recruitmentData.prefecture?.name
+              )} (${String(recruitmentData.venue)})`}
             />
             {recruitmentData.locationLat && recruitmentData.locationLng && (
               <Box display="flex" alignItems="center">

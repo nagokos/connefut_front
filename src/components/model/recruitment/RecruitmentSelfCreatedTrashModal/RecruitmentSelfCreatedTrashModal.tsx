@@ -18,6 +18,7 @@ import {
   recruitmentSelfCreatedConnection,
   recruitmentStockedConnection,
 } from '../../../../recoil/recruitment';
+import { useFlash } from '../../../../hooks/useFlash';
 
 import { RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation } from './__generated__/RecruitmentSelfCreatedTrashModal_DeleteRecruitmentMutation.graphql';
 import { RecruitmentSelfCreatedTrashModal_recruitment$key } from './__generated__/RecruitmentSelfCreatedTrashModal_recruitment.graphql';
@@ -48,6 +49,8 @@ type Props = {
 
 export const RecruitmentSelfCreatedTrashModal: FC<Props> = memo((props) => {
   const { isOpen, onClose, recruitment } = props;
+
+  const { showFlash } = useFlash();
 
   const selfConnection = useRecoilValue(recruitmentSelfCreatedConnection);
   const cardConnection = useRecoilValue(recruitmentCardConnection);
@@ -85,6 +88,7 @@ export const RecruitmentSelfCreatedTrashModal: FC<Props> = memo((props) => {
       onCompleted(response, errors) {
         if (!errors) {
           onClose();
+          showFlash({ title: '削除しました', status: 'success' });
         }
       },
     });

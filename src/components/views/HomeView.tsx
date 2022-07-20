@@ -26,7 +26,7 @@ export const HomeView: FC<Props> = memo((props) => {
       <Grid templateColumns="repeat(4, 1fr)" gap={10} mt={10}>
         <GridItem colSpan={1}>
           <Box position="sticky" top={8}>
-            <RecruitmentListSearch {...data} />
+            <RecruitmentListSearch tags={data} {...data} />
           </Box>
         </GridItem>
         <GridItem pl={7} colSpan={3}>
