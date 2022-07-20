@@ -47,7 +47,7 @@
     "@graphql-codegen/schema-ast": "^2.4.1",
     "@graphql-codegen/typescript": "2.7.1",
     "@graphql-codegen/typescript-operations": "2.5.2",
-    "@graphql-codegen/typescript-urql": "^3.6.1",
+    "@graphql-codegen/typescript-urql": "^3.6.2",
     "@graphql-codegen/urql-introspection": "2.2.0",
     "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@types/react": "^18.0.15",
