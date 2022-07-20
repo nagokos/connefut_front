@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<acf5c3504e39041da35638ab725cf4ce>>
+ * @generated SignedSource<<31d37640dc1709cddf1a8fe540a0c0f1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,9 +23,7 @@ export type RecruitmentEdit_RecruitmentEditQuery$data = {
   readonly recruitment: {
     readonly " $fragmentSpreads": FragmentRefs<"RecruitmentForm_recruitment">;
   };
-  readonly tags: ReadonlyArray<{
-    readonly " $fragmentSpreads": FragmentRefs<"RecruitmentFormTag_tags">;
-  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"RecruitmentFormTag_tags">;
 };
 export type RecruitmentEdit_RecruitmentEditQuery = {
   response: RecruitmentEdit_RecruitmentEditQuery$data;
@@ -57,26 +55,24 @@ v2 = {
 v3 = [
   (v2/*: any*/)
 ],
-v4 = [
-  (v2/*: any*/),
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "name",
-    "storageKey": null
-  }
-],
-v5 = {
+v4 = {
   "alias": null,
   "args": null,
-  "concreteType": "Tag",
-  "kind": "LinkedField",
-  "name": "tags",
-  "plural": true,
-  "selections": (v4/*: any*/),
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
-};
+},
+v5 = [
+  (v2/*: any*/),
+  (v4/*: any*/)
+],
+v6 = [
+  {
+    "kind": "Literal",
+    "name": "first",
+    "value": 2147483647
+  }
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -133,20 +129,9 @@ return {
         "storageKey": null
       },
       {
-        "alias": null,
         "args": null,
-        "concreteType": "Tag",
-        "kind": "LinkedField",
-        "name": "tags",
-        "plural": true,
-        "selections": [
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "RecruitmentFormTag_tags"
-          }
-        ],
-        "storageKey": null
+        "kind": "FragmentSpread",
+        "name": "RecruitmentFormTag_tags"
       }
     ],
     "type": "Query",
@@ -249,7 +234,16 @@ return {
             "name": "locationLng",
             "storageKey": null
           },
-          (v5/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Tag",
+            "kind": "LinkedField",
+            "name": "tags",
+            "plural": true,
+            "selections": (v5/*: any*/),
+            "storageKey": null
+          },
           (v2/*: any*/)
         ],
         "storageKey": null
@@ -261,7 +255,7 @@ return {
         "kind": "LinkedField",
         "name": "competitions",
         "plural": true,
-        "selections": (v4/*: any*/),
+        "selections": (v5/*: any*/),
         "storageKey": null
       },
       {
@@ -271,23 +265,117 @@ return {
         "kind": "LinkedField",
         "name": "prefectures",
         "plural": true,
-        "selections": (v4/*: any*/),
+        "selections": (v5/*: any*/),
         "storageKey": null
       },
-      (v5/*: any*/)
+      {
+        "alias": null,
+        "args": (v6/*: any*/),
+        "concreteType": "TagConnection",
+        "kind": "LinkedField",
+        "name": "tags",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "TagEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "cursor",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Tag",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v2/*: any*/),
+                  (v4/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "__typename",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "PageInfo",
+            "kind": "LinkedField",
+            "name": "pageInfo",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "endCursor",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "hasNextPage",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "kind": "ClientExtension",
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "__id",
+                "storageKey": null
+              }
+            ]
+          }
+        ],
+        "storageKey": "tags(first:2147483647)"
+      },
+      {
+        "alias": null,
+        "args": (v6/*: any*/),
+        "filters": null,
+        "handle": "connection",
+        "key": "RecruitmentFormTag__tags",
+        "kind": "LinkedHandle",
+        "name": "tags"
+      }
     ]
   },
   "params": {
-    "cacheID": "38a383970867e1f4c53b016555de19da",
+    "cacheID": "245c92faf4f04bedf6b0389b32b9a19a",
     "id": null,
     "metadata": {},
     "name": "RecruitmentEdit_RecruitmentEditQuery",
     "operationKind": "query",
-    "text": "query RecruitmentEdit_RecruitmentEditQuery(\n  $id: ID!\n) {\n  recruitment(id: $id) {\n    ...RecruitmentForm_recruitment\n    id\n  }\n  competitions {\n    ...RecruitmentFormCompetition_competitions\n    id\n  }\n  prefectures {\n    ...RecruitmentFormPrefecture_prefectures\n    id\n  }\n  tags {\n    ...RecruitmentFormTag_tags\n    id\n  }\n}\n\nfragment RecruitmentFormCompetition_competitions on Competition {\n  id\n  name\n}\n\nfragment RecruitmentFormPrefecture_prefectures on Prefecture {\n  id\n  name\n}\n\nfragment RecruitmentFormTag_tags on Tag {\n  id\n  name\n}\n\nfragment RecruitmentForm_recruitment on Recruitment {\n  title\n  competition {\n    id\n  }\n  type\n  detail\n  startAt\n  closingAt\n  prefecture {\n    id\n  }\n  status\n  venue\n  locationLat\n  locationLng\n  tags {\n    id\n    name\n  }\n}\n"
+    "text": "query RecruitmentEdit_RecruitmentEditQuery(\n  $id: ID!\n) {\n  recruitment(id: $id) {\n    ...RecruitmentForm_recruitment\n    id\n  }\n  competitions {\n    ...RecruitmentFormCompetition_competitions\n    id\n  }\n  prefectures {\n    ...RecruitmentFormPrefecture_prefectures\n    id\n  }\n  ...RecruitmentFormTag_tags\n}\n\nfragment RecruitmentFormCompetition_competitions on Competition {\n  id\n  name\n}\n\nfragment RecruitmentFormPrefecture_prefectures on Prefecture {\n  id\n  name\n}\n\nfragment RecruitmentFormTag_tags on Query {\n  tags(first: 2147483647) {\n    edges {\n      cursor\n      node {\n        id\n        name\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentForm_recruitment on Recruitment {\n  title\n  competition {\n    id\n  }\n  type\n  detail\n  startAt\n  closingAt\n  prefecture {\n    id\n  }\n  status\n  venue\n  locationLat\n  locationLng\n  tags {\n    id\n    name\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "723477e9f36154ab088719482d4df678";
+(node as any).hash = "6a8cc36eb9f124726b5df2560ea46247";
 
 export default node;

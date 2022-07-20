@@ -42,7 +42,6 @@ export const recruitmentSchema = yup.object().shape({
         then: yup
           .string()
           .required('開催日時を設定してください')
-
           .when('startAt', {
             is: (value: string) =>
               differenceInMinutes(new Date(value), new Date()) < 0,
