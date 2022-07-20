@@ -2,7 +2,7 @@ import {
   Box,
   Button,
   Divider,
-  HStack,
+  Flex,
   Image,
   Spacer,
   useBoolean,
@@ -44,7 +44,7 @@ export const Header: FC = memo(() => {
             </Box>
           </Box>
           <Spacer />
-          <HStack spacing={5}>
+          <Flex gridColumnGap={4} alignItems="center">
             <TbSearch
               onMouseEnter={setFlag.on}
               onMouseLeave={setFlag.off}
@@ -98,7 +98,7 @@ export const Header: FC = memo(() => {
                 </Button>
               </>
             )}
-          </HStack>
+          </Flex>
         </Box>
         {!location.pathname.includes('/messages') && (
           <Divider borderColor="#ebf2f2" />

@@ -12,9 +12,7 @@ export const recruitmentNewQuery = graphql`
     prefectures {
       ...RecruitmentFormPrefecture_prefectures
     }
-    tags {
-      ...RecruitmentFormTag_tags
-    }
+    ...RecruitmentFormTag_tags
   }
 `;
 

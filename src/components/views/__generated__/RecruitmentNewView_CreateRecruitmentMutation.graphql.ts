@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b2146b914985de646e0739aec7a683d2>>
+ * @generated SignedSource<<1e3233642efb46e8338ab4b14d005e06>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,15 +21,10 @@ export type RecruitmentInput = {
   prefectureId: string;
   startAt?: string | null;
   status: Status;
-  tags: ReadonlyArray<recruitmentTagInput | null>;
+  tagIds: ReadonlyArray<string>;
   title: string;
   type: Type;
   venue?: string | null;
-};
-export type recruitmentTagInput = {
-  id: string;
-  isNew: boolean;
-  name: string;
 };
 export type RecruitmentNewView_CreateRecruitmentMutation$variables = {
   connections: ReadonlyArray<string>;

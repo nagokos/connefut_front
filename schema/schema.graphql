@@ -64,6 +64,10 @@ input CreateTagInput {
   name: String!
 }
 
+type CreateTagPayload {
+  feedbackTagEdge: TagEdge!
+}
+
 scalar DateTime
 
 type DeleteRecruitmentPayload {
@@ -139,7 +143,7 @@ type Mutation {
   applyForRecruitment(input: applicantInput, recruitmentId: String!): ApplyForRecruitmentPayload!
   createMessage(input: createMessageInput!, roomId: String!): Message!
   createRecruitment(input: RecruitmentInput!): CreateRecruitmentPayload!
-  createTag(input: CreateTagInput!): Tag!
+  createTag(input: CreateTagInput!): CreateTagPayload!
   deleteRecruitment(id: ID!): DeleteRecruitmentPayload!
   loginUser(input: LoginUserInput!): LoginUserPayload!
   logoutUser: Boolean!
@@ -179,7 +183,7 @@ type Query {
   recruitment(id: ID!): Recruitment!
   recruitments(after: String, first: Int): RecruitmentConnection!
   stockedRecruitments(after: String, first: Int): RecruitmentConnection!
-  tags: [Tag!]!
+  tags(first: Int!): TagConnection
   viewer: User
   viewerRecruitments(after: String, first: Int): RecruitmentConnection!
 }
@@ -224,7 +228,7 @@ input RecruitmentInput {
   prefectureId: ID!
   startAt: DateTime
   status: Status!
-  tags: [recruitmentTagInput]!
+  tagIds: [ID!]!
   title: String!
   type: Type!
   venue: String
@@ -274,6 +278,16 @@ type Tag implements Node {
   name: String!
 }
 
+type TagConnection implements Connection {
+  edges: [TagEdge!]!
+  pageInfo: PageInfo!
+}
+
+type TagEdge implements Edge {
+  cursor: String!
+  node: Tag!
+}
+
 enum Type {
   JOIN
   MEMBER
@@ -304,10 +318,4 @@ input applicantInput {
 
 input createMessageInput {
   content: String!
-}
-
-input recruitmentTagInput {
-  id: String!
-  isNew: Boolean!
-  name: String!
 }

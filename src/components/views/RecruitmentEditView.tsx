@@ -3,10 +3,7 @@ import { PreloadedQuery, useMutation, usePreloadedQuery } from 'react-relay';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { graphql } from 'relay-runtime';
-import {
-  recruitmentCardConnection,
-  recruitmentSelfCreatedConnection,
-} from '../../recoil/recruitment';
+import { recruitmentCardConnection } from '../../recoil/recruitment';
 import { RecruitmentForm } from '../model/recruitment';
 import { recruitmentEditQuery } from '../pages/RecruitmentEdit';
 import { RecruitmentEdit_RecruitmentEditQuery } from '../pages/__generated__/RecruitmentEdit_RecruitmentEditQuery.graphql';
@@ -57,7 +54,6 @@ export const RecruitmentEditView: FC<Props> = memo((props) => {
       updateRecruitmentMutation
     );
 
-  const selfConnection = useRecoilValue(recruitmentSelfCreatedConnection);
   const cardConnection = useRecoilValue(recruitmentCardConnection);
 
   const connections = (status: Status) => {
@@ -77,17 +73,6 @@ export const RecruitmentEditView: FC<Props> = memo((props) => {
   };
 
   const onSubmit = async (values: RecruitmentInput) => {
-    if (values.tags.length !== 0) {
-      const transformTags = values.tags.map((tag) => {
-        return {
-          id: String(tag?.id),
-          name: String(tag?.name),
-          isNew: Boolean(tag?.isNew),
-        };
-      });
-      values.tags = transformTags;
-    }
-
     commit({
       variables: {
         id: String(recruitmentId),
@@ -99,6 +84,11 @@ export const RecruitmentEditView: FC<Props> = memo((props) => {
   };
 
   return (
-    <RecruitmentForm {...data} isInFlight={isInFlight} onSubmit={onSubmit} />
+    <RecruitmentForm
+      tags={data}
+      {...data}
+      isInFlight={isInFlight}
+      onSubmit={onSubmit}
+    />
   );
 });

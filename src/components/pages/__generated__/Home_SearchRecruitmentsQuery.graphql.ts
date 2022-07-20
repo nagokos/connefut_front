@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dfbdaa4ab9466a3fd79d6ad122002889>>
+ * @generated SignedSource<<06e725fe2f2f5c1dc9b26b5cb49b57eb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,10 +21,7 @@ export type Home_SearchRecruitmentsQuery$data = {
   readonly prefectures: ReadonlyArray<{
     readonly " $fragmentSpreads": FragmentRefs<"RecruitmentListSearch_prefectures">;
   }>;
-  readonly tags: ReadonlyArray<{
-    readonly " $fragmentSpreads": FragmentRefs<"RecruitmentListSearch_tags">;
-  }>;
-  readonly " $fragmentSpreads": FragmentRefs<"RecruitmentCardList_recruitment">;
+  readonly " $fragmentSpreads": FragmentRefs<"RecruitmentCardList_recruitment" | "RecruitmentListSearch_tags">;
 };
 export type Home_SearchRecruitmentsQuery = {
   response: Home_SearchRecruitmentsQuery$data;
@@ -58,23 +55,81 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "cursor",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v5 = [
-  (v4/*: any*/),
-  (v3/*: any*/)
-],
 v6 = [
-  (v3/*: any*/),
+  (v5/*: any*/),
   (v4/*: any*/)
+],
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "PageInfo",
+  "kind": "LinkedField",
+  "name": "pageInfo",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "endCursor",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "hasNextPage",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v9 = {
+  "kind": "ClientExtension",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "__id",
+      "storageKey": null
+    }
+  ]
+},
+v10 = [
+  (v4/*: any*/),
+  (v5/*: any*/)
+],
+v11 = [
+  {
+    "kind": "Literal",
+    "name": "first",
+    "value": 2147483647
+  }
 ];
 return {
   "fragment": {
@@ -124,20 +179,9 @@ return {
         "storageKey": null
       },
       {
-        "alias": null,
         "args": null,
-        "concreteType": "Tag",
-        "kind": "LinkedField",
-        "name": "tags",
-        "plural": true,
-        "selections": [
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "RecruitmentListSearch_tags"
-          }
-        ],
-        "storageKey": null
+        "kind": "FragmentSpread",
+        "name": "RecruitmentListSearch_tags"
       }
     ],
     "type": "Query",
@@ -168,13 +212,7 @@ return {
             "name": "edges",
             "plural": true,
             "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "cursor",
-                "storageKey": null
-              },
+              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -183,7 +221,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v3/*: any*/),
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -220,8 +258,8 @@ return {
                     "name": "user",
                     "plural": false,
                     "selections": [
-                      (v3/*: any*/),
                       (v4/*: any*/),
+                      (v5/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -239,7 +277,7 @@ return {
                     "kind": "LinkedField",
                     "name": "competition",
                     "plural": false,
-                    "selections": (v5/*: any*/),
+                    "selections": (v6/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -249,59 +287,18 @@ return {
                     "kind": "LinkedField",
                     "name": "prefecture",
                     "plural": false,
-                    "selections": (v5/*: any*/),
+                    "selections": (v6/*: any*/),
                     "storageKey": null
                   },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "__typename",
-                    "storageKey": null
-                  }
+                  (v7/*: any*/)
                 ],
                 "storageKey": null
               }
             ],
             "storageKey": null
           },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "PageInfo",
-            "kind": "LinkedField",
-            "name": "pageInfo",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "endCursor",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "hasNextPage",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          {
-            "kind": "ClientExtension",
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "__id",
-                "storageKey": null
-              }
-            ]
-          }
+          (v8/*: any*/),
+          (v9/*: any*/)
         ],
         "storageKey": null
       },
@@ -321,7 +318,7 @@ return {
         "kind": "LinkedField",
         "name": "competitions",
         "plural": true,
-        "selections": (v6/*: any*/),
+        "selections": (v10/*: any*/),
         "storageKey": null
       },
       {
@@ -331,32 +328,70 @@ return {
         "kind": "LinkedField",
         "name": "prefectures",
         "plural": true,
-        "selections": (v6/*: any*/),
+        "selections": (v10/*: any*/),
         "storageKey": null
       },
       {
         "alias": null,
-        "args": null,
-        "concreteType": "Tag",
+        "args": (v11/*: any*/),
+        "concreteType": "TagConnection",
         "kind": "LinkedField",
         "name": "tags",
-        "plural": true,
-        "selections": (v6/*: any*/),
-        "storageKey": null
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "TagEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              (v3/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Tag",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v7/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          (v8/*: any*/),
+          (v9/*: any*/)
+        ],
+        "storageKey": "tags(first:2147483647)"
+      },
+      {
+        "alias": null,
+        "args": (v11/*: any*/),
+        "filters": null,
+        "handle": "connection",
+        "key": "RecruitmentListSearch__tags",
+        "kind": "LinkedHandle",
+        "name": "tags"
       }
     ]
   },
   "params": {
-    "cacheID": "644542bf8f5f3591a49d357d2904aa1b",
+    "cacheID": "94db32aae732debed788d61412a649db",
     "id": null,
     "metadata": {},
     "name": "Home_SearchRecruitmentsQuery",
     "operationKind": "query",
-    "text": "query Home_SearchRecruitmentsQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentCardList_recruitment_2HEEH6\n  competitions {\n    ...RecruitmentListSearch_competitions\n    id\n  }\n  prefectures {\n    ...RecruitmentListSearch_prefectures\n    id\n  }\n  tags {\n    ...RecruitmentListSearch_tags\n    id\n  }\n}\n\nfragment RecruitmentCardList_recruitment_2HEEH6 on Query {\n  recruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentCard_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n\nfragment RecruitmentListSearch_competitions on Competition {\n  id\n  name\n}\n\nfragment RecruitmentListSearch_prefectures on Prefecture {\n  id\n  name\n}\n\nfragment RecruitmentListSearch_tags on Tag {\n  id\n  ...RecruitmentSearchTag_tag\n}\n\nfragment RecruitmentSearchTag_tag on Tag {\n  id\n  name\n}\n"
+    "text": "query Home_SearchRecruitmentsQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentCardList_recruitment_2HEEH6\n  competitions {\n    ...RecruitmentListSearch_competitions\n    id\n  }\n  prefectures {\n    ...RecruitmentListSearch_prefectures\n    id\n  }\n  ...RecruitmentListSearch_tags\n}\n\nfragment RecruitmentCardList_recruitment_2HEEH6 on Query {\n  recruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentCard_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n\nfragment RecruitmentListSearch_competitions on Competition {\n  id\n  name\n}\n\nfragment RecruitmentListSearch_prefectures on Prefecture {\n  id\n  name\n}\n\nfragment RecruitmentListSearch_tags on Query {\n  tags(first: 2147483647) {\n    edges {\n      cursor\n      node {\n        id\n        name\n        ...RecruitmentSearchTag_tag\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentSearchTag_tag on Tag {\n  id\n  name\n}\n"
   }
 };
 })();
 
-(node as any).hash = "4e8ea24c3b1e955fcc61d7881fcc4e5b";
+(node as any).hash = "fbbcc5e02aef834bb287c7a29f8b3760";
 
 export default node;

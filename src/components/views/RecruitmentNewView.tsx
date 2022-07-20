@@ -69,7 +69,11 @@ export const RecruitmentNewView: FC<Props> = memo((props) => {
         return [];
       }
     } else {
-      return [selfConnection];
+      if (selfConnection) {
+        return [selfConnection];
+      } else {
+        return [];
+      }
     }
   };
 
@@ -89,15 +93,13 @@ export const RecruitmentNewView: FC<Props> = memo((props) => {
       onError(error) {
         console.log(error);
       },
-      updater(store) {
-        console.log(store);
-      },
     });
   };
 
   return (
     <RecruitmentForm
       {...data}
+      tags={data}
       recruitment={null}
       isInFlight={isInFlight}
       onSubmit={onSubmit}

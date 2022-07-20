@@ -33,10 +33,19 @@ const searchPrefecturesFragment = graphql`
   }
 `;
 
-const searchTagsFragment = graphql`
-  fragment RecruitmentListSearch_tags on Tag @relay(plural: true) {
-    id
-    ...RecruitmentSearchTag_tag
+const tagsFragment = graphql`
+  fragment RecruitmentListSearch_tags on Query {
+    tags(first: 2147483647) @connection(key: "RecruitmentListSearch__tags") {
+      __id
+      edges {
+        cursor
+        node {
+          id
+          name
+          ...RecruitmentSearchTag_tag
+        }
+      }
+    }
   }
 `;
 
@@ -73,7 +82,7 @@ export const RecruitmentListSearch: FC<Props> = memo((props) => {
     prefectures
   );
   const tagsData = useFragment<RecruitmentListSearch_tags$key>(
-    searchTagsFragment,
+    tagsFragment,
     tags
   );
 
@@ -113,8 +122,8 @@ export const RecruitmentListSearch: FC<Props> = memo((props) => {
           <Box fontSize={13} fontWeight="bold" color="blackAlpha.500">
             タグ
           </Box>
-          {tagsData.map((tag) => (
-            <RecruitmentSearchTag key={tag.id} tag={tag} />
+          {tagsData?.tags?.edges.map((edge) => (
+            <RecruitmentSearchTag key={edge.node.id} tag={edge.node} />
           ))}
           <Box
             mt={4}
