@@ -78,6 +78,11 @@ export type CreateTagInput = {
   name: Scalars['String'];
 };
 
+export type CreateTagPayload = {
+  __typename?: 'CreateTagPayload';
+  feedbackTagEdge: TagEdge;
+};
+
 export type DeleteRecruitmentPayload = {
   __typename?: 'DeleteRecruitmentPayload';
   deletedRecruitmentId: Scalars['ID'];
@@ -160,7 +165,7 @@ export type Mutation = {
   applyForRecruitment: ApplyForRecruitmentPayload;
   createMessage: Message;
   createRecruitment: CreateRecruitmentPayload;
-  createTag: Tag;
+  createTag: CreateTagPayload;
   deleteRecruitment: DeleteRecruitmentPayload;
   loginUser: LoginUserPayload;
   logoutUser: Scalars['Boolean'];
@@ -262,7 +267,7 @@ export type Query = {
   recruitment: Recruitment;
   recruitments: RecruitmentConnection;
   stockedRecruitments: RecruitmentConnection;
-  tags: Array<Tag>;
+  tags?: Maybe<TagConnection>;
   viewer?: Maybe<User>;
   viewerRecruitments: RecruitmentConnection;
 };
@@ -315,6 +320,11 @@ export type QueryStockedRecruitmentsArgs = {
 };
 
 
+export type QueryTagsArgs = {
+  first: Scalars['Int'];
+};
+
+
 export type QueryViewerRecruitmentsArgs = {
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
@@ -363,7 +373,7 @@ export type RecruitmentInput = {
   prefectureId: Scalars['ID'];
   startAt?: InputMaybe<Scalars['DateTime']>;
   status: Status;
-  tags: Array<InputMaybe<RecruitmentTagInput>>;
+  tagIds: Array<Scalars['ID']>;
   title: Scalars['String'];
   type: Type;
   venue?: InputMaybe<Scalars['String']>;
@@ -417,6 +427,18 @@ export type Tag = Node & {
   name: Scalars['String'];
 };
 
+export type TagConnection = Connection & {
+  __typename?: 'TagConnection';
+  edges: Array<TagEdge>;
+  pageInfo: PageInfo;
+};
+
+export type TagEdge = Edge & {
+  __typename?: 'TagEdge';
+  cursor: Scalars['String'];
+  node: Tag;
+};
+
 export enum Type {
   Join = 'JOIN',
   Member = 'MEMBER',
@@ -449,12 +471,6 @@ export type ApplicantInput = {
 
 export type CreateMessageInput = {
   content: Scalars['String'];
-};
-
-export type RecruitmentTagInput = {
-  id: Scalars['String'];
-  isNew: Scalars['Boolean'];
-  name: Scalars['String'];
 };
 
 export type GetCompetitionsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -505,18 +521,6 @@ export type GetViewerRoomsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetViewerRoomsQuery = { __typename?: 'Query', getViewerRooms: Array<{ __typename?: 'Room', id: string, entrie: { __typename?: 'Entrie', user: { __typename?: 'User', name: string, avatar: string } } }> };
-
-export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetTagsQuery = { __typename?: 'Query', tags: Array<{ __typename?: 'Tag', id: string, name: string }> };
-
-export type CreateTagMutationVariables = Exact<{
-  input: CreateTagInput;
-}>;
-
-
-export type CreateTagMutation = { __typename?: 'Mutation', createTag: { __typename?: 'Tag', id: string, name: string } };
 
 export type ViewerQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -674,30 +678,6 @@ export const GetViewerRoomsDocument = gql`
 
 export function useGetViewerRoomsQuery(options?: Omit<Urql.UseQueryArgs<GetViewerRoomsQueryVariables>, 'query'>) {
   return Urql.useQuery<GetViewerRoomsQuery>({ query: GetViewerRoomsDocument, ...options });
-};
-export const GetTagsDocument = gql`
-    query GetTags {
-  tags {
-    id
-    name
-  }
-}
-    `;
-
-export function useGetTagsQuery(options?: Omit<Urql.UseQueryArgs<GetTagsQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetTagsQuery>({ query: GetTagsDocument, ...options });
-};
-export const CreateTagDocument = gql`
-    mutation CreateTag($input: CreateTagInput!) {
-  createTag(input: $input) {
-    id
-    name
-  }
-}
-    `;
-
-export function useCreateTagMutation() {
-  return Urql.useMutation<CreateTagMutation, CreateTagMutationVariables>(CreateTagDocument);
 };
 export const ViewerDocument = gql`
     query Viewer {
@@ -1012,6 +992,10 @@ export default {
           {
             "kind": "OBJECT",
             "name": "RecruitmentConnection"
+          },
+          {
+            "kind": "OBJECT",
+            "name": "TagConnection"
           }
         ]
       },
@@ -1026,6 +1010,25 @@ export default {
               "ofType": {
                 "kind": "OBJECT",
                 "name": "RecruitmentEdge",
+                "ofType": null
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "CreateTagPayload",
+        "fields": [
+          {
+            "name": "feedbackTagEdge",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TagEdge",
                 "ofType": null
               }
             },
@@ -1085,6 +1088,10 @@ export default {
           {
             "kind": "OBJECT",
             "name": "RecruitmentEdge"
+          },
+          {
+            "kind": "OBJECT",
+            "name": "TagEdge"
           }
         ]
       },
@@ -1539,7 +1546,7 @@ export default {
               "kind": "NON_NULL",
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Tag",
+                "name": "CreateTagPayload",
                 "ofType": null
               }
             },
@@ -2134,20 +2141,22 @@ export default {
           {
             "name": "tags",
             "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "LIST",
-                "ofType": {
+              "kind": "OBJECT",
+              "name": "TagConnection",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "first",
+                "type": {
                   "kind": "NON_NULL",
                   "ofType": {
-                    "kind": "OBJECT",
-                    "name": "Tag",
-                    "ofType": null
+                    "kind": "SCALAR",
+                    "name": "Any"
                   }
                 }
               }
-            },
-            "args": []
+            ]
           },
           {
             "name": "viewer",
@@ -2599,6 +2608,83 @@ export default {
           {
             "kind": "INTERFACE",
             "name": "Node"
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TagConnection",
+        "fields": [
+          {
+            "name": "edges",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TagEdge",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageInfo",
+                "ofType": null
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Connection"
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TagEdge",
+        "fields": [
+          {
+            "name": "cursor",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "node",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Tag",
+                "ofType": null
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Edge"
           }
         ]
       },
