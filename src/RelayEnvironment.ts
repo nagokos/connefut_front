@@ -8,7 +8,7 @@ import {
 } from 'relay-runtime';
 
 const fetchRelay = async (params: RequestParameters, variables: Variables) => {
-  const response = await fetch('http://localhost:8080/query', {
+  const response = await fetch('http://localhost/query', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
