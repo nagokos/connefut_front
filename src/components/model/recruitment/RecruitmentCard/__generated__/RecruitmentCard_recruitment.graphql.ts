@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<50533de474c44edffac91a39116ca3ba>>
+ * @generated SignedSource<<6b0d19d9968178b1addd9e945ec0da61>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,6 +21,7 @@ export type RecruitmentCard_recruitment$data = {
     readonly name: string;
   };
   readonly publishedAt: string | null;
+  readonly startAt: string | null;
   readonly title: string;
   readonly type: Type;
   readonly user: {
@@ -85,6 +86,13 @@ return {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "startAt",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "publishedAt",
       "storageKey": null
     },
@@ -134,6 +142,6 @@ return {
 };
 })();
 
-(node as any).hash = "1f8810a118cc44ab54fd1b0bde27cc6d";
+(node as any).hash = "0eef4d8b44ab97d6b8f08ffa3d8bac79";
 
 export default node;

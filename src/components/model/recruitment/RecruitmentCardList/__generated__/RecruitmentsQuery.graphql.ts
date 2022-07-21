@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bb7ba8f1bd2f8ea0411eb801f15a2196>>
+ * @generated SignedSource<<cf56eacc8c4fc380adc252a320e8dd96>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -144,6 +144,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "startAt",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "publishedAt",
                     "storageKey": null
                   },
@@ -252,12 +259,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7303960c1452a48c7f26702c7747b79e",
+    "cacheID": "fa0dd99313eaa64c4c0f57de75436357",
     "id": null,
     "metadata": {},
     "name": "RecruitmentsQuery",
     "operationKind": "query",
-    "text": "query RecruitmentsQuery(\n  $after: String\n  $first: Int = 10\n) {\n  ...RecruitmentCardList_recruitment_2HEEH6\n}\n\nfragment RecruitmentCardList_recruitment_2HEEH6 on Query {\n  recruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentCard_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n"
+    "text": "query RecruitmentsQuery(\n  $after: String\n  $first: Int = 10\n) {\n  ...RecruitmentCardList_recruitment_2HEEH6\n}\n\nfragment RecruitmentCardList_recruitment_2HEEH6 on Query {\n  recruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentCard_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  startAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n"
   }
 };
 })();

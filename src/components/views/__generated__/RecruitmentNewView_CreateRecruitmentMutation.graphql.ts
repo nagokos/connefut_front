@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1e3233642efb46e8338ab4b14d005e06>>
+ * @generated SignedSource<<53434cb12f33beb9279de0454fd801be>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -232,6 +232,13 @@ return {
                   {
                     "alias": null,
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "startAt",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
                     "concreteType": "User",
                     "kind": "LinkedField",
                     "name": "user",
@@ -274,13 +281,6 @@ return {
                     "args": null,
                     "kind": "ScalarField",
                     "name": "detail",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "startAt",
                     "storageKey": null
                   },
                   {
@@ -345,12 +345,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "42cd9b9f77cdb99761ae5661f8d757d8",
+    "cacheID": "7374bced39bdd6233801318725197f1e",
     "id": null,
     "metadata": {},
     "name": "RecruitmentNewView_CreateRecruitmentMutation",
     "operationKind": "mutation",
-    "text": "mutation RecruitmentNewView_CreateRecruitmentMutation(\n  $input: RecruitmentInput!\n) {\n  createRecruitment(input: $input) {\n    feedbackRecruitmentEdge {\n      cursor\n      node {\n        ...RecruitmentSelfCreated_recruitment\n        ...RecruitmentSelfCreatedTrashModal_recruitment\n        ...RecruitmentCard_recruitment\n        ...RecruitmentForm_recruitment\n        id\n      }\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n\nfragment RecruitmentForm_recruitment on Recruitment {\n  title\n  competition {\n    id\n  }\n  type\n  detail\n  startAt\n  closingAt\n  prefecture {\n    id\n  }\n  status\n  venue\n  locationLat\n  locationLng\n  tags {\n    id\n    name\n  }\n}\n\nfragment RecruitmentSelfCreatedTrashModal_recruitment on Recruitment {\n  id\n  title\n}\n\nfragment RecruitmentSelfCreated_recruitment on Recruitment {\n  id\n  title\n  status\n  createdAt\n  publishedAt\n  closingAt\n}\n"
+    "text": "mutation RecruitmentNewView_CreateRecruitmentMutation(\n  $input: RecruitmentInput!\n) {\n  createRecruitment(input: $input) {\n    feedbackRecruitmentEdge {\n      cursor\n      node {\n        ...RecruitmentSelfCreated_recruitment\n        ...RecruitmentSelfCreatedTrashModal_recruitment\n        ...RecruitmentCard_recruitment\n        ...RecruitmentForm_recruitment\n        id\n      }\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  startAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n\nfragment RecruitmentForm_recruitment on Recruitment {\n  title\n  competition {\n    id\n  }\n  type\n  detail\n  startAt\n  closingAt\n  prefecture {\n    id\n  }\n  status\n  venue\n  locationLat\n  locationLng\n  tags {\n    id\n    name\n  }\n}\n\nfragment RecruitmentSelfCreatedTrashModal_recruitment on Recruitment {\n  id\n  title\n}\n\nfragment RecruitmentSelfCreated_recruitment on Recruitment {\n  id\n  title\n  status\n  createdAt\n  publishedAt\n  closingAt\n}\n"
   }
 };
 })();
