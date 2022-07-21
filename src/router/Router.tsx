@@ -13,6 +13,7 @@ import {
   MessagesRoom,
 } from '../components/pages';
 import { DashboardApplied } from '../components/pages/DashboardApplied';
+import { User } from '../components/pages/User';
 
 export const routes = (isLoggedIn: boolean) => [
   {
@@ -52,5 +53,9 @@ export const routes = (isLoggedIn: boolean) => [
     path: 'messages',
     element: isLoggedIn ? <Messages /> : <Navigate to="/login" />,
     children: [{ path: ':roomId', element: <MessagesRoom /> }],
+  },
+  {
+    path: 'id/:user_id',
+    element: <User />,
   },
 ];

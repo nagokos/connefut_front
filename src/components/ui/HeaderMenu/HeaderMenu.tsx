@@ -34,7 +34,7 @@ const logoutMutation = graphql`
 export const HeaderMenu: FC = memo(() => {
   const navigate = useNavigate();
 
-  const currentUser = useRecoilValue(viewerQuery);
+  const viewer = useRecoilValue(viewerQuery);
 
   const [commit] = useMutation<HeaderMenu_LogoutUserMutation>(logoutMutation);
 
@@ -90,7 +90,7 @@ export const HeaderMenu: FC = memo(() => {
   return (
     <Menu>
       <MenuButton>
-        <Avatar w={9} height={9} src={currentUser?.avatar} />
+        <Avatar w={9} height={9} src={viewer?.avatar} />
       </MenuButton>
       <MenuList minW={240} py={0} boxShadow="xl">
         <MenuItem
@@ -98,10 +98,11 @@ export const HeaderMenu: FC = memo(() => {
           _hover={{ bg: 'primary.light' }}
           _focus={{ bg: 'white' }}
           _active={{ bg: 'primary.light' }}
+          onClick={() => navigate(`/id/${viewer?.id}`)}
         >
-          <Avatar w={9} height={9} mr={3} src={currentUser?.avatar} />
+          <Avatar w={9} height={9} mr={3} src={viewer?.avatar} />
           <Text fontSize={14} fontFamily="ヒラギノ角ゴシック">
-            {currentUser?.name}
+            {viewer?.name}
           </Text>
         </MenuItem>
         <MenuDivider my={0} borderColor="#ebf2f2" />

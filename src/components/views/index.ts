@@ -7,3 +7,4 @@ export { RecruitmentEditView } from './RecruitmentEditView';
 export { DashboardView } from './DashboardView';
 export { DashboardRecruitmentsView } from './DashboardRecruitmentsView';
 export { DashboardStockedView } from './DashboardStockedView';
+export { UserView } from './UserView';

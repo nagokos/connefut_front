@@ -17,6 +17,7 @@ const recruitmentFragment = graphql`
     title
     type
     closingAt
+    startAt
     publishedAt
     user {
       id
@@ -120,7 +121,7 @@ export const RecruitmentCard: FC<Props> = memo((props) => {
       >
         {recruitmentData.title}
       </Box>
-      <Box px={4} pt={5} pb={4}>
+      <Box px={5} pt={5} pb={4}>
         <Stack spacing={4}>
           <Box display="flex" alignItems="center">
             <Box minW={20} display="flex" alignItems="center">
@@ -196,7 +197,9 @@ export const RecruitmentCard: FC<Props> = memo((props) => {
               <Box fontSize={11} mr={0.5}>
                 ■
               </Box>
-              <Box fontSize={11}>募集期限</Box>
+              <Box fontSize={11}>
+                {recruitmentData.startAt ? '開催日' : '募集期限'}
+              </Box>
             </Box>
             <Box
               display="flex"
@@ -206,22 +209,39 @@ export const RecruitmentCard: FC<Props> = memo((props) => {
               px={2}
               py={0.5}
             >
-              <Box fontSize={12} mr={1}>
-                ⏰
-              </Box>
-              <Box fontFamily="ヒラギノ角ゴシック" fontSize={11}>
-                残り
-                <Box as="span" fontWeight="bold" fontSize={11}>
-                  {timeLimitFindNum(String(recruitmentData.closingAt))}
-                </Box>
-                {timeLimitFindS(String(recruitmentData.closingAt))}
-                <Box as="span" fontSize={10} ml={1} color="blackAlpha.700">
-                  {format(
-                    new Date(String(recruitmentData.closingAt)),
-                    'yyyy年MM月dd日'
-                  )}
-                </Box>
-              </Box>
+              {recruitmentData.startAt ? (
+                <>
+                  <Box fontSize={12} mr={1}>
+                    🗓
+                  </Box>
+                  <Box fontFamily="ヒラギノ角ゴシック" fontSize={11}>
+                    {format(
+                      new Date(String(recruitmentData.closingAt)),
+                      'yyyy年MM月dd日 HH:dd 〜',
+                      { locale: ja }
+                    )}
+                  </Box>
+                </>
+              ) : (
+                <>
+                  <Box fontSize={12} mr={1}>
+                    ⏰
+                  </Box>
+                  <Box fontFamily="ヒラギノ角ゴシック" fontSize={11}>
+                    残り
+                    <Box as="span" fontWeight="bold" fontSize={11}>
+                      {timeLimitFindNum(String(recruitmentData.closingAt))}
+                    </Box>
+                    {timeLimitFindS(String(recruitmentData.closingAt))}
+                    <Box as="span" fontSize={10} ml={1} color="blackAlpha.700">
+                      {format(
+                        new Date(String(recruitmentData.closingAt)),
+                        'yyyy年MM月dd日'
+                      )}
+                    </Box>
+                  </Box>
+                </>
+              )}
             </Box>
           </Box>
           <Box display="flex" alignItems="center">

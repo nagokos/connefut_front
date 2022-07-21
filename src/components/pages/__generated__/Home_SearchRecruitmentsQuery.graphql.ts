@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<06e725fe2f2f5c1dc9b26b5cb49b57eb>>
+ * @generated SignedSource<<428812c3b5dcd6a2e04b35471a18c894>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -247,6 +247,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "startAt",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "publishedAt",
                     "storageKey": null
                   },
@@ -382,12 +389,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "94db32aae732debed788d61412a649db",
+    "cacheID": "78594bba8a47496637becb6264d4c0a7",
     "id": null,
     "metadata": {},
     "name": "Home_SearchRecruitmentsQuery",
     "operationKind": "query",
-    "text": "query Home_SearchRecruitmentsQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentCardList_recruitment_2HEEH6\n  competitions {\n    ...RecruitmentListSearch_competitions\n    id\n  }\n  prefectures {\n    ...RecruitmentListSearch_prefectures\n    id\n  }\n  ...RecruitmentListSearch_tags\n}\n\nfragment RecruitmentCardList_recruitment_2HEEH6 on Query {\n  recruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentCard_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n\nfragment RecruitmentListSearch_competitions on Competition {\n  id\n  name\n}\n\nfragment RecruitmentListSearch_prefectures on Prefecture {\n  id\n  name\n}\n\nfragment RecruitmentListSearch_tags on Query {\n  tags(first: 2147483647) {\n    edges {\n      cursor\n      node {\n        id\n        name\n        ...RecruitmentSearchTag_tag\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentSearchTag_tag on Tag {\n  id\n  name\n}\n"
+    "text": "query Home_SearchRecruitmentsQuery(\n  $first: Int!\n  $after: String\n) {\n  ...RecruitmentCardList_recruitment_2HEEH6\n  competitions {\n    ...RecruitmentListSearch_competitions\n    id\n  }\n  prefectures {\n    ...RecruitmentListSearch_prefectures\n    id\n  }\n  ...RecruitmentListSearch_tags\n}\n\nfragment RecruitmentCardList_recruitment_2HEEH6 on Query {\n  recruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...RecruitmentCard_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  closingAt\n  startAt\n  publishedAt\n  user {\n    id\n    name\n    avatar\n  }\n  competition {\n    name\n    id\n  }\n  prefecture {\n    name\n    id\n  }\n}\n\nfragment RecruitmentListSearch_competitions on Competition {\n  id\n  name\n}\n\nfragment RecruitmentListSearch_prefectures on Prefecture {\n  id\n  name\n}\n\nfragment RecruitmentListSearch_tags on Query {\n  tags(first: 2147483647) {\n    edges {\n      cursor\n      node {\n        id\n        name\n        ...RecruitmentSearchTag_tag\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment RecruitmentSearchTag_tag on Tag {\n  id\n  name\n}\n"
   }
 };
 })();
