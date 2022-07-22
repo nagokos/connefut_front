@@ -1,7 +1,7 @@
 import { Avatar, Box, Link } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
-import { FC, memo } from 'react';
+import { FC, memo, MouseEvent } from 'react';
 import { MdOutlineArticle } from 'react-icons/md';
 import { useFragment } from 'react-relay';
 import { useNavigate } from 'react-router-dom';
@@ -69,7 +69,14 @@ export const RecruitmentStocked: FC<Props> = memo((props) => {
           display="flex"
           alignItems="center"
         >
-          <Link display="flex" alignItems="center">
+          <Link
+            onClick={(e: MouseEvent) => {
+              e.stopPropagation();
+              navigate(`/id/${recruitmentData.user.id}`);
+            }}
+            display="flex"
+            alignItems="center"
+          >
             <Avatar w={5} h={5} src={recruitmentData.user.avatar} mr={1.5} />
             {recruitmentData.user.name}
           </Link>
