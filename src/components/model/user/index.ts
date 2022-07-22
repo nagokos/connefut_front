@@ -4,3 +4,6 @@ export { UserRegisterEmailForm } from './UserRegisterEmailForm/UserRegisterEmail
 export { UserRegisterPasswordForm } from './UserRegisterPasswordForm/UserRegisterPasswordForm';
 export { UserLoginEmailForm } from './UserLoginEmailForm/UserLoginEmailForm';
 export { UserLoginPasswordForm } from './UserLoginPasswordForm/UserLoginPasswordForm';
+export { UserInformation } from './UserInformation/UserInformation';
+export { UserRecruitmentCard } from './UserRecruitmentCard/UserRecruitmentCard';
+export { UserRecruitmentCardList } from './UserRecruitmentCardList/UserRecruitmentCardList';

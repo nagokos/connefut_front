@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ccbf9002c78fcaec5f8d7ab6e3266a21>>
+ * @generated SignedSource<<86f8328c2da4bebf30d2a0b1813332fb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,7 +20,7 @@ export type RecruitmentFormTag_tags$data = {
         readonly name: string;
       };
     }>;
-  } | null;
+  };
   readonly " $fragmentType": "RecruitmentFormTag_tags";
 };
 export type RecruitmentFormTag_tags$key = {

@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo, MouseEvent } from 'react';
 import { Avatar, Box, Stack, Text } from '@chakra-ui/react';
 
 import { graphql } from 'relay-runtime';
@@ -245,8 +245,25 @@ export const RecruitmentCard: FC<Props> = memo((props) => {
             </Box>
           </Box>
           <Box display="flex" alignItems="center">
-            <Avatar mr={2} w={10} h={10} src={recruitmentData.user.avatar} />
-            <Stack direction="column" spacing="0" fontSize={12}>
+            <Avatar
+              onClick={(e: MouseEvent<HTMLInputElement>) => {
+                e.stopPropagation();
+                navigate(`/id/${recruitmentData.user.id}`);
+              }}
+              mr={2}
+              w={10}
+              h={10}
+              src={recruitmentData.user.avatar}
+            />
+            <Stack
+              onClick={(e: MouseEvent<HTMLInputElement>) => {
+                e.stopPropagation();
+                navigate(`/id/${recruitmentData.user.id}`);
+              }}
+              direction="column"
+              spacing="0"
+              fontSize={12}
+            >
               <Text fontWeight="bold" mb={0.5}>
                 {recruitmentData.user.name}
               </Text>

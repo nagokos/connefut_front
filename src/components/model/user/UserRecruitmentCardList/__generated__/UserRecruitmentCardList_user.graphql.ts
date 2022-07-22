@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cca31c73d060087790ebf67f8b5a1812>>
+ * @generated SignedSource<<0c0f7960cc5ffb14c1b6b32002c5cff4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,56 +8,83 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RecruitmentListSearch_tags$data = {
-  readonly tags: {
+export type UserRecruitmentCardList_user$data = {
+  readonly id: string;
+  readonly recruitments: {
     readonly __id: string;
     readonly edges: ReadonlyArray<{
       readonly cursor: string;
       readonly node: {
-        readonly id: string;
-        readonly name: string;
-        readonly " $fragmentSpreads": FragmentRefs<"RecruitmentSearchTag_tag">;
+        readonly " $fragmentSpreads": FragmentRefs<"UserRecruitmentCard_recruitment">;
       };
     }>;
-  };
-  readonly " $fragmentType": "RecruitmentListSearch_tags";
+  } | null;
+  readonly " $fragmentType": "UserRecruitmentCardList_user";
 };
-export type RecruitmentListSearch_tags$key = {
-  readonly " $data"?: RecruitmentListSearch_tags$data;
-  readonly " $fragmentSpreads": FragmentRefs<"RecruitmentListSearch_tags">;
+export type UserRecruitmentCardList_user$key = {
+  readonly " $data"?: UserRecruitmentCardList_user$data;
+  readonly " $fragmentSpreads": FragmentRefs<"UserRecruitmentCardList_user">;
 };
 
-const node: ReaderFragment = {
-  "argumentDefinitions": [],
+const node: ReaderFragment = (function(){
+var v0 = [
+  "recruitments"
+];
+return {
+  "argumentDefinitions": [
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "after"
+    },
+    {
+      "defaultValue": 10,
+      "kind": "LocalArgument",
+      "name": "first"
+    }
+  ],
   "kind": "Fragment",
   "metadata": {
     "connection": [
       {
-        "count": null,
-        "cursor": null,
+        "count": "first",
+        "cursor": "after",
         "direction": "forward",
-        "path": [
-          "tags"
-        ]
+        "path": (v0/*: any*/)
       }
-    ]
+    ],
+    "refetch": {
+      "connection": {
+        "forward": {
+          "count": "first",
+          "cursor": "after"
+        },
+        "backward": null,
+        "path": (v0/*: any*/)
+      },
+      "fragmentPathInResult": [
+        "node"
+      ],
+      "operation": require('./UserRecruitmentsQuery.graphql'),
+      "identifierField": "id"
+    }
   },
-  "name": "RecruitmentListSearch_tags",
+  "name": "UserRecruitmentCardList_user",
   "selections": [
     {
-      "alias": "tags",
+      "alias": "recruitments",
       "args": null,
-      "concreteType": "TagConnection",
+      "concreteType": "RecruitmentConnection",
       "kind": "LinkedField",
-      "name": "__RecruitmentListSearch__tags_connection",
+      "name": "__UserRecruitmentCard__recruitments_connection",
       "plural": false,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "concreteType": "TagEdge",
+          "concreteType": "RecruitmentEdge",
           "kind": "LinkedField",
           "name": "edges",
           "plural": true,
@@ -72,29 +99,15 @@ const node: ReaderFragment = {
             {
               "alias": null,
               "args": null,
-              "concreteType": "Tag",
+              "concreteType": "Recruitment",
               "kind": "LinkedField",
               "name": "node",
               "plural": false,
               "selections": [
                 {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "id",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "name",
-                  "storageKey": null
-                },
-                {
                   "args": null,
                   "kind": "FragmentSpread",
-                  "name": "RecruitmentSearchTag_tag"
+                  "name": "UserRecruitmentCard_recruitment"
                 },
                 {
                   "alias": null,
@@ -148,12 +161,20 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
     }
   ],
-  "type": "Query",
+  "type": "User",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "616ac795180a30c49b1746f7e4a06e65";
+(node as any).hash = "0edc758a477e72877643412134f3729f";
 
 export default node;
