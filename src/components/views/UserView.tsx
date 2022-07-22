@@ -18,7 +18,7 @@ export const UserView: FC<Props> = memo((props) => {
 
   return (
     <Box w={900} mx="auto" mt={16}>
-      <UserInformation user={data.user} />
+      <UserInformation user={data.user} feedbackFollow={data.checkFollowed} />
       <Box mt={24} display="flex" alignItems="center">
         <Box fontSize={24} mr={1.5} color="primary.main">
           <MdOutlineArticle />
