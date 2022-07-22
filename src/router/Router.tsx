@@ -55,7 +55,7 @@ export const routes = (isLoggedIn: boolean) => [
     children: [{ path: ':roomId', element: <MessagesRoom /> }],
   },
   {
-    path: 'id/:user_id',
+    path: 'id/:userId',
     element: <User />,
   },
 ];
