@@ -113,12 +113,31 @@ export type FeedbackApplicant = Node & {
   isAppliedFor: Scalars['Boolean'];
 };
 
+export type FeedbackFollow = Node & {
+  __typename?: 'FeedbackFollow';
+  id: Scalars['ID'];
+  viewerDoesFollow: Scalars['Boolean'];
+};
+
 export type FeedbackStock = Node & {
   __typename?: 'FeedbackStock';
   feedbackRecruitmentEdge?: Maybe<RecruitmentEdge>;
   id: Scalars['ID'];
   removedRecruitmentId?: Maybe<Scalars['ID']>;
   viewerDoesStock: Scalars['Boolean'];
+};
+
+export type FollowConnection = Connection & {
+  __typename?: 'FollowConnection';
+  edges: Array<FollowEdge>;
+  followCount: Scalars['Int'];
+  pageInfo: PageInfo;
+};
+
+export type FollowEdge = Edge & {
+  __typename?: 'FollowEdge';
+  cursor: Scalars['String'];
+  node: User;
 };
 
 export type LoginUserAuthenticationError = Error & {
@@ -167,10 +186,12 @@ export type Mutation = {
   createRecruitment: CreateRecruitmentPayload;
   createTag: CreateTagPayload;
   deleteRecruitment: DeleteRecruitmentPayload;
+  follow: FeedbackFollow;
   loginUser: LoginUserPayload;
   logoutUser: Scalars['Boolean'];
   registerUser: RegisterUserPayload;
   removeStock: FeedbackStock;
+  unFollow: FeedbackFollow;
   updateRecruitment: UpdateRecruitmentPayload;
 };
 
@@ -213,6 +234,11 @@ export type MutationDeleteRecruitmentArgs = {
 };
 
 
+export type MutationFollowArgs = {
+  userId: Scalars['ID'];
+};
+
+
 export type MutationLoginUserArgs = {
   input: LoginUserInput;
 };
@@ -225,6 +251,11 @@ export type MutationRegisterUserArgs = {
 
 export type MutationRemoveStockArgs = {
   recruitmentId: Scalars['ID'];
+};
+
+
+export type MutationUnFollowArgs = {
+  userId: Scalars['ID'];
 };
 
 
@@ -256,6 +287,7 @@ export type Query = {
   __typename?: 'Query';
   appliedRecruitments: Array<Recruitment>;
   checkAppliedForRecruitment: FeedbackApplicant;
+  checkFollowed: FeedbackFollow;
   checkStocked: FeedbackStock;
   competitions: Array<Competition>;
   getEntrieUser: User;
@@ -267,7 +299,8 @@ export type Query = {
   recruitment: Recruitment;
   recruitments: RecruitmentConnection;
   stockedRecruitments: RecruitmentConnection;
-  tags?: Maybe<TagConnection>;
+  tags: TagConnection;
+  user: User;
   viewer?: Maybe<User>;
   viewerRecruitments: RecruitmentConnection;
 };
@@ -275,6 +308,11 @@ export type Query = {
 
 export type QueryCheckAppliedForRecruitmentArgs = {
   recruitmentId: Scalars['String'];
+};
+
+
+export type QueryCheckFollowedArgs = {
+  userId: Scalars['ID'];
 };
 
 
@@ -322,6 +360,11 @@ export type QueryStockedRecruitmentsArgs = {
 
 export type QueryTagsArgs = {
   first: Scalars['Int'];
+};
+
+
+export type QueryUserArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -459,10 +502,31 @@ export type User = Node & {
   databaseId: Scalars['Int'];
   email: Scalars['String'];
   emailVerificationStatus: EmailVerificationStatus;
+  followers?: Maybe<FollowConnection>;
+  followings?: Maybe<FollowConnection>;
   id: Scalars['ID'];
   introduction?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  recruitments?: Maybe<RecruitmentConnection>;
   role: Role;
+};
+
+
+export type UserFollowersArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type UserFollowingsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type UserRecruitmentsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
 };
 
 export type ApplicantInput = {
@@ -991,6 +1055,10 @@ export default {
         "possibleTypes": [
           {
             "kind": "OBJECT",
+            "name": "FollowConnection"
+          },
+          {
+            "kind": "OBJECT",
             "name": "RecruitmentConnection"
           },
           {
@@ -1085,6 +1153,10 @@ export default {
         ],
         "interfaces": [],
         "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "FollowEdge"
+          },
           {
             "kind": "OBJECT",
             "name": "RecruitmentEdge"
@@ -1194,6 +1266,40 @@ export default {
       },
       {
         "kind": "OBJECT",
+        "name": "FeedbackFollow",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "viewerDoesFollow",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node"
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
         "name": "FeedbackStock",
         "fields": [
           {
@@ -1240,6 +1346,94 @@ export default {
           {
             "kind": "INTERFACE",
             "name": "Node"
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "FollowConnection",
+        "fields": [
+          {
+            "name": "edges",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "FollowEdge",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "followCount",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageInfo",
+                "ofType": null
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Connection"
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "FollowEdge",
+        "fields": [
+          {
+            "name": "cursor",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "node",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Edge"
           }
         ]
       },
@@ -1587,6 +1781,29 @@ export default {
             ]
           },
           {
+            "name": "follow",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "FeedbackFollow",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "userId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "loginUser",
             "type": {
               "kind": "NON_NULL",
@@ -1667,6 +1884,29 @@ export default {
             ]
           },
           {
+            "name": "unFollow",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "FeedbackFollow",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "userId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "updateRecruitment",
             "type": {
               "kind": "NON_NULL",
@@ -1731,6 +1971,10 @@ export default {
           {
             "kind": "OBJECT",
             "name": "FeedbackApplicant"
+          },
+          {
+            "kind": "OBJECT",
+            "name": "FeedbackFollow"
           },
           {
             "kind": "OBJECT",
@@ -1879,6 +2123,29 @@ export default {
             "args": [
               {
                 "name": "recruitmentId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "checkFollowed",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "FeedbackFollow",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "userId",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -2141,13 +2408,39 @@ export default {
           {
             "name": "tags",
             "type": {
-              "kind": "OBJECT",
-              "name": "TagConnection",
-              "ofType": null
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TagConnection",
+                "ofType": null
+              }
             },
             "args": [
               {
                 "name": "first",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "user",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "id",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -2764,6 +3057,54 @@ export default {
             "args": []
           },
           {
+            "name": "followers",
+            "type": {
+              "kind": "OBJECT",
+              "name": "FollowConnection",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "after",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "first",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              }
+            ]
+          },
+          {
+            "name": "followings",
+            "type": {
+              "kind": "OBJECT",
+              "name": "FollowConnection",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "after",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "first",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              }
+            ]
+          },
+          {
             "name": "id",
             "type": {
               "kind": "NON_NULL",
@@ -2792,6 +3133,30 @@ export default {
               }
             },
             "args": []
+          },
+          {
+            "name": "recruitments",
+            "type": {
+              "kind": "OBJECT",
+              "name": "RecruitmentConnection",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "after",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "first",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              }
+            ]
           },
           {
             "name": "role",

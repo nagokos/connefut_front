@@ -97,11 +97,27 @@ type FeedbackApplicant implements Node {
   isAppliedFor: Boolean!
 }
 
+type FeedbackFollow implements Node {
+  id: ID!
+  viewerDoesFollow: Boolean!
+}
+
 type FeedbackStock implements Node {
   feedbackRecruitmentEdge: RecruitmentEdge
   id: ID!
   removedRecruitmentId: ID
   viewerDoesStock: Boolean!
+}
+
+type FollowConnection implements Connection {
+  edges: [FollowEdge!]!
+  followCount: Int!
+  pageInfo: PageInfo!
+}
+
+type FollowEdge implements Edge {
+  cursor: String!
+  node: User!
 }
 
 type LoginUserAuthenticationError implements Error {
@@ -145,10 +161,12 @@ type Mutation {
   createRecruitment(input: RecruitmentInput!): CreateRecruitmentPayload!
   createTag(input: CreateTagInput!): CreateTagPayload!
   deleteRecruitment(id: ID!): DeleteRecruitmentPayload!
+  follow(userId: ID!): FeedbackFollow!
   loginUser(input: LoginUserInput!): LoginUserPayload!
   logoutUser: Boolean!
   registerUser(input: RegisterUserInput!): RegisterUserPayload!
   removeStock(recruitmentId: ID!): FeedbackStock!
+  unFollow(userId: ID!): FeedbackFollow!
   updateRecruitment(id: ID!, input: RecruitmentInput!): UpdateRecruitmentPayload!
 }
 
@@ -172,6 +190,7 @@ type Prefecture implements Node {
 type Query {
   appliedRecruitments: [Recruitment!]!
   checkAppliedForRecruitment(recruitmentId: String!): FeedbackApplicant!
+  checkFollowed(userId: ID!): FeedbackFollow!
   checkStocked(recruitmentId: ID!): FeedbackStock!
   competitions: [Competition!]!
   getEntrieUser(roomId: String!): User!
@@ -183,7 +202,8 @@ type Query {
   recruitment(id: ID!): Recruitment!
   recruitments(after: String, first: Int): RecruitmentConnection!
   stockedRecruitments(after: String, first: Int): RecruitmentConnection!
-  tags(first: Int!): TagConnection
+  tags(first: Int!): TagConnection!
+  user(id: ID!): User!
   viewer: User
   viewerRecruitments(after: String, first: Int): RecruitmentConnection!
 }
@@ -306,9 +326,12 @@ type User implements Node {
   databaseId: Int!
   email: String!
   emailVerificationStatus: EmailVerificationStatus!
+  followers(after: String, first: Int): FollowConnection
+  followings(after: String, first: Int): FollowConnection
   id: ID!
   introduction: String
   name: String!
+  recruitments(after: String, first: Int): RecruitmentConnection
   role: Role!
 }
 
