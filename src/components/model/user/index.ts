@@ -7,3 +7,4 @@ export { UserLoginPasswordForm } from './UserLoginPasswordForm/UserLoginPassword
 export { UserInformation } from './UserInformation/UserInformation';
 export { UserRecruitmentCard } from './UserRecruitmentCard/UserRecruitmentCard';
 export { UserRecruitmentCardList } from './UserRecruitmentCardList/UserRecruitmentCardList';
+export { UserFollow } from './UserFollow/UserFollow';
