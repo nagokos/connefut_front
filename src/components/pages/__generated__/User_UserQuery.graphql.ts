@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<65256a21832a5158cac8ab50f490d395>>
+ * @generated SignedSource<<3f1cf2d8a259549f861e5bd15813e9a9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,6 +16,9 @@ export type User_UserQuery$variables = {
   id: string;
 };
 export type User_UserQuery$data = {
+  readonly checkFollowed: {
+    readonly " $fragmentSpreads": FragmentRefs<"UserFollow_feedbackFollow">;
+  };
   readonly user: {
     readonly " $fragmentSpreads": FragmentRefs<"UserInformation_user" | "UserRecruitmentCardList_user">;
   };
@@ -60,18 +63,25 @@ v4 = [
     "variableName": "first"
   }
 ],
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
+v5 = [
+  {
+    "kind": "Variable",
+    "name": "userId",
+    "variableName": "id"
+  }
+],
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
 };
 return {
@@ -105,6 +115,22 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": (v5/*: any*/),
+        "concreteType": "FeedbackFollow",
+        "kind": "LinkedField",
+        "name": "checkFollowed",
+        "plural": false,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "UserFollow_feedbackFollow"
+          }
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -128,7 +154,8 @@ return {
         "name": "user",
         "plural": false,
         "selections": [
-          (v5/*: any*/),
+          (v6/*: any*/),
+          (v7/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -190,7 +217,7 @@ return {
                         "name": "competition",
                         "plural": false,
                         "selections": [
-                          (v5/*: any*/),
+                          (v7/*: any*/),
                           (v6/*: any*/)
                         ],
                         "storageKey": null
@@ -270,6 +297,24 @@ return {
             "key": "UserRecruitmentCard__recruitments",
             "kind": "LinkedHandle",
             "name": "recruitments"
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": (v5/*: any*/),
+        "concreteType": "FeedbackFollow",
+        "kind": "LinkedField",
+        "name": "checkFollowed",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "viewerDoesFollow",
+            "storageKey": null
           },
           (v6/*: any*/)
         ],
@@ -278,16 +323,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "277a848f9db521d88a6f589f6f38e1d9",
+    "cacheID": "14d0f8f9f835a822500004dfca0ea792",
     "id": null,
     "metadata": {},
     "name": "User_UserQuery",
     "operationKind": "query",
-    "text": "query User_UserQuery(\n  $id: ID!\n  $first: Int!\n  $after: String\n) {\n  user(id: $id) {\n    ...UserInformation_user\n    ...UserRecruitmentCardList_user_2HEEH6\n    id\n  }\n}\n\nfragment UserInformation_user on User {\n  name\n  avatar\n}\n\nfragment UserRecruitmentCardList_user_2HEEH6 on User {\n  recruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...UserRecruitmentCard_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment UserRecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  competition {\n    name\n    id\n  }\n  closingAt\n  startAt\n}\n"
+    "text": "query User_UserQuery(\n  $id: ID!\n  $first: Int!\n  $after: String\n) {\n  user(id: $id) {\n    ...UserInformation_user\n    ...UserRecruitmentCardList_user_2HEEH6\n    id\n  }\n  checkFollowed(userId: $id) {\n    ...UserFollow_feedbackFollow\n    id\n  }\n}\n\nfragment UserFollow_feedbackFollow on FeedbackFollow {\n  viewerDoesFollow\n}\n\nfragment UserInformation_user on User {\n  id\n  name\n  avatar\n}\n\nfragment UserRecruitmentCardList_user_2HEEH6 on User {\n  recruitments(first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        ...UserRecruitmentCard_recruitment\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment UserRecruitmentCard_recruitment on Recruitment {\n  id\n  title\n  type\n  competition {\n    name\n    id\n  }\n  closingAt\n  startAt\n}\n"
   }
 };
 })();
 
-(node as any).hash = "5a0db78a8b1da97640e229eeb6b966bb";
+(node as any).hash = "a526124ff4882db4b358212465408f0c";
 
 export default node;
