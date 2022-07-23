@@ -38,7 +38,7 @@
     "recoil-relay": "^0.1.0",
     "relay-runtime": "^14.0.0",
     "sass": "^1.53.0",
-    "urql": "^2.2.2",
+    "urql": "^2.2.3",
     "yup": "^0.32.11"
   },
   "devDependencies": {
